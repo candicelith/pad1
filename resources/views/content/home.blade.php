@@ -30,12 +30,12 @@
         <div class="flex flex-col lg:flex-row lg:space-x-8">
             <div class="w-full lg:w-2/3 bg-cyan-100 rounded-lg p-6">
                 <h1 class="text-2xl font-bold mb-4">Posts</h1>
-                <p>isi post</p>
+                <p class="text-white">isi post</p>
                 <a href="{{ route('posts') }}" class="mt-4 inline-flex justify-center items-center py-2 px-4 text-cyan bg-white rounded-lg hover:bg-cyan hover:text-white">More</a>
             </div>
             <div class="w-full lg:w-1/3 bg-cyan-100 rounded-lg p-6 mt-4 lg:mt-0">
                 <h1 class="text-2xl font-bold mb-4">Top 10 Companies Alumni Work For</h1>
-                <p>isi perusahaan</p>
+                <p class="text-white">isi perusahaan</p>
             </div>
         </div>
     </section>
