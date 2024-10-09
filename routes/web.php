@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+use App\Models\Vacancy;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,9 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/home', function () {
-    return view('content.home');
-})->name('home');
+// Route::get('/home', function () {
+//     return view('content.home');
+// })->name('home');
 
 Route::get('/posts', function () {
     return view('content.posts');
@@ -32,3 +34,5 @@ Route::get('/companies', function () {
 Route::get('/profile', function () {
     return view('content.profile');
 })->name('profile');
+
+Route::get('/home',[HomeController::class,'index'])->name('home');
