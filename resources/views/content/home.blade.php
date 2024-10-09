@@ -30,12 +30,31 @@
         <div class="flex flex-col lg:flex-row lg:space-x-8">
             <div class="w-full lg:w-2/3 bg-cyan-100 rounded-lg p-6">
                 <h1 class="text-2xl font-bold mb-4">Posts</h1>
-                <p class="text-white">isi post</p>
+                {{-- <p class="text-white">isi post</p> --}}
+                @foreach ($posts as $ps)
+
+                <h2>{{ $ps->vacancy_description }}</h2>
+                <p>{{ $ps->position }}</p>
+                <p>{{ $ps->date_open }} - {{ $ps->date_closed }}</p>
+                <img src="{{ $ps->vacancy_picture }}" alt="Vacancy Picture">
+                @endforeach
+
                 <a href="{{ route('posts') }}" class="mt-4 inline-flex justify-center items-center py-2 px-4 text-cyan bg-white rounded-lg hover:bg-cyan hover:text-white">More</a>
             </div>
             <div class="w-full lg:w-1/3 bg-cyan-100 rounded-lg p-6 mt-4 lg:mt-0">
                 <h1 class="text-2xl font-bold mb-4">Top 10 Companies Alumni Work For</h1>
-                <p class="text-white">isi perusahaan</p>
+                {{-- <p class="text-white">isi perusahaan</p> --}}
+                @foreach ($company as $com)
+
+                <h2>{{ $com->company_name }}</h2>
+                <p>Active Employees :
+                    @foreach ($totalEmployees as $act)
+                    @if ($totalEmployees->company_name == $com->company_name)
+                        {{ $act->totalEmployees }}
+                    @endif
+                    @endforeach
+                @endforeach
+                </p>
             </div>
         </div>
     </section>

@@ -11,14 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+        Schema::create('users',function(Blueprint $table){
+            $table->bigIncrements('id_users');
+            $table->unsignedBigInteger('id_roles');
+            $table->string('email');
             $table->string('password');
-            $table->rememberToken();
+            $table->string('password_hashed');
             $table->timestamps();
+
+            $table->foreign('id_roles')->references('id_roles')->on('roles');
         });
     }
 
