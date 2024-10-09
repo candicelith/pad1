@@ -68,9 +68,11 @@
     </header>
     <!-- Header End -->
 
+    <!-- Main Start -->
     <main>
         @yield('content')
     </main>
+    <!-- Main End -->
 
     <!-- Footer Start -->
     <footer class="p-4 bg-cyan md:p-8 lg:p-10">
