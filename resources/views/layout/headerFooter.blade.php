@@ -7,12 +7,13 @@
     <title>Nav</title>
     @vite(['public/css/style.css', 'public/js/script.js'])
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css"  rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 <body>
 
     <!-- Header Start -->
-    <header class="bg-white border-gray-200 dark:bg-gray-900 sticky top-0">
+    <header id="navbar" class="bg-white border-gray-200 sticky top-0 z-50 transition-shadow duration-300">
         <nav>
             <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                 <a href="" class="flex items-center space-x-3 rtl:space-x-reverse">

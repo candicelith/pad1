@@ -35,4 +35,8 @@ Route::get('/profile', function () {
     return view('content.profile');
 })->name('profile');
 
+Route::get('/detailpost', function () {
+    return view('content.detailpost');
+})->name('detailpost');
+
 Route::get('/home',[HomeController::class,'index'])->name('home');

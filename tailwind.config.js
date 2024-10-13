@@ -11,6 +11,7 @@ export default {
         colors: {
           cyan: '#183D55',
           'cyan-100': '#7393A7',
+          lightblue: '#E8ECF1',
         },
         fontFamily: {
           "Gilgan": ['Gilgan', 'sans-serif'],

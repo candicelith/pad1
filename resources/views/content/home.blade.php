@@ -16,51 +16,64 @@
 </section>
 <!--Hero End-->
 
- Back-End
-    <!--Content Start-->
-    <section class="px-4 mx-auto max-w-screen-xl py-10">
-        <div class="flex flex-col lg:flex-row lg:space-x-8">
-            <div class="w-full lg:w-2/3 bg-cyan-100 rounded-lg p-6">
-                <h1 class="text-2xl font-bold mb-4 text-white">Posts</h1>
-                {{-- <p class="text-white">isi post</p> --}}
-                @foreach ($posts as $ps)
-
-                <h2>{{ $ps->vacancy_description }}</h2>
-                <p>{{ $ps->position }}</p>
-                <p>{{ $ps->date_open }} - {{ $ps->date_closed }}</p>
-                <img src="{{ $ps->vacancy_picture }}" alt="Vacancy Picture">
-                @endforeach
-
-                <a href="{{ route('posts') }}" class="mt-4 inline-flex justify-center items-center py-2 px-4 text-cyan bg-white rounded-lg hover:bg-cyan hover:text-white">More</a>
-            </div>
-            <div class="w-full lg:w-1/3 bg-cyan-100 rounded-lg p-6 mt-4 lg:mt-0">
-                <h1 class="text-2xl font-bold mb-4 text-white">Top 10 Companies Alumni Work For</h1>
-                {{-- <p class="text-white">isi perusahaan</p> --}}
-                @foreach ($company as $com)
-
-                <h2>{{ $com->company_name }}</h2>
-                <p>Active Employees :
-                    @foreach ($totalEmployees as $act)
-                    @if ($totalEmployees->company_name == $com->company_name)
-                        {{ $act->totalEmployees }}
-                    @endif
-                    @endforeach
-                @endforeach
-                </p>
-            </div>
-
 <!--Content Start-->
 <section class="px-4 mx-auto max-w-screen-xl py-10">
     <div class="flex flex-col lg:flex-row lg:space-x-8">
         <div class="w-full lg:w-2/3 bg-cyan-100 rounded-lg p-6">
-            <h1 class="text-2xl font-bold mb-4 text-white">Posts</h1>
-            <p class="text-white">isi post</p>
+            <h1 class="text-2xl mb-4 text-white">Posts</h1>
+            @foreach ($posts as $ps)
+            <a href="{{ route('detailpost') }}">
+                <div class="mb-4">
+                    <article class="p-6 bg-lightblue rounded-lg border border-gray-500 shadow-lg">
+                        <div class="flex justify-between items-center mb-5 text-gray-400">
+                            <span class="ml-auto text-sm">14 days ago</span>
+                        </div>
+                        <div class="flex space-x-8">
+                          <div>
+                              <img class="w-20 h-20 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png" alt="Jese Leos avatar" />
+                          </div>
+                          <div>
+                              <h2 class="text-xl text-cyan">Juminten Suherman</h2>
+                              <h2 class="mb-2 text-lg tracking-tight text-cyan"><span class="text-gray-400">Searching for: </span>{{ $ps->position }}</h2>
+                          </div>
+                        </div>
+                        <div>
+                            <p>{{ $ps->vacancy_description }}</p>
+                            <img class="w-full h-40 overflow-hidden rounded-md" src="{{ $ps->vacancy_picture }}" alt="Vacancy Picture">
+                        </div>
+                    </article>
+                </div>
+            </a>
+            {{-- ini apa bg --}}
+            {{-- <p>{{ $ps->date_open }} - {{ $ps->date_closed }}</p> --}}
+            @endforeach
             <a href="{{ route('posts') }}" class="mt-4 inline-flex justify-center items-center py-2 px-4 text-cyan bg-white rounded-lg hover:bg-cyan hover:text-white">More</a>
- main
         </div>
+
         <div class="w-full lg:w-1/3 bg-cyan-100 rounded-lg p-6 mt-4 lg:mt-0">
             <h1 class="text-2xl font-bold mb-4 text-white">Top 10 Companies Alumni Work For</h1>
-            <p class="text-white">isi perusahaan</p>
+            @foreach ($company as $com)
+            <div class="mb-4">
+                <article class="p-6 bg-lightblue rounded-lg border border-gray-500 shadow-lg">
+                    <div class="flex space-x-8">
+                      <div>
+                          <img class="w-20 h-20 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png" alt="Jese Leos avatar" />
+                      </div>
+                      <div>
+                          <h2 class="text-xl text-cyan">{{ $com->company_name }}</h2>
+                          <p>
+                            Active Employees:
+                            @foreach ($totalEmployees as $act)
+                            @if ($totalEmployees->company_name == $com->company_name)
+                                {{ $act->totalEmployees }}
+                            @endif
+                            @endforeach
+                          </p>
+                      </div>
+                    </div>
+                </article>
+            </div>
+            @endforeach
         </div>
     </div>
 </section>

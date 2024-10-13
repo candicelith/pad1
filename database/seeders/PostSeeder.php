@@ -15,7 +15,7 @@ class PostSeeder extends Seeder
     {
         for ($i=0; $i < 10; $i++) {
             Vacancy::create([
-                'id_company' => fake()->numberBetween(1,10),
+                'id_company' => fake()->numberBetween(1,5),
                 'id_users' => fake()->numberBetween(1,10),
                 'position' => fake()->sentence(1),
                 'vacancy_description' => fake()->sentence(2),

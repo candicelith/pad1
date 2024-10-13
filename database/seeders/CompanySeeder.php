@@ -15,7 +15,6 @@ class CompanySeeder extends Seeder
     {
         for ($i=0; $i <5 ; $i++) {
             Company::create([
-                'id_company'=>fake()->numberBetween(1,10),
                 'company_name'=>fake()->sentence(2),
                 'company_description'=>fake()->sentence(3),
                 'company_phone'=>fake()->phoneNumber(),
