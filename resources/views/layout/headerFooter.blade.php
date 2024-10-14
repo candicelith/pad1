@@ -80,7 +80,7 @@
                     <img src="{{ asset('assets/brand-white 2.svg') }}" class="w-[178px] h-[80px]" alt="Pokari Logo" />
                 </a>
                 <a href="#" class="flex justify-center items-center">
-                    <img src="{{ asset('assets/brand-white 2.svg') }}" class="w-[178px] h-[80px]" alt="Pokari Logo" />
+                    <img src="{{ asset('assets/logo-TRPL 1.svg') }}" class="w-[178px] h-[80px]" alt="Pokari Logo" />
                 </a>
             </div>
             <ul class="flex flex-wrap justify-center items-center mb-9 mt-9 text-white">
