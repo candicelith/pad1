@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 html {
-    font-family: 'Gilgan', sans-serif;
+    font-family: "Gilgan", sans-serif;
 }
 
 .bg-jumbotron {
-    background-image: url('/assets/jumbotron.png');
+    background-image: url("/assets/jumbotron.png");
 }

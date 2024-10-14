@@ -13,12 +13,12 @@ class CompanySeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i=0; $i <5 ; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             Company::create([
-                'company_name'=>fake()->sentence(2),
-                'company_description'=>fake()->sentence(3),
-                'company_phone'=>fake()->phoneNumber(),
-                'company_picture'=>fake()->optional()->imageUrl()
+                'company_name' => fake()->sentence(2),
+                'company_description' => fake()->sentence(3),
+                'company_phone' => fake()->phoneNumber(),
+                'company_picture' => fake()->optional()->imageUrl()
             ]);
         }
 
