@@ -28,7 +28,7 @@ class PostController extends Controller
                         'user_details.*',
                         'company.*',
                         DB::raw("COALESCE(user_details.profile_photo, 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png') as profile_photo"))
-                    ->get();
+                    ->paginate(10);
 
         foreach ($vacancys as $vc) {
 

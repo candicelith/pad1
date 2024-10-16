@@ -13,10 +13,10 @@ class PostSeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             Vacancy::create([
-                'id_company' => fake()->numberBetween(1, 5),
-                'id_users' => fake()->numberBetween(1, 10),
+                'id_company' => fake()->numberBetween(1, 100),
+                'id_users' => fake()->numberBetween(1, 100),
                 'position' => fake()->sentence(1),
                 'vacancy_description' => fake()->sentence(2),
                 'date_open' => fake()->date(),

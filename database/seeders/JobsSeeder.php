@@ -13,9 +13,9 @@ class JobsSeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i=0; $i < 10; $i++) {
+        for ($i=0; $i < 100; $i++) {
             Job::create([
-                'id_company'=>fake()->numberBetween(1,10),
+                'id_company'=>fake()->numberBetween(1,100),
                 'job_name'=>fake()->sentence(2),
                 'job_description'=>fake()->sentence(4),
                 'job_role'=>fake()->sentence(2),

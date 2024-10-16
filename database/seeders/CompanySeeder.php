@@ -13,7 +13,7 @@ class CompanySeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             Company::create([
                 'company_name' => fake()->sentence(2),
                 'company_description' => fake()->sentence(3),

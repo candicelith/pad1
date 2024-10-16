@@ -31,6 +31,6 @@
             </div>
             @endforeach
         </div>
-        {{-- {{ $vacancys->links() }} --}}
+        {{ $vacancys->links() }}
     </section>
 @endsection
