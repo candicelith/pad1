@@ -1,17 +1,21 @@
 @extends('layout.headerFooter')
 
 @section('content')
+
+<!--Title Start-->
     <section class="bg-white dark:bg-gray-900">
         <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
             <div class="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
                 <h2 class="mb-4 text-3xl lg:text-4xl text-cyan">Alumni</h2>
             </div>
+<!--Title End-->
+
+<!--Search Start-->
             <div>
                 <form class="flex items-center max-w-sm mx-auto">
                     <label for="simple-search" class="sr-only">Search</label>
                     <div class="relative w-full">
                         <input type="text" name="alumni" id="simple-search" class="bg-gray-200 border border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-cyan focus:border-cyan block w-full ps-10 p-2.5" placeholder="Search alumni..." required>
-                        {{-- <input type="text" id="simple-search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan focus:border-cyan block w-full ps-10 p-2.5" placeholder="Search alumni..." required /> --}}
                     </div>
                     <button type="submit" class="p-2.5 ms-2 text-sm font-medium text-white bg-cyan bg-btn-cyan rounded-xl border border-cyan hover:bg-cyan-100 focus:ring-4 focus:outline-none focus:ring-cyan">
                         <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -21,6 +25,9 @@
                     </button>
                 </form>
             </div>
+<!--Search End-->
+
+<!--Filter Start-->
             <div class="flex flex-wrap gap-1 mt-9 mb-16 items-center">
                 <div class="flex flex-wrap gap-0.5">
                     <button
@@ -117,6 +124,9 @@
                     </form>
                 </div>
             </div>
+<!--Filter Start-->
+
+<!--Alumni Start-->
             <div class="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
                 <div class="w-full max-w-sm bg-lightblue border border-gray-200 rounded-lg shadow-md">
                     <div class="flex flex-col items-center py-10">
@@ -153,5 +163,7 @@
                 </div>
             </div>
         </div>
+<!--Alumni Start-->
+
     </section>
 @endsection

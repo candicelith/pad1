@@ -19,6 +19,9 @@ export default {
             backgroundImage: {
                 'jumbotron': "url('/assets/jumbotron.png')",
             },
+            fontSize: {
+                '2xs': '0.50rem',
+            },
         },
     },
     plugins: [
