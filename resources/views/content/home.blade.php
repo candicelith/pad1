@@ -29,16 +29,16 @@
                         <div class="mb-4">
                             <article class="p-6 bg-lightblue rounded-lg border border-gray-500 shadow-lg">
                                 <div class="flex justify-between items-center mb-5 text-gray-400">
-                                    <span class="ml-auto text-sm">14 days ago</span>
+                                    <span class="ml-auto text-sm">{{ $ps->date_difference }}</span>
                                 </div>
                                 <div class="flex space-x-8">
                                     <div>
                                         <img class="w-20 h-20 rounded-full"
-                                            src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
+                                            src="{{ $ps->profile_photo }}"
                                             alt="Jese Leos avatar"  />
                                     </div>
                                     <div>
-                                        <h2 class="text-xl text-cyan">Juminten Suherman</h2>
+                                        <h2 class="text-xl text-cyan">{{ $ps->name }}</h2>
                                         <h2 class="mb-2 text-lg tracking-tight text-cyan"><span
                                                 class="text-gray-400">Searching for: </span>{{ $ps->position }}</h2>
                                     </div>
@@ -51,8 +51,6 @@
                             </article>
                         </div>
                     </a>
-                    {{-- ini apa bg --}}
-                    {{-- <p>{{ $ps->date_open }} - {{ $ps->date_closed }}</p> --}}
                 @endforeach
                 <a href="{{ route('posts') }}"
                     class="mt-4 inline-flex justify-center items-center py-2 px-4 text-cyan bg-white rounded-lg hover:bg-cyan hover:text-white">More</a>
@@ -66,18 +64,13 @@
                             <div class="flex space-x-8">
                                 <div>
                                     <img class="w-20 h-20 rounded-full"
-                                        src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
+                                        src="{{$com->company_picture}}"
                                         alt="Jese Leos avatar"  />
                                 </div>
                                 <div>
                                     <h2 class="text-xl text-cyan">{{ $com->company_name }}</h2>
                                     <p>
-                                        Active Employees:
-                                        @foreach ($totalEmployees as $act)
-                                            @if ($totalEmployees->company_name == $com->company_name)
-                                                {{ $act->totalEmployees }}
-                                            @endif
-                                        @endforeach
+                                        Active Employees: {{ $com->employee_count }}
                                     </p>
                                 </div>
                             </div>

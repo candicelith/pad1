@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
     //  */
     public function run(): void
     {
-        for ($i=0; $i < 5; $i++) {
+        for ($i=0; $i < 10; $i++) {
 
             $fakePassword = fake()->numberBetween(1000000,900000);
             $hashedPassword = Hash::make($fakePassword);
