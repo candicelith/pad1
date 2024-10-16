@@ -6,6 +6,18 @@ html {
     font-family: "Gilgan", sans-serif;
 }
 
+button {
+    background-color: #183D55;
+}
+
+button:hover {
+    background-color: #7393A7;
+}
+
 .bg-jumbotron {
     background-image: url("/assets/jumbotron.png");
+}
+
+.bg-btn-cyan {
+    background-color: #183D55;
 }
