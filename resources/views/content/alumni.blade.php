@@ -126,8 +126,8 @@
                         </div>
                         <img class="w-24 h-24 mb-3 rounded-full shadow-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png" alt="Bonnie image"/>
                         <h2 class="mb-1 text-xl text-cyan">{{ $al->name }}</h2>
-                        <h3 class="text-lg text-cyan">Visual Designer</h3>
-                        <h4 class="text-md text-gray-500">GoTo Group</h4>
+                        <h3 class="text-lg text-cyan">{{ $al->job_name }}</h3>
+                        <h4 class="text-md text-gray-500">{{ $al->company_name }}</h4>
                     </div>
                 </div>
                 @endforeach
