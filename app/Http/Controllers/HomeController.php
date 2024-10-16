@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Job;
 use App\Models\Company;
 use App\Models\Vacancy;
-use App\Models\Job;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -15,34 +17,46 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $posts = Vacancy::paginate(3);
-        $company = Company::all();
+        //get posts
+        $posts = DB::table('vacancy')
+            ->join('users', 'vacancy.id_users', '=', 'users.id_users')
+            ->join('user_details', 'users.id_users', '=', 'user_details.id_users')
+            ->join('company', 'vacancy.id_company', '=', 'company.id_company')
+            ->select('vacancy.*', 'users.*', 'user_details.*', 'company.*')
+            ->paginate(3);
 
-        // Count currently active employees
-        $activeEmployees = DB::table('job_tracking as jt')
-            ->join('jobs as j', 'jt.id_jobs', '=', 'j.id_jobs')
-            ->join('company as c', 'j.id_company', '=', 'c.id_company')
-            ->select('c.company_name', DB::raw('COUNT(*) as activeEmployees'))
-            ->whereNull('jt.date_end')
-            ->orWhere('jt.date_end', '>', now())
-            ->groupBy('c.company_name')
-            ->get();
+        foreach ($posts as $post) {
 
-        // Count all employees who were ever active
-        $totalEmployees = DB::table('job_tracking as jt')
-            ->join('jobs as j', 'jt.id_jobs', '=', 'j.id_jobs')
-            ->join('company as c', 'j.id_company', '=', 'c.id_company')
-            ->select('c.company_name', DB::raw('COUNT(*) as totalEmployees'))
-            ->groupBy('c.company_name')
-            ->get();
+            $dateOpen = Carbon::parse($post->date_open);
+            $now = Carbon::now();
+            $daysDifference = $dateOpen->diffInDays($now);
 
-        $testjob = Job::with([
-            'company','jobTrackings'
-        ]) ->get();
+            if ($daysDifference < 1) {
+                $post->date_difference = 'Today';
+            } else {
+                $post->date_difference = $daysDifference . ' days ago';
+            }
+        }
 
-        // dd($testjob);
+        // Get Company Name, Picture, and Total Employees Count
+        $company = DB::table('company')
+        ->join('jobs', 'company.id_company', '=', 'jobs.id_company')
+        ->join('job_tracking', 'jobs.id_jobs', '=', 'job_tracking.id_jobs')
+        ->join('user_details', 'job_tracking.id_userDetails', '=', 'user_details.id_userDetails')
+        ->select(
+            'company.id_company',
+            'company.company_name',
+            // set default company picture
+            DB::raw("COALESCE(company.company_picture, 'https://picsum.photos/id/870/200/300?grayscale&blur=2') as company_picture"),
+            // set employee_count
+            DB::raw('count(distinct user_details.id_userDetails) as employee_count')
+        )
+        ->groupBy('company.id_company', 'company.company_name', 'company.company_picture')
+        ->orderBy('employee_count', 'desc')
+        ->paginate(10);
 
-        return view('content.home', compact('posts','company','activeEmployees','totalEmployees','testjob'));
+
+        return view('content.home', compact('posts', 'company'));
     }
 
     /**

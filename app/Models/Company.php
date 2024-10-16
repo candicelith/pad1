@@ -11,11 +11,13 @@ class Company extends Model
     protected $table = 'company';
     protected $primaryKey = 'id_company';
 
-    public function company(){
-        return $this->hasMany(Job::class);
+    public function jobs()
+    {
+        return $this->hasMany(Job::class, 'id_company', 'id_company');
     }
+
     public function getCompanyPictureAttribute($value)
     {
-        return $value ?? 'assets\default-vacancy.jpg';
+        return $value ?? 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png';
     }
 }

@@ -6,25 +6,31 @@
             <div class="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
                 <h2 class="mb-4 text-3xl lg:text-4xl text-cyan">Posts</h2>
             </div>
-            <div class="grid lg:grid-cols-1 space-y-4">
+            @foreach ($vacancys as $vc)
+            <div class="grid lg:grid-cols-1 space-y-4 mt-3">
                 <article class="p-6 bg-lightblue rounded-lg border border-gray-200 shadow-md">
                     <div class="flex justify-between items-center mb-5 text-gray-400">
-                        <span class="ml-auto text-sm">14 days ago</span>
+                        <span class="ml-auto text-sm">{{ $vc->date_difference }}</span>
                     </div>
                     <div class="flex space-x-8">
                         <div>
                             <img class="w-20 h-20 rounded-full"
-                                src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
+                                src="{{ $vc->profile_photo }}"
                                 alt="Jese Leos avatar"  />
                         </div>
                         <div>
-                            <h2 class="mb-2 text-2xl tracking-tight text-cyan">UI/UX Designer</h2>
-                            <h2 class="mb-2 text-xl tracking-tight text-cyan">Bank Central Asia</h2>
-                            <p class="text-lg text-gray-400">Posted by Jese Leos</p>
+                            {{-- Position --}}
+                            <h2 class="mb-2 text-2xl tracking-tight text-cyan">{{ $vc->position }}</h2>
+                            {{-- Company Name --}}
+                            <h2 class="mb-2 text-xl tracking-tight text-cyan">{{ $vc->company_name }}</h2>
+                            {{-- Posted By "Name" --}}
+                            <p class="text-lg text-gray-400">Posted by {{ $vc->name }}</p>
                         </div>
                     </div>
                 </article>
             </div>
+            @endforeach
         </div>
+        {{ $vacancys->links() }}
     </section>
 @endsection

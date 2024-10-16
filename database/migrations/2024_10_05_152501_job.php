@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('job_name');
             $table->string('job_description');
             $table->string('job_role');
+            $table->timestamps();
 
             $table->foreign('id_company')->references('id_company')->on('company');
 

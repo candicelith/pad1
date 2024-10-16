@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('phone');
             $table->string('profile_photo')->nullable();
             $table->year('graduate_year');
-            $table->boolean('isAlumni');
             $table->string('modifiedBy');
             $table->timestamp('modifiedDate')->useCurrent();
             $table->timestamps();

@@ -17,17 +17,16 @@ class UserDetailsSeeder extends Seeder
 
     public function run(): void
     {
-        for ($i=0; $i < 5; $i++) {
+        for ($i=0; $i < 100; $i++) {
 
             UserDetails::create([
-                'id_users' => fake()->unique()->numberBetween(1,5),
+                'id_users' => fake()->unique()->numberBetween(1,100),
                 'name' => fake()->name(),
                 'nim' => fake()->unique()->numerify('2#/######/SV/#####'),
                 'email' => fake()->unique()->safeEmail(),
                 'phone' => fake()->phoneNumber(),
-                'profile_photo' =>fake()->optional()->imageUrl(),
+                'profile_photo' =>fake()->imageUrl(),
                 'graduate_year' => fake()->numberBetween(2018,2024),
-                'isAlumni' => fake()->boolean(),
                 'modifiedBy' => fake()->name(),
                 'modifiedDate' => now(),
                 'created_at' => now(),

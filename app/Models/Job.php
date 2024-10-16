@@ -29,7 +29,7 @@ class Job extends Model
         return $this->belongsTo(Company::class, 'id_company', 'id_company');
     }
 
-    public function jobTrackings()
+    public function jobTracking()
     {
         return $this->belongsToMany(JobTracking::class, 'job_tracking_jobs', 'job_id', 'job_tracking_id');
     }
