@@ -48,7 +48,7 @@
             </div>
         </div>
     <!-- Filter End -->
-
+    
     <!-- Alumni Start -->
         <div id="alumni-cards" class="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
             @foreach ($alumnis as $al)
@@ -57,7 +57,7 @@
                     <div class="w-full flex justify-end mb-5 text-gray-400 px-6">
                         <span class="text-sm">{{ $al->graduate_year }}</span>
                     </div>
-                    <img class="w-24 h-24 mb-3 rounded-full shadow-lg" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png" alt="{{ $al->name }} image"/>
+                    <img class="w-24 h-24 mb-3 rounded-full shadow-lg" src="h{{ $al->profile_photo }}" alt="{{ $al->name }} image"/>
                     <h2 class="mb-1 text-xl text-cyan">{{ $al->name }}</h2>
                     <h3 class="text-lg text-cyan">{{ $al->job_name }}</h3>
                     <h4 class="text-md text-gray-500">{{ $al->company_name }}</h4>

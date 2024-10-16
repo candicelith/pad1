@@ -37,11 +37,11 @@ class AlumniController extends Controller
             ->join('user_details', 'users.id_users', '=', 'user_details.id_users')
             ->leftJoin(
                 DB::raw('(SELECT jt1.* FROM job_tracking jt1
-                             INNER JOIN (SELECT id_userDetails, MAX(id_tracking) as latest_id_tracking
-                                         FROM job_tracking
-                                         GROUP BY id_userDetails) jt2
-                             ON jt1.id_userDetails = jt2.id_userDetails
-                             AND jt1.id_tracking = jt2.latest_id_tracking) as latest_job_tracking'),
+                         INNER JOIN (SELECT id_userDetails, MAX(id_tracking) as latest_id_tracking
+                                     FROM job_tracking
+                                     GROUP BY id_userDetails) jt2
+                         ON jt1.id_userDetails = jt2.id_userDetails
+                         AND jt1.id_tracking = jt2.latest_id_tracking) as latest_job_tracking'),
                 'user_details.id_userDetails',
                 '=',
                 'latest_job_tracking.id_userDetails'
@@ -54,10 +54,13 @@ class AlumniController extends Controller
                 'user_details.*',
                 'latest_job_tracking.*',
                 DB::raw('COALESCE(jobs.job_name, "Jobless") as job_name'),  // If job_name is null, output "Jobless"
-                DB::raw('COALESCE(company.company_name, "-") as company_name')
+                DB::raw('COALESCE(company.company_name, "-") as company_name'),
+                DB::raw('COALESCE(user_details.profile_photo, ?) as profile_photo'),  // Use a parameter to handle default value
             )
+            ->addBinding('https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250', 'select')  // Bind the default URL dynamically
             ->whereRaw('LOWER(roleName) = ?', ['alumni'])
             ->get();
+
 
 
 
