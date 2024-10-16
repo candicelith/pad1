@@ -77,10 +77,10 @@
         <div class="mx-auto max-w-screen-xl text-center">
             <div class="flex justify-center space-x-6">
                 <a href="#" class="flex justify-center items-center">
-                    <img src="{{ asset('assets/brand-white 2.svg') }}" class="w-[178px] h-[80px]" alt="Pokari Logo" />
+                    <img src="{{ asset('assets/logo-TRPL 1.svg') }}" class="w-[178px] h-[80px]" alt="Pokari Logo" />
                 </a>
                 <a href="#" class="flex justify-center items-center">
-                    <img src="{{ asset('assets/logo-TRPL 1.svg') }}" class="w-[178px] h-[80px]" alt="Pokari Logo" />
+                    <img src="{{ asset('assets/brand-white 2.svg') }}" class="w-[178px] h-[80px]" alt="Pokari Logo" />
                 </a>
             </div>
             <ul class="flex flex-wrap justify-center items-center mb-9 mt-9 text-white">
@@ -101,10 +101,12 @@
                 </li>
             </ul>
             <p class="my-6 text-gray-500">Website for Software Engineering Techology student searching alumni's
-                information.</p>
+                information.
+            </p>
             <span class="text-sm text-gray-500 sm:text-center">© 2024. <a href="#"
                     class="hover:underline">Developed by Naila, Naufal, Irene, and Fagan. All right reserved</a>. All
-                Rights Reserved.</span>
+                Rights Reserved.
+            </span>
         </div>
     </footer>
     <!-- Footer End -->
