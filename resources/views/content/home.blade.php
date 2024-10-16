@@ -60,7 +60,7 @@
                 <h1 class="text-2xl mb-4 text-white">Top 10 Companies Alumni Work For</h1>
                 @foreach ($company as $com)
                     <div class="mb-4">
-                        <article class="p-6 bg-lightblue rounded-lg border border-gray-500 shadow-lg">
+                        <article class="p-3 bg-lightblue rounded-lg border border-gray-500 shadow-lg">
                             <div class="flex space-x-8">
                                 <div>
                                     <img class="w-20 h-20 rounded-full"
