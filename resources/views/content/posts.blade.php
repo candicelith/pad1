@@ -12,13 +12,13 @@
                     <div class="flex justify-between items-center mb-5 text-gray-400">
                         <span class="ml-auto text-sm">{{ $vc->date_difference }}</span>
                     </div>
-                    <div class="flex space-x-8">
-                        <div>
-                            <img class="w-20 h-20 rounded-full"
+                    <div class="flex flex-col lg:flex-row lg:space-x-8">
+                        <div class="flex-shrink-0">
+                            <img class="w-20 h-20 rounded-full object-cover"
                                 src="{{ $vc->profile_photo }}"
-                                alt="Jese Leos avatar"  />
+                                alt="{{ $vc->name }}" />
                         </div>
-                        <div>
+                        <div class="mt-4 lg:mt-0">
                             {{-- Position --}}
                             <h2 class="mb-2 text-2xl tracking-tight text-cyan">{{ $vc->position }}</h2>
                             {{-- Company Name --}}
@@ -30,7 +30,11 @@
                 </article>
             </div>
             @endforeach
+
+            {{-- Pagination --}}
+            <div class="mt-6 flex justify-center">
+                {{ $vacancys->links('vendor.pagination.custom-pagination') }}
+            </div>
         </div>
-        {{ $vacancys->links()}}
     </section>
 @endsection
