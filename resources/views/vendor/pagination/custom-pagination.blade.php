@@ -45,8 +45,8 @@
 
         {{-- Optional smaller screen adjustments --}}
         <div class="flex justify-center mt-2">
-            <span class="text-sm text-gray-500 hidden md:inline">Page {{ $paginator->currentPage() }} of {{ $paginator->lastPage() }}</span>
-            <span class="text-xs text-gray-500 md:hidden">Page {{ $paginator->currentPage() }} / {{ $paginator->lastPage() }}</span>
+            <span class="text-sm text-gray-400 hidden md:inline">Page {{ $paginator->currentPage() }} of {{ $paginator->lastPage() }}</span>
+            <span class="text-xs text-gray-400 md:hidden">Page {{ $paginator->currentPage() }} / {{ $paginator->lastPage() }}</span>
         </div>
     </nav>
 @endif

@@ -54,7 +54,7 @@
                             alt="Bonnie image" />
                         <h2 class="mb-1 text-xl text-cyan">Nama</h2>
                         <h3 class="text-lg text-cyan">Bidang</h3>
-                        <h4 class="text-md text-gray-500">Lokasi</h4>
+                        <h4 class="text-md text-gray-400">Lokasi</h4>
                     </div>
                 </div>
             </div>
