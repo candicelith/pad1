@@ -29,7 +29,7 @@
                 @foreach ($posts as $ps)
                     <a href="{{ route('detailpost') }}">
                         <div class="mb-4">
-                            <article class="p-6 bg-lightblue rounded-lg border border-gray-500 shadow-lg">
+                            <article class="pt-6 pl-6 pr-6 pb-0 bg-lightblue rounded-lg border border-gray-500 shadow-lg">
                                 <div class="flex justify-between items-center mb-5 text-gray-400">
                                     <span class="ml-auto text-sm">{{ $ps->date_difference }}</span>
                                 </div>
@@ -48,7 +48,7 @@
                                 </div>
                                 <div>
                                     <p class="text-xs sm:text-base">{{ $ps->vacancy_description }}</p>
-                                    <img class="w-full h-32 md:h-40 rounded-md object-cover"
+                                    <img class="w-full h-32 md:h-40 rounded-tr-md rounded-tl-md object-cover"
                                          src="{{ $ps->vacancy_picture }}" alt="Vacancy Picture"/>
                                 </div>
                             </article>
@@ -63,24 +63,34 @@
             <!-- End Posts Section -->
 
             <!-- Top Companies Section -->
-            <div class="w-full lg:w-1/3 bg-cyan-100 rounded-lg p-6 mt-6 lg:mt-0">
+            <div class="w-full lg:w-1/3 bg-cyan-100 rounded-lg p-6 mt-6 lg:mt-0 flex flex-col justify-between h-full">
                 <h1 class="text-xl sm:text-2xl mb-4 text-white">Top 10 Companies Alumni Work For</h1>
-                @foreach ($company as $com)
-                    <div class="mb-5">
-                        <article class="p-3 bg-lightblue rounded-lg border border-gray-500 shadow-lg">
-                            <div class="flex space-x-4 sm:space-x-8">
-                                <div>
-                                    <img class="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover"
-                                         src="{{ $com->company_picture }}" alt="Company Picture"/>
+                <div class="flex flex-col flex-grow">
+                    @foreach ($company as $com)
+                        <div class="mb-5 flex-grow-0">
+                            <article class="p-3 bg-lightblue rounded-lg border border-gray-500 shadow-lg">
+                                <div class="flex space-x-4 sm:space-x-8">
+                                    <div>
+                                        <img class="w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover"
+                                             src="{{ $com->company_picture }}" alt="Company Picture"/>
+                                    </div>
+                                    <div>
+                                        <h2 class="text-md sm:text-lg lg:text-xl text-cyan">{{ $com->company_name }}</h2>
+                                        <div class="flex items-center mt-2 space-x-1">
+                                            @php
+                                                // Calculate number of icons, capped at 20
+                                                $numIcons = min(ceil($com->employee_count / 3), 20);
+                                            @endphp
+                                            @for ($i = 0; $i < $numIcons; $i++)
+                                                <img src="{{ asset('assets/lulusan.svg') }}" alt="Alumni Icon" class="w-6 h-6 sm:w-8 sm:h-8"/>
+                                            @endfor
+                                        </div>
+                                    </div>
                                 </div>
-                                <div>
-                                    <h2 class="text-md sm:text-lg lg:text-xl text-cyan">{{ $com->company_name }}</h2>
-                                    <p class="text-xs sm:text-base">Active Employees: {{ $com->employee_count }}</p>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                @endforeach
+                            </article>
+                        </div>
+                    @endforeach
+                </div>
             </div>
             <!-- End Top Companies Section -->
         </div>
