@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- Hero Start -->
-    <section class="bg-center bg-no-repeat bg-jumbotron shadow bg-gray-700 bg-blend-multiply h-[500px] lg:h-[720px]">
+    <section class="bg-center bg-no-repeat bg-jumbotron shadow bg-gray-700 bg-blend-multiply h-screen"> <!-- Changed to h-screen -->
         <div class="px-4 mx-auto max-w-screen-xl text-start py-20 md:py-24 lg:py-56">
             <h1 class="mb-4 text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight text-white">
                 Strategi Alumni Meraih Karier di Perusahaan Terbaik
@@ -24,7 +24,7 @@
     <section class="px-4 mx-auto max-w-screen-xl py-10">
         <div class="flex flex-col lg:flex-row lg:space-x-8">
             <!-- Posts Section -->
-            <div class="w-full lg:w-2/3 bg-cyan-100 rounded-lg p-6">
+            <div class="w-full lg:w-3/4 bg-cyan-100 rounded-lg p-6">
                 <h1 class="text-xl sm:text-2xl mb-4 text-white">Posts</h1>
                 @foreach ($posts as $ps)
                     <a href="{{ route('detailpost') }}">
@@ -63,7 +63,7 @@
             <!-- End Posts Section -->
 
             <!-- Top Companies Section -->
-            <div class="w-full lg:w-1/3 bg-cyan-100 rounded-lg p-6 mt-6 lg:mt-0 flex flex-col justify-between h-full">
+            <div class="w-full lg:w-1/4 bg-cyan-100 rounded-lg p-6 mt-6 lg:mt-0 flex flex-col justify-between h-full">
                 <h1 class="text-xl sm:text-2xl mb-4 text-white">Top 10 Companies Alumni Work For</h1>
                 <div class="flex flex-col flex-grow">
                     @foreach ($company as $com)
@@ -76,14 +76,17 @@
                                     </div>
                                     <div>
                                         <h2 class="text-md sm:text-lg lg:text-xl text-cyan">{{ $com->company_name }}</h2>
-                                        <div class="flex items-center mt-2 space-x-1">
-                                            @php
-                                                // Calculate number of icons, capped at 20
-                                                $numIcons = min(ceil($com->employee_count / 3), 20);
-                                            @endphp
-                                            @for ($i = 0; $i < $numIcons; $i++)
-                                                <img src="{{ asset('assets/lulusan.svg') }}" alt="Alumni Icon" class="w-6 h-6 sm:w-8 sm:h-8"/>
-                                            @endfor
+                                        <div class="flex items-center mt-2 space-x-2">
+                                            <span class="text-xs sm:text-base">{{ $com->employee_count }}</span>
+                                            <div class="flex items-center space-x-1">
+                                                @php
+                                                    // Set maximum icons to 7, with each icon representing 2 employees
+                                                    $numIcons = min(ceil($com->employee_count / 2), 7);
+                                                @endphp
+                                                @for ($i = 0; $i < $numIcons; $i++)
+                                                    <img src="{{ asset('assets/lulusan.svg') }}" alt="Alumni Icon" class="w-6 h-6 sm:w-8 sm:h-8"/>
+                                                @endfor
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
