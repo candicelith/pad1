@@ -35,11 +35,11 @@
             <div class="flex flex-wrap gap-1 mt-9 mb-16 items-center">
                 <div class="flex flex-wrap gap-0.5">
                     <button
-                        class="btn-filter text-white bg-cyan hover:bg-cyan-100 hover:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100 focus:text-white focus:bg-cyan-100 rounded-full text-sm px-4 py-1 text-center"
+                        class="text-white bg-cyan hover:bg-cyan-100 hover:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100 focus:text-white focus:bg-cyan-100 rounded-full text-sm px-4 py-1 text-center"
                         value="" onclick="filterAlumni(event)">All</button>
                     @foreach (range('A', 'Z') as $letter)
                         <button
-                            class="btn-filter w-10 h-6 text-white bg-cyan hover:bg-cyan-100 hover:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100 focus:text-white focus:bg-cyan-100 rounded-full text-xs px-4 py-1 text-center"
+                            class="w-10 h-6 text-white bg-cyan hover:bg-cyan-100 hover:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100 focus:text-white focus:bg-cyan-100 rounded-full text-xs px-4 py-1 text-center"
                             value="{{ $letter }}" onclick="filterAlumni(event)">{{ strtolower($letter) }}</button>
                     @endforeach
                 </div>

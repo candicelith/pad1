@@ -6,11 +6,11 @@ html {
     font-family: "Gilgan", sans-serif;
 }
 
-button {
+.button-filter {
     background-color: #183D55;
 }
 
-button:hover {
+.button-filter:hover {
     background-color: #7393A7;
 }
 
