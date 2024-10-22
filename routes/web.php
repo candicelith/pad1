@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\AlumniController;
+use App\Http\Controllers\CompanyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,9 +30,9 @@ use App\Http\Controllers\AlumniController;
 //     return view('content.alumni');
 // })->name('alumni');
 
-Route::get('/companies', function () {
-    return view('content.companies');
-})->name('companies');
+// Route::get('/companies', function () {
+//     return view('content.companies');
+// })->name('companies');
 
 Route::get('/profile', function () {
     return view('content.profile');
@@ -44,3 +45,4 @@ Route::get('/detailpost', function () {
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/posts',[PostController::class,'index'])->name('posts');
 Route::get('/alumni',[AlumniController::class,'index'])->name('alumni');
+Route::get('/companies',[CompanyController::class,'index'])->name('companies');
