@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\AlumniController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CompanyController;
 
 /*
@@ -49,3 +50,4 @@ Route::get('/companies',[CompanyController::class,'index'])->name('companies');
 
 
 // Login
+Route::get('/profile',[AuthController::class,'profile'])->name('profile');

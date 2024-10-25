@@ -7,11 +7,11 @@
             <h1 class="text-2xl md:text-3xl text-center leading-tight tracking-tight text-white mb-6">
                 Please log in if you are part of UGM-Software Engineering students
             </h1>
-            <form class="space-y-6" action="#">
+            <form class="space-y-6" action="#"> {{-- Wajib Mengubah Ini --}}
                 <!-- Email Input -->
                 <div class="flex items-center space-x-4">
                     <label for="email" class="text-xl text-white w-28 shrink-0">E-mail</label>
-                    <input type="email" name="email" id="email"
+                    <input type="email" name="email" id="email" {{-- Nama : email --}}
                         class="w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-full focus:ring-primary-600 focus:border-primary-600 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
                         placeholder="" required>
                 </div>
@@ -19,7 +19,7 @@
                 <!-- Password Input -->
                 <div class="flex items-center space-x-4">
                     <label for="password" class="text-xl text-white w-28 shrink-0">Password</label>
-                    <input type="password" name="password" id="password"
+                    <input type="password" name="password" id="password" {{-- Nama : password --}}
                         class="w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-full focus:ring-primary-600 focus:border-primary-600 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
                         placeholder="" required>
                 </div>
