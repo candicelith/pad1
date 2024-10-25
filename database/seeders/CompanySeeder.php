@@ -16,11 +16,12 @@ class CompanySeeder extends Seeder
         for ($i = 0; $i < 100; $i++) {
             Company::create([
                 'company_name' => fake()->sentence(2),
+                'company_field' => fake()->sentence(2),
                 'company_description' => fake()->sentence(3),
+                'company_address'=>fake()->address(),
                 'company_phone' => fake()->phoneNumber(),
                 'company_picture' => fake()->optional()->imageUrl()
             ]);
         }
-
     }
 }

@@ -48,16 +48,18 @@
             <!-- Filter End -->
 
             <div class="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
+                @foreach ($company as $com)
                 <div class="w-full max-w-sm bg-lightblue border border-gray-200 rounded-lg shadow-md">
                     <div class="flex flex-col items-center py-10">
                         <img class="w-24 h-24 mb-3 rounded-full shadow-lg"
-                            src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
+                            src="{{ $com->company_picture }}"
                             alt="Bonnie image" />
-                        <h2 class="mb-1 text-xl text-cyan">Nama</h2>
-                        <h3 class="text-lg text-cyan">Bidang</h3>
-                        <h4 class="text-md text-gray-400">Lokasi</h4>
+                        <h2 class="mb-1 text-xl text-cyan">{{ $com->company_name }}</h2>
+                        <h3 class="text-lg text-cyan">{{ $com->company_field }}</h3>
+                        <h4 class="text-md text-gray-400">{{ $com->company_address }}</h4>
                     </div>
                 </div>
+                @endforeach
             </div>
         </div>
     </section>
