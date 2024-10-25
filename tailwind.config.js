@@ -8,10 +8,10 @@ export default {
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
     ],
     theme: {
-        screens: {
-            'xs': '375px',
-        },
         extend: {
+            screens: {
+                'xs': '360px',
+            },
             colors: {
                 cyan: '#183D55',
                 'cyan-100': '#7393A7',

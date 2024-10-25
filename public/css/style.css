@@ -31,6 +31,14 @@ main {
     background-image: url("/assets/jumbotron.png");
 }
 
+.bg-jumbotron-2 {
+    background-image: url("/assets/jumbotron2.png");
+}
+
+.bg-jumbotron-3 {
+    background-image: url("/assets/jumbotron3.png");
+}
+
 .bg-btn-cyan {
     background-color: #183D55;
 }

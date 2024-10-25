@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- Title Start -->
-    <section class="bg-white">
+    <section class="bg-white mt-20">
         <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
             <div class="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
                 <h2 class="mb-4 text-3xl lg:text-4xl text-cyan">Companies</h2>
@@ -40,7 +40,8 @@
                     @foreach (range('A', 'Z') as $letter)
                         <button
                             class="btn-filter w-10 h-6 text-white bg-cyan hover:bg-cyan-100 hover:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100 focus:text-white focus:bg-cyan-100 rounded-full text-xs px-4 py-1 text-center"
-                            value="{{ $letter }}">{{ strtolower($letter) }}</button>
+                            value="{{ $letter }}">{{ strtolower($letter) }}
+                        </button>
                     @endforeach
                 </div>
             </div>
