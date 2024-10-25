@@ -35,7 +35,7 @@ use App\Http\Controllers\CompanyController;
 // })->name('companies');
 
 Route::get('/profile', function () {
-    return view('content.profile');
+    return view('content.login');
 })->name('profile');
 
 Route::get('/detailpost', function () {
@@ -46,3 +46,6 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/posts',[PostController::class,'index'])->name('posts');
 Route::get('/alumni',[AlumniController::class,'index'])->name('alumni');
 Route::get('/companies',[CompanyController::class,'index'])->name('companies');
+
+
+// Login
