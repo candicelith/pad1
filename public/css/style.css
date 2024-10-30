@@ -2,7 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body {
+html,
+body {
     font-family: "Gilgan", sans-serif;
     height: 100%;
     margin: 0;
@@ -18,13 +19,12 @@ main {
     flex: 1;
 }
 
-
 .button-filter {
-    background-color: #183D55;
+    background-color: #183d55;
 }
 
 .button-filter:hover {
-    background-color: #7393A7;
+    background-color: #7393a7;
 }
 
 .bg-jumbotron {
@@ -40,5 +40,5 @@ main {
 }
 
 .bg-btn-cyan {
-    background-color: #183D55;
+    background-color: #183d55;
 }

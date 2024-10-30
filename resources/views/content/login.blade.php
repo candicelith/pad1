@@ -1,38 +1,59 @@
 @extends('layout.headerFooter')
 
 @section('content')
-<section class="bg-white mt-20">
-    <div class="flex flex-col items-center justify-center py-8 px-4 mx-auto max-w-screen-xl my-16 md:h-screen lg:py-16">
-        <div class="w-full py-16 px-8 sm:py-24 sm:px-16 bg-cyan-100 rounded-lg shadow md:mt-0 sm:max-w-md dark:bg-gray-800 dark:border-gray-700">
-            <h1 class="text-2xl md:text-3xl text-center leading-tight tracking-tight text-white mb-6">
-                Please log in if you are part of UGM-Software Engineering students
-            </h1>
-            <form class="space-y-6" action="#"> {{-- Wajib Mengubah Ini --}}
-                <!-- Email Input -->
-                <div class="flex items-center space-x-4">
-                    <label for="email" class="text-xl text-white w-28 shrink-0">E-mail</label>
-                    <input type="email" name="email" id="email" {{-- Nama : email --}}
-                        class="w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-full focus:ring-primary-600 focus:border-primary-600 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-                        placeholder="" required>
-                </div>
+    <section class="mt-20 bg-white">
+        <div class="mx-auto my-16 flex max-w-screen-xl items-center justify-center md:h-screen lg:py-16">
+            <div
+                class="mx-10 w-full rounded-lg bg-cyan-100 px-8 py-10 shadow-lg sm:max-w-xl sm:px-14 sm:py-16 lg:max-w-5xl lg:px-20 xl:max-w-6xl"
+            >
+                <h1 class="mb-8 text-center text-2xl leading-tight tracking-tight text-white sm:text-3xl md:text-4xl">
+                    Please log in if you are part of UGM-Software Engineering students
+                </h1>
+                <form class="mx-auto max-w-4xl space-y-6" action="#">
+                    {{-- Wajib Mengubah Ini --}}
+                    <!-- Email Input -->
+                    <div class="flex flex-col lg:flex-row lg:items-center lg:space-x-6">
+                        <label for="email" class="mb-2 shrink-0 text-lg text-white lg:mb-0 lg:w-40 lg:text-xl">
+                            E-mail
+                        </label>
+                        <input
+                            type="email"
+                            name="email"
+                            id="email"
+                            {{-- Nama : email --}}
+                            class="focus:ring-primary-600 focus:border-primary-600 w-full rounded-full border border-gray-300 bg-gray-50 p-4 text-gray-900"
+                            placeholder="Enter your UGM E-mail"
+                            required
+                        />
+                    </div>
 
-                <!-- Password Input -->
-                <div class="flex items-center space-x-4">
-                    <label for="password" class="text-xl text-white w-28 shrink-0">Password</label>
-                    <input type="password" name="password" id="password" {{-- Nama : password --}}
-                        class="w-full bg-gray-50 border border-gray-300 text-gray-900 rounded-full focus:ring-primary-600 focus:border-primary-600 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-                        placeholder="" required>
-                </div>
+                    <!-- Password Input -->
+                    <div class="flex flex-col lg:flex-row lg:items-center lg:space-x-6">
+                        <label for="password" class="mb-2 shrink-0 text-lg text-white lg:mb-0 lg:w-40 lg:text-xl">
+                            Password
+                        </label>
+                        <input
+                            type="password"
+                            name="password"
+                            id="password"
+                            {{-- Nama : password --}}
+                            class="focus:ring-primary-600 focus:border-primary-600 w-full rounded-full border border-gray-300 bg-gray-50 p-4 text-gray-900"
+                            placeholder="Enter your NIU"
+                            required
+                        />
+                    </div>
 
-                <!-- Log In Button -->
-                <div class="flex justify-end">
-                    <button type="submit"
-                        class="w-40 text-cyan bg-white hover:bg-cyan hover:text-white focus:ring-4 focus:ring-cyan rounded-full text-sm px-5 py-2.5 text-center">
-                        Log In
-                    </button>
-                </div>
-            </form>
+                    <!-- Log In Button -->
+                    <div class="flex justify-end">
+                        <button
+                            type="submit"
+                            class="w-full rounded-full bg-white px-5 py-3 text-lg text-cyan hover:bg-cyan hover:text-white focus:ring-4 focus:ring-cyan lg:w-48"
+                        >
+                            Log In
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 @endsection

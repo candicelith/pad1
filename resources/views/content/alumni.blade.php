@@ -2,28 +2,44 @@
 
 @section('content')
     <!-- Title Start -->
-    <section class="bg-white mt-20">
-        <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
-            <div class="mx-auto max-w-screen-sm text-center lg:mb-16 mb-8">
-                <h2 class="mb-4 text-3xl lg:text-4xl text-cyan">Alumni</h2>
+    <section class="mt-20 bg-white">
+        <div class="mx-auto max-w-screen-xl px-4 py-8 lg:px-6 lg:py-16">
+            <div class="mx-auto mb-8 max-w-screen-sm text-center lg:mb-16">
+                <h2 class="mb-4 text-3xl text-cyan lg:text-4xl">Alumni</h2>
             </div>
             <!-- Title End -->
 
             <!-- Search Start -->
             <div>
-                <form class="flex items-center max-w-sm mx-auto" onsubmit="searchAlumni(event)">
+                <form class="mx-auto flex max-w-sm items-center" onsubmit="searchAlumni(event)">
                     <label for="simple-search" class="sr-only">Search</label>
                     <div class="relative w-full">
-                        <input type="text" id="simple-search"
-                            class="bg-gray-200 border border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-cyan focus:border-cyan block w-full ps-10 p-2.5"
-                            placeholder="Search alumni..." required>
+                        <input
+                            type="text"
+                            id="simple-search"
+                            class="block w-full rounded-lg border border-gray-500 bg-gray-200 p-2.5 ps-10 text-sm text-gray-900 focus:border-cyan focus:ring-cyan"
+                            placeholder="Search alumni..."
+                            required
+                        />
                     </div>
-                    <button type="submit"
-                        class="p-2.5 ms-2 text-sm font-medium text-white bg-cyan bg-btn-cyan rounded-xl border border-cyan hover:bg-cyan-100 focus:ring-4 focus:outline-none focus:ring-cyan">
-                        <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            viewBox="0 0 20 20">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                    <button
+                        type="submit"
+                        class="bg-btn-cyan ms-2 rounded-xl border border-cyan bg-cyan p-2.5 text-sm font-medium text-white hover:bg-cyan-100 focus:outline-none focus:ring-4 focus:ring-cyan"
+                    >
+                        <svg
+                            class="h-4 w-4"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 20 20"
+                        >
+                            <path
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                            />
                         </svg>
                         <span class="sr-only">Search</span>
                     </button>
@@ -32,22 +48,33 @@
             <!-- Search End -->
 
             <!-- Filter Start -->
-            <div class="flex flex-wrap gap-2 mt-9 mb-16 items-center">
+            <!-- Filter diresponsif biar kek paginate-->
+            <div class="mb-16 mt-9 flex flex-wrap items-center gap-2">
                 <div class="flex flex-wrap gap-1">
                     <button
-                        class="text-white bg-cyan hover:bg-cyan-100 hover:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100 focus:text-white focus:bg-cyan-100 rounded-full text-sm px-4 py-1 text-center"
-                        value="" onclick="filterAlumni(event)">All</button>
+                        class="rounded-full bg-cyan px-4 py-1 text-center text-sm text-white hover:bg-cyan-100 hover:text-white focus:bg-cyan-100 focus:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100"
+                        value=""
+                        onclick="filterAlumni(event)"
+                    >
+                        All
+                    </button>
                     @foreach (range('A', 'Z') as $letter)
                         <button
-                            class="w-10 h-6 text-white bg-cyan hover:bg-cyan-100 hover:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100 focus:text-white focus:bg-cyan-100 rounded-full text-xs px-4 py-1 text-center"
-                            value="{{ $letter }}" onclick="filterAlumni(event)"> {{ strtolower($letter) }}
+                            class="h-6 w-10 rounded-full bg-cyan px-4 py-1 text-center text-xs text-white hover:bg-cyan-100 hover:text-white focus:bg-cyan-100 focus:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100"
+                            value="{{ $letter }}"
+                            onclick="filterAlumni(event)"
+                        >
+                            {{ strtolower($letter) }}
                         </button>
                     @endforeach
                 </div>
                 <div class="ml-0">
                     <form class="max-w-sm">
-                        <select id="angkatan" class="bg-cyan text-white text-xs rounded-2xl block w-full p-2.5"
-                            onchange="filterByYear(event)">
+                        <select
+                            id="angkatan"
+                            class="block w-full rounded-2xl bg-cyan p-2.5 text-xs text-white"
+                            onchange="filterByYear(event)"
+                        >
                             <option value="" selected>All Years</option>
                             <option value="2022">2022</option>
                             <option value="2021">2021</option>
@@ -60,12 +87,22 @@
             <!-- Filter End -->
 
             <!-- No Result Found Start -->
-            <div id="no-results" class="hidden justify-center items-center h-40"> <!-- Removed 'flex' but kept 'hidden' -->
-                <div class="flex flex-col justify-center items-center space-y-2">
-                    <svg class="w-10 h-10 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 20 20">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+            <div id="no-results" class="hidden h-40 items-center justify-center">
+                <div class="flex flex-col items-center justify-center space-y-2">
+                    <svg
+                        class="h-10 w-10 text-gray-400"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 20 20"
+                    >
+                        <path
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                        />
                     </svg>
                     <p class="text-center text-gray-900">No Result Found</p>
                 </div>
@@ -73,25 +110,38 @@
             <!-- No Result Found End -->
 
             <!-- Alumni Start -->
-            <div id="alumni-cards" class="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
+            <div id="alumni-cards" class="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                 @foreach ($alumnis as $al)
-                    <div class="alumni-card w-full max-w-sm bg-lightblue border border-gray-200 rounded-lg shadow-md"
-                        data-name="{{ $al->name }}" data-year="{{ $al->graduate_year }}">
+                    <div
+                        class="alumni-card w-full max-w-sm rounded-lg border border-gray-200 bg-lightblue shadow-md"
+                        data-name="{{ $al->name }}"
+                        data-year="{{ $al->graduate_year }}"
+                    >
                         <div class="flex flex-col items-center py-10">
-                            <div class="w-full flex justify-end mb-5 text-gray-400 px-6">
-                                <span class="text-sm">{{ $al->graduate_year }}</span>
+                            <div class="mb-5 flex w-full justify-end px-6 text-gray-400">
+                                <span class="text-sm">
+                                    {{ $al->graduate_year }}
+                                </span>
                             </div>
-                            <img class="w-24 h-24 mb-3 rounded-full shadow-lg" src="{{ $al->profile_photo }}"
-                                alt="{{ $al->name }} image" />
-                            <h2 class="mb-1 text-xl text-cyan">{{ $al->name }}</h2>
-                            <h3 class="text-lg text-cyan">{{ $al->job_name }}</h3>
-                            <h4 class="text-md text-gray-500">{{ $al->company_name }}</h4>
+                            <img
+                                class="mb-3 h-24 w-24 rounded-full shadow-lg"
+                                src="{{ $al->profile_photo }}"
+                                alt="{{ $al->name }} image"
+                            />
+                            <h2 class="mb-1 text-xl text-cyan">
+                                {{ $al->name }}
+                            </h2>
+                            <h3 class="text-lg text-cyan">
+                                {{ $al->job_name }}
+                            </h3>
+                            <h4 class="text-md text-gray-500">
+                                {{ $al->company_name }}
+                            </h4>
                         </div>
                     </div>
                 @endforeach
             </div>
             <!-- Alumni End -->
-
         </div>
     </section>
 
@@ -102,7 +152,7 @@
             const alumniCards = document.querySelectorAll('.alumni-card');
             let visibleCount = 0;
 
-            alumniCards.forEach(card => {
+            alumniCards.forEach((card) => {
                 const name = card.getAttribute('data-name').toLowerCase();
                 if (name.includes(searchTerm)) {
                     card.style.display = '';
@@ -127,13 +177,13 @@
             const alumniCards = document.querySelectorAll('.alumni-card');
             let visibleCount = 0; // Track how many cards are visible
 
-            alumniCards.forEach(card => {
+            alumniCards.forEach((card) => {
                 const name = card.getAttribute('data-name').toUpperCase();
-                if (filterValue === "" || name.startsWith(filterValue)) {
-                    card.style.display = ""; // Show card
+                if (filterValue === '' || name.startsWith(filterValue)) {
+                    card.style.display = ''; // Show card
                     visibleCount++; // Increment visible count
                 } else {
-                    card.style.display = "none"; // Hide card
+                    card.style.display = 'none'; // Hide card
                 }
             });
 
@@ -151,13 +201,13 @@
             const alumniCards = document.querySelectorAll('.alumni-card');
             let visibleCount = 0; // Track how many cards are visible
 
-            alumniCards.forEach(card => {
+            alumniCards.forEach((card) => {
                 const year = card.getAttribute('data-year');
-                if (yearValue === "" || year === yearValue) {
-                    card.style.display = ""; // Show card
+                if (yearValue === '' || year === yearValue) {
+                    card.style.display = ''; // Show card
                     visibleCount++; // Increment visible count
                 } else {
-                    card.style.display = "none"; // Hide card
+                    card.style.display = 'none'; // Hide card
                 }
             });
 

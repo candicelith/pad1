@@ -1,16 +1,16 @@
 /** @type {import('tailwindcss').Config} */
 export default {
     content: [
-        "./resources/**/*.blade.php",
-        "./resources/**/*.js",
-        "./resources/**/*.vue",
-        "./node_modules/flowbite/**/*.js",
+        './resources/**/*.blade.php',
+        './resources/**/*.js',
+        './resources/**/*.vue',
+        './node_modules/flowbite/**/*.js',
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
     ],
     theme: {
         extend: {
             screens: {
-                'xs': '360px',
+                xs: '360px',
             },
             colors: {
                 cyan: '#183D55',
@@ -18,17 +18,15 @@ export default {
                 lightblue: '#E8ECF1',
             },
             fontFamily: {
-                "Gilgan": ['Gilgan', 'sans-serif'],
+                Gilgan: ['Gilgan', 'sans-serif'],
             },
             backgroundImage: {
-                'jumbotron': "url('/assets/jumbotron.png')",
+                jumbotron: "url('/assets/jumbotron.png')",
             },
             fontSize: {
                 '2xs': '0.50rem',
             },
         },
     },
-    plugins: [
-        require('flowbite/plugin')
-    ],
-}
+    plugins: [require('flowbite/plugin')],
+};

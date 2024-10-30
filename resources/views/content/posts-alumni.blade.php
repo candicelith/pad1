@@ -6,6 +6,14 @@
             <div class="mx-auto mb-8 max-w-screen-sm text-center lg:mb-16">
                 <h2 class="mb-4 text-3xl text-cyan lg:text-4xl">Posts</h2>
             </div>
+            <div class="mt-6 flex justify-center">
+                <a
+                    href="{{  }}"
+                    class="inline-flex items-center rounded-2xl bg-lightblue px-9 py-3 text-2xl text-white shadow hover:bg-white hover:text-lightblue"
+                >
+                    New Post +
+                </a>
+            </div>
             @foreach ($vacancys as $vc)
                 <div class="mt-3 grid space-y-4 lg:grid-cols-1">
                     <article class="rounded-lg border border-gray-200 bg-lightblue p-6 shadow-md">
