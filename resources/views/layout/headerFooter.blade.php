@@ -13,7 +13,8 @@
     </head>
 
     <body>
-        <!-- Header Start -->
+
+        {{-- Header Start --}}
         <header id="navbar" class="fixed top-0 z-50 w-full border-gray-200 bg-white transition-shadow duration-300">
             <nav>
                 <div class="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4">
@@ -102,15 +103,15 @@
                 </div>
             </nav>
         </header>
-        <!-- Header End -->
+        {{-- Header End --}}
 
-        <!-- Main Start -->
+        {{-- Main Start --}}
         <main>
             @yield('content')
         </main>
-        <!-- Main End -->
+        {{-- Main End --}}
 
-        <!-- Footer Start -->
+        {{-- Footer Start --}}
         <footer class="bg-cyan p-4 md:p-8 lg:p-10">
             <div class="mx-auto max-w-screen-xl text-center">
                 <div class="flex justify-center space-x-6">
@@ -157,7 +158,7 @@
                 </span>
             </div>
         </footer>
-        <!-- Footer End -->
+        {{-- Footer End --}}
 
         <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
     </body>

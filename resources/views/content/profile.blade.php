@@ -4,7 +4,8 @@
     <section class="mt-20 bg-white">
         <div class="mx-auto max-w-screen-xl px-4 py-8 lg:px-6 lg:py-16">
             <div class="w-full max-w-none rounded-3xl bg-lightblue shadow-lg">
-                <!-- Profile Image & Banner -->
+
+                {{-- Profile Image & Banner --}}
                 <div class="relative">
                     <div class="h-48 rounded-t-3xl bg-cyan-100"></div>
                     <div class="absolute top-1/2 ms-14">
@@ -16,13 +17,13 @@
                     </div>
                 </div>
 
-                <!-- Profile Details -->
+                {{-- Profile Details --}}
                 <div class="ms-14 flex flex-col items-start pt-36">
                     <h2 class="text-2xl text-cyan">Muhammad Naufal Daffachri</h2>
                     <p class="pt-5 text-xl text-gray-400">23/565657/SV/23636</p>
                 </div>
 
-                <!-- Logout Button -->
+                {{-- Logout Button --}}
                 <div class="flex justify-end p-6 sm:p-0">
                     <button class="rounded-full bg-red-500 p-3 text-white shadow-lg hover:bg-red-600">
                         <svg

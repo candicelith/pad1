@@ -1,15 +1,14 @@
 @extends('layout.headerFooter')
 
 @section('content')
-    <!-- Title Start -->
+    {{-- Title --}}
     <section class="mt-20 bg-white">
         <div class="mx-auto max-w-screen-xl px-4 py-8 lg:px-6 lg:py-16">
             <div class="mx-auto mb-8 max-w-screen-sm text-center lg:mb-16">
                 <h2 class="mb-4 text-3xl text-cyan lg:text-4xl">Companies</h2>
             </div>
-            <!-- Title End -->
 
-            <!-- Search Start -->
+            {{-- Search --}}
             <div>
                 <form class="mx-auto flex max-w-sm items-center" onsubmit="searchCompanies(event)">
                     <label for="simple-search" class="sr-only">Search</label>
@@ -45,9 +44,8 @@
                     </button>
                 </form>
             </div>
-            <!-- Search End -->
 
-            <!-- Filter Start -->
+            {{-- Filter --}}
             <div class="mb-16 mt-9 flex flex-wrap items-center justify-center gap-2">
                 <div class="flex flex-wrap gap-1">
                     <button
@@ -68,9 +66,8 @@
                     @endforeach
                 </div>
             </div>
-            <!-- Filter End -->
 
-            <!-- No Result Found Start -->
+            {{-- No Result Found --}}
             <div id="no-results" class="hidden h-40 items-center justify-center">
                 <div class="flex flex-col items-center justify-center space-y-2">
                     <svg
@@ -91,9 +88,8 @@
                     <p class="text-center text-gray-900">No Result Found</p>
                 </div>
             </div>
-            <!-- No Result Found End -->
 
-            <!-- Companies Start -->
+            {{-- Companies Start --}}
             <div id="companies-card" class="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                 @foreach ($company as $com)
                     <div
@@ -119,7 +115,8 @@
                     </div>
                 @endforeach
             </div>
-            <!-- Companies End -->
+            {{-- Companies End --}}
+
         </div>
     </section>
 

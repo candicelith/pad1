@@ -10,8 +10,8 @@
                     Please log in if you are part of UGM-Software Engineering students
                 </h1>
                 <form class="mx-auto max-w-4xl space-y-6" action="#">
-                    {{-- Wajib Mengubah Ini --}}
-                    <!-- Email Input -->
+
+                    {{-- Email Input --}}
                     <div class="flex flex-col lg:flex-row lg:items-center lg:space-x-6">
                         <label for="email" class="mb-2 shrink-0 text-lg text-white lg:mb-0 lg:w-40 lg:text-xl">
                             E-mail
@@ -20,6 +20,7 @@
                             type="email"
                             name="email"
                             id="email"
+
                             {{-- Nama : email --}}
                             class="focus:ring-primary-600 focus:border-primary-600 w-full rounded-full border border-gray-300 bg-gray-50 p-4 text-gray-900"
                             placeholder="Enter your UGM E-mail"
@@ -27,7 +28,7 @@
                         />
                     </div>
 
-                    <!-- Password Input -->
+                    {{-- Password Input --}}
                     <div class="flex flex-col lg:flex-row lg:items-center lg:space-x-6">
                         <label for="password" class="mb-2 shrink-0 text-lg text-white lg:mb-0 lg:w-40 lg:text-xl">
                             Password
@@ -43,7 +44,7 @@
                         />
                     </div>
 
-                    <!-- Log In Button -->
+                    {{-- Log In Button --}}
                     <div class="flex justify-end">
                         <button
                             type="submit"

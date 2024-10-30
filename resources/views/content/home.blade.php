@@ -1,11 +1,12 @@
 @extends('layout.headerFooter')
 
 @section('content')
-    <!-- Hero Carousel Start -->
+
+    {{-- Carousel Start --}}
     <section id="default-carousel" class="relative mt-20 w-full" data-carousel="slide">
-        <!-- Carousel wrapper -->
         <div class="relative h-screen overflow-hidden">
-            <!-- Slide 1 -->
+
+            {{-- Slide 1 --}}
             <div
                 class="absolute inset-0 translate-x-full transform transition-transform duration-700 ease-in-out"
                 data-carousel-item
@@ -30,7 +31,7 @@
                 </div>
             </div>
 
-            <!-- Slide 2 -->
+            {{-- Slide 2 --}}
             <div
                 class="absolute inset-0 translate-x-0 transform transition-transform duration-700 ease-in-out"
                 data-carousel-item
@@ -57,7 +58,7 @@
                 </div>
             </div>
 
-            <!-- Slide 3 -->
+            {{-- Slide 3 --}}
             <div
                 class="absolute inset-0 translate-x-1 transform transition-transform duration-700 ease-in-out"
                 data-carousel-item
@@ -85,7 +86,7 @@
             </div>
         </div>
 
-        <!-- Carousel Indicators -->
+        {{-- Carousel Indicators --}}
         <div class="absolute bottom-5 left-1/2 z-30 flex -translate-x-1/2 space-x-3">
             <button
                 type="button"
@@ -109,9 +110,8 @@
                 data-carousel-slide-to="2"
             ></button>
         </div>
-        <!-- Carousel Controls -->
 
-        <!-- Previous Button -->
+        {{-- Previous Button --}}
         <button
             type="button"
             class="group absolute left-0 top-0 z-30 flex h-full cursor-pointer items-center justify-center px-4 focus:outline-none"
@@ -140,7 +140,7 @@
             </span>
         </button>
 
-        <!-- Next Button -->
+        {{-- Next Button --}}
         <button
             type="button"
             class="group absolute right-0 top-0 z-30 flex h-full cursor-pointer items-center justify-center px-4 focus:outline-none"
@@ -168,12 +168,13 @@
             </span>
         </button>
     </section>
-    <!-- Hero Carousel End -->
+    {{-- Carousel End --}}
 
-    <!-- Content Start -->
+    {{-- Content Start --}}
     <section class="mx-auto max-w-screen-xl px-4 py-10">
         <div class="flex flex-col lg:flex-row lg:space-x-8">
-            <!-- Posts Section -->
+
+            {{-- Posts Section Start --}}
             <div class="w-full rounded-lg bg-cyan-100 p-6 lg:w-3/4">
                 <h1 class="mb-3 text-xl text-white sm:text-2xl">Posts</h1>
                 @foreach ($posts as $ps)
@@ -223,9 +224,9 @@
                     More
                 </a>
             </div>
-            <!-- End Posts Section -->
+            {{-- End Posts Section --}}
 
-            <!-- Top Companies Section -->
+            {{-- Top Companies Section --}}
             <div class="mt-6 flex h-full w-full flex-col justify-between rounded-lg bg-cyan-100 p-6 lg:mt-0 lg:w-1/4">
                 <h1 class="mb-4 text-xl text-white">Top 10 Companies Alumni Work For</h1>
                 <div class="flex flex-grow flex-col">
@@ -269,10 +270,11 @@
                     @endforeach
                 </div>
             </div>
-            <!-- End Top Companies Section -->
+            {{-- End Top Companies Section --}}
+
         </div>
     </section>
-    <!-- Content End -->
+    {{-- Content End --}}
 
     <script>
         function navigateToDetailPost() {
