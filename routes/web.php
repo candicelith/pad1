@@ -35,19 +35,27 @@ use App\Http\Controllers\CompanyController;
 //     return view('content.companies');
 // })->name('companies');
 
-Route::get('/profile', function () {
-    return view('content.login');
-})->name('profile');
+// Route::get('/profile', function () {
+//     return view('content.login');
+// })->name('profile');
 
 Route::get('/detailpost', function () {
     return view('content.detailpost');
 })->name('detailpost');
 
+Route::get('/postalumni', function () {
+    return view('content.posts-alumni');
+})->name('postalumni');
+
+Route::get('/createpost', function () {
+    return view('content.createpost');
+})->name('createpost');
+
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('/posts',[PostController::class,'index'])->name('posts');
-Route::get('/alumni',[AlumniController::class,'index'])->name('alumni');
-Route::get('/companies',[CompanyController::class,'index'])->name('companies');
+Route::get('/posts', [PostController::class, 'index'])->name('posts');
+Route::get('/alumni', [AlumniController::class, 'index'])->name('alumni');
+Route::get('/companies', [CompanyController::class, 'index'])->name('companies');
 
 
 // Login
-Route::get('/profile',[AuthController::class,'profile'])->name('profile');
+Route::get('/profile', [AuthController::class, 'profile'])->name('profile');

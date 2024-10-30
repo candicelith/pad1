@@ -1,6 +1,7 @@
 @extends('layout.headerFooter')
 
 @section('content')
+
     <!-- Title Start -->
     <section class="mt-20 bg-white">
         <div class="mx-auto max-w-screen-xl px-4 py-8 lg:px-6 lg:py-16">
