@@ -50,4 +50,10 @@ Route::get('/companies',[CompanyController::class,'index'])->name('companies');
 
 
 // Login
-Route::get('/profile',[AuthController::class,'profile'])->name('profile');
+Route::controller(AuthController::class)->group(function(){
+    Route::post('/store','store')->name('store');
+    Route::get('/login','login')->name('login');
+    Route::post('/authenticate','authenticate')->name('authenticate');
+    Route::get('/profile','profile')->name('profile');
+    Route::post('/logout','logout')->name('logout');
+});

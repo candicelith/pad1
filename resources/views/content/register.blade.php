@@ -7,7 +7,7 @@
             <h1 class="text-2xl md:text-3xl text-center leading-tight tracking-tight text-white mb-6">
                 Please log in if you are part of UGM-Software Engineering students
             </h1>
-            <form class="space-y-6" action="{{ route('authenticate') }}" method="post"> {{-- Wajib Mengubah Ini --}}
+            <form class="space-y-6" action="{{ route('store') }}" method="post"> {{-- Wajib Mengubah Ini --}}
                 <!-- Email Input -->
                 @csrf
                 <div class="flex items-center space-x-4">

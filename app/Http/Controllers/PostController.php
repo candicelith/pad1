@@ -15,9 +15,7 @@ class PostController extends Controller
      */
     public function index()
     {
-
-
-        // $vacancys = Vacancy::with(['user.userDetails','company'])->get();
+        // Mengambil Data Table Vacancy Join Users Join User_Details Join Company
         $vacancys = DB::table('vacancy')
                     ->join('users', 'vacancy.id_users', '=', 'users.id_users')
                     ->join('user_details', 'users.id_users', '=', 'user_details.id_users')
@@ -30,6 +28,8 @@ class PostController extends Controller
                         DB::raw("COALESCE(user_details.profile_photo, 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png') as profile_photo"))
                     ->paginate(10);
 
+
+        // Membuat Variabel Tanggal Menjadi Lebih Dinamis dengan Tanggal Saat ini
         foreach ($vacancys as $vc) {
 
             $dateOpen = Carbon::parse($vc->date_open);
@@ -43,7 +43,7 @@ class PostController extends Controller
             }
         }
 
-
+        // Mengembalikan View Content.Posts dengan Compact 'Vacancys'
         return view('content.posts',compact('vacancys'));
     }
 

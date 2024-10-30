@@ -61,10 +61,6 @@ class AlumniController extends Controller
             ->whereRaw('LOWER(roleName) = ?', ['alumni'])
             ->get();
 
-
-
-
-        // dd($alumnis);
         return view('content.alumni', compact('alumnis'));
     }
 

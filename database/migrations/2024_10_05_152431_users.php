@@ -16,7 +16,6 @@ return new class extends Migration
             $table->unsignedBigInteger('id_roles');
             $table->string('email');
             $table->string('password');
-            $table->string('password_hashed');
             $table->timestamps();
 
             $table->foreign('id_roles')->references('id_roles')->on('roles');

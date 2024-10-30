@@ -15,4 +15,26 @@ class AuthController extends Controller
         }
         return view('content.login');
     }
+
+    public function authenticate(Request $request)
+    {
+        $credentials = $request->validate([
+            'email'=> 'required|email',
+            'password'=> 'required'
+        ]);
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect()->route('profile')->withSuccess('You Have Succesfully Logged In!');
+        }
+
+        return back()->withErrors([
+            'email' => 'Your Provided Credentials do not match in our Records.'
+        ])->onlyInput('email');
+    }
+
+    public function register()
+    {
+        return view('content.register');
+    }
 }
