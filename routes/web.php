@@ -7,6 +7,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\AlumniController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\MahasiswaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,26 +19,6 @@ use App\Http\Controllers\CompanyController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-// Route::get('/home', function () {
-//     return view('content.home');
-// })->name('home');
-
-// Route::get('/posts', function () {
-//     return view('content.posts');
-// })->name('posts');
-
-// Route::get('/alumni', function () {
-//     return view('content.alumni');
-// })->name('alumni');
-
-// Route::get('/companies', function () {
-//     return view('content.companies');
-// })->name('companies');
-
-// Route::get('/profile', function () {
-//     return view('content.login');
-// })->name('profile');
 
 Route::get('/detailpost', function () {
     return view('content.detailpost');
@@ -59,9 +40,14 @@ Route::get('/companies', [CompanyController::class, 'index'])->name('companies')
 
 // Login
 Route::controller(AuthController::class)->group(function(){
-    Route::post('/store','store')->name('store');
     Route::get('/login','login')->name('login');
     Route::post('/authenticate','authenticate')->name('authenticate');
-    Route::get('/profile','profile')->name('profile');
     Route::post('/logout','logout')->name('logout');
+
+    // Profile Dashboard
+    Route::get('/profile','profile')->name('profile');
 });
+
+// Profile for each Role
+Route::get('/profile/mahasiswa',[MahasiswaController::class,'profile'])->name('mahasiswa.profile');
+Route::get('/profile/alumni',[AlumniController::class,'profile'])->name('alumni.profile');

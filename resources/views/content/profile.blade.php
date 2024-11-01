@@ -19,13 +19,13 @@
 
                 {{-- Profile Details --}}
                 <div class="ms-14 flex flex-col items-start pt-36">
-                    <h2 class="text-2xl text-cyan">Muhammad Naufal Daffachri</h2>
-                    <p class="pt-5 text-xl text-gray-400">23/565657/SV/23636</p>
+                    <h2 class="text-2xl text-cyan">{{ $userDetails->name }}</h2>
+                    <p class="pt-5 text-xl text-gray-400">{{ $userDetails->nim }}</p>
                 </div>
 
                 {{-- Logout Button --}}
                 <div class="flex justify-end p-6 sm:p-0">
-                    <button class="rounded-full bg-red-500 p-3 text-white shadow-lg hover:bg-red-600">
+                    <button id="logout-button" class="rounded-full bg-red-500 p-3 text-white shadow-lg hover:bg-red-600">
                         <svg
                             class="h-10 w-10 sm:h-14 sm:w-14"
                             fill="none"
@@ -43,6 +43,16 @@
                         </svg>
                     </button>
                 </div>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+
+                <script>
+                    document.getElementById('logout-button').addEventListener('click', function() {
+                        document.getElementById('logout-form').submit();
+                    });
+                </script>
             </div>
         </div>
     </section>

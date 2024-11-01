@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Termwind\Components\Dd;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
-use Termwind\Components\Dd;
+use Illuminate\Support\Facades\Auth;
 
 class AlumniController extends Controller
 {
@@ -63,52 +64,21 @@ class AlumniController extends Controller
 
         return view('content.alumni', compact('alumnis'));
     }
-
     /**
-     * Show the form for creating a new resource.
+     * Get Mahasiswa Profile
      */
-    public function create()
+    public function profile()
     {
-        //
-    }
+        if (Auth::check()) {
+            $user = Auth::user();
+            $userDetails = $user->userDetails;
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+            // Only Alumni Can Access
+            if ($user->id_roles == '2') {
+                return view('content.profile', compact('user', 'userDetails'));
+            }
+        }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return redirect()->route('login');
     }
 }
