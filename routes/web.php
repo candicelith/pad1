@@ -51,6 +51,14 @@ Route::get('/createpost', function () {
     return view('content.createpost');
 })->name('createpost');
 
+Route::get('/profilealumni', function () {
+    return view('content.profile-alumni');
+})->name('profilealumni');
+
+Route::get('/editprofile', function () {
+    return view('content.editprofile');
+})->name('editprofile');
+
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/posts', [PostController::class, 'index'])->name('posts');
 Route::get('/alumni', [AlumniController::class, 'index'])->name('alumni');

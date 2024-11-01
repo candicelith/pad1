@@ -1,7 +1,6 @@
 @extends('layout.headerFooter')
 
 @section('content')
-
     <!-- Title Start -->
     <section class="mt-20 bg-white">
         <div class="mx-auto max-w-screen-xl px-4 py-8 lg:px-6 lg:py-16">
@@ -50,8 +49,9 @@
 
             <!-- Filter Start -->
             <!-- Filter diresponsif biar kek paginate-->
-            <div class="mb-16 mt-9 flex flex-wrap items-center gap-2">
-                <div class="flex flex-wrap gap-1">
+            <div class="mb-8 mt-9 flex flex-wrap items-center gap-2">
+                <!-- Full alphabet filter for desktop view -->
+                <div class="hidden w-full flex-wrap gap-1 sm:flex sm:w-auto">
                     <button
                         class="rounded-full bg-cyan px-4 py-1 text-center text-sm text-white hover:bg-cyan-100 hover:text-white focus:bg-cyan-100 focus:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100"
                         value=""
@@ -62,13 +62,27 @@
                     @foreach (range('A', 'Z') as $letter)
                         <button
                             class="h-6 w-10 rounded-full bg-cyan px-4 py-1 text-center text-xs text-white hover:bg-cyan-100 hover:text-white focus:bg-cyan-100 focus:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100"
-                            value="{{ $letter }}"
+                            value="{{ strtolower($letter) }}"
                             onclick="filterAlumni(event)"
                         >
                             {{ strtolower($letter) }}
                         </button>
                     @endforeach
                 </div>
+
+                <!-- Paginated alphabet filter for mobile view -->
+                <div id="alphabet-filter" class="flex w-full flex-wrap gap-2 sm:hidden">
+                    <button
+                        class="rounded-full bg-cyan px-4 py-1 text-center text-sm text-white hover:bg-cyan-100 hover:text-white focus:bg-cyan-100 focus:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100"
+                        value=""
+                        onclick="filterAlumni(event)"
+                    >
+                        All
+                    </button>
+                    <!-- Alphabet buttons for mobile view will be rendered here dynamically -->
+                </div>
+
+                <!-- Dropdown for years (works for both mobile and desktop) -->
                 <div class="ml-0">
                     <form class="max-w-sm">
                         <select
@@ -85,6 +99,26 @@
                     </form>
                 </div>
             </div>
+
+            <!-- Pagination controls for mobile view only -->
+            <div class="mb-8 flex justify-center sm:hidden">
+                <button
+                    id="prev-btn"
+                    class="rounded-md bg-cyan-100 px-3 py-1 text-white hover:bg-white hover:text-cyan-100 disabled:opacity-50"
+                    onclick="prevPage()"
+                    disabled
+                >
+                    Prev
+                </button>
+                <button
+                    id="next-btn"
+                    class="ml-2 rounded-md bg-cyan-100 px-3 py-1 text-white hover:bg-white hover:text-cyan-100 disabled:opacity-50"
+                    onclick="nextPage()"
+                >
+                    Next
+                </button>
+            </div>
+
             <!-- Filter End -->
 
             <!-- No Result Found Start -->
@@ -147,44 +181,40 @@
     </section>
 
     <script>
+        let selectedLetter = ''; // Variable to store selected letter
+
         function searchAlumni(event) {
             event.preventDefault();
-            const searchTerm = document.getElementById('simple-search').value.toLowerCase();
+            const searchTerm = getSearchTerm();
+            applyFilters(searchTerm, getSelectedYear(), selectedLetter); // Use selectedLetter here
+        }
+
+        function filterAlumni(event) {
+            selectedLetter = event.target.value.toLowerCase(); // Update selected letter
+            applyFilters(getSearchTerm(), getSelectedYear(), selectedLetter); // Use selectedLetter here
+        }
+
+        function filterByYear(event) {
+            const selectedYear = getSelectedYear();
+            applyFilters(getSearchTerm(), selectedYear, selectedLetter); // Use selectedLetter here
+        }
+
+        function applyFilters(searchTerm, year, letter) {
             const alumniCards = document.querySelectorAll('.alumni-card');
             let visibleCount = 0;
 
             alumniCards.forEach((card) => {
                 const name = card.getAttribute('data-name').toLowerCase();
-                if (name.includes(searchTerm)) {
-                    card.style.display = '';
+                const cardYear = card.getAttribute('data-year');
+                const nameStartsWithLetter = letter === '' || name.startsWith(letter);
+                const yearMatches = year === '' || cardYear === year;
+                const nameMatchesSearch = searchTerm === '' || name.includes(searchTerm);
+
+                if (nameStartsWithLetter && yearMatches && nameMatchesSearch) {
+                    card.style.display = ''; // Show card if it matches all filters
                     visibleCount++;
                 } else {
-                    card.style.display = 'none';
-                }
-            });
-
-            const noResults = document.getElementById('no-results');
-            if (visibleCount === 0) {
-                noResults.classList.remove('hidden'); // Show message
-                noResults.classList.add('flex'); // Add flex to center
-            } else {
-                noResults.classList.add('hidden'); // Hide message
-                noResults.classList.remove('flex'); // Remove flex to avoid conflict
-            }
-        }
-
-        function filterAlumni(event) {
-            const filterValue = event.target.value.toUpperCase();
-            const alumniCards = document.querySelectorAll('.alumni-card');
-            let visibleCount = 0; // Track how many cards are visible
-
-            alumniCards.forEach((card) => {
-                const name = card.getAttribute('data-name').toUpperCase();
-                if (filterValue === '' || name.startsWith(filterValue)) {
-                    card.style.display = ''; // Show card
-                    visibleCount++; // Increment visible count
-                } else {
-                    card.style.display = 'none'; // Hide card
+                    card.style.display = 'none'; // Hide card if it doesn't match
                 }
             });
 
@@ -197,28 +227,68 @@
             }
         }
 
-        function filterByYear(event) {
-            const yearValue = event.target.value;
-            const alumniCards = document.querySelectorAll('.alumni-card');
-            let visibleCount = 0; // Track how many cards are visible
-
-            alumniCards.forEach((card) => {
-                const year = card.getAttribute('data-year');
-                if (yearValue === '' || year === yearValue) {
-                    card.style.display = ''; // Show card
-                    visibleCount++; // Increment visible count
-                } else {
-                    card.style.display = 'none'; // Hide card
-                }
-            });
-
-            // Show or hide "No Result Found" message
-            const noResults = document.getElementById('no-results');
-            if (visibleCount === 0) {
-                noResults.style.display = 'flex'; // Show message
-            } else {
-                noResults.style.display = 'none'; // Hide message
-            }
+        function getSearchTerm() {
+            return document.getElementById('simple-search').value.toLowerCase();
         }
+
+        function getSelectedYear() {
+            return document.getElementById('angkatan').value;
+        }
+
+        function getSelectedLetter() {
+            return selectedLetter;
+        }
+
+        // Keep the mobile pagination for alphabet as in the previous version
+        const letters = [...Array(26)].map((_, i) => String.fromCharCode(i + 65).toLowerCase());
+        const itemsPerPage = 6; // Show 6 letters per page on mobile
+        let currentPage = 0;
+
+        function renderAlphabetButtons() {
+            const alphabetFilter = document.getElementById('alphabet-filter');
+            alphabetFilter.innerHTML = ''; // Clear previous buttons
+
+            // Keep the "All" button static
+            const allButton = document.createElement('button');
+            allButton.className =
+                'h-6 w-10 rounded-full bg-cyan px-4 py-1 text-center text-xs text-white hover:bg-cyan-100 hover:text-white focus:bg-cyan-100 focus:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100';
+            allButton.textContent = 'All';
+            allButton.value = '';
+            allButton.onclick = filterAlumni;
+            alphabetFilter.appendChild(allButton); // Always append the "All" button first
+
+            // Calculate start and end index for current page
+            const start = currentPage * itemsPerPage;
+            const end = Math.min(start + itemsPerPage, letters.length);
+
+            // Generate buttons for the current page
+            for (let i = start; i < end; i++) {
+                const letter = letters[i];
+                const button = document.createElement('button');
+                button.className =
+                    'h-6 w-10 rounded-full bg-cyan px-4 py-1 text-center text-xs text-white hover:bg-cyan-100 hover:text-white focus:bg-cyan-100 focus:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100';
+                button.textContent = letter;
+                button.value = letter;
+                button.onclick = filterAlumni;
+                alphabetFilter.appendChild(button);
+            }
+
+            // Handle disabling of pagination buttons
+            document.getElementById('prev-btn').disabled = currentPage === 0;
+            document.getElementById('next-btn').disabled = end >= letters.length;
+        }
+
+        function nextPage() {
+            currentPage++;
+            renderAlphabetButtons();
+        }
+
+        function prevPage() {
+            currentPage--;
+            renderAlphabetButtons();
+        }
+
+        // Initial render for mobile view
+        renderAlphabetButtons();
     </script>
 @endsection

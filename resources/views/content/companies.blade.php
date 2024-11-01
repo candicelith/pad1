@@ -1,7 +1,6 @@
 @extends('layout.headerFooter')
 
 @section('content')
-
     {{-- Title --}}
     <section class="mt-20 bg-white">
         <div class="mx-auto max-w-screen-xl px-4 py-8 lg:px-6 lg:py-16">
@@ -46,27 +45,62 @@
                 </form>
             </div>
 
-            {{-- Filter --}}
-            <div class="mb-16 mt-9 flex flex-wrap items-center justify-center gap-2">
-                <div class="flex flex-wrap gap-1">
+            <!-- Filter Start -->
+            <div class="mb-16 mt-9 flex flex-wrap items-center gap-2">
+                <!-- Full alphabet filter for desktop view -->
+                <div class="hidden w-full flex-wrap gap-1 sm:flex sm:w-auto">
                     <button
-                        class="btn-filter rounded-full bg-cyan px-4 py-1 text-center text-sm text-white hover:bg-cyan-100 hover:text-white focus:bg-cyan-100 focus:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100"
-                        onclick="filterCompanies(event)"
+                        class="rounded-full bg-cyan px-4 py-1 text-center text-sm text-white hover:bg-cyan-100 hover:text-white focus:bg-cyan-100 focus:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100"
                         value=""
+                        onclick="filterCompanies(event)"
                     >
                         All
                     </button>
                     @foreach (range('A', 'Z') as $letter)
                         <button
-                            class="btn-filter h-6 w-10 rounded-full bg-cyan px-4 py-1 text-center text-xs text-white hover:bg-cyan-100 hover:text-white focus:bg-cyan-100 focus:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100"
+                            class="h-6 w-10 rounded-full bg-cyan px-4 py-1 text-center text-xs text-white hover:bg-cyan-100 hover:text-white focus:bg-cyan-100 focus:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100"
+                            value="{{ strtolower($letter) }}"
                             onclick="filterCompanies(event)"
-                            value="{{ $letter }}"
                         >
                             {{ strtolower($letter) }}
                         </button>
                     @endforeach
                 </div>
+
+                <!-- Paginated alphabet filter for mobile view -->
+                <div id="company-alphabet-filter" class="flex w-full flex-wrap gap-2 sm:hidden">
+                    <button
+                        class="rounded-full bg-cyan px-4 py-1 text-center text-sm text-white hover:bg-cyan-100 hover:text-white focus:bg-cyan-100 focus:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100"
+                        value=""
+                        onclick="filterCompanies(event)"
+                    >
+                        All
+                    </button>
+                    <!-- Alphabet buttons for mobile view will be rendered here dynamically -->
+                </div>
+
+                <!-- Pagination controls for mobile view only -->
+                <div class="mt-4 flex w-full justify-center sm:hidden">
+                    <div class="flex items-center space-x-2">
+                        <button
+                            id="prev-company-btn"
+                            class="rounded-md bg-cyan-100 px-3 py-1 text-white hover:bg-white hover:text-cyan-100 disabled:opacity-50"
+                            onclick="prevCompanyPage()"
+                            disabled
+                        >
+                            Prev
+                        </button>
+                        <button
+                            id="next-company-btn"
+                            class="rounded-md bg-cyan-100 px-3 py-1 text-white hover:bg-white hover:text-cyan-100 disabled:opacity-50"
+                            onclick="nextCompanyPage()"
+                        >
+                            Next
+                        </button>
+                    </div>
+                </div>
             </div>
+            <!-- Filter End -->
 
             {{-- No Result Found --}}
             <div id="no-results" class="hidden h-40 items-center justify-center">
@@ -117,62 +151,86 @@
                 @endforeach
             </div>
             {{-- Companies End --}}
-
         </div>
     </section>
 
     <script>
-        // Search Functionality
-        function searchCompanies(event) {
-            event.preventDefault();
-            const searchTerm = document.getElementById('simple-search').value.toLowerCase();
-            const companyCards = document.querySelectorAll('.company-card');
-            let visibleCount = 0;
+        const companyLetters = [...Array(26)].map((_, i) => String.fromCharCode(i + 65).toLowerCase());
+        const companyItemsPerPage = 6; // Show 6 letters per page on mobile
+        let currentCompanyPage = 0;
 
-            companyCards.forEach((card) => {
-                const name = card.getAttribute('data-name').toLowerCase();
-                if (name.includes(searchTerm)) {
-                    card.style.display = ''; // Show card
-                    visibleCount++;
-                } else {
-                    card.style.display = 'none'; // Hide card
-                }
-            });
-
-            const noResults = document.getElementById('no-results');
-            if (visibleCount === 0) {
-                noResults.classList.remove('hidden'); // Show message
-                noResults.classList.add('flex'); // Add flex to center
-            } else {
-                noResults.classList.add('hidden'); // Hide message
-                noResults.classList.remove('flex'); // Remove flex to avoid conflict
-            }
-        }
-
-        // Filter Functionality
         function filterCompanies(event) {
-            const filterValue = event.target.value.toUpperCase();
-            const companyCards = document.querySelectorAll('.company-card');
+            const selectedLetter = event.target.value.toLowerCase();
+            applyCompanyFilters(selectedLetter);
+        }
+
+        function applyCompanyFilters(letter) {
+            const companyCards = document.querySelectorAll('.company-card'); // Adjust selector as necessary
             let visibleCount = 0;
 
             companyCards.forEach((card) => {
-                const name = card.getAttribute('data-name').toUpperCase();
-                if (filterValue === '' || name.startsWith(filterValue)) {
-                    card.style.display = ''; // Show card
+                const companyName = card.getAttribute('data-company-name').toLowerCase(); // Adjust to your data attribute
+                const nameStartsWithLetter = letter === '' || companyName.startsWith(letter);
+
+                if (nameStartsWithLetter) {
+                    card.style.display = ''; // Show card if it matches the filter
                     visibleCount++;
                 } else {
-                    card.style.display = 'none'; // Hide card
+                    card.style.display = 'none'; // Hide card if it doesn't match
                 }
             });
 
+            // Show or hide "No Result Found" message if needed
             const noResults = document.getElementById('no-results');
-            if (visibleCount === 0) {
-                noResults.classList.remove('hidden'); // Show message
-                noResults.classList.add('flex'); // Add flex to center
-            } else {
-                noResults.classList.add('hidden'); // Hide message
-                noResults.classList.remove('flex'); // Remove flex to avoid conflict
-            }
+            noResults.style.display = visibleCount === 0 ? 'flex' : 'none'; // Example for no results
         }
+
+        // Keep the mobile pagination for company alphabet
+        function renderCompanyAlphabetButtons() {
+            const companyAlphabetFilter = document.getElementById('company-alphabet-filter');
+            companyAlphabetFilter.innerHTML = ''; // Clear previous buttons
+
+            // Keep the "All" button static
+            const allButton = document.createElement('button');
+            allButton.className =
+                'h-6 w-10 rounded-full bg-cyan px-4 py-1 text-center text-xs text-white hover:bg-cyan-100 hover:text-white focus:bg-cyan-100 focus:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100';
+            allButton.textContent = 'All';
+            allButton.value = '';
+            allButton.onclick = filterCompanies;
+            companyAlphabetFilter.appendChild(allButton); // Always append the "All" button first
+
+            // Calculate start and end index for current page
+            const start = currentCompanyPage * companyItemsPerPage;
+            const end = Math.min(start + companyItemsPerPage, companyLetters.length);
+
+            // Generate buttons for the current page
+            for (let i = start; i < end; i++) {
+                const letter = companyLetters[i];
+                const button = document.createElement('button');
+                button.className =
+                    'h-6 w-10 rounded-full bg-cyan px-4 py-1 text-center text-xs text-white hover:bg-cyan-100 hover:text-white focus:bg-cyan-100 focus:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100';
+                button.textContent = letter;
+                button.value = letter;
+                button.onclick = filterCompanies;
+                companyAlphabetFilter.appendChild(button);
+            }
+
+            // Handle disabling of pagination buttons
+            document.getElementById('prev-company-btn').disabled = currentCompanyPage === 0;
+            document.getElementById('next-company-btn').disabled = end >= companyLetters.length;
+        }
+
+        function nextCompanyPage() {
+            currentCompanyPage++;
+            renderCompanyAlphabetButtons();
+        }
+
+        function prevCompanyPage() {
+            currentCompanyPage--;
+            renderCompanyAlphabetButtons();
+        }
+
+        // Initial render for mobile view
+        renderCompanyAlphabetButtons();
     </script>
 @endsection
