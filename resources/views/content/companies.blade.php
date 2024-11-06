@@ -13,32 +13,16 @@
                 <form class="mx-auto flex max-w-sm items-center" onsubmit="searchCompanies(event)">
                     <label for="simple-search" class="sr-only">Search</label>
                     <div class="relative w-full">
-                        <input
-                            type="text"
-                            id="simple-search"
+                        <input type="text" id="simple-search"
                             class="block w-full rounded-lg border border-gray-500 bg-gray-200 p-2.5 ps-10 text-sm text-gray-900 focus:border-cyan focus:ring-cyan"
-                            placeholder="Search companies..."
-                            required
-                        />
+                            placeholder="Search companies..." required />
                     </div>
-                    <button
-                        type="submit"
-                        class="bg-btn-cyan ms-2 rounded-xl border border-cyan bg-cyan p-2.5 text-sm font-medium text-white hover:bg-cyan-100 focus:outline-none focus:ring-4 focus:ring-cyan"
-                    >
-                        <svg
-                            class="h-4 w-4"
-                            aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 20 20"
-                        >
-                            <path
-                                stroke="currentColor"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                            />
+                    <button type="submit"
+                        class="bg-btn-cyan ms-2 rounded-xl border border-cyan bg-cyan p-2.5 text-sm font-medium text-white hover:bg-cyan-100 focus:outline-none focus:ring-4 focus:ring-cyan">
+                        <svg class="h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                         </svg>
                         <span class="sr-only">Search</span>
                     </button>
@@ -51,17 +35,13 @@
                 <div class="hidden w-full flex-wrap gap-1 sm:flex sm:w-auto">
                     <button
                         class="rounded-full bg-cyan px-4 py-1 text-center text-sm text-white hover:bg-cyan-100 hover:text-white focus:bg-cyan-100 focus:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100"
-                        value=""
-                        onclick="filterCompanies(event)"
-                    >
+                        value="" onclick="filterCompanies(event)">
                         All
                     </button>
                     @foreach (range('A', 'Z') as $letter)
                         <button
                             class="h-6 w-10 rounded-full bg-cyan px-4 py-1 text-center text-xs text-white hover:bg-cyan-100 hover:text-white focus:bg-cyan-100 focus:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100"
-                            value="{{ strtolower($letter) }}"
-                            onclick="filterCompanies(event)"
-                        >
+                            value="{{ strtolower($letter) }}" onclick="filterCompanies(event)">
                             {{ strtolower($letter) }}
                         </button>
                     @endforeach
@@ -71,9 +51,7 @@
                 <div id="company-alphabet-filter" class="flex w-full flex-wrap gap-2 sm:hidden">
                     <button
                         class="rounded-full bg-cyan px-4 py-1 text-center text-sm text-white hover:bg-cyan-100 hover:text-white focus:bg-cyan-100 focus:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100"
-                        value=""
-                        onclick="filterCompanies(event)"
-                    >
+                        value="" onclick="filterCompanies(event)">
                         All
                     </button>
                     <!-- Alphabet buttons for mobile view will be rendered here dynamically -->
@@ -82,19 +60,14 @@
                 <!-- Pagination controls for mobile view only -->
                 <div class="mt-4 flex w-full justify-center sm:hidden">
                     <div class="flex items-center space-x-2">
-                        <button
-                            id="prev-company-btn"
+                        <button id="prev-company-btn"
                             class="rounded-md bg-cyan-100 px-3 py-1 text-white hover:bg-white hover:text-cyan-100 disabled:opacity-50"
-                            onclick="prevCompanyPage()"
-                            disabled
-                        >
+                            onclick="prevCompanyPage()" disabled>
                             Prev
                         </button>
-                        <button
-                            id="next-company-btn"
+                        <button id="next-company-btn"
                             class="rounded-md bg-cyan-100 px-3 py-1 text-white hover:bg-white hover:text-cyan-100 disabled:opacity-50"
-                            onclick="nextCompanyPage()"
-                        >
+                            onclick="nextCompanyPage()">
                             Next
                         </button>
                     </div>
@@ -105,20 +78,10 @@
             {{-- No Result Found --}}
             <div id="no-results" class="hidden h-40 items-center justify-center">
                 <div class="flex flex-col items-center justify-center space-y-2">
-                    <svg
-                        class="h-10 w-10 text-gray-400"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 20 20"
-                    >
-                        <path
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                        />
+                    <svg class="h-10 w-10 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                     </svg>
                     <p class="text-center text-gray-900">No Result Found</p>
                 </div>
@@ -127,16 +90,11 @@
             {{-- Companies Start --}}
             <div id="companies-card" class="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                 @foreach ($company as $com)
-                    <div
-                        class="company-card w-full max-w-sm rounded-lg border border-gray-200 bg-lightblue shadow-md"
-                        data-name="{{ $com->company_name }}"
-                    >
+                    <div class="company-card w-full max-w-sm rounded-lg border border-gray-200 bg-lightblue shadow-md"
+                        data-name="{{ strtolower($com->company_name) }}">
                         <div class="flex flex-col items-center py-10">
-                            <img
-                                class="mb-3 h-24 w-24 rounded-full shadow-lg"
-                                src="{{ $com->company_picture }}"
-                                alt="Bonnie image"
-                            />
+                            <img class="mb-3 h-24 w-24 rounded-full shadow-lg" src="{{ $com->company_picture }}"
+                                alt="Bonnie image" />
                             <h2 class="mb-1 text-xl text-cyan">
                                 {{ $com->company_name }}
                             </h2>
@@ -165,11 +123,11 @@
         }
 
         function applyCompanyFilters(letter) {
-            const companyCards = document.querySelectorAll('.company-card'); // Adjust selector as necessary
+            const companyCards = document.querySelectorAll('.company-card'); // Selecting all company cards
             let visibleCount = 0;
 
             companyCards.forEach((card) => {
-                const companyName = card.getAttribute('data-company-name').toLowerCase(); // Adjust to your data attribute
+                const companyName = card.getAttribute('data-name').toLowerCase(); // Correct data-name attribute
                 const nameStartsWithLetter = letter === '' || companyName.startsWith(letter);
 
                 if (nameStartsWithLetter) {
@@ -180,12 +138,32 @@
                 }
             });
 
-            // Show or hide "No Result Found" message if needed
+            // Show or hide "No Result Found" message if no companies match the filter
             const noResults = document.getElementById('no-results');
-            noResults.style.display = visibleCount === 0 ? 'flex' : 'none'; // Example for no results
+            noResults.style.display = visibleCount === 0 ? 'flex' : 'none'; // Display no-results if nothing matches
         }
 
-        // Keep the mobile pagination for company alphabet
+        function searchCompanies(event) {
+            event.preventDefault();
+            const query = document.getElementById('simple-search').value.toLowerCase();
+            const companyCards = document.querySelectorAll('.company-card');
+            let visibleCount = 0;
+
+            companyCards.forEach(card => {
+                const companyName = card.getAttribute('data-name').toLowerCase();
+                if (companyName.includes(query)) {
+                    card.style.display = '';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            const noResults = document.getElementById('no-results');
+            noResults.style.display = visibleCount === 0 ? 'flex' : 'none';
+        }
+
+        // Pagination logic for mobile view (6 letters per page)
         function renderCompanyAlphabetButtons() {
             const companyAlphabetFilter = document.getElementById('company-alphabet-filter');
             companyAlphabetFilter.innerHTML = ''; // Clear previous buttons
@@ -199,13 +177,12 @@
             allButton.onclick = filterCompanies;
             companyAlphabetFilter.appendChild(allButton); // Always append the "All" button first
 
-            // Calculate start and end index for current page
+            // Calculate the start and end index of the current page
             const start = currentCompanyPage * companyItemsPerPage;
-            const end = Math.min(start + companyItemsPerPage, companyLetters.length);
+            const end = start + companyItemsPerPage;
+            const currentPageLetters = companyLetters.slice(start, end);
 
-            // Generate buttons for the current page
-            for (let i = start; i < end; i++) {
-                const letter = companyLetters[i];
+            currentPageLetters.forEach((letter) => {
                 const button = document.createElement('button');
                 button.className =
                     'h-6 w-10 rounded-full bg-cyan px-4 py-1 text-center text-xs text-white hover:bg-cyan-100 hover:text-white focus:bg-cyan-100 focus:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100';
@@ -213,24 +190,29 @@
                 button.value = letter;
                 button.onclick = filterCompanies;
                 companyAlphabetFilter.appendChild(button);
-            }
+            });
 
-            // Handle disabling of pagination buttons
+            // Enable/disable pagination buttons based on page limits
             document.getElementById('prev-company-btn').disabled = currentCompanyPage === 0;
-            document.getElementById('next-company-btn').disabled = end >= companyLetters.length;
-        }
-
-        function nextCompanyPage() {
-            currentCompanyPage++;
-            renderCompanyAlphabetButtons();
+            document.getElementById('next-company-btn').disabled =
+                currentCompanyPage === Math.ceil(companyLetters.length / companyItemsPerPage) - 1;
         }
 
         function prevCompanyPage() {
-            currentCompanyPage--;
-            renderCompanyAlphabetButtons();
+            if (currentCompanyPage > 0) {
+                currentCompanyPage--;
+                renderCompanyAlphabetButtons();
+            }
         }
 
-        // Initial render for mobile view
+        function nextCompanyPage() {
+            if (currentCompanyPage < Math.ceil(companyLetters.length / companyItemsPerPage) - 1) {
+                currentCompanyPage++;
+                renderCompanyAlphabetButtons();
+            }
+        }
+
+        // Initialize alphabet buttons for mobile view
         renderCompanyAlphabetButtons();
     </script>
 @endsection

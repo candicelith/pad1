@@ -11,46 +11,40 @@
 
             {{-- New Post Button --}}
             <div class="mt-6 flex justify-end">
-                <a
-                    href="{{ route('createpost') }}"
-                    class="items-center rounded-full bg-cyan-100 px-5 py-1 text-lg text-white shadow hover:bg-white hover:text-cyan-100"
-                >
+                <a href="{{ route('createpost') }}"
+                    class="items-center rounded-full bg-cyan-100 px-5 py-1 text-lg text-white shadow hover:bg-white hover:text-cyan-100">
                     New Post +
                 </a>
             </div>
 
             {{-- Post Card Start --}}
             {{-- @foreach ($vacancys as $vc) --}}
-                <div class="mt-3 grid space-y-4 lg:grid-cols-1">
-                    <article class="rounded-lg border border-gray-200 bg-lightblue p-6 shadow-md">
-                        <div class="mb-5 flex items-center justify-between text-gray-400">
-                            <span class="ml-auto text-sm">
-                                2 days ago
-                            </span>
+            <div class="mt-3 grid space-y-4 lg:grid-cols-1">
+                <article class="rounded-lg border border-gray-200 bg-lightblue p-6 shadow-md">
+                    <div class="mb-5 flex items-center justify-between text-gray-400">
+                        <span class="ml-auto text-sm">
+                            2 days ago
+                        </span>
+                    </div>
+                    <div class="flex flex-col lg:flex-row lg:space-x-8">
+                        <div class="flex-shrink-0">
+                            <img class="h-20 w-20 rounded-full object-cover" src="" alt="AMBA" />
                         </div>
-                        <div class="flex flex-col lg:flex-row lg:space-x-8">
-                            <div class="flex-shrink-0">
-                                <img
-                                    class="h-20 w-20 rounded-full object-cover"
-                                    src=""
-                                    alt="AMBA"
-                                />
-                            </div>
-                            <div class="mt-4 lg:mt-0">
-                                {{-- Position --}}
-                                <h2 class="mb-2 text-2xl tracking-tight text-cyan">
-                                    UIUX
-                                </h2>
-                                {{-- Company Name --}}
-                                <h2 class="mb-2 text-xl tracking-tight text-cyan">
-                                    BCA
-                                </h2>
-                                {{-- Posted By "Name" --}}
-                                <p class="text-lg text-gray-400">Posted by AMBA</p>
-                            </div>
+                        <div class="mt-4 lg:mt-0">
+                            {{-- Position --}}
+                            <h2 class="mb-2 text-2xl tracking-tight text-cyan">
+                                UIUX
+                            </h2>
+                            {{-- Company Name --}}
+                            <h2 class="mb-2 text-xl tracking-tight text-cyan">
+                                BCA
+                            </h2>
+                            {{-- Posted By "Name" --}}
+                            <p class="text-lg text-gray-400">Posted by AMBA</p>
                         </div>
-                    </article>
-                </div>
+                    </div>
+                </article>
+            </div>
             {{-- @endforeach --}}
             {{-- Post Card End --}}
 

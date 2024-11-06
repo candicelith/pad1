@@ -43,6 +43,10 @@ Route::get('/detailpost', function () {
     return view('content.detailpost');
 })->name('detailpost');
 
+Route::get('/detailalumni', function () {
+    return view('content.detailalumni');
+})->name('detailalumni');
+
 Route::get('/postalumni', function () {
     return view('content.posts-alumni');
 })->name('postalumni');
