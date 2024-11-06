@@ -150,7 +150,7 @@
                             Save Changes
                         </a>
                     </div>
-                    <button class="rounded-full bg-red-500 p-3 text-white shadow-lg hover:bg-red-600 sm:me-10">
+                    <button class="rounded-full bg-red-500 p-3 text-white shadow-lg hover:bg-red-600 sm:me-10" id="logout-button">
                         <svg
                             class="h-8 w-8 sm:h-14 sm:w-14"
                             fill="none"
@@ -172,6 +172,16 @@
         </div>
     </section>
 
+    {{-- Logout Button Script --}}
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none">
+        @csrf
+    </form>
+
+    <script>
+        document.getElementById('logout-button').addEventListener('click', function () {
+            document.getElementById('logout-form').submit();
+        });
+    </script>
     <script>
         let formCount = 0; // Initialize a variable to count the forms
 

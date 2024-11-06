@@ -26,6 +26,11 @@ class UserDetailsSeeder extends Seeder
                 'email' => fake()->unique()->safeEmail(),
                 'phone' => fake()->phoneNumber(),
                 'profile_photo' =>fake()->imageUrl(),
+                'user_description' =>fake()->sentence(5),
+
+                // 'current_job' => fake()->sentence(),
+                // 'current_company' => fake()->sentence(),
+
                 'graduate_year' => fake()->numberBetween(2018,2024),
                 'modifiedBy' => fake()->name(),
                 'modifiedDate' => now(),

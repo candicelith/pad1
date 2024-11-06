@@ -22,6 +22,10 @@ class JobTracking extends Model
         'type',
     ];
 
+    protected $casts = [
+        'job_description' => 'array',
+    ];
+
 
     public function jobs()
     {

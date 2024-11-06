@@ -13,14 +13,19 @@ class JobTrackingSeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i=0; $i < 100; $i++) {
+        for ($i = 0; $i < 100; $i++) {
             JobTracking::create([
-                'id_userDetails' => fake()->numberBetween(1,10),
-                'id_jobs'=>fake()->numberBetween(1,100),
-                'date_start' =>fake()->date(),
-                'date_end' =>fake()->optional()->date(),
-                'status' => fake()->randomElement(['Active','Inactive']),
-                'type' => fake()->randomElement(['Fulltime','Part time','Internship']),
+                'id_userDetails' => fake()->numberBetween(1, 10),
+                'id_jobs' => fake()->numberBetween(1, 100),
+                'date_start' => fake()->date(),
+                'date_end' => fake()->optional()->date(),
+                'status' => fake()->randomElement(['Active', 'Inactive']),
+                'type' => fake()->randomElement(['Fulltime', 'Part time', 'Internship']),
+                'job_description' => [
+                    fake()->sentence(),
+                    fake()->sentence(),
+                    fake()->sentence(),
+                ],
                 'created_at' => now(),
                 'updated_at' => now()
             ]);

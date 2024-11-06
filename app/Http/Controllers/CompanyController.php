@@ -17,7 +17,7 @@ class CompanyController extends Controller
                     ->select(
                         'company.*',
                         DB::raw("COALESCE(company.company_picture, 'https://picsum.photos/id/870/200/300?grayscale&blur=2') as company_picture"))
-                    ->get();
+                    ->paginate(10);
 
         return view('content.companies', compact('company'));
     }

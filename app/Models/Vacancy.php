@@ -22,6 +22,9 @@ class Vacancy extends Model
         'date_closed',
         'vacancy_picture',
         'vacancy_link',
+        'vacancy_qualification',
+        'vacancy_responsibilities',
+        'vacancy_benefits'
     ];
 
     public function user()

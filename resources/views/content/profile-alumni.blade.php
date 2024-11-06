@@ -19,64 +19,38 @@
                 {{-- Profile Details --}}
                 <div class="mx-14 flex flex-col space-y-2">
                     <div class="flex items-center justify-between pt-36">
-                        <h2 class="text-2xl text-cyan">Andi Prasetyo</h2>
-                        <p class="text-xl text-gray-400">23/565657/SV/23636</p>
+                        <h2 class="text-2xl text-cyan">{{ $userDetails->name }}</h2>
+                        <p class="text-xl text-gray-400">{{ $userDetails->nim }}</p>
                     </div>
-                    <h3 class="text-lg text-cyan">UI/UX Designer, PT. Traveloka Indonesia</h3>
+                    <h3 class="text-lg text-cyan">{{ $userDetails->job_name }} {{ $userDetails->company_name }}</h3>
                     <div class="flex flex-col space-y-2 pt-5">
                         <h4 class="text-xl text-cyan">About</h4>
                         <p class="text-md text-justify text-cyan">
-                            Saya Andi, seorang UI/UX Designer. Saya telah bekerja dengan berbagai klien di industri
-                            teknologi, e-commerce, dan pendidikan. Dalam setiap proyek, saya selalu berusaha untuk
-                            memahami kebutuhan pengguna melalui riset dan pengujian, yang memungkinkan saya untuk
-                            merancang antarmuka yang tidak hanya estetik tetapi juga fungsional. Saya menguasai berbagai
-                            alat desain seperti Figma dan Adobe XD, serta memiliki pengetahuan mendalam tentang prinsip
-                            desain berpusat pada pengguna. Selain itu, saya selalu bersemangat untuk berkolaborasi
-                            dengan tim pengembang untuk menciptakan solusi yang memenuhi ekspektasi pengguna.
+                            {{ $userDetails->user_description }}
                         </p>
                     </div>
                     <div class="flex flex-col space-y-2 pt-5">
                         <h4 class="text-xl text-cyan">Experience</h4>
                         <ol class="relative ms-4 border-s border-gray-900">
-                            <li class="mb-10 ms-4">
-                                <div
-                                    class="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full border border-gray-900 bg-gray-900"
-                                ></div>
-                                <h3 class="text-xl text-cyan">UI/UX Designer</h3>
-                                <h3 class="text-lg text-cyan">Traveloka Indonesia</h3>
-                                <p class="text-sm text-gray-400">Aug 2023 - Present</p>
-                                <ol class="ms-2 list-inside list-disc">
-                                    <li>Riset pengguna dan analisis kebutuhan.</li>
-                                    <li>Membuat wireframes dan prototipe interaktif.</li>
-                                    <li>Bekerja sama dengan tim pengembang, pemasar, dan stakeholder lainnya.</li>
-                                </ol>
-                            </li>
-                            <li class="mb-10 ms-4">
-                                <div
-                                    class="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full border border-gray-900 bg-gray-900"
-                                ></div>
-                                <h3 class="text-xl text-cyan">UI/UX Designer</h3>
-                                <h3 class="text-lg text-cyan">Shopee Indonesia</h3>
-                                <p class="text-sm text-gray-400">Des 2023 - Jul 2023</p>
-                                <ol class="ms-2 list-inside list-disc">
-                                    <li>Mengembangkan elemen visual seperti palet warna, tipografi, dan ikonografi.</li>
-                                    <li>Melakukan pengujian A/B untuk membandingkan berbagai versi desain.</li>
-                                    <li>Menyusun dokumentasi dan spesifikasi desain untuk memudahkan pengembang.</li>
-                                </ol>
-                            </li>
-                            <li class="mb-10 ms-4">
-                                <div
-                                    class="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full border border-gray-900 bg-gray-900"
-                                ></div>
-                                <h3 class="text-xl text-cyan">UI/UX Designer</h3>
-                                <h3 class="text-lg text-cyan">Bank Central Asia</h3>
-                                <p class="text-sm text-gray-400">Jan 2022 - Dec 2022</p>
-                                <ol class="ms-2 list-inside list-disc">
-                                    <li>Menciptakan solusi desain yang inovatif dan menarik.</li>
-                                    <li>Mengembangkan persona pengguna berdasarkan data riset.</li>
-                                    <li>Mengumpulkan umpan balik dari pengguna dan pemangku kepentingan.</li>
-                                </ol>
-                            </li>
+                            @foreach ($jobDetails as $job)
+                                <li class="mb-10 ms-4">
+                                    <div
+                                        class="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full border border-gray-900 bg-gray-900"
+                                    ></div>
+                                    <h3 class="text-xl text-cyan">{{ $job->job_name }}</h3>
+                                    <h3 class="text-lg text-cyan">{{ $job->company_name }}</h3>
+                                    <p class="text-sm text-gray-400">{{ $job->date_start }} - {{ $job->date_end }}</p>
+                                    <ol class="ms-2 list-inside list-disc">
+                                        @if (is_array($job->job_description))
+                                            @foreach ($job->job_description as $description)
+                                                <li>{{ $description }}</li>
+                                            @endforeach
+                                        @else
+                                            <li>{{ $job->job_description }}</li>
+                                        @endif
+                                    </ol>
+                                </li>
+                            @endforeach
                         </ol>
                     </div>
                 </div>
@@ -91,7 +65,10 @@
                             Edit Profile
                         </a>
                     </div>
-                    <button class="rounded-full bg-red-500 p-3 text-white shadow-lg hover:bg-red-600">
+                    <button
+                        class="rounded-full bg-red-500 p-3 text-white shadow-lg hover:bg-red-600"
+                        id="logout-button"
+                    >
                         <svg
                             class="h-10 w-10 sm:h-14 sm:w-14"
                             fill="none"
@@ -109,6 +86,16 @@
                         </svg>
                     </button>
                 </div>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none">
+                    @csrf
+                </form>
+
+                <script>
+                    document.getElementById('logout-button').addEventListener('click', function () {
+                        document.getElementById('logout-form').submit();
+                    });
+                </script>
             </div>
         </div>
     </section>
