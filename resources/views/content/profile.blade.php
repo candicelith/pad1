@@ -4,7 +4,6 @@
     <section class="mt-20 bg-white">
         <div class="mx-auto max-w-screen-xl px-4 py-8 lg:px-6 lg:py-16">
             <div class="w-full max-w-none rounded-3xl bg-lightblue shadow-lg">
-
                 {{-- Profile Image & Banner --}}
                 <div class="relative">
                     <div class="h-48 rounded-t-3xl bg-cyan-100"></div>

@@ -15,6 +15,7 @@ export default {
             colors: {
                 cyan: '#183D55',
                 'cyan-100': '#7393A7',
+                'cyan-200': '#3E787E',
                 lightblue: '#E8ECF1',
             },
             fontFamily: {

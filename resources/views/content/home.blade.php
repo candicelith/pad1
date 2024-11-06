@@ -1,19 +1,15 @@
 @extends('layout.headerFooter')
 
 @section('content')
-
     {{-- Carousel Start --}}
     <section id="default-carousel" class="relative mt-20 w-full" data-carousel="slide">
         <div class="relative h-screen overflow-hidden">
 
             {{-- Slide 1 --}}
-            <div
-                class="absolute inset-0 translate-x-full transform transition-transform duration-700 ease-in-out"
-                data-carousel-item
-            >
+            <div class="absolute inset-0 translate-x-full transform transition-transform duration-700 ease-in-out"
+                data-carousel-item>
                 <div
-                    class="flex h-full w-full items-center justify-start bg-gray-700 bg-jumbotron bg-center bg-no-repeat px-4 py-20 text-start bg-blend-multiply shadow md:py-24 lg:py-56"
-                >
+                    class="flex h-full w-full items-center justify-start bg-gray-700 bg-jumbotron bg-center bg-no-repeat px-4 py-20 text-start bg-blend-multiply shadow md:py-24 lg:py-56">
                     <div class="mx-auto w-full max-w-screen-xl text-white">
                         <h1 class="mb-4 text-3xl leading-tight sm:text-4xl md:text-5xl lg:text-6xl">
                             Strategi Alumni Meraih Karier di Perusahaan Terbaik
@@ -21,10 +17,8 @@
                         <p class="mb-8 text-base font-normal text-gray-300 sm:text-lg lg:text-xl">
                             Memasuki dunia kerja setelah lulus merupakan tantangan tersendiri bagi banyak alumni...
                         </p>
-                        <a
-                            href="#"
-                            class="inline-flex items-center justify-center rounded-lg bg-cyan-100 px-5 py-3 text-base font-medium text-white hover:bg-white hover:text-cyan-100 focus:ring-4 focus:ring-cyan"
-                        >
+                        <a href="#"
+                            class="inline-flex items-center justify-center rounded-lg bg-cyan-100 px-5 py-3 text-base font-medium text-white hover:bg-white hover:text-cyan-100 focus:ring-4 focus:ring-cyan">
                             Read More
                         </a>
                     </div>
@@ -32,13 +26,10 @@
             </div>
 
             {{-- Slide 2 --}}
-            <div
-                class="absolute inset-0 translate-x-0 transform transition-transform duration-700 ease-in-out"
-                data-carousel-item
-            >
+            <div class="absolute inset-0 translate-x-0 transform transition-transform duration-700 ease-in-out"
+                data-carousel-item>
                 <div
-                    class="bg-jumbotron-2 flex h-full w-full items-center justify-start bg-gray-700 bg-center bg-no-repeat px-4 py-20 text-start bg-blend-multiply shadow md:py-24 lg:py-56"
-                >
+                    class="bg-jumbotron-2 flex h-full w-full items-center justify-start bg-gray-700 bg-center bg-no-repeat px-4 py-20 text-start bg-blend-multiply shadow md:py-24 lg:py-56">
                     <div class="mx-auto w-full max-w-screen-xl text-white">
                         <h1 class="mb-4 text-3xl leading-tight sm:text-4xl md:text-5xl lg:text-6xl">
                             Adaptasi dan Skill Baru: Tantangan Dunia Kerja di Era Digital
@@ -48,10 +39,8 @@
                             profesional untuk terus beradaptasi dengan berbagai skill baru yang dibutuhkan oleh
                             industri. Dari kemampuan analisis data hingga keahlian dalam menggunakan alat kolaborasi...
                         </p>
-                        <a
-                            href="#"
-                            class="inline-flex items-center justify-center rounded-lg bg-cyan-100 px-5 py-3 text-base font-medium text-white hover:bg-white hover:text-cyan-100 focus:ring-4 focus:ring-cyan"
-                        >
+                        <a href="#"
+                            class="inline-flex items-center justify-center rounded-lg bg-cyan-100 px-5 py-3 text-base font-medium text-white hover:bg-white hover:text-cyan-100 focus:ring-4 focus:ring-cyan">
                             Read More
                         </a>
                     </div>
@@ -59,13 +48,10 @@
             </div>
 
             {{-- Slide 3 --}}
-            <div
-                class="absolute inset-0 translate-x-1 transform transition-transform duration-700 ease-in-out"
-                data-carousel-item
-            >
+            <div class="absolute inset-0 translate-x-1 transform transition-transform duration-700 ease-in-out"
+                data-carousel-item>
                 <div
-                    class="bg-jumbotron-3 flex h-full w-full items-center justify-start bg-gray-700 bg-center bg-no-repeat px-4 py-20 text-start bg-blend-multiply shadow md:py-24 lg:py-56"
-                >
+                    class="bg-jumbotron-3 flex h-full w-full items-center justify-start bg-gray-700 bg-center bg-no-repeat px-4 py-20 text-start bg-blend-multiply shadow md:py-24 lg:py-56">
                     <div class="mx-auto w-full max-w-screen-xl text-white">
                         <h1 class="mb-4 text-3xl leading-tight sm:text-4xl md:text-5xl lg:text-6xl">
                             Tips & Trik Karir: Panduan Memasuki Dunia Kerja bagi Fresh Graduate
@@ -75,10 +61,8 @@
                             persaingan yang ketat, lulusan baru juga perlu memahami etika profesional dan cara
                             beradaptasi di lingkungan kerja yang dinamis. ...
                         </p>
-                        <a
-                            href="#"
-                            class="inline-flex items-center justify-center rounded-lg bg-cyan-100 px-5 py-3 text-base font-medium text-white hover:bg-white hover:text-cyan-100 focus:ring-4 focus:ring-cyan"
-                        >
+                        <a href="#"
+                            class="inline-flex items-center justify-center rounded-lg bg-cyan-100 px-5 py-3 text-base font-medium text-white hover:bg-white hover:text-cyan-100 focus:ring-4 focus:ring-cyan">
                             Read More
                         </a>
                     </div>
@@ -88,81 +72,39 @@
 
         {{-- Carousel Indicators --}}
         <div class="absolute bottom-5 left-1/2 z-30 flex -translate-x-1/2 space-x-3">
-            <button
-                type="button"
-                class="h-3 w-3 rounded-full"
-                aria-current="true"
-                aria-label="Slide 1"
-                data-carousel-slide-to="0"
-            ></button>
-            <button
-                type="button"
-                class="h-3 w-3 rounded-full"
-                aria-current="false"
-                aria-label="Slide 2"
-                data-carousel-slide-to="1"
-            ></button>
-            <button
-                type="button"
-                class="h-3 w-3 rounded-full"
-                aria-current="false"
-                aria-label="Slide 3"
-                data-carousel-slide-to="2"
-            ></button>
+            <button type="button" class="h-3 w-3 rounded-full" aria-current="true" aria-label="Slide 1"
+                data-carousel-slide-to="0"></button>
+            <button type="button" class="h-3 w-3 rounded-full" aria-current="false" aria-label="Slide 2"
+                data-carousel-slide-to="1"></button>
+            <button type="button" class="h-3 w-3 rounded-full" aria-current="false" aria-label="Slide 3"
+                data-carousel-slide-to="2"></button>
         </div>
 
         {{-- Previous Button --}}
-        <button
-            type="button"
+        <button type="button"
             class="group absolute left-0 top-0 z-30 flex h-full cursor-pointer items-center justify-center px-4 focus:outline-none"
-            data-carousel-prev
-        >
+            data-carousel-prev>
             <span
-                class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/30 group-hover:bg-white/50"
-            >
-                <svg
-                    class="h-4 w-4 text-white"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 6 10"
-                >
-                    <path
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke
-                        -linejoin="round"
-                        stroke-width="2"
-                        d="M5 1 1 5l4 4"
-                    />
+                class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/30 group-hover:bg-white/50">
+                <svg class="h-4 w-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 6 10">
+                    <path stroke="currentColor" stroke-linecap="round" stroke -linejoin="round" stroke-width="2"
+                        d="M5 1 1 5l4 4" />
                 </svg>
                 <span class="sr-only">Previous</span>
             </span>
         </button>
 
         {{-- Next Button --}}
-        <button
-            type="button"
+        <button type="button"
             class="group absolute right-0 top-0 z-30 flex h-full cursor-pointer items-center justify-center px-4 focus:outline-none"
-            data-carousel-next
-        >
+            data-carousel-next>
             <span
-                class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/30 group-hover:bg-white/50"
-            >
-                <svg
-                    class="h-4 w-4 text-white"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 6 10"
-                >
-                    <path
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M1 9l4-4-4-4"
-                    />
+                class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/30 group-hover:bg-white/50">
+                <svg class="h-4 w-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 6 10">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M1 9l4-4-4-4" />
                 </svg>
                 <span class="sr-only">Next</span>
             </span>
@@ -187,11 +129,8 @@
                             </div>
                             <div class="mb-2 flex flex-col sm:flex-row sm:space-x-4">
                                 <div class="h-16 w-16">
-                                    <img
-                                        class="h-full w-full rounded-full object-cover"
-                                        src="{{ $ps->profile_photo }}"
-                                        alt="Profile Photo"
-                                    />
+                                    <img class="h-full w-full rounded-full object-cover" src="{{ $ps->profile_photo }}"
+                                        alt="Profile Photo" />
                                 </div>
                                 <div class="mt-2">
                                     <h2 class="text-md text-cyan sm:text-lg lg:text-xl">
@@ -207,27 +146,22 @@
                                 <p class="my-6 text-xs sm:text-base">
                                     {{ $ps->vacancy_description }}
                                 </p>
-                                <img
-                                    class="h-32 w-full rounded-tl-md rounded-tr-md object-cover md:h-40"
-                                    src="{{ $ps->vacancy_picture }}"
-                                    alt="Vacancy Picture"
-                                />
+                                <img class="h-32 w-full rounded-tl-md rounded-tr-md object-cover md:h-40"
+                                    src="{{ $ps->vacancy_picture }}" alt="Vacancy Picture" />
                             </div>
                         </article>
                     </div>
                 @endforeach
 
-                <a
-                    href="{{ route('posts') }}"
-                    class="mt-4 inline-flex items-center justify-center rounded-lg bg-white px-4 py-2 text-cyan hover:bg-cyan hover:text-white"
-                >
+                <a href="{{ route('posts') }}"
+                    class="mt-4 inline-flex items-center justify-center rounded-lg bg-white px-4 py-2 text-cyan hover:bg-cyan hover:text-white">
                     More
                 </a>
             </div>
             {{-- End Posts Section --}}
 
             {{-- Top Companies Section --}}
-            <div class="mt-6 flex h-full w-full flex-col justify-between rounded-lg bg-cyan-100 p-6 lg:mt-0 lg:w-1/4">
+            <div class="mt-6 flex w-full flex-col justify-between rounded-lg bg-cyan-100 p-6 lg:mt-0 lg:w-1/4">
                 <h1 class="mb-4 text-xl text-white">Top 10 Companies Alumni Work For</h1>
                 <div class="flex flex-grow flex-col">
                     @foreach ($company as $com)
@@ -235,11 +169,8 @@
                             <article class="rounded-lg border border-gray-500 bg-lightblue p-4 py-5 shadow-lg">
                                 <div class="flex flex-col sm:flex-row sm:space-x-4">
                                     <div>
-                                        <img
-                                            class="h-16 w-16 rounded-full object-cover"
-                                            src="{{ $com->company_picture }}"
-                                            alt="Company Picture"
-                                        />
+                                        <img class="h-16 w-16 rounded-full object-cover" src="{{ $com->company_picture }}"
+                                            alt="Company Picture" />
                                     </div>
                                     <div class="mt-2 sm:mt-0">
                                         <h2 class="text-md text-cyan sm:text-lg lg:text-xl">
@@ -255,11 +186,8 @@
                                                 @endphp
 
                                                 @for ($i = 0; $i < $numIcons; $i++)
-                                                    <img
-                                                        src="{{ asset('assets/lulusan.svg') }}"
-                                                        alt="Alumni Icon"
-                                                        class="h-6 w-6 sm:h-8 sm:w-8"
-                                                    />
+                                                    <img src="{{ asset('assets/lulusan.svg') }}" alt="Alumni Icon"
+                                                        class="h-6 w-6 sm:h-8 sm:w-8" />
                                                 @endfor
                                             </div>
                                         </div>
