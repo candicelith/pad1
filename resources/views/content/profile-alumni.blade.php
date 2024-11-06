@@ -10,7 +10,7 @@
                     <div class="absolute top-1/2 ms-14">
                         <img
                             class="h-48 w-48 rounded-full object-cover"
-                            src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
+                            src="{{ $userDetails->profile_photo }}"
                             alt="Profile Picture"
                         />
                     </div>
@@ -22,7 +22,8 @@
                         <h2 class="text-2xl text-cyan">{{ $userDetails->name }}</h2>
                         <p class="text-xl text-gray-400">{{ $userDetails->nim }}</p>
                     </div>
-                    <h3 class="text-lg text-cyan">{{ $userDetails->job_name }} {{ $userDetails->company_name }}</h3>
+                    <h3 class="text-lg text-cyan">{{ $userDetails->job_name }} <br>
+                        {{ $userDetails->company_name }}</h3>
                     <div class="flex flex-col space-y-2 pt-5">
                         <h4 class="text-xl text-cyan">About</h4>
                         <p class="text-md text-justify text-cyan">
@@ -59,7 +60,7 @@
                 <div class="mx-14 flex items-center justify-between p-6 ps-0 sm:p-0">
                     <div class="">
                         <a
-                            href="{{ route('editprofile') }}"
+                            href="{{ route('alumni.show-profile') }}"
                             class="text-md rounded-full bg-cyan px-8 py-4 text-white hover:bg-white hover:text-cyan"
                         >
                             Edit Profile

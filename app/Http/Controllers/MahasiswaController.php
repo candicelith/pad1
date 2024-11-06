@@ -8,7 +8,17 @@ use Illuminate\Support\Facades\Auth;
 
 class MahasiswaController extends Controller
 {
-        /**
+
+    /**
+     * Inisiasi instansi AuthController
+     */
+    public function __construct()
+    {
+        $this->middleware('mahasiswa')->except([
+            'profile'
+        ]);
+    }
+    /**
      * Get Mahasiswa Profile
      */
     public function profile()

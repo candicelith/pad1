@@ -8,6 +8,7 @@ use App\Http\Controllers\AlumniController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\MahasiswaController;
+use App\Http\Middleware\Alumni;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +41,7 @@ Route::get('/editprofile', function () {
     return view('content.editprofile');
 })->name('editprofile');
 
+// Index
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/posts', [PostController::class, 'index'])->name('posts');
 Route::get('/alumni', [AlumniController::class, 'index'])->name('alumni');
@@ -51,11 +53,18 @@ Route::controller(AuthController::class)->group(function(){
     Route::get('/login','login')->name('login');
     Route::post('/authenticate','authenticate')->name('authenticate');
     Route::post('/logout','logout')->name('logout');
-
-    // Profile Dashboard
     Route::get('/profile','profile')->name('profile');
 });
 
-// Profile for each Role
-Route::get('/profile/mahasiswa',[MahasiswaController::class,'profile'])->name('mahasiswa.profile');
-Route::get('/profile/alumni',[AlumniController::class,'profile'])->name('alumni.profile');
+// Mahasiswa
+Route::controller(MahasiswaController::class)->group(function(){
+    Route::get('/profile/mahasiswa','profile')->name('mahasiswa.profile');
+});
+
+// Alumni
+Route::controller(AlumniController::class)->group(function(){
+    Route::get('/profile/alumni','profile')->name('alumni.profile');
+    Route::get('/profile/show','show')->name('alumni.show-profile');
+    Route::get('/profile/edit','show')->name('alumni.edit-profile');
+});
+

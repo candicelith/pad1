@@ -17,7 +17,7 @@
                 </div>
 
                 <div class="mt-28 flex flex-col space-y-2 sm:mx-14">
-                    <form action="">
+                    <form action="{{ route('alumni.edit-profile') }}">
                         <div class="px-10">
                             <div class="mb-5 mt-5">
                                 <label for="full_name" class="mb-2 block text-xl text-cyan">Full Name</label>

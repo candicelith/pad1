@@ -100,7 +100,7 @@
                                 @endguest
 
                                 @auth
-                                    @if (Auth::user()->id_roles == '2')
+                                    @if (Auth::check() && Auth::user()->id_roles == '2')
                                         <a
                                             href="{{ route('alumni.profile') }}"
                                             class="{{ request()->routeIs('alumni.profile') ? 'text-cyan' : 'text-gray-400' }} block rounded px-3 py-2 text-xl hover:bg-cyan-100 hover:text-cyan md:border-0 md:p-0 md:hover:bg-transparent"
@@ -108,7 +108,7 @@
                                         >
                                             Profile
                                         </a>
-                                    @elseif (Auth::user()->id_roles == '3')
+                                    @elseif (Auth::check() && Auth::user()->id_roles == '3')
                                         <a
                                             href="{{ route('mahasiswa.profile') }}"
                                             class="{{ request()->routeIs('mahasiswa.profile') ? 'text-cyan' : 'text-gray-400' }} block rounded px-3 py-2 text-xl hover:bg-cyan-100 hover:text-cyan md:border-0 md:p-0 md:hover:bg-transparent"

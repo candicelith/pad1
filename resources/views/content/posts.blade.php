@@ -9,7 +9,7 @@
             </div>
 
             @auth
-            @if (Auth::user()->id_roles=="2")
+            @if (Auth::check() && Auth::user()->id_roles=="2")
             {{-- New Post Button --}}
             <div class="mt-6 flex justify-end">
                 <a
