@@ -132,7 +132,26 @@ class AlumniController extends Controller
         ->addBinding('https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250', 'select')
         ->where('user_details.id_users', $user->id_users)  // Fetch details for the authenticated user only
         ->first();
-        return view('content.editprofile',compact('user','userDetails'));
+
+        $jobDetails = DB::table('job_tracking')
+        ->join('jobs', 'job_tracking.id_jobs', '=', 'jobs.id_jobs')
+        ->leftJoin('company', 'jobs.id_company', '=', 'company.id_company')
+        ->where('job_tracking.id_userDetails', $userDetails->id_userDetails)
+        ->select(
+            'job_tracking.*',
+            'jobs.job_name',
+            'company.company_name',
+            DB::raw('COALESCE(YEAR(job_tracking.date_end), "Now") as date_end'),
+            DB::raw('COALESCE(YEAR(job_tracking.date_start), "Now") as date_start')
+        )
+        ->get()
+        ->map(function ($job) {
+            // Decode job_description if it's stored as a JSON string
+            $job->job_description = json_decode($job->job_description, true);
+            return $job;
+        });
+
+        return view('content.editprofile',compact('user','userDetails','jobDetails'));
     }
 
     // public function update(Request $request)

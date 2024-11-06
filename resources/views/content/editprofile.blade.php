@@ -10,7 +10,7 @@
                     <div class="absolute top-1/2 ms-14">
                         <img
                             class="h-48 w-48 rounded-full object-cover"
-                            src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
+                            src="{{ $userDetails->profile_photo}}"
                             alt="Profile Picture"
                         />
                     </div>
@@ -26,6 +26,7 @@
                                     id="full_name"
                                     class="block w-full rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900"
                                     required
+                                    value="{{ $userDetails->name }}"
                                 />
                             </div>
                             <div class="mb-5 mt-5">
@@ -37,26 +38,28 @@
                                     id="current_company"
                                     class="block w-full rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900"
                                     required
+                                    value="{{ $userDetails->current_company }}"
                                 />
                             </div>
                             <div class="mb-5 mt-5">
-                                <label for="current_position" class="mb-2 block text-xl text-cyan">
+                                <label for="current_job" class="mb-2 block text-xl text-cyan">
                                     Current Position
                                 </label>
                                 <input
                                     type="text"
-                                    id="current_position"
+                                    id="current_job"
                                     class="block w-full rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900"
                                     required
+                                    value="{{ $userDetails->current_job }}"
                                 />
                             </div>
                             <div class="mb-5 mt-5">
-                                <label for="about" class="mb-2 block text-xl text-cyan">About</label>
+                                <label for="user_description" class="mb-2 block text-xl text-cyan">About</label>
                                 <textarea
                                     type="text"
-                                    id="about"
+                                    id="user_description"
                                     class="block w-full rounded-xl border border-gray-900 bg-gray-50 px-2 pt-2 text-sm text-gray-900"
-                                ></textarea>
+                                >{{ $userDetails->user_description }}</textarea>
                             </div>
 
                             <div class="mb-5 mt-5">
