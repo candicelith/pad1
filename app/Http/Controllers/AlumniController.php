@@ -153,11 +153,4 @@ class AlumniController extends Controller
 
         return view('content.editprofile',compact('user','userDetails','jobDetails'));
     }
-
-    // public function update(Request $request)
-    // {
-    //     $request->validate([
-    //         ''
-    //     ])
-    // }
 }
