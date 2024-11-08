@@ -6,7 +6,7 @@
             <div class="flex w-full flex-col items-start lg:flex-row">
 
                 <!-- Back Button -->
-                <button class="mb-4 lg:mb-0 lg:me-16">
+                <button class="mb-4 lg:mb-0 lg:me-16" onclick="window.location.href='{{ route('posts') }}'">
                     <svg class="h-16 w-16 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                         width="24" height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -21,58 +21,50 @@
                         <div class="flex flex-col lg:flex-row lg:space-x-8">
                             <div class="flex-shrink-0">
                                 <img class="h-28 w-28 rounded-full object-cover"
-                                    src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
+                                    src="{{ $vacancy->profile_photo }}"
                                     alt="" />
                             </div>
                             <div class="mt-4 lg:mt-0">
                                 <!-- Position -->
-                                <h2 class="mb-2 text-2xl tracking-tight text-cyan">UI/UX</h2>
+                                <h2 class="mb-2 text-2xl tracking-tight text-cyan">{{ $vacancy->position }}</h2>
                                 <!-- Company Name -->
-                                <h2 class="mb-2 text-xl tracking-tight text-cyan">BCA</h2>
+                                <h2 class="mb-2 text-xl tracking-tight text-cyan">{{ $vacancy->company_name }}</h2>
                                 <!-- Posted By "Name" -->
-                                <p class="text-lg text-gray-400">Posted by Supri</p>
+                                <p class="text-lg text-gray-400">Posted by {{ $vacancy->name }}</p>
                             </div>
                         </div>
                         <div class="mt-8 space-y-6">
                             <p class="text-justify text-sm text-cyan">
-                                Traveloka sedang mencari UI/UX Designer yang berbakat dan kreatif untuk bergabung dengan
-                                tim desain kami. Sebagai UI/UX Designer, Anda akan memainkan peran penting dalam
-                                membentuk pengalaman pengguna di platform kami. Anda akan bertanggung jawab untuk
-                                memahami kebutuhan pengguna, menciptakan desain yang intuitif, dan memastikan interaksi
-                                yang mulus bagi pelanggan kami. Jika Anda memiliki hasrat untuk meningkatkan kepuasan
-                                pengguna melalui desain yang inovatif, kami ingin mendengar dari Anda!
+                                {{ $vacancy->vacancy_description }}
                             </p>
                             <div class="ms-2 space-y-3">
                                 <div class="text-cyan">
                                     <h3 class="-ms-2">Responsibilities</h3>
                                     <ul class="ms-2 list-outside list-disc">
-                                        <li>Melakukan riset pengguna</li>
-                                        <li>Membuat desain prototipe</li>
-                                        <li>Berkolaborasi dengan tim</li>
+                                        @foreach ($vacancy->vacancy_responsibilities as $vr)
+                                        <li>{{ $vr }}</li>
+                                        @endforeach
                                     </ul>
                                 </div>
                                 <div class="text-cyan">
                                     <h3 class="-ms-2">Qualifications</h3>
                                     <ul class="ms-2 list-outside list-disc">
-                                        <li>
-                                            Gelar Sarjana/ Sarjana Terapan di bidang Desain Grafis, IT, atau bidang
-                                            terkait.
-                                        </li>
-                                        <li>Minimal 1 tahun pengalaman kerja sebagai UI/UX Designer.</li>
-                                        <li>Menguasai alat desain.</li>
+                                        @foreach ($vacancy->vacancy_qualification as $vq)
+                                        <li>{{ $vq }}</li>
+                                        @endforeach
                                     </ul>
                                 </div>
                                 <div class="text-cyan">
                                     <h3 class="-ms-2">Benefits</h3>
                                     <ul class="ms-2 list-outside list-disc">
-                                        <li>Gaji kompetitif</li>
-                                        <li>Asuransi medis</li>
-                                        <li>Pelatihan dan workshop</li>
+                                        @foreach ($vacancy->vacancy_benefits as $vb)
+                                        <li>{{ $vb }}</li>
+                                        @endforeach
                                     </ul>
                                 </div>
                             </div>
                             <div>
-                                <img src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
+                                <img src="{{ $vacancy->vacancy_picture}}"
                                     alt="" />
                             </div>
                         </div>

@@ -25,6 +25,7 @@
 
             {{-- Post Card Start --}}
             @foreach ($vacancys as $vc)
+            <a href="{{ route('posts.detail', ['id' => $vc->id_vacancy]) }}">
                 <div class="mt-3 grid space-y-4 lg:grid-cols-1">
                     <article class="rounded-lg border border-gray-200 bg-lightblue p-6 shadow-md">
                         <div class="mb-5 flex items-center justify-between text-gray-400">
@@ -55,6 +56,7 @@
                         </div>
                     </article>
                 </div>
+            </a>
             @endforeach
 
             {{-- Post Card End --}}

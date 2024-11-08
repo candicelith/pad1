@@ -21,9 +21,9 @@ use App\Http\Middleware\Alumni;
 |
 */
 
-Route::get('/detailpost', function () {
-    return view('content.detailpost');
-})->name('detailpost');
+// Route::get('/detailpost', function () {
+//     return view('content.detailpost');
+// })->name('detailpost');
 
 Route::get('/detailalumni', function () {
     return view('content.detailalumni');
@@ -47,9 +47,15 @@ Route::get('/editprofile', function () {
 
 // Index
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('/posts', [PostController::class, 'index'])->name('posts');
-Route::get('/alumni', [AlumniController::class, 'index'])->name('alumni');
+
 Route::get('/companies', [CompanyController::class, 'index'])->name('companies');
+
+
+// Posts
+Route::controller(PostController::class)->group(function(){
+    Route::get('/posts','index')->name('posts');
+    Route::get('/posts/detail/{id}','show')->name('posts.detail');
+});
 
 
 // Login
@@ -67,8 +73,9 @@ Route::controller(MahasiswaController::class)->group(function(){
 
 // Alumni
 Route::controller(AlumniController::class)->group(function(){
+    Route::get('/alumni', 'index')->name('alumni');
     Route::get('/profile/alumni','profile')->name('alumni.profile');
     Route::get('/profile/show','show')->name('alumni.show-profile');
-    Route::get('/profile/edit','show')->name('alumni.edit-profile');
+    Route::get('/alumni/detail/{id}','detail')->name('alumni.detail');
 });
 

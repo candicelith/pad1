@@ -120,7 +120,8 @@
             <div class="w-full rounded-lg bg-cyan-100 p-6 lg:w-3/4">
                 <h1 class="mb-3 text-xl text-white sm:text-2xl">Posts</h1>
                 @foreach ($posts as $ps)
-                    <div class="mb-16 cursor-pointer" onclick="navigateToDetailPost()">
+                <a href="{{ route('posts.detail', ['id'=>$ps->id_vacancy]) }}">
+                    <div class="mb-16 cursor-pointer">
                         <article class="rounded-lg border border-gray-500 bg-lightblue p-6 pb-0 shadow-lg">
                             <div class="mb-5 flex items-center justify-between text-gray-400">
                                 <span class="ml-auto text-sm">
@@ -151,6 +152,7 @@
                             </div>
                         </article>
                     </div>
+                </a>
                 @endforeach
 
                 <a href="{{ route('posts') }}"
@@ -204,9 +206,9 @@
     </section>
     {{-- Content End --}}
 
-    <script>
+    {{-- <script>
         function navigateToDetailPost() {
-            window.location.href = '{{ route('detailpost') }}';
+            window.location.href = '{{ route('posts.detail') }}';
         }
-    </script>
+    </script> --}}
 @endsection

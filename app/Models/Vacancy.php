@@ -27,6 +27,12 @@ class Vacancy extends Model
         'vacancy_benefits'
     ];
 
+    protected $casts = [
+        'vacancy_qualification' => 'array',
+        'vacancy_responsibilities' => 'array',
+        'vacancy_benefits' => 'array',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class, 'id_users');

@@ -59,7 +59,7 @@
                 {{-- Logout Button --}}
                 <div class="mx-4 mt-14 flex items-center justify-between p-6 ps-0 sm:mx-14 sm:p-0">
                     <div class="sm:ms-14">
-                        <a href="{{ route('editprofile') }}"
+                        <a href="{{ route('alumni.show-profile') }}"
                             class="sm:text-md rounded-full bg-cyan px-2 py-4 text-sm text-white hover:bg-white hover:text-cyan sm:px-8">
                             Edit Profile
                         </a>
@@ -83,9 +83,10 @@
                                         class="ms-3 rounded-full border border-gray-900 bg-white px-5 py-2.5 text-sm font-medium text-cyan hover:bg-cyan hover:text-white focus:z-10 focus:outline-none focus:ring-4 focus:ring-cyan">
                                         Cancel
                                     </button>
-                                    <button data-modal-hide="popup-modal" type="button"
+                                    <button data-modal-hide="popup-modal" type="button" id="logout-button"
                                         class="ms-3 rounded-full border border-gray-900 bg-white px-5 py-2.5 text-sm font-medium text-cyan hover:bg-cyan hover:text-white focus:z-10 focus:outline-none focus:ring-4 focus:ring-cyan">
                                         Log Out
+
                                     </button>
                                 </div>
                             </div>

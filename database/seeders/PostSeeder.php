@@ -18,23 +18,23 @@ class PostSeeder extends Seeder
                 'id_company' => fake()->numberBetween(1, 100),
                 'id_users' => fake()->numberBetween(1, 10),
                 'position' => fake()->sentence(1),
-                'vacancy_description' => fake()->sentence(2),
+                'vacancy_description' => fake()->sentence(10),
 
-                // 'vacancy_qualification' => [
-                //     fake()->sentence(),
-                //     fake()->sentence(),
-                //     fake()->sentence(),
-                // ],
-                // 'vacancy_responisibilities' => [
-                //     fake()->sentence(),
-                //     fake()->sentence(),
-                //     fake()->sentence(),
-                // ],
-                // 'vacancy_benefits' => [
-                //     fake()->sentence(),
-                //     fake()->sentence(),
-                //     fake()->sentence(),
-                // ],
+                'vacancy_qualification' => [
+                    fake()->sentence(2),
+                    fake()->sentence(2),
+                    fake()->sentence(2),
+                ],
+                'vacancy_responsibilities' => [
+                    fake()->sentence(2),
+                    fake()->sentence(2),
+                    fake()->sentence(2),
+                ],
+                'vacancy_benefits' => [
+                    fake()->sentence(2),
+                    fake()->sentence(2),
+                    fake()->sentence(2),
+                ],
 
                 'date_open' => fake()->date(),
                 'date_closed' => fake()->date(),
