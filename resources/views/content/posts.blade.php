@@ -27,7 +27,8 @@
             @foreach ($vacancys as $vc)
             <a href="{{ route('posts.detail', ['id' => $vc->id_vacancy]) }}">
                 <div class="mt-3 grid space-y-4 lg:grid-cols-1">
-                    <article class="rounded-lg border border-gray-200 bg-lightblue p-6 shadow-md">
+                    <article class="cursor-pointer rounded-lg border border-gray-200 bg-lightblue p-6 shadow-md"
+                        onclick="navigateToDetailPost()">
                         <div class="mb-5 flex items-center justify-between text-gray-400">
                             <span class="ml-auto text-sm">
                                 {{ $vc->date_difference }}
@@ -35,11 +36,8 @@
                         </div>
                         <div class="flex flex-col lg:flex-row lg:space-x-8">
                             <div class="flex-shrink-0">
-                                <img
-                                    class="h-20 w-20 rounded-full object-cover"
-                                    src="{{ $vc->profile_photo }}"
-                                    alt="{{ $vc->name }}"
-                                />
+                                <img class="h-20 w-20 rounded-full object-cover" src="{{ $vc->profile_photo }}"
+                                    alt="{{ $vc->name }}" />
                             </div>
                             <div class="mt-4 lg:mt-0">
                                 {{-- Position --}}
@@ -67,4 +65,10 @@
             </div>
         </div>
     </section>
+
+    <script>
+        function navigateToDetailPost() {
+            window.location.href = '{{ route('detailpost') }}';
+        }
+    </script>
 @endsection

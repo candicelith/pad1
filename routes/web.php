@@ -33,6 +33,10 @@ Route::get('/postalumni', function () {
     return view('content.posts-alumni');
 })->name('postalumni');
 
+Route::get('/detailcompanies', function () {
+    return view('content.detailcompanies');
+})->name('detailcompanies');
+
 Route::get('/createpost', function () {
     return view('content.createpost');
 })->name('createpost');
@@ -44,6 +48,10 @@ Route::get('/profilealumni', function () {
 Route::get('/editprofile', function () {
     return view('content.editprofile');
 })->name('editprofile');
+
+Route::get('/adminhome', function () {
+    return view('content.admin-home');
+})->name('adminhome');
 
 // Index
 Route::get('/home', [HomeController::class, 'index'])->name('home');

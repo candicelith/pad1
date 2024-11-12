@@ -46,3 +46,20 @@ main {
 .bg-input-cyan-200 {
     background-color: #3E787E;
 }
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-companies::-webkit-scrollbar {
+    width: 2px;
+}
+
+.scrollbar-companies::-webkit-scrollbar-thumb {
+  background: #888;
+}
