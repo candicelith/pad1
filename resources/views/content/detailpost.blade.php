@@ -17,7 +17,8 @@
                 <!-- Content Section -->
                 <div class="flex w-full flex-col lg:flex-row">
                     {{-- Post Details --}}
-                    <div class="w-full rounded-e-none rounded-s-lg bg-lightblue p-10 sm:border-e-2 sm:border-cyan">
+                    <div
+                        class="w-full rounded-tl-lg rounded-tr-lg border-b-2 border-cyan bg-lightblue p-10 sm:rounded-e-none sm:rounded-s-lg sm:rounded-tr-none sm:border-b-0 sm:border-e-2">
                         <div class="flex flex-col lg:flex-row lg:space-x-8">
                             <div class="flex-shrink-0">
                                 <img class="h-28 w-28 rounded-full object-cover"
@@ -80,41 +81,60 @@
 
                     {{-- Comment --}}
                     <div
-                        class="mt-4 flex w-full flex-col rounded-e-lg bg-lightblue px-5 py-10 sm:border-s-2 sm:border-cyan lg:mt-0 lg:w-1">
-                        <div class="mx-2 mt-10 max-w-md flex-grow">
+                        class="flex w-full flex-col rounded-bl-lg rounded-br-lg border-t-2 border-cyan bg-lightblue px-5 py-10 sm:rounded-e-lg sm:rounded-bl-none sm:border-s-2 sm:border-t-0 lg:mt-0 lg:w-1">
+                        <div class="mx-2 my-10 max-w-md flex-grow sm:mt-10">
                             <div class="space-y-6">
                                 <div class="flex items-start space-x-4">
                                     <img src="https://via.placeholder.com/40" alt="avatar"
-                                        class="h-10 w-10 rounded-full object-cover">
+                                        class="h-14 w-14 rounded-full object-cover">
                                     <div class="relative max-w-xs">
-                                        <div
-                                            class="relative rounded-b-full rounded-e-full rounded-tl-none bg-cyan-200 px-4 py-3 text-white">
+                                        <h2 class="text-md">Mustafa Fagan</h2>
+                                        <span class="mt-1 block text-xs text-cyan">10/8/2024 10:00 AM</span>
+                                        <p
+                                            class="relative mt-2 rounded-b-full rounded-e-full rounded-tl-none bg-cyan-200 px-4 py-3 text-white">
                                             Halo, bisa minta info lebih lanjut?
-                                        </div>
-                                        <span class="mt-1 block text-xs text-gray-500">10/8/2024 10:00 AM</span>
+                                        </p>
+                                        <span class="ms-6 cursor-pointer text-xs hover:underline">Reply</span>
                                     </div>
                                 </div>
                                 {{-- Reply --}}
                                 <div class="ms-14 flex items-start space-x-4">
                                     <img src="https://via.placeholder.com/40" alt="avatar"
-                                        class="h-10 w-10 rounded-full object-cover">
+                                        class="h-14 w-14 rounded-full object-cover">
                                     <div class="relative max-w-xs">
-                                        <div
-                                            class="relative rounded-b-full rounded-e-full rounded-tl-none bg-cyan-200 px-4 py-3 text-white">
-                                            gak
-                                        </div>
-                                        <span class="mt-1 block text-xs text-gray-500">10/8/2024 10:00 AM</span>
+                                        <h2 class="text-md">Supri</h2>
+                                        <span class="mt-1 block text-xs text-cyan">10/8/2024 10:00 AM</span>
+                                        <p
+                                            class="relative mt-2 rounded-b-full rounded-e-full rounded-tl-none bg-cyan-200 px-4 py-3 text-white">
+                                            G blh
+                                        </p>
+                                        <span class="ms-6 cursor-pointer text-xs hover:underline">Reply</span>
+                                    </div>
+                                </div>
+                                <div class="ms-14 flex items-start space-x-4">
+                                    <img src="https://via.placeholder.com/40" alt="avatar"
+                                        class="h-14 w-14 rounded-full object-cover">
+                                    <div class="relative max-w-xs">
+                                        <h2 class="text-md">Mustafa Fagan</h2>
+                                        <span class="mt-1 block text-xs text-cyan">10/8/2024 10:00 AM</span>
+                                        <p
+                                            class="relative mt-2 rounded-b-full rounded-e-full rounded-tl-none bg-cyan-200 px-4 py-3 text-white">
+                                            walawe
+                                        </p>
+                                        <span class="ms-6 cursor-pointer text-xs hover:underline">Reply</span>
                                     </div>
                                 </div>
                                 <div class="flex items-start space-x-4">
                                     <img src="https://via.placeholder.com/40" alt="avatar"
-                                        class="h-10 w-10 rounded-full object-cover">
+                                        class="h-14 w-14 rounded-full object-cover">
                                     <div class="relative max-w-xs">
-                                        <div
-                                            class="relative rounded-b-full rounded-e-full rounded-tl-none bg-cyan-200 px-4 py-3 text-white">
-                                            apasi bjir
-                                        </div>
-                                        <span class="mt-1 block text-xs text-gray-500">10/8/2024 10:00 AM</span>
+                                        <h2 class="text-md">Syafira Naila</h2>
+                                        <span class="mt-1 block text-xs text-cyan">10/8/2024 10:00 AM</span>
+                                        <p
+                                            class="relative mt-2 rounded-b-full rounded-e-full rounded-tl-none bg-cyan-200 px-4 py-3 text-white">
+                                            Terima ak pls
+                                        </p>
+                                        <span class="ms-6 cursor-pointer text-xs hover:underline">Reply</span>
                                     </div>
                                 </div>
                             </div>
@@ -123,10 +143,10 @@
                         <!-- Input Section -->
                         <div class="mt-auto flex items-center space-x-2">
                             <input type="text"
-                                class="bg-input-cyan-200 flex-grow rounded-xl border px-4 py-2 placeholder-white"
+                                class="bg-input-cyan-200 flex-grow rounded-xl border px-2 py-1 text-white placeholder-white sm:px-4 sm:py-2"
                                 placeholder="...">
                             <button type="submit">
-                                <svg class="h-11 w-11 rotate-90 text-cyan" aria-hidden="true"
+                                <svg class="h-9 w-9 rotate-90 text-cyan sm:h-11 sm:w-11" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                     viewBox="0 0 24 24">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -134,9 +154,48 @@
                                 </svg>
                             </button>
                         </div>
+                        <div id="defaultModal" tabindex="-1" aria-hidden="true"
+                            class="fixed inset-0 z-50 h-full w-full overflow-y-auto bg-black bg-opacity-50">
+                            <div
+                                class="absolute left-1/2 top-1/2 w-full max-w-md -translate-x-1/2 -translate-y-1/2 transform p-4">
+                                <div class="relative rounded-lg bg-cyan-100 shadow">
+                                    <div class="p-4 text-center md:p-5">
+                                        <h3 class="mb-5 text-lg font-normal text-white">Log in to view post & comment
+                                            details</h3>
+                                        <p class="mb-5 text-sm font-normal text-white">Would you like to log in?
+                                        </p>
+                                        <button data-modal-hide="defaultModal" type="button" {{-- onclick="window.location.href='{{ route('home') }}'" --}}
+                                            class="ms-3 rounded-full border border-gray-900 bg-white px-6 py-2.5 text-sm font-medium text-cyan hover:bg-cyan hover:text-white focus:z-10 focus:outline-none focus:ring-4 focus:ring-cyan">
+                                            No
+                                        </button>
+                                        <button data-modal-hide="defaultModal" type="button"
+                                            onclick="window.location.href='{{ route('profile') }}'"
+                                            class="ms-3 rounded-full border border-gray-900 bg-white px-6 py-2.5 text-sm font-medium text-cyan hover:bg-cyan hover:text-white focus:z-10 focus:outline-none focus:ring-4 focus:ring-cyan">
+                                            Yes
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <script>
+        // Show modal on page load
+        window.addEventListener('load', function() {
+            const modal = document.getElementById('defaultModal');
+            modal.classList.remove('hidden');
+        });
+
+        // Hide modal on button click
+        document.querySelectorAll('[data-modal-hide="defaultModal"]').forEach(function(button) {
+            button.addEventListener('click', function() {
+                const modal = document.getElementById('defaultModal');
+                modal.classList.add('hidden');
+            });
+        });
+    </script>
 @endsection

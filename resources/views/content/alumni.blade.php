@@ -32,7 +32,6 @@
             <!-- Search End -->
 
             <!-- Filter Start -->
-            <!-- Filter diresponsif biar kek paginate-->
             <div class="mb-8 mt-9 flex flex-wrap items-center gap-2">
                 <!-- Full alphabet filter for desktop view -->
                 <div class="hidden w-full flex-wrap gap-1 sm:flex sm:w-auto">
