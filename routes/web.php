@@ -55,7 +55,6 @@ Route::get('/adminhome', function () {
 
 // Index
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-
 Route::get('/companies', [CompanyController::class, 'index'])->name('companies');
 
 
@@ -63,6 +62,11 @@ Route::get('/companies', [CompanyController::class, 'index'])->name('companies')
 Route::controller(PostController::class)->group(function(){
     Route::get('/posts','index')->name('posts');
     Route::get('/posts/detail/{id}','show')->name('posts.detail');
+});
+
+Route::controller(CompanyController::class)->group( function(){
+    Route::get('/companies','index')->name('companies');
+    Route::get('/companies/detail/{id}','show')->name('companies.detail');
 });
 
 

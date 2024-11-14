@@ -29,7 +29,6 @@ class AlumniController extends Controller
      */
     public function index()
     {
-
         // Add Default Profile Photo
         $defaultProfilePhoto = 'https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250';
 
@@ -42,7 +41,7 @@ class AlumniController extends Controller
             DB::raw('COALESCE(user_details.profile_photo, ?) as profile_photo')
         )
         ->addBinding($defaultProfilePhoto, 'select')
-        ->whereRaw('LOWER(id_roles) = ?', [2])
+        ->whereRaw('id_roles = ?', [2])
         ->get();
 
         return view('content.alumni', compact('alumnis'));
@@ -167,7 +166,7 @@ class AlumniController extends Controller
             DB::raw('COALESCE(user_details.profile_photo, ?) as profile_photo')
         )
         ->addBinding('https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250', 'select')
-        ->where('user_details.id_users', $id)  // Fetch details for the authenticated user only
+        ->where('user_details.id_userDetails', $id)  // Fetch details for the authenticated user only
         ->first();
 
         $jobDetails = DB::table('job_tracking')
@@ -187,6 +186,7 @@ class AlumniController extends Controller
             $job->job_description = json_decode($job->job_description, true);
             return $job;
         });
+
 
         return view('content.detailalumni',compact('userDetails','jobDetails'));
     }

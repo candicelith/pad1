@@ -120,7 +120,7 @@
             <div class="w-full rounded-lg bg-cyan-100 p-6 lg:w-3/4">
                 <h1 class="mb-3 text-xl text-white sm:text-2xl">Posts</h1>
                 @foreach ($posts as $ps)
-                <a href="{{ route('posts.detail', ['id'=>$ps->id_vacancy]) }}">
+                <a href="{{ route('posts.detail', ['id'=>$ps->id_vacancy ]) }}">
                     <div class="mb-16 cursor-pointer">
                         <article class="rounded-lg border border-gray-500 bg-lightblue p-6 pb-0 shadow-lg">
                             <div class="mb-5 flex items-center justify-between text-gray-400">
@@ -167,6 +167,7 @@
                 <h1 class="mb-4 text-xl text-white">Top 10 Companies Alumni Work For</h1>
                 <div class="flex flex-grow flex-col">
                     @foreach ($company as $com)
+                    <a href="{{ route('companies.detail',['id'=>$com->id_company]) }}">
                         <div class="mb-8 flex-grow-0">
                             <article class="rounded-lg border border-gray-500 bg-lightblue p-4 py-5 shadow-lg">
                                 <div class="flex flex-col sm:flex-row sm:space-x-4">
@@ -197,6 +198,7 @@
                                 </div>
                             </article>
                         </div>
+                    </a>
                     @endforeach
                 </div>
             </div>
@@ -205,10 +207,4 @@
         </div>
     </section>
     {{-- Content End --}}
-
-    {{-- <script>
-        function navigateToDetailPost() {
-            window.location.href = '{{ route('posts.detail') }}';
-        }
-    </script> --}}
 @endsection

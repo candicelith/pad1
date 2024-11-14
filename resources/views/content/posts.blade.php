@@ -25,7 +25,7 @@
 
             {{-- Post Card Start --}}
             @foreach ($vacancys as $vc)
-            <a href="{{ route('posts.detail', ['id' => $vc->id_vacancy]) }}">
+            <a href="{{ route('posts.detail', ['id' => (String) $vc->id_vacancy]) }}">
                 <div class="mt-3 grid space-y-4 lg:grid-cols-1">
                     <article class="cursor-pointer rounded-lg border border-gray-200 bg-lightblue p-6 shadow-md"
                         onclick="navigateToDetailPost()">
@@ -65,10 +65,4 @@
             </div>
         </div>
     </section>
-
-    <script>
-        function navigateToDetailPost() {
-            window.location.href = '{{ route('detailpost') }}';
-        }
-    </script>
 @endsection

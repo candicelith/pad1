@@ -6,13 +6,25 @@
             <div class="flex w-full flex-col items-start lg:flex-row">
 
                 <!-- Back Button -->
-                <button class="mb-4 lg:mb-0 lg:me-16" onclick="window.location.href='{{ route('posts') }}'">
+                <button class="mb-4 lg:mb-0 lg:me-16" onclick="handleBack()">
                     <svg class="h-16 w-16 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                         width="24" height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="m14 8-4 4 4 4" />
                     </svg>
                 </button>
+                {{-- Script for Handling Back Button --}}
+                <script>
+                    function handleBack() {
+                        // Check if there is a previous page in history
+                        if (document.referrer) {
+                            window.history.back();
+                        } else {
+                            // Redirect to the specified route if no previous page
+                            window.location.href = "{{ route('posts') }}";
+                        }
+                    }
+                </script>
 
                 <!-- Content Section -->
                 <div class="flex w-full flex-col lg:flex-row">
@@ -21,8 +33,7 @@
                         class="w-full rounded-tl-lg rounded-tr-lg border-b-2 border-cyan bg-lightblue p-10 sm:rounded-e-none sm:rounded-s-lg sm:rounded-tr-none sm:border-b-0 sm:border-e-2">
                         <div class="flex flex-col lg:flex-row lg:space-x-8">
                             <div class="flex-shrink-0">
-                                <img class="h-28 w-28 rounded-full object-cover"
-                                    src="{{ $vacancy->profile_photo }}"
+                                <img class="h-28 w-28 rounded-full object-cover" src="{{ $vacancy->profile_photo }}"
                                     alt="" />
                             </div>
                             <div class="mt-4 lg:mt-0">
@@ -43,7 +54,7 @@
                                     <h3 class="-ms-2">Responsibilities</h3>
                                     <ul class="ms-2 list-outside list-disc">
                                         @foreach ($vacancy->vacancy_responsibilities as $vr)
-                                        <li>{{ $vr }}</li>
+                                            <li>{{ $vr }}</li>
                                         @endforeach
                                     </ul>
                                 </div>
@@ -51,7 +62,7 @@
                                     <h3 class="-ms-2">Qualifications</h3>
                                     <ul class="ms-2 list-outside list-disc">
                                         @foreach ($vacancy->vacancy_qualification as $vq)
-                                        <li>{{ $vq }}</li>
+                                            <li>{{ $vq }}</li>
                                         @endforeach
                                     </ul>
                                 </div>
@@ -59,14 +70,13 @@
                                     <h3 class="-ms-2">Benefits</h3>
                                     <ul class="ms-2 list-outside list-disc">
                                         @foreach ($vacancy->vacancy_benefits as $vb)
-                                        <li>{{ $vb }}</li>
+                                            <li>{{ $vb }}</li>
                                         @endforeach
                                     </ul>
                                 </div>
                             </div>
                             <div>
-                                <img src="{{ $vacancy->vacancy_picture}}"
-                                    alt="" />
+                                <img src="{{ $vacancy->vacancy_picture }}" alt="" />
                             </div>
                         </div>
                     </div>
@@ -146,8 +156,9 @@
                                 </svg>
                             </button>
                         </div>
+
                         <div id="defaultModal" tabindex="-1" aria-hidden="true"
-                            class="fixed inset-0 z-50 h-full w-full overflow-y-auto bg-black bg-opacity-50">
+                            class="fixed inset-0 z-50 h-full w-full overflow-y-auto bg-black bg-opacity-50 hidden">
                             <div
                                 class="absolute left-1/2 top-1/2 w-full max-w-md -translate-x-1/2 -translate-y-1/2 transform p-4">
                                 <div class="relative rounded-lg bg-cyan-100 shadow">
@@ -156,7 +167,8 @@
                                             details</h3>
                                         <p class="mb-5 text-sm font-normal text-white">Would you like to log in?
                                         </p>
-                                        <button data-modal-hide="defaultModal" type="button" {{-- onclick="window.location.href='{{ route('home') }}'" --}}
+                                        <button data-modal-hide="defaultModal" type="button"
+                                            onclick="window.location.href='{{ route('posts') }}'"
                                             class="ms-3 rounded-full border border-gray-900 bg-white px-6 py-2.5 text-sm font-medium text-cyan hover:bg-cyan hover:text-white focus:z-10 focus:outline-none focus:ring-4 focus:ring-cyan">
                                             No
                                         </button>
@@ -175,19 +187,22 @@
         </div>
     </section>
 
-    <script>
-        // Show modal on page load
-        window.addEventListener('load', function() {
-            const modal = document.getElementById('defaultModal');
-            modal.classList.remove('hidden');
-        });
-
-        // Hide modal on button click
-        document.querySelectorAll('[data-modal-hide="defaultModal"]').forEach(function(button) {
-            button.addEventListener('click', function() {
+    @if (!Auth::check())
+        <script>
+            // Show modal on page load
+            window.addEventListener('load', function() {
                 const modal = document.getElementById('defaultModal');
-                modal.classList.add('hidden');
+                modal.classList.remove('hidden');
             });
-        });
-    </script>
+
+            // Hide modal on button click
+            document.querySelectorAll('[data-modal-hide="defaultModal"]').forEach(function(button) {
+                button.addEventListener('click', function() {
+                    const modal = document.getElementById('defaultModal');
+                    modal.classList.add('hidden');
+                });
+            });
+        </script>
+    @else
+    @endif
 @endsection

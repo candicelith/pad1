@@ -4,7 +4,7 @@
     <section class="mt-28 bg-white">
         <div class="mx-auto max-w-screen-xl px-4 py-8 sm:flex sm:items-start lg:px-6 lg:py-16">
             <!-- Back Button -->
-            <button class="mb-4 lg:mb-0 lg:me-16" onclick="window.location.href='{{ route('alumni') }}'">
+            <button class="mb-4 lg:mb-0 lg:me-16" onclick="window.history.back()">
                 <svg class="h-16 w-16 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
