@@ -4,7 +4,7 @@
     <section class="mt-28 bg-white">
         <div class="mx-auto max-w-screen-xl px-4 py-8 sm:flex sm:items-start lg:px-6 lg:py-16">
             <!-- Back Button -->
-            <button class="mb-4 lg:mb-0 lg:me-16" onclick="window.history.back()">
+            <button onclick="history.back()" class="mb-4 lg:mb-0 lg:me-16">
                 <svg class="h-16 w-16 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -14,7 +14,7 @@
 
             <!-- Content Section -->
             <div class="w-full rounded-3xl bg-lightblue shadow-lg">
-                {{-- Post Details --}}
+                {{-- Alumni Details --}}
                 <div class="p-6 sm:p-8 lg:p-10">
                     <div class="lg:mx-14">
                         <div class="flex flex-col lg:flex-row lg:space-x-8">

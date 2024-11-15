@@ -2,24 +2,82 @@
 
 @section('admincontent')
     <section>
-        <div class="mt-5 p-4 sm:ml-64">
+        <div class="mt-5 pt-4 sm:ml-64">
             <div class="mt-14">
-                <div class="mb-4 grid grid-cols-2 gap-4">
+                <div class="flex flex-col justify-evenly sm:flex-row">
                     <div class="w-full max-w-sm rounded-lg bg-lightblue p-4 shadow md:p-6">
                         <h2 class="mb-4 text-base">Data Alumni TRPL</h2>
                         <div id="column-chart"></div>
                     </div>
-                    <div class="flex h-28 items-center justify-center rounded bg-gray-50 dark:bg-gray-800">
-                        <p class="text-2xl text-gray-400 dark:text-gray-500">
-                            <svg class="h-3.5 w-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                viewBox="0 0 18 18">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 1v16M1 9h16" />
-                            </svg>
-                        </p>
+                    <div class="mt-10 w-full max-w-sm rounded-lg bg-lightblue p-4 shadow sm:mt-0 md:p-6">
+                        <h2 class="mb-4 text-base">Request</h2>
+                        <div class="scrollbar-companies grid max-h-[300px] space-y-4 overflow-y-auto pe-2 lg:grid-cols-1">
+                            {{-- Req Start --}}
+                            <div class="request-card cursor-pointer rounded-lg bg-cyan-100">
+                                <div class="flex items-center justify-between px-5 py-2">
+                                    <div class="flex items-center space-x-4">
+                                        <img class="h-10 w-10 rounded-full"
+                                            src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
+                                            alt="">
+                                        <h3 class="text-sm text-white">Naila Geda Gedi</h3>
+                                    </div>
+                                    <div class="button-group flex items-center space-x-2">
+                                        <button onclick="approveAlumni(this.closest('.request-card'))">
+                                            <svg class="h-6 w-6 text-green-800 dark:text-white" aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                fill="none" viewBox="0 0 24 24">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                    stroke-width="2"
+                                                    d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                            </svg>
+                                        </button>
+                                        <button onclick="declineAlumni(this.closest('.request-card'))">
+                                            <svg class="h-6 w-6 text-red-900 dark:text-white" aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                fill="none" viewBox="0 0 24 24">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                    stroke-width="2"
+                                                    d="m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="request-card cursor-pointer rounded-lg bg-cyan-100">
+                                <div class="flex items-center justify-between px-5 py-2">
+                                    <div class="flex items-center space-x-4">
+                                        <img class="h-10 w-10 rounded-full"
+                                            src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
+                                            alt="">
+                                        <h3 class="text-sm text-white">Nopal Geda Gedi</h3>
+                                    </div>
+                                    <div class="button-group flex items-center space-x-2">
+                                        <button onclick="approveAlumni(this.closest('.request-card'))">
+                                            <svg class="h-6 w-6 text-green-800 dark:text-white" aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                fill="none" viewBox="0 0 24 24">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                    stroke-width="2"
+                                                    d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                            </svg>
+                                        </button>
+                                        <button onclick="declineAlumni(this.closest('.request-card'))">
+                                            <svg class="h-6 w-6 text-red-900 dark:text-white" aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                fill="none" viewBox="0 0 24 24">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                    stroke-width="2"
+                                                    d="m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </section>
 
@@ -138,6 +196,33 @@
         if (document.getElementById("column-chart") && typeof ApexCharts !== 'undefined') {
             const chart = new ApexCharts(document.getElementById("column-chart"), options);
             chart.render();
+        }
+    </script>
+
+
+    <script>
+        function navigateToAdminDetailAlumni() {
+            window.location.href = '{{ route('admindetailalumni') }}';
+        }
+
+        function approveAlumni(element) {
+            // Change background color to green for the specific element
+            element.classList.remove('bg-cyan-100');
+            element.classList.add('bg-lightgreen');
+
+            // Replace buttons with "Approved" text for the specific button group
+            const buttonGroup = element.querySelector('.button-group');
+            buttonGroup.innerHTML = '<span class="text-green-800">Approved</span>';
+        }
+
+        function declineAlumni(element) {
+            // Change background color to red for the specific element
+            element.classList.remove('bg-cyan-100');
+            element.classList.add('bg-red-300');
+
+            // Replace buttons with "Declined" text for the specific button group
+            const buttonGroup = element.querySelector('.button-group');
+            buttonGroup.innerHTML = '<span class="text-red-800">Declined</span>';
         }
     </script>
 @endsection
