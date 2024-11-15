@@ -14,7 +14,7 @@ class CommentController extends Controller
         // Validate the input
         request()->validate([
             'comment' => 'required|string|max:500',
-            'parent_id' => 'nullable|exists:comment,id'
+            'parent_id' => 'nullable|exists:comment,id_comment'
         ]);
 
         $comment = new Comment();

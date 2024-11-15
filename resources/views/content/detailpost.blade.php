@@ -99,17 +99,16 @@
                                                 class="relative mt-2 rounded-b-full rounded-e-full rounded-tl-none bg-cyan-200 px-4 py-3 text-white">
                                                 {{ $comment->text_comment }}
                                             </p>
-                                            <span class="ms-6 cursor-pointer text-xs hover:underline reply-toggle" data-comment-id="{{ $comment->id_comment }}">
+                                            <span class="ms-6 cursor-pointer text-xs hover:underline reply-toggle"
+                                                data-comment-id="{{ $comment->id_comment }}">
                                                 Reply
                                             </span>
                                         </div>
                                     </div>
-
-                                    {{-- Reply --}}
                                     @if ($comment->replies->count() > 0)
                                         @foreach ($comment->replies as $reply)
                                             <div class="ms-14 flex items-start space-x-4">
-                                                <img src="https://via.placeholder.com/40" alt="avatar"
+                                                <img src="{{ $reply->user->userDetails->profile_photo }}" alt="avatar"
                                                     class="h-14 w-14 rounded-full object-cover">
                                                 <div class="relative max-w-xs">
                                                     <h2 class="text-md">{{ $reply->user->userDetails->name }}</h2>
@@ -124,21 +123,26 @@
                                         @endforeach
                                     @endif
                                     <!-- Reply form -->
-                                    {{-- <form
-                                        action="{{ route('posts.detail.comment', ['vacancy'=>$vacancy->id_vacancy, 'id' => $vacancy->id_vacancy]) }}"
-                                        method="POST">
-                                        @csrf
-                                        <input type="hidden" name="parent_id" value="{{ $comment->id }}">
-                                        <textarea name="comment" required></textarea>
-                                        <button type="submit">Reply</button>
-                                    </form> --}}
+                                    <div class="reply-form mt-2" id="reply-form-{{ $comment->id_comment }}">
+                                        <form
+                                            action="{{ route('posts.detail.reply', ['vacancy' => $vacancy->id_vacancy, 'id' => $comment->id_comment]) }}"
+                                            method="POST">
+                                            @csrf
+                                            <input type="hidden" name="parent_id" value="{{ $comment->id_comment }}">
+                                            <textarea name="comment" required class="w-full rounded border p-2" placeholder="Write your reply here..."></textarea>
+                                            <button type="submit"
+                                                class="mt-2 rounded bg-cyan-500 px-4 py-2 text-white hover:bg-cyan-600">Submit</button>
+                                        </form>
+                                    </div>
                                     {{-- End Reply --}}
                                 @endforeach
                             </div>
                         </div>
 
                         <!-- Input Section -->
-                        <form action="{{ route('posts.detail.comment', ['vacancy' => $vacancy->id_vacancy,'id'=>$vacancy->id_vacancy]) }}" method="POST">
+                        <form
+                            action="{{ route('posts.detail.comment', ['vacancy' => $vacancy->id_vacancy, 'id' => $vacancy->id_vacancy]) }}"
+                            method="POST">
                             @csrf
                             <div class="mt-auto flex items-center space-x-2">
                                 <input type="text" name="comment"
