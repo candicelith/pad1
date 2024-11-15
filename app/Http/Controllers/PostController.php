@@ -68,9 +68,10 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Vacancy $posts, string $id)
     {
-        $post = Vacancy::findorFail($id);
+        // dd($posts->comments());
+        $post = Vacancy::with('comments')->findOrFail($id);
 
         // Fetch the joined vacancy data for a single item
         $vacancy = DB::table('vacancy')
@@ -90,7 +91,7 @@ class PostController extends Controller
         $vacancy->vacancy_responsibilities = json_decode($vacancy->vacancy_responsibilities, true);
         $vacancy->vacancy_qualification = json_decode($vacancy->vacancy_qualification, true);
         $vacancy->vacancy_benefits = json_decode($vacancy->vacancy_benefits, true);
-        return view('content.detailpost', compact('post', 'vacancy'));
+        return view('content.detailpost', compact('post', 'vacancy','posts'));
     }
 
     /**

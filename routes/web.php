@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\AlumniController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Middleware\Alumni;
@@ -64,6 +65,13 @@ Route::controller(PostController::class)->group(function(){
     Route::get('/posts/detail/{id}','show')->name('posts.detail');
 });
 
+// Comment Controller
+Route::controller(CommentController::class)->group(function(){
+    Route::post('/posts/detail/{id}/comment', 'store')->name('posts.detail.comment');
+});
+
+
+// Company Controller
 Route::controller(CompanyController::class)->group( function(){
     Route::get('/companies','index')->name('companies');
     Route::get('/companies/detail/{id}','show')->name('companies.detail');

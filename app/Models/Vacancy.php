@@ -43,6 +43,11 @@ class Vacancy extends Model
         return $this->belongsTo(Company::class, 'id_company');
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class,'id_vacancy','id_vacancy');
+    }
+
 
     // Accessor for vacancy_picture
     public function getVacancyPictureAttribute($value)
