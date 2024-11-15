@@ -7,6 +7,7 @@
                 <h2 class="flex justify-center text-4xl">Alumni</h2>
                 <div class="relative mx-10">
                     <div class="top-0 z-20 flex justify-between bg-white pb-4">
+
                         <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
                             class="rounded-xl bg-cyan-100 p-2 shadow-md hover:bg-white">
                             <svg class="h-6 w-6 text-white hover:text-cyan-100" aria-hidden="true"

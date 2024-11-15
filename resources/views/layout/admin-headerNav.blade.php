@@ -41,8 +41,7 @@
         <div class="h-full overflow-y-auto bg-cyan-100 px-3 pb-4">
             <ul class="space-y-2 font-medium">
                 <li>
-                    <a href="{{ route('adminprofile') }}"
-                        class="group flex items-center rounded-lg bg-cyan-100 p-2 text-white">
+                    <a {{-- href="{{ route('adminprofile') }}" --}} class="group flex items-center rounded-lg bg-cyan-100 p-2 text-white">
                         <div class="rounded-full bg-white p-2">
                             <svg class="h-11 w-11 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                 width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -57,14 +56,14 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('adminhome') }}"
+                    <a {{-- href="{{ route('adminhome') }}" --}}
                         class="{{ request()->routeIs('adminhome') ? 'text-cyan-100 bg-white' : 'text-white' }} group flex items-center rounded-lg p-2 hover:bg-white hover:text-cyan-100"
                         @if (request()->routeIs('adminhome')) aria-current="page" @endif>
                         <span class="ms-3 flex-1 whitespace-nowrap">Home</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('adminalumni') }}"
+                    <a {{-- href="{{ route('adminalumni') }}" --}}
                         class="{{ request()->routeIs('adminalumni') ? 'text-cyan-100 bg-white' : 'text-white' }} group flex items-center rounded-lg p-2 hover:bg-white hover:text-cyan-100 dark:text-white dark:hover:bg-gray-700"
                         @if (request()->routeIs('adminalumni')) aria-current="page" @endif>
                         <span class="ms-3 flex-1 whitespace-nowrap">Alumni</span>

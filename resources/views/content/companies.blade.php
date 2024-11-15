@@ -87,24 +87,25 @@
             {{-- Companies Cards Start --}}
             <div id="companies-card" class="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                 @foreach ($company as $com)
-                <a href="{{ route('companies.detail', ['id' => $com->id_company]) }}"></a>
-                    <div {{-- data-aos="fade-up" --}}
+                    <a href="{{ route('companies.detail', ['id' => $com->id_company]) }}"
                         class="company-card w-full max-w-sm cursor-pointer rounded-lg border border-gray-200 bg-lightblue shadow-md"
-                        data-name="{{ strtolower($com->company_name) }}" onclick="navigateToDetailCompanies()">
-                        <div class="flex flex-col items-center py-10">
-                            <img class="mb-3 h-24 w-24 rounded-full shadow-lg" src="{{ $com->company_picture }}"
-                                alt="Bonnie image" />
-                            <h2 class="mb-1 text-xl text-cyan">
-                                {{ $com->company_name }}
-                            </h2>
-                            <h3 class="mb-1 text-lg text-cyan">
-                                {{ $com->company_field }}
-                            </h3>
-                            <h4 class="text-md text-center text-gray-400">
-                                {{ $com->company_address }}
-                            </h4>
+                        data-name="{{ strtolower($com->company_name) }}">
+                        <div {{-- data-aos="fade-up" --}}>
+                            <div class="flex flex-col items-center px-8 py-8 text-center">
+                                <img class="mb-3 h-24 w-24 rounded-full shadow-lg" src="{{ $com->company_picture }}"
+                                    alt="Bonnie image" />
+                                <h2 class="mb-1 text-xl text-cyan">
+                                    {{ $com->company_name }}
+                                </h2>
+                                <h3 class="mb-1 text-lg text-cyan">
+                                    {{ $com->company_field }}
+                                </h3>
+                                <h4 class="text-md text-gray-400">
+                                    {{ $com->company_address }}
+                                </h4>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 @endforeach
             </div>
             {{-- Companies Cards End --}}

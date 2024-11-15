@@ -162,7 +162,7 @@
 
                         {{-- Modal Section --}}
                         <div id="defaultModal" tabindex="-1" aria-hidden="true"
-                            class="fixed inset-0 z-50 h-full w-full overflow-y-auto bg-black bg-opacity-50 hidden">
+                            class="fixed inset-0 z-50 hidden h-full w-full overflow-y-auto bg-black bg-opacity-50">
                             <div
                                 class="absolute left-1/2 top-1/2 w-full max-w-md -translate-x-1/2 -translate-y-1/2 transform p-4">
                                 <div class="relative rounded-lg bg-cyan-100 shadow">
