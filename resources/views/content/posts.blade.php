@@ -11,7 +11,7 @@
 
             {{-- Post Card Start --}}
             @foreach ($vacancys as $vc)
-                <div class="mt-3 grid space-y-4 lg:grid-cols-1">
+                <div data-aos="fade-up" class="mt-3 grid space-y-4 lg:grid-cols-1">
                     <article class="cursor-pointer rounded-lg border border-gray-200 bg-lightblue p-6 shadow-md"
                         onclick="navigateToDetailPost()">
                         <div class="mb-5 flex items-center justify-between text-gray-400">

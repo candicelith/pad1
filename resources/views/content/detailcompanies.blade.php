@@ -4,7 +4,7 @@
     <section class="mt-28 bg-white">
         <div class="mx-auto max-w-screen-xl px-4 py-8 sm:flex sm:items-start lg:px-6 lg:py-16">
             <!-- Back Button -->
-            <button class="mb-4 lg:mb-0 lg:me-16">
+            <button onclick="history.back()" class="mb-4 lg:mb-0 lg:me-16">
                 <svg class="h-16 w-16 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -14,7 +14,7 @@
 
             <!-- Content Section -->
             <div class="w-full rounded-3xl bg-lightblue shadow-lg">
-                {{-- Post Details --}}
+                {{-- Companies Details --}}
                 <div class="p-6 sm:p-8 lg:p-10">
                     <div class="lg:mx-14">
                         <div class="flex flex-col lg:flex-row lg:space-x-8">
@@ -215,49 +215,6 @@
                                 </div>
                                 {{-- @endforeach --}}
                             </div>
-                            {{-- <ol class="relative ms-4 border-s border-gray-900">
-                                <li class="mb-10 ms-4">
-                                    <div
-                                        class="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full border border-gray-900 bg-gray-900">
-                                    </div>
-                                    <h3 class="text-lg text-cyan sm:text-xl">UI/UX Designer</h3>
-                                    <h3 class="text-md text-cyan sm:text-lg">Traveloka Indonesia</h3>
-                                    <p class="text-xs text-gray-400 sm:text-sm">Aug 2023 - Present</p>
-                                    <ol class="ms-2 list-outside list-disc">
-                                        <li>Riset pengguna dan analisis kebutuhan.</li>
-                                        <li>Membuat wireframes dan prototipe interaktif.</li>
-                                        <li>Bekerja sama dengan tim pengembang, pemasar, dan stakeholder lainnya.</li>
-                                    </ol>
-                                </li>
-
-                                <li class="mb-10 ms-4">
-                                    <div
-                                        class="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full border border-gray-900 bg-gray-900">
-                                    </div>
-                                    <h3 class="text-lg text-cyan sm:text-xl">UI/UX Designer</h3>
-                                    <h3 class="text-md text-cyan sm:text-lg">Shopee Indonesia</h3>
-                                    <p class="text-xs text-gray-400 sm:text-sm">Des 2023 - Jul 2023</p>
-                                    <ol class="ms-2 list-outside list-disc">
-                                        <li>Mengembangkan elemen visual seperti palet warna, tipografi, dan ikonografi.</li>
-                                        <li>Melakukan pengujian A/B untuk membandingkan berbagai versi desain.</li>
-                                        <li>Menyusun dokumentasi dan spesifikasi desain untuk memudahkan pengembang.</li>
-                                    </ol>
-                                </li>
-
-                                <li class="mb-10 ms-4">
-                                    <div
-                                        class="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full border border-gray-900 bg-gray-900">
-                                    </div>
-                                    <h3 class="text-lg text-cyan sm:text-xl">UI/UX Designer</h3>
-                                    <h3 class="text-md text-cyan sm:text-lg">Bank Central Asia</h3>
-                                    <p class="text-xs text-gray-400 sm:text-sm">Jan 2022 - Dec 2022</p>
-                                    <ol class="ms-2 list-outside list-disc">
-                                        <li>Menciptakan solusi desain yang inovatif dan menarik.</li>
-                                        <li>Mengembangkan persona pengguna berdasarkan data riset.</li>
-                                        <li>Mengumpulkan umpan balik dari pengguna dan pemangku kepentingan.</li>
-                                    </ol>
-                                </li>
-                            </ol> --}}
                         </div>
                     </div>
                 </div>

@@ -5,9 +5,11 @@
         <div class="mx-auto my-16 flex max-w-screen-xl items-center justify-center md:h-screen lg:py-16">
             <div
                 class="mx-10 w-full rounded-lg bg-cyan-100 px-8 py-10 shadow-lg sm:max-w-xl sm:px-14 sm:py-16 lg:max-w-5xl lg:px-20 xl:max-w-6xl">
-                <h1 class="mb-8 text-center text-2xl leading-tight tracking-tight text-white sm:text-3xl md:text-4xl">
-                    Please log in if you are part of UGM-Software Engineering students
+                <h1 class="text-center text-2xl leading-tight tracking-tight text-white sm:text-3xl md:text-4xl">
+                    Login
                 </h1>
+                <p class="my-4 text-center text-base text-white">Please log in if you are part of UGM-Software Engineering
+                    students</p>
                 <form class="mx-auto max-w-4xl space-y-6" action="#">
                     {{-- Email Input --}}
                     <div class="flex flex-col lg:flex-row lg:items-center lg:space-x-6">
@@ -45,7 +47,6 @@
                                             Login failed. Please check your email or password and try again.
                                         </h3>
                                         <button data-modal-hide="popup-modal" type="button"
-                                            onclick="window.location.href='{{ route('home') }}'"
                                             class="ms-3 rounded-full border border-gray-900 bg-white px-5 py-2.5 text-sm font-medium text-red-950 hover:bg-red-950 hover:text-white focus:z-10 focus:outline-none focus:ring-4 focus:ring-red-950">
                                             Close
                                         </button>
@@ -58,4 +59,10 @@
             </div>
         </div>
     </section>
+
+    <script>
+        function navigateToHome() {
+            window.location.href = '{{ route('home') }}';
+        }
+    </script>
 @endsection

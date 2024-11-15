@@ -17,7 +17,7 @@
                         <p class="mb-8 text-base font-normal text-gray-300 sm:text-lg lg:text-xl">
                             Memasuki dunia kerja setelah lulus merupakan tantangan tersendiri bagi banyak alumni...
                         </p>
-                        <a href="#"
+                        <a href="{{ route('404') }}"
                             class="inline-flex items-center justify-center rounded-lg bg-cyan-100 px-5 py-3 text-base font-medium text-white hover:bg-white hover:text-cyan-100 focus:ring-4 focus:ring-cyan">
                             Read More
                         </a>
@@ -39,7 +39,7 @@
                             profesional untuk terus beradaptasi dengan berbagai skill baru yang dibutuhkan oleh
                             industri. Dari kemampuan analisis data hingga keahlian dalam menggunakan alat kolaborasi...
                         </p>
-                        <a href="#"
+                        <a href="{{ route('404') }}"
                             class="inline-flex items-center justify-center rounded-lg bg-cyan-100 px-5 py-3 text-base font-medium text-white hover:bg-white hover:text-cyan-100 focus:ring-4 focus:ring-cyan">
                             Read More
                         </a>
@@ -61,7 +61,7 @@
                             persaingan yang ketat, lulusan baru juga perlu memahami etika profesional dan cara
                             beradaptasi di lingkungan kerja yang dinamis. ...
                         </p>
-                        <a href="#"
+                        <a href="{{ route('404') }}"
                             class="inline-flex items-center justify-center rounded-lg bg-cyan-100 px-5 py-3 text-base font-medium text-white hover:bg-white hover:text-cyan-100 focus:ring-4 focus:ring-cyan">
                             Read More
                         </a>
@@ -120,7 +120,7 @@
             <div class="w-full rounded-lg bg-cyan-100 p-6 lg:w-3/4">
                 <h1 class="mb-3 text-xl text-white sm:text-2xl">Posts</h1>
                 @foreach ($posts as $ps)
-                    <div class="mb-16 cursor-pointer" onclick="navigateToDetailPost()">
+                    <div data-aos="fade-up" class="mb-16 cursor-pointer" onclick="navigateToDetailPost()">
                         <article class="rounded-lg border border-gray-500 bg-lightblue p-6 pb-0 shadow-lg">
                             <div class="mb-5 flex items-center justify-between text-gray-400">
                                 <span class="ml-auto text-sm">
@@ -154,7 +154,7 @@
                 @endforeach
 
                 <a href="{{ route('posts') }}"
-                    class="mt-4 inline-flex items-center justify-center rounded-lg bg-white px-4 py-2 text-cyan hover:bg-cyan hover:text-white">
+                    class="mt-4 inline-flex items-center justify-center rounded-lg bg-white px-12 py-3 text-lg text-cyan hover:bg-cyan hover:text-white">
                     More
                 </a>
             </div>
@@ -166,11 +166,13 @@
                 <div class="flex flex-grow flex-col">
                     @foreach ($company as $com)
                         <div class="mb-8 flex-grow-0">
-                            <article class="rounded-lg border border-gray-500 bg-lightblue p-4 py-5 shadow-lg">
+                            <article data-aos="fade-up"
+                                class="cursor-pointer rounded-lg border border-gray-500 bg-lightblue p-4 py-5 shadow-lg"
+                                onclick="navigateToDetailCompanies()">
                                 <div class="flex flex-col sm:flex-row sm:space-x-4">
                                     <div>
-                                        <img class="h-16 w-16 rounded-full object-cover" src="{{ $com->company_picture }}"
-                                            alt="Company Picture" />
+                                        <img class="h-16 w-16 rounded-full object-cover"
+                                            src="{{ $com->company_picture }}" alt="Company Picture" />
                                     </div>
                                     <div class="mt-2 sm:mt-0">
                                         <h2 class="text-md text-cyan sm:text-lg lg:text-xl">
@@ -207,6 +209,10 @@
     <script>
         function navigateToDetailPost() {
             window.location.href = '{{ route('detailpost') }}';
+        }
+
+        function navigateToDetailCompanies() {
+            window.location.href = '{{ route('detailcompanies') }}';
         }
     </script>
 @endsection

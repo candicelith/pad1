@@ -71,6 +71,34 @@ Route::get('/adminhome', function () {
     return view('content.admin-home');
 })->name('adminhome');
 
+Route::get('/adminalumni', function () {
+    return view('content.admin-alumni');
+})->name('adminalumni');
+
+Route::get('/admindetailalumni', function () {
+    return view('content.admin-detailalumni');
+})->name('admindetailalumni');
+
+Route::get('/admineditalumni', function () {
+    return view('content.admin-editalumni');
+})->name('admineditalumni');
+
+Route::get('/adminprofilalumni', function () {
+    return view('content.admin-profilealumni');
+})->name('adminprofilalumni');
+
+Route::get('/adminprofile', function () {
+    return view('content.admin-profile');
+})->name('adminprofile');
+
+Route::get('/404', function () {
+    return view('errors.404');
+})->name('404');
+
+Route::get('/505', function () {
+    return view('errors.505');
+})->name('505');
+
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/posts', [PostController::class, 'index'])->name('posts');
 Route::get('/alumni', [AlumniController::class, 'index'])->name('alumni');

@@ -1,24 +1,24 @@
 @extends('layout.headerFooter')
 
 @section('content')
-    <section class="bg-white sm:mt-28">
-        <div class="mx-auto max-w-screen-xl px-4 py-8 lg:px-6 lg:py-16">
-            <div class="flex w-full flex-col items-start lg:flex-row">
+    <section class="mt-20 bg-white sm:mt-28">
+        <div class="mx-auto max-w-screen-xl py-8 lg:px-6 lg:py-16">
+            <div class="flex w-full flex-row items-start justify-center">
 
                 <!-- Back Button -->
-                <button class="mb-4 lg:mb-0 lg:me-16">
-                    <svg class="h-16 w-16 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                        width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <button onclick="history.back()" class="lg:mb-0 lg:me-16">
+                    <svg class="h-12 w-12 text-gray-800 dark:text-white sm:h-16 sm:w-16" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="m14 8-4 4 4 4" />
                     </svg>
                 </button>
 
-                <!-- Content Section -->
-                <div class="flex w-full flex-col lg:flex-row">
+                {{-- Content Section --}}
+                <div class="me-4 flex flex-col sm:me-0 lg:flex-row">
                     {{-- Post Details --}}
                     <div
-                        class="w-full rounded-tl-lg rounded-tr-lg border-b-2 border-cyan bg-lightblue p-10 sm:rounded-e-none sm:rounded-s-lg sm:rounded-tr-none sm:border-b-0 sm:border-e-2">
+                        class="w-full rounded-tl-lg rounded-tr-lg border-b-2 border-cyan bg-lightblue p-5 sm:rounded-e-none sm:rounded-s-lg sm:rounded-tr-none sm:border-b-0 sm:border-e-2 sm:p-10">
                         <div class="flex flex-col lg:flex-row lg:space-x-8">
                             <div class="flex-shrink-0">
                                 <img class="h-28 w-28 rounded-full object-cover"
@@ -26,10 +26,10 @@
                                     alt="" />
                             </div>
                             <div class="mt-4 lg:mt-0">
-                                <!-- Position -->
-                                <h2 class="mb-2 text-2xl tracking-tight text-cyan">UI/UX</h2>
                                 <!-- Company Name -->
-                                <h2 class="mb-2 text-xl tracking-tight text-cyan">BCA</h2>
+                                <h2 class="mb-2 text-2xl tracking-tight text-cyan">BCA</h2>
+                                <!-- Position -->
+                                <h2 class="mb-2 text-xl tracking-tight text-cyan">UI/UX</h2>
                                 <!-- Posted By "Name" -->
                                 <p class="text-lg text-gray-400">Posted by Supri</p>
                             </div>
@@ -140,7 +140,7 @@
                             </div>
                         </div>
 
-                        <!-- Input Section -->
+                        {{-- Input Section --}}
                         <div class="mt-auto flex items-center space-x-2">
                             <input type="text"
                                 class="bg-input-cyan-200 flex-grow rounded-xl border px-2 py-1 text-white placeholder-white sm:px-4 sm:py-2"
@@ -154,6 +154,7 @@
                                 </svg>
                             </button>
                         </div>
+
                         <div id="defaultModal" tabindex="-1" aria-hidden="true"
                             class="fixed inset-0 z-50 h-full w-full overflow-y-auto bg-black bg-opacity-50">
                             <div
@@ -164,12 +165,11 @@
                                             details</h3>
                                         <p class="mb-5 text-sm font-normal text-white">Would you like to log in?
                                         </p>
-                                        <button data-modal-hide="defaultModal" type="button" {{-- onclick="window.location.href='{{ route('home') }}'" --}}
+                                        <button data-modal-hide="defaultModal" type="button" {{-- onclick="navigateToHome()" --}}
                                             class="ms-3 rounded-full border border-gray-900 bg-white px-6 py-2.5 text-sm font-medium text-cyan hover:bg-cyan hover:text-white focus:z-10 focus:outline-none focus:ring-4 focus:ring-cyan">
                                             No
                                         </button>
-                                        <button data-modal-hide="defaultModal" type="button"
-                                            onclick="window.location.href='{{ route('profile') }}'"
+                                        <button data-modal-hide="defaultModal" type="button" onclick="navigateToLogin()"
                                             class="ms-3 rounded-full border border-gray-900 bg-white px-6 py-2.5 text-sm font-medium text-cyan hover:bg-cyan hover:text-white focus:z-10 focus:outline-none focus:ring-4 focus:ring-cyan">
                                             Yes
                                         </button>
@@ -197,5 +197,13 @@
                 modal.classList.add('hidden');
             });
         });
+
+        function navigateToHome() {
+            window.location.href = '{{ route('home') }}';
+        }
+
+        function navigateToLogin() {
+            window.location.href = '{{ route('profile') }}';
+        }
     </script>
 @endsection
