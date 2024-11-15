@@ -99,11 +99,11 @@
             {{-- Alumni Cards Start --}}
             <div id="alumni-cards" class="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                 @foreach ($alumnis as $al)
-                    <a href="{{ route('alumni.detail', ['id' => $al->id_userDetails]) }}">
-                        <div {{-- data-aos="fade-up" --}}
-                            class="alumni-card w-full max-w-sm rounded-lg border border-gray-200 bg-lightblue shadow-md"
-                            data-name="{{ $al->name }}" data-year="{{ $al->graduate_year }}">
-                            <div class="flex flex-col items-center py-10">
+                    <a class="alumni-card w-full max-w-sm cursor-pointer rounded-lg border border-gray-200 bg-lightblue shadow-md"
+                        href="{{ route('alumni.detail', ['id' => $al->id_userDetails]) }}" data-name="{{ $al->name }}"
+                        data-year="{{ $al->graduate_year }}">
+                        <div {{-- data-aos="fade-up" --}}>
+                            <div class="flex flex-col items-center px-8 py-8 text-center">
                                 <div class="mb-5 flex w-full justify-end px-6 text-gray-400">
                                     <span class="text-sm">
                                         {{ $al->graduate_year }}
@@ -122,8 +122,7 @@
                                 </h4>
                             </div>
                         </div>
-                    </div>
-                </a>
+                    </a>
                 @endforeach
             </div>
             {{-- Alumni Cards End --}}
@@ -241,9 +240,5 @@
 
         // Initial render for mobile view
         renderAlphabetButtons();
-
-        function navigateToDetailAlumni() {
-            window.location.href = '{{ route('detailalumni') }}';
-        }
     </script>
 @endsection

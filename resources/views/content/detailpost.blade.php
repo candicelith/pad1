@@ -87,20 +87,20 @@
                         <div class="mx-2 my-10 max-w-md flex-grow sm:mt-10">
                             <div class="space-y-6">
                                 {{-- Comment Start --}}
-                                @foreach ($vacan->comments as $comment)
-                                <div class="flex items-start space-x-4">
-                                    <img src="https://via.placeholder.com/40" alt="avatar"
-                                        class="h-14 w-14 rounded-full object-cover">
-                                    <div class="relative max-w-xs">
-                                        <h2 class="text-md">Mustafa Fagan</h2>
-                                        <span class="mt-1 block text-xs text-cyan">10/8/2024 10:00 AM</span>
-                                        <p
-                                            class="relative mt-2 rounded-b-full rounded-e-full rounded-tl-none bg-cyan-200 px-4 py-3 text-white">
-                                            Halo, bisa minta info lebih lanjut?
-                                        </p>
-                                        <span class="ms-6 cursor-pointer text-xs hover:underline">Reply</span>
+                                @foreach ($posts->comments as $comment)
+                                    <div class="flex items-start space-x-4">
+                                        <img src="https://via.placeholder.com/40" alt="avatar"
+                                            class="h-14 w-14 rounded-full object-cover">
+                                        <div class="relative max-w-xs">
+                                            <h2 class="text-md">Mustafa Fagan</h2>
+                                            <span class="mt-1 block text-xs text-cyan">10/8/2024 10:00 AM</span>
+                                            <p
+                                                class="relative mt-2 rounded-b-full rounded-e-full rounded-tl-none bg-cyan-200 px-4 py-3 text-white">
+                                                Halo, bisa minta info lebih lanjut?
+                                            </p>
+                                            <span class="ms-6 cursor-pointer text-xs hover:underline">Reply</span>
+                                        </div>
                                     </div>
-                                </div>
                                 @endforeach
                                 {{-- Reply --}}
                                 <div class="ms-14 flex items-start space-x-4">
@@ -120,24 +120,24 @@
                         </div>
 
                         <!-- Input Section -->
-                        <form action="{{ route('posts.detail.comment', ['id'=>$vacancy->id_vacancy]) }}" method="POST">
+                        <form action="{{ route('posts.detail.comment', ['id' => $vacancy->id_vacancy]) }}" method="POST">
                             @csrf
                             <div class="mt-auto flex items-center space-x-2">
-                            <input type="text"
-                                class="bg-input-cyan-200 flex-grow rounded-xl border px-2 py-1 text-white placeholder-white sm:px-4 sm:py-2"
-                                placeholder="...">
-                            <button type="submit">
-                                <svg class="h-9 w-9 rotate-90 text-cyan sm:h-11 sm:w-11" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                                    viewBox="0 0 24 24">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2" d="m12 18-7 3 7-18 7 18-7-3Zm0 0v-5" />
-                                </svg>
-                            </button>
-                        </div>
+                                <input type="text"
+                                    class="bg-input-cyan-200 flex-grow rounded-xl border px-2 py-1 text-white placeholder-white sm:px-4 sm:py-2"
+                                    placeholder="...">
+                                <button type="submit">
+                                    <svg class="h-9 w-9 rotate-90 text-cyan sm:h-11 sm:w-11" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                        viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="m12 18-7 3 7-18 7 18-7-3Zm0 0v-5" />
+                                    </svg>
+                                </button>
+                            </div>
                         </form>
                         <div id="defaultModal" tabindex="-1" aria-hidden="true"
-                            class="fixed inset-0 z-50 h-full w-full overflow-y-auto bg-black bg-opacity-50 hidden">
+                            class="fixed inset-0 z-50 hidden h-full w-full overflow-y-auto bg-black bg-opacity-50">
                             <div
                                 class="absolute left-1/2 top-1/2 w-full max-w-md -translate-x-1/2 -translate-y-1/2 transform p-4">
                                 <div class="relative rounded-lg bg-cyan-100 shadow">
@@ -181,13 +181,14 @@
                     modal.classList.add('hidden');
                 });
             });
-            function navigateToHome() {
-            window.location.href = '{{ route('home') }}';
-        }
 
-        function navigateToLogin() {
-            window.location.href = '{{ route('profile') }}';
-        }
+            function navigateToHome() {
+                window.location.href = '{{ route('home') }}';
+            }
+
+            function navigateToLogin() {
+                window.location.href = '{{ route('profile') }}';
+            }
         </script>
     @else
     @endif

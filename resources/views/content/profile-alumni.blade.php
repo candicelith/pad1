@@ -8,11 +8,8 @@
                 <div class="relative">
                     <div class="h-48 rounded-t-3xl bg-cyan-100"></div>
                     <div class="absolute top-1/2 ms-14">
-                        <img
-                            class="h-48 w-48 rounded-full object-cover"
-                            src="{{ $userDetails->profile_photo }}"
-                            alt="Profile Picture"
-                        />
+                        <img class="h-48 w-48 rounded-full object-cover" src="{{ $userDetails->profile_photo }}"
+                            alt="Profile Picture" />
                     </div>
                 </div>
 
@@ -36,8 +33,8 @@
                             @foreach ($jobDetails as $job)
                                 <li class="mb-10 ms-4">
                                     <div
-                                        class="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full border border-gray-900 bg-gray-900"
-                                    ></div>
+                                        class="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full border border-gray-900 bg-gray-900">
+                                    </div>
                                     <h3 class="text-xl text-cyan">{{ $job->job_name }}</h3>
                                     <h3 class="text-lg text-cyan">{{ $job->company_name }}</h3>
                                     <p class="text-sm text-gray-400">{{ $job->date_start }} - {{ $job->date_end }}</p>
@@ -102,7 +99,7 @@
                 </form>
 
                 <script>
-                    document.getElementById('logout-button').addEventListener('click', function () {
+                    document.getElementById('logout-button').addEventListener('click', function() {
                         document.getElementById('logout-form').submit();
                     });
                 </script>

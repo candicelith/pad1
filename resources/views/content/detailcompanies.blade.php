@@ -60,10 +60,10 @@
                             <div
                                 class="scrollbar-companies grid max-h-[700px] gap-16 overflow-y-auto px-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                                 @foreach ($workers as $wk)
-                                    <a href="{{ route('alumni.detail', ['id' => $wk->id_userDetails]) }}">
-                                        <div class="mt-0 w-full max-w-sm rounded-lg border border-gray-200 bg-cyan-100 shadow-lg"
-                                            data-name="Supri" data-year="2020">
-                                            <div class="flex flex-col items-center px-3 py-7">
+                                    <a href="{{ route('alumni.detail', ['id' => $wk->id_userDetails]) }}"
+                                        class="mt-0 w-full max-w-sm rounded-lg border border-gray-200 bg-cyan-100 shadow-lg">
+                                        <div data-name="Supri" data-year="2020">
+                                            <div class="flex flex-col items-center px-3 py-7 text-center">
                                                 <div class="mb-5 flex w-full justify-end px-6 text-gray-300">
                                                     <span class="text-sm">
                                                         {{ $wk->graduate_year }}
@@ -98,7 +98,7 @@
                                     }
                                 }
                             </script>
-                            
+
                         </div>
                     </div>
                 </div>

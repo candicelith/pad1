@@ -17,7 +17,7 @@
                         <p class="mb-8 text-base font-normal text-gray-300 sm:text-lg lg:text-xl">
                             Memasuki dunia kerja setelah lulus merupakan tantangan tersendiri bagi banyak alumni...
                         </p>
-                        <a href="{{ route('404') }}"
+                        <a {{-- href="{{ route('404') }}" --}}
                             class="inline-flex items-center justify-center rounded-lg bg-cyan-100 px-5 py-3 text-base font-medium text-white hover:bg-white hover:text-cyan-100 focus:ring-4 focus:ring-cyan">
                             Read More
                         </a>
@@ -39,7 +39,7 @@
                             profesional untuk terus beradaptasi dengan berbagai skill baru yang dibutuhkan oleh
                             industri. Dari kemampuan analisis data hingga keahlian dalam menggunakan alat kolaborasi...
                         </p>
-                        <a href="{{ route('404') }}"
+                        <a {{-- href="{{ route('404') }}" --}}
                             class="inline-flex items-center justify-center rounded-lg bg-cyan-100 px-5 py-3 text-base font-medium text-white hover:bg-white hover:text-cyan-100 focus:ring-4 focus:ring-cyan">
                             Read More
                         </a>
@@ -61,7 +61,7 @@
                             persaingan yang ketat, lulusan baru juga perlu memahami etika profesional dan cara
                             beradaptasi di lingkungan kerja yang dinamis. ...
                         </p>
-                        <a href="{{ route('404') }}"
+                        <a {{-- href="{{ route('404') }}" --}}
                             class="inline-flex items-center justify-center rounded-lg bg-cyan-100 px-5 py-3 text-base font-medium text-white hover:bg-white hover:text-cyan-100 focus:ring-4 focus:ring-cyan">
                             Read More
                         </a>
@@ -120,39 +120,39 @@
             <div class="w-full rounded-lg bg-cyan-100 p-6 lg:w-3/4">
                 <h1 class="mb-3 text-xl text-white sm:text-2xl">Posts</h1>
                 @foreach ($posts as $ps)
-                <a href="{{ route('posts.detail', ['id'=>$ps->id_vacancy ]) }}">
-                    <div data-aos="fade-up" class="mb-16 cursor-pointer">
-                        <article class="rounded-lg border border-gray-500 bg-lightblue p-6 pb-0 shadow-lg">
-                            <div class="mb-5 flex items-center justify-between text-gray-400">
-                                <span class="ml-auto text-sm">
-                                    {{ $ps->date_difference }}
-                                </span>
-                            </div>
-                            <div class="mb-2 flex flex-col sm:flex-row sm:space-x-4">
-                                <div class="h-16 w-16">
-                                    <img class="h-full w-full rounded-full object-cover" src="{{ $ps->profile_photo }}"
-                                        alt="Profile Photo" />
+                    <a href="{{ route('posts.detail', ['id' => $ps->id_vacancy]) }}">
+                        <div data-aos="fade-up" class="mb-16 cursor-pointer">
+                            <article class="rounded-lg border border-gray-500 bg-lightblue p-6 pb-0 shadow-lg">
+                                <div class="mb-5 flex items-center justify-between text-gray-400">
+                                    <span class="ml-auto text-sm">
+                                        {{ $ps->date_difference }}
+                                    </span>
                                 </div>
-                                <div class="mt-2">
-                                    <h2 class="text-md text-cyan sm:text-lg lg:text-xl">
-                                        {{ $ps->name }}
-                                    </h2>
-                                    <h2 class="sm:text-md text-xs text-cyan">
-                                        <span class="text-gray-400">Searching for:</span>
-                                        {{ $ps->position }}
-                                    </h2>
+                                <div class="mb-2 flex flex-col sm:flex-row sm:space-x-4">
+                                    <div class="h-16 w-16">
+                                        <img class="h-full w-full rounded-full object-cover" src="{{ $ps->profile_photo }}"
+                                            alt="Profile Photo" />
+                                    </div>
+                                    <div class="mt-2">
+                                        <h2 class="text-md text-cyan sm:text-lg lg:text-xl">
+                                            {{ $ps->name }}
+                                        </h2>
+                                        <h2 class="sm:text-md text-xs text-cyan">
+                                            <span class="text-gray-400">Searching for:</span>
+                                            {{ $ps->position }}
+                                        </h2>
+                                    </div>
                                 </div>
-                            </div>
-                            <div>
-                                <p class="my-6 text-xs sm:text-base">
-                                    {{ $ps->vacancy_description }}
-                                </p>
-                                <img class="h-32 w-full rounded-tl-md rounded-tr-md object-cover md:h-40"
-                                    src="{{ $ps->vacancy_picture }}" alt="Vacancy Picture" />
-                            </div>
-                        </article>
-                    </div>
-                </a>
+                                <div>
+                                    <p class="my-6 text-xs sm:text-base">
+                                        {{ $ps->vacancy_description }}
+                                    </p>
+                                    <img class="h-32 w-full rounded-tl-md rounded-tr-md object-cover md:h-40"
+                                        src="{{ $ps->vacancy_picture }}" alt="Vacancy Picture" />
+                                </div>
+                            </article>
+                        </div>
+                    </a>
                 @endforeach
 
                 <a href="{{ route('posts') }}"
@@ -167,40 +167,40 @@
                 <h1 class="mb-4 text-xl text-white">Top 10 Companies Alumni Work For</h1>
                 <div class="flex flex-grow flex-col">
                     @foreach ($company as $com)
-                    <a href="{{ route('companies.detail',['id'=>$com->id_company]) }}">
-                        <div class="mb-8 flex-grow-0">
-                            <article data-aos="fade-up"
-                                class="cursor-pointer rounded-lg border border-gray-500 bg-lightblue p-4 py-5 shadow-lg"
-                                onclick="navigateToDetailCompanies()">
-                                <div class="flex flex-col sm:flex-row sm:space-x-4">
-                                    <div>
-                                        <img class="h-16 w-16 rounded-full object-cover"
-                                            src="{{ $com->company_picture }}" alt="Company Picture" />
-                                    </div>
-                                    <div class="mt-2 sm:mt-0">
-                                        <h2 class="text-md text-cyan sm:text-lg lg:text-xl">
-                                            {{ $com->company_name }}
-                                        </h2>
-                                        <div class="mt-2 flex items-center space-x-0.5 sm:space-x-1">
-                                            <span class="text-sm sm:text-lg">
-                                                {{ $com->employee_count }}
-                                            </span>
-                                            <div class="flex items-center space-x-1 sm:space-x-0">
-                                                @php
-                                                    $numIcons = min(ceil($com->employee_count / 2), 7);
-                                                @endphp
+                        <a href="{{ route('companies.detail', ['id' => $com->id_company]) }}">
+                            <div class="mb-8 flex-grow-0">
+                                <article data-aos="fade-up"
+                                    class="cursor-pointer rounded-lg border border-gray-500 bg-lightblue p-4 py-5 shadow-lg"
+                                    onclick="navigateToDetailCompanies()">
+                                    <div class="flex flex-col sm:flex-row sm:space-x-4">
+                                        <div>
+                                            <img class="h-16 w-16 rounded-full object-cover"
+                                                src="{{ $com->company_picture }}" alt="Company Picture" />
+                                        </div>
+                                        <div class="mt-2 sm:mt-0">
+                                            <h2 class="text-md text-cyan sm:text-lg lg:text-xl">
+                                                {{ $com->company_name }}
+                                            </h2>
+                                            <div class="mt-2 flex items-center space-x-0.5 sm:space-x-1">
+                                                <span class="text-sm sm:text-lg">
+                                                    {{ $com->employee_count }}
+                                                </span>
+                                                <div class="flex items-center space-x-1 sm:space-x-0">
+                                                    @php
+                                                        $numIcons = min(ceil($com->employee_count / 2), 7);
+                                                    @endphp
 
-                                                @for ($i = 0; $i < $numIcons; $i++)
-                                                    <img src="{{ asset('assets/lulusan.svg') }}" alt="Alumni Icon"
-                                                        class="h-6 w-6 sm:h-8 sm:w-8" />
-                                                @endfor
+                                                    @for ($i = 0; $i < $numIcons; $i++)
+                                                        <img src="{{ asset('assets/lulusan.svg') }}" alt="Alumni Icon"
+                                                            class="h-6 w-6 sm:h-8 sm:w-8" />
+                                                    @endfor
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </article>
-                        </div>
-                    </a>
+                                </article>
+                            </div>
+                        </a>
                     @endforeach
                 </div>
             </div>
@@ -210,7 +210,7 @@
     </section>
     {{-- Content End --}}
 
-    <script>
+    {{-- <script>
         function navigateToDetailPost() {
             window.location.href = '{{ route('detailpost') }}';
         }
@@ -218,5 +218,5 @@
         function navigateToDetailCompanies() {
             window.location.href = '{{ route('detailcompanies') }}';
         }
-    </script>
+    </script> --}}
 @endsection
