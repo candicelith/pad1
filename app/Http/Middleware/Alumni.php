@@ -21,6 +21,6 @@ class Alumni
             return $next($request);
         }
         // Deny access for other users by returning a 404 error
-        return abort(404);
+        return redirect()->route('404');
     }
 }

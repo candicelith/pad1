@@ -170,8 +170,7 @@
                     <a href="{{ route('companies.detail',['id'=>$com->id_company]) }}">
                         <div class="mb-8 flex-grow-0">
                             <article data-aos="fade-up"
-                                class="cursor-pointer rounded-lg border border-gray-500 bg-lightblue p-4 py-5 shadow-lg"
-                                onclick="navigateToDetailCompanies()">
+                                class="cursor-pointer rounded-lg border border-gray-500 bg-lightblue p-4 py-5 shadow-lg">
                                 <div class="flex flex-col sm:flex-row sm:space-x-4">
                                     <div>
                                         <img class="h-16 w-16 rounded-full object-cover"
@@ -209,14 +208,4 @@
         </div>
     </section>
     {{-- Content End --}}
-
-    <script>
-        function navigateToDetailPost() {
-            window.location.href = '{{ route('detailpost') }}';
-        }
-
-        function navigateToDetailCompanies() {
-            window.location.href = '{{ route('detailcompanies') }}';
-        }
-    </script>
 @endsection

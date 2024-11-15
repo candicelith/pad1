@@ -44,7 +44,7 @@
                                     class="ms-3 rounded-full border border-gray-900 bg-white px-5 py-2.5 text-sm font-medium text-cyan hover:bg-cyan hover:text-white focus:z-10 focus:outline-none focus:ring-4 focus:ring-cyan">
                                     Cancel
                                 </button>
-                                <button data-modal-hide="popup-modal" type="button"
+                                <button data-modal-hide="popup-modal" type="button" id="logout-button"
                                     class="ms-3 rounded-full border border-gray-900 bg-white px-5 py-2.5 text-sm font-medium text-cyan hover:bg-cyan hover:text-white focus:z-10 focus:outline-none focus:ring-4 focus:ring-cyan">
                                     Log Out
                                 </button>

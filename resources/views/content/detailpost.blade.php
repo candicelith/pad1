@@ -88,56 +88,75 @@
                             <div class="space-y-6">
                                 {{-- Comment Start --}}
                                 @foreach ($comments as $comment)
-                                <div class="flex items-start space-x-4">
-                                    <img src="{{ $comment->user->userDetails->profile_photo}}" alt="avatar"
-                                        class="h-14 w-14 rounded-full object-cover">
-                                    <div class="relative max-w-xs">
-                                        <h2 class="text-md">{{ $comment->user->userDetails->name}}</h2>
-                                        <span class="mt-1 block text-xs text-cyan">{{ $comment->created_at }}</span>
-                                        {{-- 10/8/2024 10:00 AM --}}
-                                        <p
-                                            class="relative mt-2 rounded-b-full rounded-e-full rounded-tl-none bg-cyan-200 px-4 py-3 text-white">
-                                            {{ $comment->text_comment }}
-                                        </p>
-                                        <span class="ms-6 cursor-pointer text-xs hover:underline">Reply</span>
+                                    <div class="flex items-start space-x-4">
+                                        <img src="{{ $comment->user->userDetails->profile_photo }}" alt="avatar"
+                                            class="h-14 w-14 rounded-full object-cover">
+                                        <div class="relative max-w-xs">
+                                            <h2 class="text-md">{{ $comment->user->userDetails->name }}</h2>
+                                            <span class="mt-1 block text-xs text-cyan">{{ $comment->created_at }}</span>
+                                            {{-- 10/8/2024 10:00 AM --}}
+                                            <p
+                                                class="relative mt-2 rounded-b-full rounded-e-full rounded-tl-none bg-cyan-200 px-4 py-3 text-white">
+                                                {{ $comment->text_comment }}
+                                            </p>
+                                            <span class="ms-6 cursor-pointer text-xs hover:underline reply-toggle" data-comment-id="{{ $comment->id_comment }}">
+                                                Reply
+                                            </span>
+                                        </div>
                                     </div>
-                                </div>
+
+                                    {{-- Reply --}}
+                                    @if ($comment->replies->count() > 0)
+                                        @foreach ($comment->replies as $reply)
+                                            <div class="ms-14 flex items-start space-x-4">
+                                                <img src="https://via.placeholder.com/40" alt="avatar"
+                                                    class="h-14 w-14 rounded-full object-cover">
+                                                <div class="relative max-w-xs">
+                                                    <h2 class="text-md">{{ $reply->user->userDetails->name }}</h2>
+                                                    <span
+                                                        class="mt-1 block text-xs text-cyan">{{ $reply->created_at }}</span>
+                                                    <p
+                                                        class="relative mt-2 rounded-b-full rounded-e-full rounded-tl-none bg-cyan-200 px-4 py-3 text-white">
+                                                        {{ $reply->text_comment }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    @endif
+                                    <!-- Reply form -->
+                                    {{-- <form
+                                        action="{{ route('posts.detail.comment', ['vacancy'=>$vacancy->id_vacancy, 'id' => $vacancy->id_vacancy]) }}"
+                                        method="POST">
+                                        @csrf
+                                        <input type="hidden" name="parent_id" value="{{ $comment->id }}">
+                                        <textarea name="comment" required></textarea>
+                                        <button type="submit">Reply</button>
+                                    </form> --}}
+                                    {{-- End Reply --}}
                                 @endforeach
-                                {{-- Reply --}}
-                                {{-- <div class="ms-14 flex items-start space-x-4">
-                                    <img src="https://via.placeholder.com/40" alt="avatar"
-                                        class="h-14 w-14 rounded-full object-cover">
-                                    <div class="relative max-w-xs">
-                                        <h2 class="text-md">Supri</h2>
-                                        <span class="mt-1 block text-xs text-cyan">10/8/2024 10:00 AM</span>
-                                        <p
-                                            class="relative mt-2 rounded-b-full rounded-e-full rounded-tl-none bg-cyan-200 px-4 py-3 text-white">
-                                            G blh
-                                        </p>
-                                        <span class="ms-6 cursor-pointer text-xs hover:underline">Reply</span>
-                                    </div>
-                                </div> --}}
-                                {{-- End Reply --}}
                             </div>
                         </div>
 
                         <!-- Input Section -->
-                        <form action="{{ route('posts.detail.comment', ['id'=>$vacancy->id_vacancy]) }}" method="POST">
+                        <form action="{{ route('posts.detail.comment', ['vacancy' => $vacancy->id_vacancy,'id'=>$vacancy->id_vacancy]) }}" method="POST">
                             @csrf
                             <div class="mt-auto flex items-center space-x-2">
-                            <input type="text"
-                                class="bg-input-cyan-200 flex-grow rounded-xl border px-2 py-1 text-white placeholder-white sm:px-4 sm:py-2"
-                                placeholder="...">
-                            <button type="submit">
-                                <svg class="h-9 w-9 rotate-90 text-cyan sm:h-11 sm:w-11" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                                    viewBox="0 0 24 24">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2" d="m12 18-7 3 7-18 7 18-7-3Zm0 0v-5" />
-                                </svg>
-                            </button>
-                        </div>
+                                <input type="text" name="comment"
+                                    class="bg-input-cyan-200 flex-grow rounded-xl border px-2 py-1 text-white placeholder-white sm:px-4 sm:py-2"
+                                    placeholder="...">
+                                <button type="submit">
+                                    <svg class="h-9 w-9 rotate-90 text-cyan sm:h-11 sm:w-11" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                        viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="m12 18-7 3 7-18 7 18-7-3Zm0 0v-5" />
+                                    </svg>
+                                </button>
+                            </div>
                         </form>
+                        {{-- End Input Section --}}
+
+                        {{-- Modal Section --}}
                         <div id="defaultModal" tabindex="-1" aria-hidden="true"
                             class="fixed inset-0 z-50 h-full w-full overflow-y-auto bg-black bg-opacity-50 hidden">
                             <div
@@ -183,13 +202,14 @@
                     modal.classList.add('hidden');
                 });
             });
-            function navigateToHome() {
-            window.location.href = '{{ route('home') }}';
-        }
 
-        function navigateToLogin() {
-            window.location.href = '{{ route('profile') }}';
-        }
+            function navigateToHome() {
+                window.location.href = '{{ route('home') }}';
+            }
+
+            function navigateToLogin() {
+                window.location.href = '{{ route('profile') }}';
+            }
         </script>
     @else
     @endif
