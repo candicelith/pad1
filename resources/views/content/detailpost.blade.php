@@ -87,23 +87,24 @@
                         <div class="mx-2 my-10 max-w-md flex-grow sm:mt-10">
                             <div class="space-y-6">
                                 {{-- Comment Start --}}
-                                @foreach ($vacan->comments as $comment)
+                                @foreach ($comments as $comment)
                                 <div class="flex items-start space-x-4">
-                                    <img src="https://via.placeholder.com/40" alt="avatar"
+                                    <img src="{{ $comment->user->userDetails->profile_photo}}" alt="avatar"
                                         class="h-14 w-14 rounded-full object-cover">
                                     <div class="relative max-w-xs">
-                                        <h2 class="text-md">Mustafa Fagan</h2>
-                                        <span class="mt-1 block text-xs text-cyan">10/8/2024 10:00 AM</span>
+                                        <h2 class="text-md">{{ $comment->user->userDetails->name}}</h2>
+                                        <span class="mt-1 block text-xs text-cyan">{{ $comment->created_at }}</span>
+                                        {{-- 10/8/2024 10:00 AM --}}
                                         <p
                                             class="relative mt-2 rounded-b-full rounded-e-full rounded-tl-none bg-cyan-200 px-4 py-3 text-white">
-                                            Halo, bisa minta info lebih lanjut?
+                                            {{ $comment->text_comment }}
                                         </p>
                                         <span class="ms-6 cursor-pointer text-xs hover:underline">Reply</span>
                                     </div>
                                 </div>
                                 @endforeach
                                 {{-- Reply --}}
-                                <div class="ms-14 flex items-start space-x-4">
+                                {{-- <div class="ms-14 flex items-start space-x-4">
                                     <img src="https://via.placeholder.com/40" alt="avatar"
                                         class="h-14 w-14 rounded-full object-cover">
                                     <div class="relative max-w-xs">
@@ -115,7 +116,8 @@
                                         </p>
                                         <span class="ms-6 cursor-pointer text-xs hover:underline">Reply</span>
                                     </div>
-                                </div>
+                                </div> --}}
+                                {{-- End Reply --}}
                             </div>
                         </div>
 
