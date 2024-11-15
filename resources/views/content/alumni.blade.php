@@ -97,10 +97,11 @@
             </div>
 
             {{-- Alumni Cards Start --}}
-            <div {{-- data-aos="fade-up" --}} id="alumni-cards" class="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            <div id="alumni-cards" class="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                 @foreach ($alumnis as $al)
                     <a href="{{ route('alumni.detail', ['id' => $al->id_userDetails]) }}">
-                        <div class="alumni-card w-full max-w-sm rounded-lg border border-gray-200 bg-lightblue shadow-md"
+                        <div {{-- data-aos="fade-up" --}}
+                            class="alumni-card w-full max-w-sm rounded-lg border border-gray-200 bg-lightblue shadow-md"
                             data-name="{{ $al->name }}" data-year="{{ $al->graduate_year }}">
                             <div class="flex flex-col items-center py-10">
                                 <div class="mb-5 flex w-full justify-end px-6 text-gray-400">
