@@ -18,7 +18,7 @@
 
                 {{-- Profile Details --}}
                 <div class="mx-14 flex flex-col space-y-2">
-                    <div class="flex items-center justify-between pt-36">
+                    <div class="items-center justify-between pt-36 sm:flex">
                         <h2 class="text-2xl text-cyan">{{ $userDetails->name }}</h2>
                         <p class="text-xl text-gray-400">{{ $userDetails->nim }}</p>
                     </div>
@@ -56,14 +56,15 @@
                     </div>
                 </div>
 
-                {{-- Logout Button --}}
                 <div class="mx-4 mt-14 flex items-center justify-between p-6 ps-0 sm:mx-14 sm:p-0">
+                    {{-- Edit Button --}}
                     <div class="sm:ms-14">
                         <a href="{{ route('alumni.show-profile') }}"
                             class="sm:text-md rounded-full bg-cyan px-2 py-4 text-sm text-white hover:bg-white hover:text-cyan sm:px-8">
                             Edit Profile
                         </a>
                     </div>
+                    {{-- Logout Button --}}
                     <button data-modal-target="popup-modal" data-modal-toggle="popup-modal"
                         class="rounded-full bg-red-500 p-3 text-white shadow-lg hover:bg-red-600 sm:me-10">
                         <svg class="h-8 w-8 sm:h-14 sm:w-14" fill="none" stroke="currentColor" stroke-width="2"
@@ -72,7 +73,8 @@
                                 d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h5a3 3 0 0 1 3 3v1" />
                         </svg>
                     </button>
-                    {{-- modal --}}
+
+                    {{-- Modal --}}
                     <div id="popup-modal" tabindex="-1"
                         class="fixed left-0 right-0 top-0 z-50 hidden h-full max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0">
                         <div class="relative max-h-full w-full max-w-md p-4">

@@ -29,9 +29,8 @@
                 </form>
             </div>
 
-            <!-- Filter Start -->
+            {{-- Filter --}}
             <div class="mb-16 mt-9 flex flex-wrap items-center gap-2">
-                <!-- Full alphabet filter for desktop view -->
                 <div class="hidden w-full flex-wrap gap-1 sm:flex sm:w-auto">
                     <button
                         class="rounded-full bg-cyan px-4 py-1 text-center text-sm text-white hover:bg-cyan-100 hover:text-white focus:bg-cyan-100 focus:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100"
@@ -47,17 +46,16 @@
                     @endforeach
                 </div>
 
-                <!-- Paginated alphabet filter for mobile view -->
+                {{-- Paginated alphabet filter for mobile view --}}
                 <div id="company-alphabet-filter" class="flex w-full flex-wrap gap-2 sm:hidden">
                     <button
                         class="rounded-full bg-cyan px-4 py-1 text-center text-sm text-white hover:bg-cyan-100 hover:text-white focus:bg-cyan-100 focus:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100"
                         value="" onclick="filterCompanies(event)">
                         All
                     </button>
-                    <!-- Alphabet buttons for mobile view will be rendered here dynamically -->
                 </div>
 
-                <!-- Pagination controls for mobile view only -->
+                {{-- Pagination controls for mobile view only --}}
                 <div class="mt-4 flex w-full justify-center sm:hidden">
                     <div class="flex items-center space-x-2">
                         <button id="prev-company-btn"
@@ -73,7 +71,6 @@
                     </div>
                 </div>
             </div>
-            <!-- Filter End -->
 
             {{-- No Result Found --}}
             <div id="no-results" class="hidden h-40 items-center justify-center">
@@ -87,32 +84,30 @@
                 </div>
             </div>
 
-            {{-- Companies Start --}}
-
-                <div id="companies-card" class="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                    @foreach ($company as $com)
-                    <a href="{{ route('companies.detail', ['id' => $com->id_company]) }}">
-                        <div class="company-card w-full max-w-sm rounded-lg border border-gray-200 bg-lightblue shadow-md"
-                            data-name="{{ strtolower($com->company_name) }}">
-                            <div class="flex flex-col items-center py-10">
-                                <img class="mb-3 h-24 w-24 rounded-full shadow-lg" src="{{ $com->company_picture }}"
-                                    alt="Bonnie image" />
-                                <h2 class="mb-1 text-xl text-cyan">
-                                    {{ $com->company_name }}
-                                </h2>
-                                <h3 class="mb-1 text-lg text-cyan">
-                                    {{ $com->company_field }}
-                                </h3>
-                                <h4 class="text-md text-center text-gray-400">
-                                    {{ $com->company_address }}
-                                </h4>
-                            </div>
+            {{-- Companies Cards Start --}}
+            <div id="companies-card" class="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                @foreach ($company as $com)
+                <a href="{{ route('companies.detail', ['id' => $com->id_company]) }}"></a>
+                    <div {{-- data-aos="fade-up" --}}
+                        class="company-card w-full max-w-sm cursor-pointer rounded-lg border border-gray-200 bg-lightblue shadow-md"
+                        data-name="{{ strtolower($com->company_name) }}" onclick="navigateToDetailCompanies()">
+                        <div class="flex flex-col items-center py-10">
+                            <img class="mb-3 h-24 w-24 rounded-full shadow-lg" src="{{ $com->company_picture }}"
+                                alt="Bonnie image" />
+                            <h2 class="mb-1 text-xl text-cyan">
+                                {{ $com->company_name }}
+                            </h2>
+                            <h3 class="mb-1 text-lg text-cyan">
+                                {{ $com->company_field }}
+                            </h3>
+                            <h4 class="text-md text-center text-gray-400">
+                                {{ $com->company_address }}
+                            </h4>
                         </div>
-                    </a>
-                    @endforeach
-                </div>
-
-            {{-- Companies End --}}
+                    </div>
+                @endforeach
+            </div>
+            {{-- Companies Cards End --}}
         </div>
     </section>
 
@@ -218,5 +213,9 @@
 
         // Initialize alphabet buttons for mobile view
         renderCompanyAlphabetButtons();
+
+        function navigateToDetailCompanies() {
+            window.location.href = '{{ route('detailcompanies') }}';
+        }
     </script>
 @endsection

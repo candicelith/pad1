@@ -5,9 +5,11 @@
         <div class="mx-auto my-16 flex max-w-screen-xl items-center justify-center md:h-screen lg:py-16">
             <div
                 class="mx-10 w-full rounded-lg bg-cyan-100 px-8 py-10 shadow-lg sm:max-w-xl sm:px-14 sm:py-16 lg:max-w-5xl lg:px-20 xl:max-w-6xl">
-                <h1 class="mb-8 text-center text-2xl leading-tight tracking-tight text-white sm:text-3xl md:text-4xl">
-                    Please log in if you are part of UGM-Software Engineering students
+                <h1 class="text-center text-2xl leading-tight tracking-tight text-white sm:text-3xl md:text-4xl">
+                    Login
                 </h1>
+                <p class="my-4 text-center text-base text-white">Please log in if you are part of UGM-Software Engineering
+                    students</p>
                 <form class="mx-auto max-w-4xl space-y-6" action="{{ route('authenticate') }}" method="POST">
                     @csrf
                     {{-- Email Input --}}
@@ -54,22 +56,20 @@
 
                     {{-- Backdrop for Modal --}}
                     <div id="modal-backdrop" class="fixed inset-0 z-40 hidden bg-black bg-opacity-50 backdrop-blur-sm"></div>
-
-                    {{-- Popup Modal --}}
-                    <div id="popup-modal" tabindex="-1"
-                        class="fixed left-0 right-0 top-0 z-50 hidden h-full max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden flex">
-                        <div class="relative max-h-full w-full max-w-md p-4">
-                            <div class="relative rounded-lg bg-red-300 shadow">
-                                <div class="p-4 text-center md:p-5">
-                                    <h3 class="mb-5 text-lg font-normal text-red-950">
-                                        Login failed. Please check your email or password and try again.
-                                    </h3>
-                                    <button type="button"
-                                        onclick="closeModal()"
-                                        class="ms-3 rounded-full border border-gray-900 bg-white px-5 py-2.5 text-sm font-medium text-red-950 hover:bg-red-950 hover:text-white focus:z-10 focus:outline-none focus:ring-4 focus:ring-red-950">
-                                        Close
-                                    </button>
-
+                        {{-- popup modal --}}
+                        <div id="popup-modal" tabindex="-1"
+                            class="fixed left-0 right-0 top-0 z-50 hidden h-full max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0">
+                            <div class="relative max-h-full w-full max-w-md p-4">
+                                <div class="relative rounded-lg bg-red-300 shadow">
+                                    <div class="p-4 text-center md:p-5">
+                                        <h3 class="mb-5 text-lg font-normal text-red-950">
+                                            Login failed. Please check your email or password and try again.
+                                        </h3>
+                                        <button data-modal-hide="popup-modal" type="button"
+                                            class="ms-3 rounded-full border border-gray-900 bg-white px-5 py-2.5 text-sm font-medium text-red-950 hover:bg-red-950 hover:text-white focus:z-10 focus:outline-none focus:ring-4 focus:ring-red-950">
+                                            Close
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -86,4 +86,10 @@
             </div>
         </div>
     </section>
+
+    <script>
+        function navigateToHome() {
+            window.location.href = '{{ route('home') }}';
+        }
+    </script>
 @endsection

@@ -54,6 +54,14 @@ Route::get('/adminhome', function () {
     return view('content.admin-home');
 })->name('adminhome');
 
+Route::get('/404', function () {
+    return view('errors.404');
+})->name('404');
+
+Route::get('/505', function () {
+    return view('errors.505');
+})->name('505');
+
 // Index
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/companies', [CompanyController::class, 'index'])->name('companies');
