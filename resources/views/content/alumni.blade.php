@@ -97,31 +97,31 @@
             </div>
 
             {{-- Alumni Cards Start --}}
-            <div id="alumni-cards" class="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            <div {{-- data-aos="fade-up" --}} id="alumni-cards" class="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                 @foreach ($alumnis as $al)
-                    <div {{-- data-aos="fade-up" --}}
-                        class="alumni-card w-full max-w-sm cursor-pointer rounded-lg border border-gray-200 bg-lightblue shadow-md"
-                        data-name="{{ $al->name }}" data-year="{{ $al->graduate_year }}"
-                        onclick="navigateToDetailAlumni()">
-                        <div class="flex flex-col items-center py-10">
-                            <div class="mb-5 flex w-full justify-end px-6 text-gray-400">
-                                <span class="text-sm">
-                                    {{ $al->graduate_year }}
-                                </span>
+                    <a href="{{ route('alumni.detail', ['id' => $al->id_userDetails]) }}">
+                        <div class="alumni-card w-full max-w-sm rounded-lg border border-gray-200 bg-lightblue shadow-md"
+                            data-name="{{ $al->name }}" data-year="{{ $al->graduate_year }}">
+                            <div class="flex flex-col items-center py-10">
+                                <div class="mb-5 flex w-full justify-end px-6 text-gray-400">
+                                    <span class="text-sm">
+                                        {{ $al->graduate_year }}
+                                    </span>
+                                </div>
+                                <img class="mb-3 h-24 w-24 rounded-full shadow-lg" src="{{ $al->profile_photo }}"
+                                    alt="{{ $al->name }} image" />
+                                <h2 class="mb-1 text-xl text-cyan">
+                                    {{ $al->name }}
+                                </h2>
+                                <h3 class="text-lg text-cyan">
+                                    {{ $al->job_name }}
+                                </h3>
+                                <h4 class="text-md text-gray-500">
+                                    {{ $al->company_name }}
+                                </h4>
                             </div>
-                            <img class="mb-3 h-24 w-24 rounded-full shadow-lg" src="{{ $al->profile_photo }}"
-                                alt="{{ $al->name }} image" />
-                            <h2 class="mb-1 text-xl text-cyan">
-                                {{ $al->name }}
-                            </h2>
-                            <h3 class="text-lg text-cyan">
-                                {{ $al->job_name }}
-                            </h3>
-                            <h4 class="text-md text-gray-500">
-                                {{ $al->company_name }}
-                            </h4>
                         </div>
-                    </div>
+                    </a>
                 @endforeach
             </div>
             {{-- Alumni Cards End --}}
