@@ -3,14 +3,29 @@
 @section('content')
     <section class="mt-20 bg-white">
         <div class="mx-auto max-w-screen-xl px-4 py-8 lg:px-6 lg:py-16">
-
             {{-- Title --}}
             <div class="mx-auto mb-8 max-w-screen-sm text-center lg:mb-16">
                 <h2 class="mb-4 text-3xl text-cyan lg:text-4xl">Posts</h2>
             </div>
 
+            @auth
+            @if (Auth::check() && Auth::user()->id_roles=="2")
+            {{-- New Post Button --}}
+            <div class="mt-6 flex justify-end">
+                <a
+                    href="{{ route('createpost') }}"
+                    class="items-center rounded-full bg-cyan-100 px-5 py-1 text-lg text-white shadow hover:bg-white hover:text-cyan-100"
+                >
+                    New Post +
+                </a>
+            </div>
+            @endif
+            @endauth
+
+
             {{-- Post Card Start --}}
             @foreach ($vacancys as $vc)
+            <a href="{{ route('posts.detail', ['id' => (String) $vc->id_vacancy]) }}">
                 <div data-aos="fade-up" class="mt-3 grid space-y-4 lg:grid-cols-1">
                     <article class="cursor-pointer rounded-lg border border-gray-200 bg-lightblue p-6 shadow-md"
                         onclick="navigateToDetailPost()">
@@ -39,7 +54,9 @@
                         </div>
                     </article>
                 </div>
+            </a>
             @endforeach
+
             {{-- Post Card End --}}
 
             {{-- Pagination --}}
@@ -48,10 +65,4 @@
             </div>
         </div>
     </section>
-
-    <script>
-        function navigateToDetailPost() {
-            window.location.href = '{{ route('detailpost') }}';
-        }
-    </script>
 @endsection

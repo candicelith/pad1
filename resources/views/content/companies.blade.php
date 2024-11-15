@@ -87,6 +87,7 @@
             {{-- Companies Cards Start --}}
             <div id="companies-card" class="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                 @foreach ($company as $com)
+                <a href="{{ route('companies.detail', ['id' => $com->id_company]) }}"></a>
                     <div {{-- data-aos="fade-up" --}}
                         class="company-card w-full max-w-sm cursor-pointer rounded-lg border border-gray-200 bg-lightblue shadow-md"
                         data-name="{{ strtolower($com->company_name) }}" onclick="navigateToDetailCompanies()">

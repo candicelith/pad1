@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('comment', function (Blueprint $table) {
             $table->bigIncrements('id_comment');
             $table->unsignedBigInteger('id_users');
-            $table->unsignedBigInteger('id_vacancy');
+            $table->unsignedBigInteger('id_vacancy')->constrained()->cascadeOnDelete();
             $table->text('text_comment');
             $table->timestamps();
 

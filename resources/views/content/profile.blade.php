@@ -8,16 +8,18 @@
                 <div class="relative">
                     <div class="h-48 rounded-t-3xl bg-cyan-100"></div>
                     <div class="absolute top-1/2 ms-14">
-                        <img class="h-48 w-48 rounded-full object-cover"
-                            src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
-                            alt="Profile Picture" />
+                        <img
+                            class="h-48 w-48 rounded-full object-cover"
+                            src="{{ $userDetails->profile_photo }}"
+                            alt="Profile Picture"
+                        />
                     </div>
                 </div>
 
                 {{-- Profile Details --}}
                 <div class="ms-14 flex flex-col items-start pt-36">
-                    <h2 class="text-2xl text-cyan">Muhammad Naufal Daffachri</h2>
-                    <p class="pt-5 text-xl text-gray-400">23/565657/SV/23636</p>
+                    <h2 class="text-2xl text-cyan">{{ $userDetails->name }}</h2>
+                    <p class="pt-5 text-xl text-gray-400">{{ $userDetails->nim }}</p>
                 </div>
 
                 {{-- Logout Button --}}
@@ -50,6 +52,16 @@
                         </div>
                     </div>
                 </div>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+
+                <script>
+                    document.getElementById('logout-button').addEventListener('click', function() {
+                        document.getElementById('logout-form').submit();
+                    });
+                </script>
             </div>
         </div>
     </section>

@@ -19,9 +19,13 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('phone');
             $table->string('profile_photo')->nullable();
+            $table->string('user_description')->nullable();
+            $table->string('current_job')->nullable();
+            $table->string('current_company')->nullable();
             $table->year('graduate_year');
             $table->string('modifiedBy');
             $table->timestamp('modifiedDate')->useCurrent();
+            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->timestamps();
 
             $table->foreign('id_users')->references('id_users')->on('users');

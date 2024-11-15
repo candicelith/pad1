@@ -21,7 +21,6 @@ class User extends Authenticatable
     protected $fillable = [
         'email',
         'password',
-        'password_hashed',
     ];
 
     /**
@@ -30,8 +29,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
-        'password_hashed',
+        'password'
     ];
 
     public function role()
@@ -41,7 +39,7 @@ class User extends Authenticatable
 
     public function userDetails()
     {
-        return $this->hasOne(UserDetails::class,'id_userDetails','id_userDetails');
+        return $this->hasOne(UserDetails::class,'id_users','id_users');
     }
 
     public function vacancies()

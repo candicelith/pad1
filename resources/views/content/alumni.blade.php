@@ -122,7 +122,8 @@
                                 </h4>
                             </div>
                         </div>
-                    </a>
+                    </div>
+                </a>
                 @endforeach
             </div>
             {{-- Alumni Cards End --}}

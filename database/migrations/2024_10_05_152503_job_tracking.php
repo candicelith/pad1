@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date('date_end')->nullable();
             $table->enum('status',array('Active','Inactive'));
             $table->enum('type',array('Internship', 'Fulltime', 'Part Time'));
+            $table->json('job_description');
             $table->timestamps();
 
             $table->foreign('id_userDetails')->references('id_userDetails')->on('user_details');

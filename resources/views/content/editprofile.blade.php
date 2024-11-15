@@ -28,13 +28,15 @@
                 </div>
 
                 <div class="mt-28 flex flex-col space-y-2 sm:mx-14">
-                    <form action="">
+                    <form action="#">
                         <div class="px-10">
                             <div class="mb-5 mt-5">
                                 <label for="full_name" class="mb-2 block text-xl text-cyan">Full Name</label>
                                 <input type="text" id="full_name"
                                     class="block w-full rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900"
-                                    required />
+                                    required
+                                    value="{{ $userDetails->name }}"
+                                />
                             </div>
                             <div class="mb-5 mt-5">
                                 <label for="current_company" class="mb-2 block text-xl text-cyan">
@@ -42,20 +44,29 @@
                                 </label>
                                 <input type="text" id="current_company"
                                     class="block w-full rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900"
-                                    required />
+                                    required
+                                    value="{{ $userDetails->current_company }}"
+                                />
                             </div>
                             <div class="mb-5 mt-5">
-                                <label for="current_position" class="mb-2 block text-xl text-cyan">
+                                <label for="current_job" class="mb-2 block text-xl text-cyan">
                                     Current Position
                                 </label>
-                                <input type="text" id="current_position"
+                                <input
+                                    type="text"
+                                    id="current_job"
                                     class="block w-full rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900"
-                                    required />
+                                    required
+                                    value="{{ $userDetails->current_job }}"
+                                />
                             </div>
                             <div class="mb-5 mt-5">
-                                <label for="about" class="mb-2 block text-xl text-cyan">About</label>
-                                <textarea type="text" id="about"
-                                    class="block w-full rounded-xl border border-gray-900 bg-gray-50 px-2 pt-2 text-sm text-gray-900"></textarea>
+                                <label for="user_description" class="mb-2 block text-xl text-cyan">About</label>
+                                <textarea
+                                    type="text"
+                                    id="user_description"
+                                    class="block w-full rounded-xl border border-gray-900 bg-gray-50 px-2 pt-2 text-sm text-gray-900"
+                                >{{ $userDetails->user_description }}</textarea>
                             </div>
 
                             <div class="mb-5 mt-5">
@@ -153,6 +164,16 @@
         </div>
     </section>
 
+    {{-- Logout Button Script --}}
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none">
+        @csrf
+    </form>
+
+    <script>
+        document.getElementById('logout-button').addEventListener('click', function () {
+            document.getElementById('logout-form').submit();
+        });
+    </script>
     <script>
         let formCount = 0; // Initialize a variable to count the forms
 

@@ -17,6 +17,11 @@ return new class extends Migration
             $table->unsignedBigInteger('id_users');
             $table->string('position');
             $table->string('vacancy_description');
+
+            $table->json('vacancy_responsibilities');
+            $table->json('vacancy_qualification');
+            $table->json('vacancy_benefits');
+
             $table->date('date_open');
             $table->date('date_closed');
             $table->string('vacancy_picture')->nullable();

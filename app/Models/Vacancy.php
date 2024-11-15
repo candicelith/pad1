@@ -22,6 +22,15 @@ class Vacancy extends Model
         'date_closed',
         'vacancy_picture',
         'vacancy_link',
+        'vacancy_qualification',
+        'vacancy_responsibilities',
+        'vacancy_benefits'
+    ];
+
+    protected $casts = [
+        'vacancy_qualification' => 'array',
+        'vacancy_responsibilities' => 'array',
+        'vacancy_benefits' => 'array',
     ];
 
     public function user()
@@ -32,6 +41,11 @@ class Vacancy extends Model
     public function company()
     {
         return $this->belongsTo(Company::class, 'id_company');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class,'id_vacancy','id_vacancy');
     }
 
 

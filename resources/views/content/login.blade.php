@@ -10,14 +10,15 @@
                 </h1>
                 <p class="my-4 text-center text-base text-white">Please log in if you are part of UGM-Software Engineering
                     students</p>
-                <form class="mx-auto max-w-4xl space-y-6" action="#">
+                <form class="mx-auto max-w-4xl space-y-6" action="{{ route('authenticate') }}" method="POST">
+                    @csrf
                     {{-- Email Input --}}
                     <div class="flex flex-col lg:flex-row lg:items-center lg:space-x-6">
                         <label for="email" class="mb-2 shrink-0 text-lg text-white lg:mb-0 lg:w-40 lg:text-xl">
                             E-mail
                         </label>
                         <input type="email" name="email" id="email" {{-- Nama : email --}}
-                            class="focus:ring-primary-600 focus:border-primary-600 w-full rounded-full border border-gray-900 bg-gray-50 p-4 text-gray-900"
+                            class="focus:ring-primary-600 focus:border-primary-600 w-full rounded-full border border-gray-300 bg-gray-50 p-4 text-gray-900"
                             placeholder="Enter your UGM E-mail" required />
                     </div>
 
@@ -27,16 +28,34 @@
                             Password
                         </label>
                         <input type="password" name="password" id="password" {{-- Nama : password --}}
-                            class="focus:ring-primary-600 focus:border-primary-600 w-full rounded-full border border-gray-900 bg-gray-50 p-4 text-gray-900"
+                            class="focus:ring-primary-600 focus:border-primary-600 w-full rounded-full border border-gray-300 bg-gray-50 p-4 text-gray-900"
                             placeholder="Enter your NIU" required />
                     </div>
 
                     {{-- Log In Button --}}
                     <div class="flex justify-end">
-                        <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" type="submit"
+                        <button type="submit"
                             class="w-full rounded-full border border-gray-900 bg-white px-5 py-3 text-lg text-cyan hover:bg-cyan hover:text-white focus:ring-4 focus:ring-cyan lg:w-48">
                             Log In
                         </button>
+
+                        {{-- Popup Modal Trigger --}}
+                        @if ($errors->has('email') || $errors->has('password'))
+
+                            {{-- Error Listener --}}
+                            <script>
+                                document.addEventListener("DOMContentLoaded", function() {
+                                    document.getElementById("popup-modal").classList.remove("hidden");
+                                    document.getElementById("modal-backdrop").classList.remove("hidden");
+                                });
+                            </script>
+
+                        @endif
+                    </div>
+
+
+                    {{-- Backdrop for Modal --}}
+                    <div id="modal-backdrop" class="fixed inset-0 z-40 hidden bg-black bg-opacity-50 backdrop-blur-sm"></div>
                         {{-- popup modal --}}
                         <div id="popup-modal" tabindex="-1"
                             class="fixed left-0 right-0 top-0 z-50 hidden h-full max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0">
@@ -55,6 +74,14 @@
                             </div>
                         </div>
                     </div>
+
+                    <script>
+                        function closeModal() {
+                            document.getElementById("popup-modal").classList.add("hidden");
+                            document.getElementById("modal-backdrop").classList.add("hidden");
+                        }
+                    </script>
+
                 </form>
             </div>
         </div>
