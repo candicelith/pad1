@@ -4,8 +4,8 @@
     <section class="mt-28 bg-white">
         <div class="mx-auto max-w-screen-xl px-4 py-8 sm:flex sm:items-start lg:px-6 lg:py-16">
             <!-- Back Button -->
-            <button onclick="history.back()" class="mb-4 lg:mb-0 lg:me-16">
-                <svg class="h-16 w-16 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+            <button class="sm:mb-4 sm:me-16" onclick="history.back()">
+                <svg class="h-8 w-8 text-gray-800 sm:h-16 sm:w-16" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="m14 8-4 4 4 4" />
@@ -23,7 +23,8 @@
                                 alt="" />
                             <div class="mt-4">
                                 <h2 class="text-xl text-cyan sm:text-2xl">{{ $userDetails->name }}</h2>
-                                <h3 class="text-md text-cyan sm:text-lg">{{ $userDetails->current_job }}, {{ $userDetails->current_company }}</h3>
+                                <h3 class="text-md text-cyan sm:text-lg">{{ $userDetails->current_job }},
+                                    {{ $userDetails->current_company }}</h3>
                             </div>
                         </div>
 
@@ -38,23 +39,24 @@
                             <h4 class="text-lg text-cyan sm:text-xl">Experience</h4>
                             <ol class="relative ms-4 border-s border-gray-900">
                                 @foreach ($jobDetails as $job)
-                                <li class="mb-10 ms-4">
-                                    <div
-                                        class="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full border border-gray-900 bg-gray-900">
-                                    </div>
-                                    <h3 class="text-lg text-cyan sm:text-xl">{{ $job->job_name }}</h3>
-                                    <h3 class="text-md text-cyan sm:text-lg">{{ $job->company_name }}</h3>
-                                    <p class="text-xs text-gray-400 sm:text-sm">{{ $job->date_start }} - {{ $job->date_end }}</p>
-                                    <ol class="ms-2 list-outside list-disc">
-                                        @if (is_array($job->job_description))
-                                            @foreach ($job->job_description as $description)
-                                                <li>{{ $description }}</li>
-                                            @endforeach
-                                        @else
-                                            <li>{{ $job->job_description }}</li>
-                                        @endif
-                                    </ol>
-                                </li>
+                                    <li class="mb-10 ms-4">
+                                        <div
+                                            class="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full border border-gray-900 bg-gray-900">
+                                        </div>
+                                        <h3 class="text-lg text-cyan sm:text-xl">{{ $job->job_name }}</h3>
+                                        <h3 class="text-base text-cyan sm:text-lg">{{ $job->company_name }}</h3>
+                                        <p class="text-xs text-gray-400 sm:text-sm">{{ $job->date_start }} -
+                                            {{ $job->date_end }}</p>
+                                        <ol class="ms-4 list-outside list-disc text-sm sm:text-base">
+                                            @if (is_array($job->job_description))
+                                                @foreach ($job->job_description as $description)
+                                                    <li>{{ $description }}</li>
+                                                @endforeach
+                                            @else
+                                                <li>{{ $job->job_description }}</li>
+                                            @endif
+                                        </ol>
+                                    </li>
                                 @endforeach
                             </ol>
                         </div>

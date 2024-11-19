@@ -9,9 +9,6 @@ export default {
     ],
     theme: {
         extend: {
-            screens: {
-                xs: '360px',
-            },
             colors: {
                 cyan: '#183D55',
                 'cyan-100': '#7393A7',

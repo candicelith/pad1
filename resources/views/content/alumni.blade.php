@@ -47,7 +47,7 @@
                 </div>
 
                 {{-- Paginated alphabet filter for mobile view --}}
-                <div id="alphabet-filter" class="flex w-full flex-wrap gap-2 sm:hidden">
+                <div id="alphabet-filter" class="flex w-full flex-row gap-1 sm:hidden">
                     <button
                         class="rounded-full bg-cyan px-4 py-1 text-center text-sm text-white hover:bg-cyan-100 hover:text-white focus:bg-cyan-100 focus:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100"
                         value="" onclick="filterAlumni(event)">
@@ -111,13 +111,13 @@
                                 </div>
                                 <img class="mb-3 h-24 w-24 rounded-full shadow-lg" src="{{ $al->profile_photo }}"
                                     alt="{{ $al->name }} image" />
-                                <h2 class="mb-1 text-xl text-cyan">
+                                <h2 class="mb-1 text-2xl text-cyan">
                                     {{ $al->name }}
                                 </h2>
-                                <h3 class="text-lg text-cyan">
+                                <h3 class="text-base text-cyan">
                                     {{ $al->job_name }}
                                 </h3>
-                                <h4 class="text-md text-gray-500">
+                                <h4 class="text-sm text-gray-500">
                                     {{ $al->company_name }}
                                 </h4>
                             </div>

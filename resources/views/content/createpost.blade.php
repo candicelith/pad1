@@ -1,7 +1,7 @@
 @extends('layout.headerFooter')
 
 @section('content')
-    <section class="mt-24 bg-white sm:mb-12">
+    <section class="mt-24 bg-white px-4 sm:mb-12 sm:px-0">
         <form
             class="mx-auto w-full bg-cyan-100 pt-6 sm:max-w-xl sm:rounded-xl sm:px-14 sm:py-16 lg:max-w-5xl lg:px-20 xl:max-w-6xl">
             <div class="px-10">
@@ -40,7 +40,7 @@
                 <div class="mb-5 mt-5">
                     <label for="file" class="mb-2 block text-xl text-white">File Upload</label>
                     <input type="file" id="file"
-                        class="block cursor-pointer rounded-xl border border-gray-900 bg-gray-50 px-1 text-xs text-gray-400" />
+                        class="block w-full cursor-pointer rounded-xl border border-gray-900 bg-gray-50 px-1 text-xs text-gray-400" />
                 </div>
 
                 <button type="submit"

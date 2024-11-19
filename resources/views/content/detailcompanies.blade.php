@@ -3,10 +3,11 @@
 @section('content')
     <section class="mt-28 bg-white">
         <div class="mx-auto max-w-screen-xl px-4 py-8 sm:flex sm:items-start lg:px-6 lg:py-16">
+
             <!-- Back Button -->
-            <button class="mb-4 lg:mb-0 lg:me-16" onclick="handleBack()">
-                <svg class="h-16 w-16 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                    width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <button class="mb-4 lg:mb-0 lg:me-5" onclick="handleBack()">
+                <svg class="h-12 w-12 text-gray-800 dark:text-white sm:h-16 sm:w-16" aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="m14 8-4 4 4 4" />
                 </svg>
@@ -23,7 +24,7 @@
                             <div class="mt-4">
                                 <h2 class="text-xl text-cyan sm:text-2xl">{{ $company->company_name }}</h2>
                                 <h3 class="text-md text-cyan sm:text-lg">{{ $company->company_field }}</h3>
-                                <h4 class="text-base text-gray-500">{{ $company->company_address }}</h4>
+                                <h4 class="text-sm text-gray-500 sm:text-base">{{ $company->company_address }}</h4>
                             </div>
                         </div>
 
@@ -44,7 +45,7 @@
                                 <img src=" {{ asset('assets/company-1.png') }} " alt="">
                             </div>
                             <div class="flex justify-end">
-                                <span class="text-base text-cyan">Scroll for more </span>
+                                <span class="text-sm text-cyan sm:text-base">Scroll for more </span>
                                 <svg class="h-6 w-6 text-cyan" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                     width="24" height="24" fill="none" viewBox="0 0 24 24">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -58,7 +59,7 @@
                             @endif
 
                             <div
-                                class="scrollbar-companies grid max-h-[700px] gap-16 overflow-y-auto px-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                                class="scrollbar-companies smpx-8 grid max-h-[700px] gap-16 overflow-y-auto sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                                 @foreach ($workers as $wk)
                                     <a href="{{ route('alumni.detail', ['id' => $wk->id_userDetails]) }}"
                                         class="mt-0 w-full max-w-sm rounded-lg border border-gray-200 bg-cyan-100 shadow-lg">
@@ -71,13 +72,13 @@
                                                 </div>
                                                 <img class="mb-3 h-24 w-24 rounded-full shadow-lg"
                                                     src="{{ $wk->profile_photo }}" alt="{{ $wk->name }} image" />
-                                                <h2 class="mb-1 text-xl text-white">
+                                                <h2 class="mb-1 text-lg text-white sm:text-xl">
                                                     {{ $wk->name }}
                                                 </h2>
-                                                <h3 class="text-lg text-white">
+                                                <h3 class="text-base text-white">
                                                     {{ $wk->current_job }}
                                                 </h3>
-                                                <h4 class="text-md text-gray-300">
+                                                <h4 class="text-sm text-gray-300">
                                                     {{ $wk->date_start }} - {{ $wk->date_end }}
                                                 </h4>
                                             </div>
