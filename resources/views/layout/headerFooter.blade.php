@@ -34,78 +34,63 @@
                     </svg>
                 </button>
                 <div class="hidden w-full md:block md:w-auto" id="navbar-default">
-                        <ul
-                            class="mt-4 flex flex-col rounded-lg border border-gray-100 bg-white p-4 md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-white md:p-0 rtl:space-x-reverse"
-                        >
-                            <li>
-                                <a
-                                    href="{{ route('home') }}"
-                                    class="{{ request()->routeIs('home') ? 'text-cyan' : 'text-gray-400' }} block rounded px-3 py-2 text-xl hover:bg-cyan-100 hover:text-cyan md:border-0 md:p-0 md:hover:bg-transparent"
-                                    @if (request()->routeIs('home')) aria-current="page" @endif
-                                >
-                                    Home
+                    <ul
+                        class="mt-4 flex flex-col rounded-lg border border-gray-100 bg-white p-4 rtl:space-x-reverse md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-white md:p-0">
+                        <li>
+                            <a href="{{ route('home') }}"
+                                class="{{ request()->routeIs('home') ? 'text-cyan' : 'text-gray-400' }} block rounded px-3 py-2 text-xl hover:bg-cyan-100 hover:text-cyan md:border-0 md:p-0 md:hover:bg-transparent"
+                                @if (request()->routeIs('home')) aria-current="page" @endif>
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('posts') }}"
+                                class="{{ request()->routeIs('posts') ? 'text-cyan' : 'text-gray-400' }} block rounded px-3 py-2 text-xl hover:bg-cyan-100 hover:text-cyan md:border-0 md:p-0 md:hover:bg-transparent"
+                                @if (request()->routeIs('posts')) aria-current="page" @endif>
+                                Posts
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('alumni') }}"
+                                class="{{ request()->routeIs('alumni') ? 'text-cyan' : 'text-gray-400' }} block rounded px-3 py-2 text-xl hover:bg-cyan-100 hover:text-cyan md:border-0 md:p-0 md:hover:bg-transparent"
+                                @if (request()->routeIs('alumni')) aria-current="page" @endif>
+                                Alumni
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('companies') }}"
+                                class="{{ request()->routeIs('companies') ? 'text-cyan' : 'text-gray-400' }} block rounded px-3 py-2 text-xl hover:bg-cyan-100 hover:text-cyan md:border-0 md:p-0 md:hover:bg-transparent"
+                                @if (request()->routeIs('companies')) aria-current="page" @endif>
+                                Companies
+                            </a>
+                        </li>
+                        <li>
+                            @guest
+                                <a href="{{ route('profile') }}"
+                                    class="{{ request()->routeIs('profile') ? 'text-cyan' : 'text-gray-400' }} block rounded px-3 py-2 text-xl hover:bg-cyan-100 hover:text-cyan md:border-0 md:p-0 md:hover:bg-transparent"
+                                    @if (request()->routeIs('profile')) aria-current="page" @endif>
+                                    Profile
                                 </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="{{ route('posts') }}"
-                                    class="{{ request()->routeIs('posts') ? 'text-cyan' : 'text-gray-400' }} block rounded px-3 py-2 text-xl hover:bg-cyan-100 hover:text-cyan md:border-0 md:p-0 md:hover:bg-transparent"
-                                    @if (request()->routeIs('posts')) aria-current="page" @endif
-                                >
-                                    Posts
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="{{ route('alumni') }}"
-                                    class="{{ request()->routeIs('alumni') ? 'text-cyan' : 'text-gray-400' }} block rounded px-3 py-2 text-xl hover:bg-cyan-100 hover:text-cyan md:border-0 md:p-0 md:hover:bg-transparent"
-                                    @if (request()->routeIs('alumni')) aria-current="page" @endif
-                                >
-                                    Alumni
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="{{ route('companies') }}"
-                                    class="{{ request()->routeIs('companies') ? 'text-cyan' : 'text-gray-400' }} block rounded px-3 py-2 text-xl hover:bg-cyan-100 hover:text-cyan md:border-0 md:p-0 md:hover:bg-transparent"
-                                    @if (request()->routeIs('companies')) aria-current="page" @endif
-                                >
-                                    Companies
-                                </a>
-                            </li>
-                            <li>
-                                @guest
-                                    <a
-                                        href="{{ route('profile') }}"
-                                        class="{{ request()->routeIs('profile') ? 'text-cyan' : 'text-gray-400' }} block rounded px-3 py-2 text-xl hover:bg-cyan-100 hover:text-cyan md:border-0 md:p-0 md:hover:bg-transparent"
-                                        @if (request()->routeIs('profile')) aria-current="page" @endif
-                                    >
+                            @endguest
+
+                            @auth
+                                @if (Auth::check() && Auth::user()->id_roles == '2')
+                                    <a href="{{ route('alumni.profile') }}"
+                                        class="{{ request()->routeIs('alumni.profile') ? 'text-cyan' : 'text-gray-400' }} block rounded px-3 py-2 text-xl hover:bg-cyan-100 hover:text-cyan md:border-0 md:p-0 md:hover:bg-transparent"
+                                        @if (request()->routeIs('alumni.profile')) aria-current="page" @endif>
                                         Profile
                                     </a>
-                                @endguest
-
-                                @auth
-                                    @if (Auth::check() && Auth::user()->id_roles == '2')
-                                        <a
-                                            href="{{ route('alumni.profile') }}"
-                                            class="{{ request()->routeIs('alumni.profile') ? 'text-cyan' : 'text-gray-400' }} block rounded px-3 py-2 text-xl hover:bg-cyan-100 hover:text-cyan md:border-0 md:p-0 md:hover:bg-transparent"
-                                            @if (request()->routeIs('alumni.profile')) aria-current="page" @endif
-                                        >
-                                            Profile
-                                        </a>
-                                    @elseif (Auth::check() && Auth::user()->id_roles == '3')
-                                        <a
-                                            href="{{ route('mahasiswa.profile') }}"
-                                            class="{{ request()->routeIs('mahasiswa.profile') ? 'text-cyan' : 'text-gray-400' }} block rounded px-3 py-2 text-xl hover:bg-cyan-100 hover:text-cyan md:border-0 md:p-0 md:hover:bg-transparent"
-                                            @if (request()->routeIs('mahasiswa.profile')) aria-current="page" @endif
-                                        >
-                                            Profile
-                                        </a>
-                                    @endif
-                                @endauth
-                            </li>
-                        </ul>
-                    </div>
+                                @elseif (Auth::check() && Auth::user()->id_roles == '3')
+                                    <a href="{{ route('mahasiswa.profile') }}"
+                                        class="{{ request()->routeIs('mahasiswa.profile') ? 'text-cyan' : 'text-gray-400' }} block rounded px-3 py-2 text-xl hover:bg-cyan-100 hover:text-cyan md:border-0 md:p-0 md:hover:bg-transparent"
+                                        @if (request()->routeIs('mahasiswa.profile')) aria-current="page" @endif>
+                                        Profile
+                                    </a>
+                                @endif
+                            @endauth
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
     </header>

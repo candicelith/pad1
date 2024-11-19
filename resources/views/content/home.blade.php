@@ -11,10 +11,10 @@
                 <div
                     class="flex h-full w-full items-center justify-start bg-gray-700 bg-jumbotron bg-center bg-no-repeat px-4 py-20 text-start bg-blend-multiply shadow md:py-24 lg:py-56">
                     <div class="mx-auto w-full max-w-screen-xl text-white">
-                        <h1 class="mb-4 text-3xl leading-tight sm:text-4xl md:text-5xl lg:text-6xl">
+                        <h1 class="mb-4 text-3xl leading-tight sm:text-xl">
                             Strategi Alumni Meraih Karier di Perusahaan Terbaik
                         </h1>
-                        <p class="mb-8 text-base font-normal text-gray-300 sm:text-lg lg:text-xl">
+                        <p class="mb-8 text-base font-normal text-gray-300 sm:text-lg">
                             Memasuki dunia kerja setelah lulus merupakan tantangan tersendiri bagi banyak alumni...
                         </p>
                         <a {{-- href="{{ route('404') }}" --}}

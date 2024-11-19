@@ -14,7 +14,7 @@
                                 alt="Profile Picture" />
                             {{-- Camera Icon --}}
                             <div
-                                class="absolute bottom-0 ms-48 flex h-14 w-14 items-center justify-center rounded-full bg-cyan p-3 hover:bg-cyan-100 sm:h-16 sm:w-16">
+                                class="absolute bottom-0 ms-40 flex h-14 w-14 items-center justify-center rounded-full bg-cyan p-3 hover:bg-cyan-100 sm:ms-48 sm:h-16 sm:w-16">
                                 <svg class="h-8 w-8 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                     width="24" height="24" fill="none" viewBox="0 0 24 24">
                                     <path stroke="currentColor" stroke-linejoin="round" stroke-width="2"
@@ -34,39 +34,76 @@
                                 <label for="full_name" class="mb-2 block text-xl text-cyan">Full Name</label>
                                 <input type="text" id="full_name"
                                     class="block w-full rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900"
-                                    required
-                                    value="{{ $userDetails->name }}"
-                                />
+                                    required value="{{ $userDetails->name }}" />
                             </div>
                             <div class="mb-5 mt-5">
                                 <label for="current_company" class="mb-2 block text-xl text-cyan">
                                     Current Company
                                 </label>
-                                <input type="text" id="current_company"
+
+                                {{-- <button id="dropdownOffsetButton" data-dropdown-toggle="dropdownSkidding"
+                                    data-dropdown-offset-distance="-710" data-dropdown-offset-skidding="100"
+                                    data-dropdown-placement="right"
+                                    class="flex w-full items-center justify-between rounded-full border border-gray-900 bg-gray-50 p-1 px-6 py-2.5 text-sm text-gray-900"
+                                    type="button">
+                                    <span class="text-gray-400">Current Company</span>
+                                    <svg class="ml-2 h-2 w-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                        fill="none" viewBox="0 0 10 6">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="m1 1 4 4 4-4" />
+                                    </svg>
+                                </button>
+
+                                <!-- Dropdown menu -->
+                                <div id="dropdownSkidding"
+                                    class="z-10 hidden w-full max-w-screen-lg divide-y divide-gray-100 rounded-lg border border-gray-900 bg-gray-50 shadow dark:bg-gray-700">
+                                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                                        aria-labelledby="dropdownOffsetButton">
+                                        <li>
+                                            <a href="#"
+                                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Bank
+                                                Central Asia</a>
+                                        </li>
+                                        <li>
+                                            <a href="#"
+                                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Tokopedia</a>
+                                        </li>
+                                        <li>
+                                            <a href="#"
+                                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Shopee</a>
+                                        </li>
+                                        <li>
+                                            <a href="#"
+                                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Traveloka</a>
+                                        </li>
+                                    </ul>
+                                </div> --}}
+
+
+                                {{-- <input type="text" id="current_company"
                                     class="block w-full rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900"
-                                    required
-                                    value="{{ $userDetails->current_company }}"
-                                />
+                                    required value="{{ $userDetails->current_company }}" /> --}}
+
+                                <select name="current_company" id="current_company"
+                                    class="block w-full cursor-pointer rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900">
+                                    <option value="BCA">Bank Central Asia</option>
+                                    <option value="Tokopedia">Tokopedia</option>
+                                    <option value="Shopee">Shopee</option>
+                                    <option value="Traveloka">Traveloka</option>
+                                </select>
                             </div>
                             <div class="mb-5 mt-5">
                                 <label for="current_job" class="mb-2 block text-xl text-cyan">
                                     Current Position
                                 </label>
-                                <input
-                                    type="text"
-                                    id="current_job"
+                                <input type="text" id="current_job"
                                     class="block w-full rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900"
-                                    required
-                                    value="{{ $userDetails->current_job }}"
-                                />
+                                    required value="{{ $userDetails->current_job }}" />
                             </div>
                             <div class="mb-5 mt-5">
                                 <label for="user_description" class="mb-2 block text-xl text-cyan">About</label>
-                                <textarea
-                                    type="text"
-                                    id="user_description"
-                                    class="block w-full rounded-xl border border-gray-900 bg-gray-50 px-2 pt-2 text-sm text-gray-900"
-                                >{{ $userDetails->user_description }}</textarea>
+                                <textarea type="text" id="user_description"
+                                    class="block w-full rounded-xl border border-gray-900 bg-gray-50 px-2 pt-2 text-sm text-gray-900">{{ $userDetails->user_description }}</textarea>
                             </div>
 
                             <div class="mb-5 mt-5">
@@ -111,8 +148,8 @@
                                             onclick="addExperienceForm()">
                                             <svg class="me-2 h-6 w-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                                 width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                    stroke-width="2" d="M5 12h14m-7 7V5" />
+                                                <path stroke="currentColor" stroke-linecap="round"
+                                                    stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5" />
                                             </svg>
                                             Add Experience
                                         </button>
@@ -127,7 +164,7 @@
                 <div class="mx-4 mt-14 flex items-center justify-between p-6 ps-0 sm:mx-14 sm:p-0">
                     <div class="sm:ms-14">
                         <a {{-- ganti ntar --}} href="{{ route('editprofile') }}"
-                            class="sm:text-md rounded-full bg-cyan px-2 py-4 text-sm text-white hover:bg-white hover:text-cyan sm:px-8">
+                            class="sm:text-md rounded-full bg-cyan px-4 py-4 text-sm text-white hover:bg-white hover:text-cyan sm:px-8">
                             Save Changes
                         </a>
                     </div>
@@ -170,7 +207,7 @@
     </form>
 
     <script>
-        document.getElementById('logout-button').addEventListener('click', function () {
+        document.getElementById('logout-button').addEventListener('click', function() {
             document.getElementById('logout-form').submit();
         });
     </script>

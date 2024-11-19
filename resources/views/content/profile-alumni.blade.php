@@ -14,31 +14,32 @@
                 </div>
 
                 {{-- Profile Details --}}
-                <div class="mx-14 flex flex-col space-y-2">
+                <div class="mx-10 flex flex-col space-y-2">
                     <div class="items-center justify-between pt-36 sm:flex">
-                        <h2 class="text-2xl text-cyan">{{ $userDetails->name }}</h2>
-                        <p class="text-xl text-gray-400">{{ $userDetails->nim }}</p>
+                        <h2 class="text-xl text-cyan sm:text-2xl">{{ $userDetails->name }}</h2>
+                        <p class="text-lg text-gray-400 sm:text-xl">{{ $userDetails->nim }}</p>
                     </div>
-                    <h3 class="text-lg text-cyan">{{ $userDetails->job_name }} <br>
+                    <h3 class="text-base text-cyan sm:text-lg">{{ $userDetails->job_name }} <br>
                         {{ $userDetails->company_name }}</h3>
                     <div class="flex flex-col space-y-2 pt-5">
-                        <h4 class="text-xl text-cyan">About</h4>
-                        <p class="text-md text-justify text-cyan">
+                        <h4 class="text-lg text-cyan sm:text-xl">About</h4>
+                        <p class="text-justify text-sm text-cyan sm:text-base">
                             {{ $userDetails->user_description }}
                         </p>
                     </div>
                     <div class="flex flex-col space-y-2 pt-5">
-                        <h4 class="text-xl text-cyan">Experience</h4>
+                        <h4 class="text-lg text-cyan sm:text-xl">Experience</h4>
                         <ol class="relative ms-4 border-s border-gray-900">
                             @foreach ($jobDetails as $job)
                                 <li class="mb-10 ms-4">
                                     <div
                                         class="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full border border-gray-900 bg-gray-900">
                                     </div>
-                                    <h3 class="text-xl text-cyan">{{ $job->job_name }}</h3>
-                                    <h3 class="text-lg text-cyan">{{ $job->company_name }}</h3>
-                                    <p class="text-sm text-gray-400">{{ $job->date_start }} - {{ $job->date_end }}</p>
-                                    <ol class="ms-2 list-inside list-disc">
+                                    <h3 class="text-lg text-cyan sm:text-xl">{{ $job->job_name }}</h3>
+                                    <h3 class="text-base text-cyan sm:text-lg">{{ $job->company_name }}</h3>
+                                    <p class="text-xs text-gray-400 sm:text-sm">{{ $job->date_start }} -
+                                        {{ $job->date_end }}</p>
+                                    <ol class="ms-4 list-outside list-disc text-sm sm:text-base">
                                         @if (is_array($job->job_description))
                                             @foreach ($job->job_description as $description)
                                                 <li>{{ $description }}</li>
@@ -57,7 +58,7 @@
                     {{-- Edit Button --}}
                     <div class="sm:ms-14">
                         <a href="{{ route('alumni.show-profile') }}"
-                            class="sm:text-md rounded-full bg-cyan px-2 py-4 text-sm text-white hover:bg-white hover:text-cyan sm:px-8">
+                            class="sm:text-md rounded-full bg-cyan px-4 py-4 text-sm text-white hover:bg-white hover:text-cyan sm:px-8">
                             Edit Profile
                         </a>
                     </div>
