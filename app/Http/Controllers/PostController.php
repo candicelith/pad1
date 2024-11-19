@@ -71,7 +71,7 @@ class PostController extends Controller
     public function show(Vacancy $posts, string $id)
     {
         // dd($posts->comments());
-        $post = Vacancy::with('comments')->findOrFail($id);
+        $post = Vacancy::findorFail($id);
 
         // Fetch the joined vacancy data for a single item
         $vacancy = DB::table('vacancy')
@@ -86,12 +86,15 @@ class PostController extends Controller
                 DB::raw("COALESCE(user_details.profile_photo, 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png') as profile_photo")
             )
             ->where('id_vacancy', $id)
-            ->first(); // Use first() instead of get()
+            ->first();
 
         $vacancy->vacancy_responsibilities = json_decode($vacancy->vacancy_responsibilities, true);
         $vacancy->vacancy_qualification = json_decode($vacancy->vacancy_qualification, true);
         $vacancy->vacancy_benefits = json_decode($vacancy->vacancy_benefits, true);
-        return view('content.detailpost', compact('post', 'vacancy','posts'));
+
+        $comments = $post->comments()->whereNull('parent_id')->get();
+
+        return view('content.detailpost', compact('post', 'vacancy','comments','posts'));
     }
 
     /**

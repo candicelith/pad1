@@ -15,6 +15,7 @@ return new class extends Migration
             $table->bigIncrements('id_comment');
             $table->unsignedBigInteger('id_users');
             $table->unsignedBigInteger('id_vacancy')->constrained()->cascadeOnDelete();
+            $table->unsignedBigInteger('parent_id')->nullable()->constrained()->cascadeOnDelete();
             $table->text('text_comment');
             $table->timestamps();
 

@@ -88,44 +88,66 @@
                         <div class="mx-2 max-w-md flex-grow sm:my-10 sm:mt-10">
                             <div class="max-h-96 space-y-6 overflow-y-auto">
                                 {{-- Comment Start --}}
-                                @foreach ($posts->comments as $comment)
+                                @foreach ($comments as $comment)
                                     <div class="flex items-start space-x-4">
-                                        <img src="https://via.placeholder.com/40" alt="avatar"
+                                        <img src="{{ $comment->user->userDetails->profile_photo }}" alt="avatar"
                                             class="h-14 w-14 rounded-full object-cover">
                                         <div class="relative max-w-xs">
-                                            <h2 class="text-md">Mustafa Fagan</h2>
-                                            <span class="mt-1 block text-xs text-cyan">10/8/2024 10:00 AM</span>
+                                            <h2 class="text-md">{{ $comment->user->userDetails->name }}</h2>
+                                            <span class="mt-1 block text-xs text-cyan">{{ $comment->created_at }}</span>
+                                            {{-- 10/8/2024 10:00 AM --}}
                                             <p
                                                 class="relative mt-2 rounded-b-full rounded-e-full rounded-tl-none bg-cyan-200 px-4 py-3 text-white">
-                                                Halo, bisa minta info lebih lanjut?
+                                                {{ $comment->text_comment }}
                                             </p>
-                                            <span class="ms-6 cursor-pointer text-xs hover:underline">Reply</span>
+                                            <span class="ms-6 cursor-pointer text-xs hover:underline reply-toggle"
+                                                data-comment-id="{{ $comment->id_comment }}">
+                                                Reply
+                                            </span>
                                         </div>
                                     </div>
-                                @endforeach
 
-                                {{-- Reply --}}
-                                <div class="ms-10 flex items-start space-x-4">
-                                    <img src="https://via.placeholder.com/40" alt="avatar"
-                                        class="h-14 w-14 rounded-full object-cover">
-                                    <div class="relative max-w-xs">
-                                        <h2 class="text-sm sm:text-base">Supri</h2>
-                                        <span class="mt-1 block text-xs text-cyan">10/8/2024 10:00 AM</span>
-                                        <p
-                                            class="relative mt-2 rounded-b-full rounded-e-full rounded-tl-none bg-cyan-200 px-8 py-3 text-sm text-white sm:text-base">
-                                            G blh
-                                        </p>
-                                        <span class="ms-6 cursor-pointer text-xs hover:underline">Reply</span>
+                                    @if ($comment->replies->count() > 0)
+                                        @foreach ($comment->replies as $reply)
+                                            <div class="ms-10 flex items-start space-x-4">
+                                                <img src="{{ $reply->user->userDetails->profile_photo }}" alt="avatar"
+                                                    class="h-14 w-14 rounded-full object-cover">
+                                                <div class="relative max-w-xs">
+                                                    <h2 class="text-sm sm:text-base">{{ $reply->user->userDetails->name }}</h2>
+                                                    <span
+                                                        class="mt-1 block text-xs text-cyan">{{ $reply->created_at }}</span>
+                                                    <p
+                                                        class="relative mt-2 rounded-b-full rounded-e-full rounded-tl-none bg-cyan-200 px-8 py-3 text-sm text-white sm:text-base">
+                                                        {{ $reply->text_comment }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    @endif
+                                    <!-- Reply form -->
+                                    <div class="reply-form mt-2" id="reply-form-{{ $comment->id_comment }}">
+                                        <form
+                                            action="{{ route('posts.detail.reply', ['vacancy' => $vacancy->id_vacancy, 'id' => $comment->id_comment]) }}"
+                                            method="POST">
+                                            @csrf
+                                            <input type="hidden" name="parent_id" value="{{ $comment->id_comment }}">
+                                            <textarea name="comment" required class="w-full rounded border p-2" placeholder="Write your reply here..."></textarea>
+                                            <button type="submit"
+                                                class="mt-2 rounded bg-cyan-500 px-4 py-2 text-white hover:bg-cyan-600">Submit</button>
+                                        </form>
                                     </div>
-                                </div>
+                                    {{-- End Reply --}}
+                                @endforeach
                             </div>
                         </div>
 
                         <!-- Input Section -->
-                        <form action="{{ route('posts.detail.comment', ['id' => $vacancy->id_vacancy]) }}" method="POST">
+                        <form
+                            action="{{ route('posts.detail.comment', ['vacancy' => $vacancy->id_vacancy, 'id' => $vacancy->id_vacancy]) }}"
+                            method="POST">
                             @csrf
                             <div class="mt-auto flex items-center space-x-2 pt-10 sm:pt-0">
-                                <input type="text"
+                                <input type="text" name="comment"
                                     class="bg-input-cyan-200 w-1/2 flex-grow rounded-xl border px-2 py-1 text-white placeholder-white sm:w-full sm:px-4 sm:py-2"
                                     placeholder="...">
                                 <button type="submit">
@@ -138,7 +160,9 @@
                                 </button>
                             </div>
                         </form>
+                        {{-- End Input Section --}}
 
+                        {{-- Modal Section --}}
                         <div id="defaultModal" tabindex="-1" aria-hidden="true"
                             class="fixed inset-0 z-50 hidden h-full w-full overflow-y-auto bg-black bg-opacity-50">
                             <div

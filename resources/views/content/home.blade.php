@@ -167,28 +167,27 @@
                 <h1 class="mb-4 text-xl text-white">Top 10 Companies Alumni Work For</h1>
                 <div class="flex flex-grow flex-col">
                     @foreach ($company as $com)
-                        <a href="{{ route('companies.detail', ['id' => $com->id_company]) }}">
-                            <div class="mb-8 flex-grow-0">
-                                <article data-aos="fade-up"
-                                    class="cursor-pointer rounded-lg border border-gray-500 bg-lightblue p-4 py-5 shadow-lg"
-                                    onclick="navigateToDetailCompanies()">
-                                    <div class="flex flex-col sm:flex-row sm:space-x-4">
-                                        <div>
-                                            <img class="h-16 w-16 rounded-full object-cover"
-                                                src="{{ $com->company_picture }}" alt="Company Picture" />
-                                        </div>
-                                        <div class="mt-2 sm:mt-0">
-                                            <h2 class="text-md text-cyan sm:text-lg lg:text-xl">
-                                                {{ $com->company_name }}
-                                            </h2>
-                                            <div class="mt-2 flex items-center space-x-0.5 sm:space-x-1">
-                                                <span class="text-sm sm:text-lg">
-                                                    {{ $com->employee_count }}
-                                                </span>
-                                                <div class="flex items-center space-x-1 sm:space-x-0">
-                                                    @php
-                                                        $numIcons = min(ceil($com->employee_count / 2), 7);
-                                                    @endphp
+                    <a href="{{ route('companies.detail',['id'=>$com->id_company]) }}">
+                        <div class="mb-8 flex-grow-0">
+                            <article data-aos="fade-up"
+                                class="cursor-pointer rounded-lg border border-gray-500 bg-lightblue p-4 py-5 shadow-lg">
+                                <div class="flex flex-col sm:flex-row sm:space-x-4">
+                                    <div>
+                                        <img class="h-16 w-16 rounded-full object-cover"
+                                            src="{{ $com->company_picture }}" alt="Company Picture" />
+                                    </div>
+                                    <div class="mt-2 sm:mt-0">
+                                        <h2 class="text-md text-cyan sm:text-lg lg:text-xl">
+                                            {{ $com->company_name }}
+                                        </h2>
+                                        <div class="mt-2 flex items-center space-x-0.5 sm:space-x-1">
+                                            <span class="text-sm sm:text-lg">
+                                                {{ $com->employee_count }}
+                                            </span>
+                                            <div class="flex items-center space-x-1 sm:space-x-0">
+                                                @php
+                                                    $numIcons = min(ceil($com->employee_count / 2), 7);
+                                                @endphp
 
                                                     @for ($i = 0; $i < $numIcons; $i++)
                                                         <img src="{{ asset('assets/lulusan.svg') }}" alt="Alumni Icon"
@@ -209,14 +208,4 @@
         </div>
     </section>
     {{-- Content End --}}
-
-    {{-- <script>
-        function navigateToDetailPost() {
-            window.location.href = '{{ route('detailpost') }}';
-        }
-
-        function navigateToDetailCompanies() {
-            window.location.href = '{{ route('detailcompanies') }}';
-        }
-    </script> --}}
 @endsection

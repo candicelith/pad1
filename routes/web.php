@@ -74,8 +74,9 @@ Route::controller(PostController::class)->group(function () {
 });
 
 // Comment Controller
-Route::controller(CommentController::class)->group(function () {
-    Route::post('/posts/detail/{id}/comment', 'store')->name('posts.detail.comment');
+Route::controller(CommentController::class)->group(function(){
+    Route::post('/posts/detail/{vacancy}/comment', 'store')->name('posts.detail.comment');
+    Route::post('/posts/detail/{vacancy}/comment/{id}', 'store')->name('posts.detail.reply');
 });
 
 
