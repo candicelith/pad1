@@ -3,7 +3,8 @@
 @section('content')
     {{-- Title --}}
     <section class="mt-20 bg-white">
-        <div class="mx-auto max-w-screen-xl px-4 py-8 lg:px-6 lg:py-16">
+        <div class="sticky top-20 z-20 w-full bg-white px-2 pb-8 pt-16 sm:px-16">
+            {{-- Title --}}
             <div class="mx-auto mb-8 max-w-screen-sm text-center lg:mb-16">
                 <h2 class="mb-4 text-3xl text-cyan lg:text-4xl">Companies</h2>
             </div>
@@ -30,7 +31,7 @@
             </div>
 
             {{-- Filter --}}
-            <div class="mb-16 mt-9 flex flex-wrap items-center gap-2">
+            <div class="mb-16 mt-9 flex flex-wrap items-center justify-center gap-2 sm:mx-10 sm:mb-0 sm:px-5">
                 <div class="hidden w-full flex-wrap gap-1 sm:flex sm:w-auto">
                     <button
                         class="rounded-full bg-cyan px-4 py-1 text-center text-sm text-white hover:bg-cyan-100 hover:text-white focus:bg-cyan-100 focus:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100"
@@ -83,7 +84,9 @@
                     <p class="text-center text-gray-900">No Result Found</p>
                 </div>
             </div>
+        </div>
 
+        <div class="mx-auto max-w-screen-xl px-4 py-8 lg:px-6 lg:py-16">
             {{-- Companies Cards Start --}}
             <div id="companies-card" class="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                 @foreach ($company as $com)
