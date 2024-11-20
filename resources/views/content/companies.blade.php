@@ -47,7 +47,7 @@
                 </div>
 
                 {{-- Paginated alphabet filter for mobile view --}}
-                <div id="company-alphabet-filter" class="flex w-full flex-wrap gap-2 sm:hidden">
+                <div id="company-alphabet-filter" class="flex w-full flex-row gap-1 sm:hidden">
                     <button
                         class="rounded-full bg-cyan px-4 py-1 text-center text-sm text-white hover:bg-cyan-100 hover:text-white focus:bg-cyan-100 focus:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100"
                         value="" onclick="filterCompanies(event)">
@@ -94,13 +94,13 @@
                             <div class="flex flex-col items-center px-8 py-8 text-center">
                                 <img class="mb-3 h-24 w-24 rounded-full shadow-lg" src="{{ $com->company_picture }}"
                                     alt="Bonnie image" />
-                                <h2 class="mb-1 text-xl text-cyan">
+                                <h2 class="mb-1 text-2xl text-cyan">
                                     {{ $com->company_name }}
                                 </h2>
-                                <h3 class="mb-1 text-lg text-cyan">
+                                <h3 class="mb-1 text-base text-cyan">
                                     {{ $com->company_field }}
                                 </h3>
-                                <h4 class="text-md text-gray-400">
+                                <h4 class="text-sm text-gray-400">
                                     {{ $com->company_address }}
                                 </h4>
                             </div>
