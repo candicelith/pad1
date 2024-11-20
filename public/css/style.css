@@ -68,3 +68,11 @@ main {
 .scrollbar-companies::-webkit-scrollbar-thumb {
   background: #888;
 }
+
+.scrollbar-detailposts::-webkit-scrollbar {
+    width: 2px;
+}
+
+.scrollbar-detailposts::-webkit-scrollbar-thumb {
+  background: #888;
+}

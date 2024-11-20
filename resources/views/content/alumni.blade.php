@@ -3,7 +3,8 @@
 @section('content')
     {{-- Title --}}
     <section class="mt-20 bg-white">
-        <div class="mx-auto max-w-screen-xl px-4 py-8 lg:px-6 lg:py-16">
+        <div class="sticky top-20 z-20 w-full bg-white px-2 pb-8 pt-16 sm:px-16">
+            {{-- Title --}}
             <div class="mx-auto mb-8 max-w-screen-sm text-center lg:mb-16">
                 <h2 class="mb-4 text-3xl text-cyan lg:text-4xl">Alumni</h2>
             </div>
@@ -29,49 +30,51 @@
                 </form>
             </div>
 
-            {{-- Filter --}}
-            <div class="mb-8 mt-9 flex flex-wrap items-center gap-2">
-                <div class="hidden w-full flex-wrap gap-1 sm:flex sm:w-auto">
-                    <button
-                        class="rounded-full bg-cyan px-4 py-1 text-center text-sm text-white hover:bg-cyan-100 hover:text-white focus:bg-cyan-100 focus:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100"
-                        value="" onclick="filterAlumni(event)">
-                        All
-                    </button>
-                    @foreach (range('A', 'Z') as $letter)
+            <div class="max-w-screen-xl sm:mx-auto sm:px-4 lg:px-6">
+                {{-- Filter --}}
+                <div class="mt-9 flex flex-wrap items-center gap-2">
+                    <div class="hidden w-full flex-wrap gap-1 sm:flex sm:w-auto">
                         <button
-                            class="h-6 w-10 rounded-full bg-cyan px-4 py-1 text-center text-xs text-white hover:bg-cyan-100 hover:text-white focus:bg-cyan-100 focus:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100"
-                            value="{{ strtolower($letter) }}" onclick="filterAlumni(event)">
-                            {{ strtolower($letter) }}
+                            class="rounded-full bg-cyan px-4 py-1 text-center text-sm text-white hover:bg-cyan-100 hover:text-white focus:bg-cyan-100 focus:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100"
+                            value="" onclick="filterAlumni(event)">
+                            All
                         </button>
-                    @endforeach
-                </div>
+                        @foreach (range('A', 'Z') as $letter)
+                            <button
+                                class="h-6 w-10 rounded-full bg-cyan px-4 py-1 text-center text-xs text-white hover:bg-cyan-100 hover:text-white focus:bg-cyan-100 focus:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100"
+                                value="{{ strtolower($letter) }}" onclick="filterAlumni(event)">
+                                {{ strtolower($letter) }}
+                            </button>
+                        @endforeach
+                    </div>
 
-                {{-- Paginated alphabet filter for mobile view --}}
-                <div id="alphabet-filter" class="flex w-full flex-row gap-1 sm:hidden">
-                    <button
-                        class="rounded-full bg-cyan px-4 py-1 text-center text-sm text-white hover:bg-cyan-100 hover:text-white focus:bg-cyan-100 focus:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100"
-                        value="" onclick="filterAlumni(event)">
-                        All
-                    </button>
-                </div>
+                    {{-- Paginated alphabet filter for mobile view --}}
+                    <div id="alphabet-filter" class="flex w-full flex-row gap-1 sm:hidden">
+                        <button
+                            class="rounded-full bg-cyan px-4 py-1 text-center text-sm text-white hover:bg-cyan-100 hover:text-white focus:bg-cyan-100 focus:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100"
+                            value="" onclick="filterAlumni(event)">
+                            All
+                        </button>
+                    </div>
 
-                {{-- Dropdown for years --}}
-                <div class="ml-0">
-                    <form class="max-w-sm">
-                        <select id="angkatan" class="block w-full rounded-2xl bg-cyan p-2.5 text-xs text-white"
-                            onchange="filterByYear(event)">
-                            <option value="" selected>All Years</option>
-                            <option value="2022">2022</option>
-                            <option value="2021">2021</option>
-                            <option value="2020">2020</option>
-                            <option value="2019">2019</option>
-                        </select>
-                    </form>
+                    {{-- Dropdown for years --}}
+                    <div class="ml-0">
+                        <form class="max-w-sm">
+                            <select id="angkatan" class="block w-full rounded-2xl bg-cyan p-2.5 text-xs text-white"
+                                onchange="filterByYear(event)">
+                                <option value="" selected>All Years</option>
+                                <option value="2022">2022</option>
+                                <option value="2021">2021</option>
+                                <option value="2020">2020</option>
+                                <option value="2019">2019</option>
+                            </select>
+                        </form>
+                    </div>
                 </div>
             </div>
 
             {{-- Pagination controls for mobile view only --}}
-            <div class="mb-8 flex justify-center sm:hidden">
+            <div class="mt-4 flex justify-center sm:hidden">
                 <button id="prev-btn"
                     class="rounded-md bg-cyan-100 px-3 py-1 text-white hover:bg-white hover:text-cyan-100 disabled:opacity-50"
                     onclick="prevPage()" disabled>
@@ -95,7 +98,9 @@
                     <p class="text-center text-gray-900">No Result Found</p>
                 </div>
             </div>
+        </div>
 
+        <div class="mx-auto max-w-screen-xl px-4 py-8 lg:px-6 lg:py-16">
             {{-- Alumni Cards Start --}}
             <div id="alumni-cards" class="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                 @foreach ($alumnis as $al)
@@ -126,6 +131,7 @@
                 @endforeach
             </div>
             {{-- Alumni Cards End --}}
+        </div>
 
         </div>
     </section>

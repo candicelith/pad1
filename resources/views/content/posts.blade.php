@@ -2,7 +2,7 @@
 
 @section('content')
     <section class="mt-20 bg-white">
-        <div class="mx-auto max-w-screen-xl px-4 py-8 lg:px-6 lg:py-16">
+        <div class="sticky top-20 z-20 w-full bg-white pb-8 pt-16">
             {{-- Title --}}
             <div class="mx-auto mb-8 max-w-screen-sm text-center lg:mb-16">
                 <h2 class="mb-4 text-3xl text-cyan lg:text-4xl">Posts</h2>
@@ -21,7 +21,9 @@
             </div>
             @endif
             @endauth
+        </div>
 
+        <div class="mx-auto max-w-screen-xl px-4 py-8 lg:px-6">
             {{-- Post Card Start --}}
             @foreach ($vacancys as $vc)
                 <a href="{{ route('posts.detail', ['id' => (string) $vc->id_vacancy]) }}">
