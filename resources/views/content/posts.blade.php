@@ -9,15 +9,17 @@
             </div>
 
             @auth
-                @if (Auth::check() && Auth::user()->id_roles == '2')
-                    {{-- New Post Button --}}
-                    <div class="mx-auto mt-6 flex max-w-screen-xl justify-end px-4">
-                        <a href="{{ route('createpost') }}"
-                            class="items-center rounded-full bg-cyan-100 px-3 py-1 text-white shadow hover:bg-white hover:text-cyan-100 sm:px-5 sm:text-lg">
-                            New Post +
-                        </a>
-                    </div>
-                @endif
+            @if (Auth::check() && Auth::user()->id_roles=="2")
+            {{-- New Post Button --}}
+            <div class="mt-6 flex justify-end">
+                <a
+                    href="{{ route('posts.create') }}"
+                    class="items-center rounded-full bg-cyan-100 px-5 py-1 text-lg text-white shadow hover:bg-white hover:text-cyan-100"
+                >
+                    New Post +
+                </a>
+            </div>
+            @endif
             @endauth
         </div>
 

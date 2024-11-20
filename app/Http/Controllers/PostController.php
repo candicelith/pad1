@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use App\Models\Vacancy;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use PhpParser\Node\Expr\PostDec;
 
@@ -54,7 +56,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        $companies = Company::all();
+        return view('content.createpost',compact('companies'));
     }
 
     /**
@@ -62,7 +65,47 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'position' => 'required|string|max:255',
+            'company' => 'required|exists:company,id_company',
+            'vacancy_description' => 'required|string|max:500',
+
+            'vacancy_responsibility' => 'required|array|min:1',
+            'vacancy_responsibility.*' => 'required|string|max:1000',
+
+            'vacancy_qualification' => 'required|array|min:1',
+            'vacancy_qualification.*' => 'required|string|max:1000',
+
+            'vacancy_benefits' => 'required|array|min:1',
+            'vacancy_benefits.*' => 'required|string|max:1000',
+
+            'vacancy_picture' => 'nullable|image|mimes:jpg,jpeg,png'
+        ]);
+
+
+        // Handle file upload
+        if ($request->hasFile('vacancy_picture')) {
+            $file = $request->file('vacancy_picture');
+            $filenameWithExt = $file->getClientOriginalName();
+
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('vacancy_picture')->getClientOriginalExtension();
+
+            $filenameSimpan = $filename . '_' . time() . '.' . $extension;
+            $file->storeAs('public/vacancies', $filenameSimpan);        }
+
+        Vacancy::create([
+            'id_company' => $request->company,
+            'position' => $request->position,
+            'id_users' => Auth::user()->id_users,
+            'vacancy_description' => $request->vacancy_description,
+            'vacancy_responsibilities' => $request->vacancy_responsibility,
+            'vacancy_qualification' => $request->vacancy_qualification,
+            'vacancy_benefits' => $request->vacancy_benefits,
+            'vacancy_picture' => $filenameSimpan ?? null
+        ]);
+
+        return redirect()->route('posts')->with('success','Vacancy Added Successfully');
     }
 
     /**

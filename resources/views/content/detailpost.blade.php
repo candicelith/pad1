@@ -77,7 +77,7 @@
                                 </div>
                             </div>
                             <div>
-                                <img src="{{ $vacancy->vacancy_picture }}" class="rounded-lg" alt="" />
+                                <img src="{{ asset('storage/vacancies/'.$vacancy->vacancy_picture) }}" alt="vacancy_image" />
                             </div>
                         </div>
                     </div>

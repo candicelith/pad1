@@ -38,9 +38,9 @@ Route::get('/detailcompanies', function () {
     return view('content.detailcompanies');
 })->name('detailcompanies');
 
-Route::get('/createpost', function () {
-    return view('content.createpost');
-})->name('createpost');
+// Route::get('/createpost', function () {
+//     return view('content.createpost');
+// })->name('createpost');
 
 Route::get('/profilealumni', function () {
     return view('content.profile-alumni');
@@ -67,10 +67,12 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/companies', [CompanyController::class, 'index'])->name('companies');
 
 
-// Posts
+// Posts Controller
 Route::controller(PostController::class)->group(function () {
     Route::get('/posts', 'index')->name('posts');
     Route::get('/posts/detail/{id}', 'show')->name('posts.detail');
+    Route::get('/posts/create','create')->name('posts.create');
+    Route::post('/posts/store','store')->name('posts.store');
 });
 
 // Comment Controller
