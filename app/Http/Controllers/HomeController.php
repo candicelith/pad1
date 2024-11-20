@@ -23,7 +23,7 @@ class HomeController extends Controller
             ->join('user_details', 'users.id_users', '=', 'user_details.id_users')
             ->join('company', 'vacancy.id_company', '=', 'company.id_company')
             ->select('vacancy.*', 'users.*', 'user_details.*', 'company.*')
-            ->paginate(3);
+            ->paginate(2);
 
         foreach ($posts as $post) {
 
@@ -53,7 +53,7 @@ class HomeController extends Controller
         )
         ->groupBy('company.id_company', 'company.company_name', 'company.company_picture')
         ->orderBy('employee_count', 'desc')
-        ->paginate(10);
+        ->paginate(5);
 
 
         return view('content.home', compact('posts', 'company'));
