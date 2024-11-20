@@ -1,7 +1,7 @@
 @extends('layout.admin-headerNav')
 
 @section('admincontent')
-    <section>
+    <section class="mx-4 my-4">
         <div class="mt-5 pt-4 sm:ml-64">
             <div class="mt-14">
                 <div class="flex flex-col justify-evenly sm:flex-row">

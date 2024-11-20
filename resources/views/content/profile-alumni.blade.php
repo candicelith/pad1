@@ -2,6 +2,11 @@
 
 @section('content')
     <section class="mt-20 bg-white">
+        {{-- <div class="mb-4 rounded-lg bg-lightblue-100 p-4 text-center text-sm text-cyan" role="alert">
+            <span>Perubahan data sedang dalam proses verifikasi oleh admin.<br>Mohon tunggu
+                konfirmasi lebih
+                lanjut.</span>
+        </div> --}}
         <div class="mx-auto max-w-screen-xl px-4 py-8 lg:px-6 lg:py-16">
             <div class="w-full max-w-none rounded-3xl bg-lightblue shadow-lg">
                 {{-- Profile Image & Banner --}}
@@ -54,11 +59,11 @@
                     </div>
                 </div>
 
-                <div class="mx-4 mt-14 flex items-center justify-between p-6 ps-0 sm:mx-14 sm:p-0">
+                <div class="mx-4 mt-10 flex items-center justify-between p-6 ps-0 sm:mx-14 sm:p-0">
                     {{-- Edit Button --}}
                     <div class="sm:ms-14">
                         <a href="{{ route('alumni.show-profile') }}"
-                            class="sm:text-md rounded-full bg-cyan px-4 py-4 text-sm text-white hover:bg-white hover:text-cyan sm:px-8">
+                            class="sm:text-md rounded-full bg-cyan px-8 py-4 text-sm text-white hover:bg-white hover:text-cyan">
                             Edit Profile
                         </a>
                     </div>

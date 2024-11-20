@@ -3,11 +3,12 @@
 @section('admincontent')
     <section>
         <div class="mt-16 sm:ms-60">
-            <div class="me-4 mt-14 flex max-w-screen-xl items-start justify-center px-2 py-8 sm:mx-auto sm:ms-4 sm:px-4">
+            <div
+                class="mx-4 mt-14 flex max-w-screen-xl flex-col items-start justify-center px-2 py-8 sm:mx-auto sm:ms-4 sm:flex-row sm:px-4">
                 <!-- Back Button -->
-                <button onclick="history.back()" class="mb-4 lg:mb-0 lg:me-5">
-                    <svg class="h-12 w-12 text-gray-800 dark:text-white sm:h-16 sm:w-16" aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <button class="mb-4" onclick="history.back()">
+                    <svg class="h-8 w-8 text-gray-800 sm:h-16 sm:w-16" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        width="24" height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="m14 8-4 4 4 4" />
                     </svg>

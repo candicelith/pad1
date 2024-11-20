@@ -76,3 +76,10 @@ main {
 .scrollbar-detailposts::-webkit-scrollbar-thumb {
   background: #888;
 }
+
+/* Hidden rows in mobile view */
+@media (max-width: 768px) {
+    .hidden-mobile {
+        display: none;
+    }
+}

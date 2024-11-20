@@ -3,9 +3,9 @@
 @section('admincontent')
     <section>
         <div class="mt-5 pt-4 sm:ml-64">
-            <div class="mt-14">
+            <div class="mx-2 mt-14">
                 <h2 class="flex justify-center text-4xl">Alumni</h2>
-                <div class="relative mx-10">
+                <div class="relative sm:mx-10">
                     <div class="top-0 z-20 flex justify-between bg-white pb-4">
 
                         <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
@@ -76,44 +76,44 @@
                         </div>
                     </div>
 
-                    <div class="max-h-[calc(100vh-200px)] overflow-x-auto">
-                        <table class="w-full text-left text-sm rtl:text-right">
+                    <div class="">
+                        <table class="w-full text-left text-sm">
                             <thead class="bg-lightblue text-base">
                                 <tr>
-                                    <th scope="col" class="px-6 py-3 font-normal">
+                                    <th scope="col" class="px-6 py-3 text-sm font-normal sm:text-base">
                                         NO
                                     </th>
-                                    <th scope="col" class="px-6 py-3 font-normal">
+                                    <th scope="col" class="px-6 py-3 text-sm font-normal sm:text-base">
                                         NAME
                                     </th>
-                                    <th scope="col" class="px-6 py-3 font-normal">
+                                    <th scope="col" class="hidden-mobile px-6 py-3 font-normal">
                                         NIU
                                     </th>
-                                    <th scope="col" class="px-6 py-3 font-normal">
+                                    <th scope="col" class="hidden-mobile px-6 py-3 font-normal">
                                         EMAIL
                                     </th>
-                                    <th scope="col" class="px-6 py-3 font-normal">
+                                    <th scope="col" class="px-6 py-3 text-sm font-normal sm:text-base">
                                         ACTION
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr class="border-b border-black bg-white hover:bg-gray-50">
-                                    <th scope="row" class="whitespace-nowrap px-6 py-4">
+                                    <th scope="row" class="whitespace-nowrap px-6 py-4 text-sm sm:text-base">
                                         1
                                     </th>
-                                    <td class="px-6 py-4">
+                                    <td class="px-6 py-4 text-sm sm:text-base">
                                         Naila Geda Gedi
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="hidden-mobile px-6 py-4">
                                         12345
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="hidden-mobile px-6 py-4">
                                         aku@gmail.com
                                     </td>
                                     <td class="px-6 py-4">
                                         <a href="{{ route('adminprofilalumni') }}"
-                                            class="rounded-full bg-cyan-100 px-7 py-2 text-center text-base text-white shadow-md hover:bg-white hover:text-cyan-100">
+                                            class="rounded-full bg-cyan-100 px-4 py-2 text-center text-sm text-white shadow-md hover:bg-white hover:text-cyan-100 sm:px-7 sm:text-base">
                                             Detail
                                         </a>
                                     </td>

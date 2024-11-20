@@ -50,6 +50,30 @@ Route::get('/editprofile', function () {
     return view('content.editprofile');
 })->name('editprofile');
 
+Route::get('/admindetailalumni', function () {
+    return view('content.admin-detailalumni');
+})->name('admindetailalumni');
+
+Route::get('/adminprofile', function () {
+    return view('content.admin-profile');
+})->name('adminprofile');
+
+Route::get('/adminalumni', function () {
+    return view('content.admin-alumni');
+})->name('adminalumni');
+
+Route::get('/adminprofilalumni', function () {
+    return view('content.admin-profilealumni');
+})->name('adminprofilalumni');
+
+Route::get('/admindetailalumni', function () {
+    return view('content.admin-detailalumni');
+})->name('admindetailalumni');
+
+Route::get('/admineditalumni', function () {
+    return view('content.admin-editalumni');
+})->name('admineditalumni');
+
 Route::get('/adminhome', function () {
     return view('content.admin-home');
 })->name('adminhome');
@@ -71,12 +95,12 @@ Route::get('/companies', [CompanyController::class, 'index'])->name('companies')
 Route::controller(PostController::class)->group(function () {
     Route::get('/posts', 'index')->name('posts');
     Route::get('/posts/detail/{id}', 'show')->name('posts.detail');
-    Route::get('/posts/create','create')->name('posts.create');
-    Route::post('/posts/store','store')->name('posts.store');
+    Route::get('/posts/create', 'create')->name('posts.create');
+    Route::post('/posts/store', 'store')->name('posts.store');
 });
 
 // Comment Controller
-Route::controller(CommentController::class)->group(function(){
+Route::controller(CommentController::class)->group(function () {
     Route::post('/posts/detail/{vacancy}/comment', 'store')->name('posts.detail.comment');
     Route::post('/posts/detail/{vacancy}/comment/{id}', 'store')->name('posts.detail.reply');
 });

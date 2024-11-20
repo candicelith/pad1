@@ -1,15 +1,15 @@
 @extends('layout.admin-headerNav')
 
 @section('admincontent')
-    <section>
-        <div class="mt-16 sm:ms-60">
-            <div class="mx-auto ms-4 mt-14 flex max-w-screen-xl items-start px-4 py-8">
+    <section class="sm:mx-5">
+        <div class="mt-20 sm:ms-60">
+            <div class="mx-auto mt-14 flex max-w-screen-xl items-start px-4 py-4">
                 <div class="w-full max-w-none rounded-3xl bg-lightblue shadow-lg">
 
                     {{-- Profile Image & Banner --}}
                     <div class="relative">
                         <div class="h-48 rounded-t-3xl bg-cyan-100"></div>
-                        <div class="absolute top-1/2 ms-14">
+                        <div class="absolute top-1/2 sm:ms-14">
                             <img class="h-48 w-48 rounded-full object-cover"
                                 src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
                                 alt="Profile Picture" />
@@ -17,15 +17,15 @@
                     </div>
 
                     {{-- Profile Details --}}
-                    <div class="ms-14 flex flex-col items-start pt-36">
+                    <div class="flex flex-col items-start justify-center pt-36 text-center sm:ms-14 sm:text-start">
                         <h2 class="text-2xl text-cyan">Muhammad Naufal Daffachri</h2>
-                        <p class="pt-5 text-xl text-gray-400">Admin</p>
+                        <p class="mx-auto text-xl text-gray-400 sm:mx-0 sm:pt-5">Admin</p>
                     </div>
 
                     {{-- Logout Button --}}
-                    <div data-modal-target="popup-modal" data-modal-toggle="popup-modal"
-                        class="flex justify-end p-6 sm:p-0">
-                        <button class="rounded-full bg-red-500 p-3 text-white shadow-lg hover:bg-red-600">
+                    <div class="flex justify-end p-6 sm:p-0">
+                        <button data-modal-target="popup-modal" data-modal-toggle="popup-modal"
+                            class="rounded-full bg-red-500 p-3 text-white shadow-lg hover:bg-red-600">
                             <svg class="h-10 w-10 sm:h-14 sm:w-14" fill="none" stroke="currentColor" stroke-width="2"
                                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round"
