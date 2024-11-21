@@ -5,9 +5,9 @@
         <div class="mx-auto max-w-screen-xl px-4 py-8 sm:flex sm:items-start lg:px-6 lg:py-16">
 
             <!-- Back Button -->
-            <button class="mb-4 lg:mb-0 lg:me-5" onclick="handleBack()">
-                <svg class="h-12 w-12 text-gray-800 dark:text-white sm:h-16 sm:w-16" aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <button class="sm:mb-4 sm:me-16" onclick="handleBack()">
+                <svg class="h-8 w-8 text-gray-800 sm:h-16 sm:w-16" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="m14 8-4 4 4 4" />
                 </svg>
