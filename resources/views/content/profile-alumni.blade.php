@@ -2,11 +2,13 @@
 
 @section('content')
     <section class="mt-20 bg-white">
-        {{-- <div class="mb-4 rounded-lg bg-lightblue-100 p-4 text-center text-sm text-cyan" role="alert">
+        <div id="alert-3"
+            class="alert-animation mx-auto mb-4 hidden w-1/2 -translate-y-10 transform rounded-lg bg-lightblue-100 p-4 text-center text-sm text-cyan opacity-0"
+            role="alert">
             <span>Perubahan data sedang dalam proses verifikasi oleh admin.<br>Mohon tunggu
                 konfirmasi lebih
                 lanjut.</span>
-        </div> --}}
+        </div>
         <div class="mx-auto max-w-screen-xl px-4 py-8 lg:px-6 lg:py-16">
             <div class="w-full max-w-none rounded-3xl bg-lightblue shadow-lg">
                 {{-- Profile Image & Banner --}}
@@ -112,4 +114,22 @@
             </div>
         </div>
     </section>
+
+    <script>
+        // Alert Script
+        if (sessionStorage.getItem('showAlert') === 'true') {
+            const alertElement = document.getElementById('alert-3');
+
+            // Delay to make sure the alert appears with animation
+            setTimeout(function() {
+                alertElement.classList.remove('hidden', '-translate-y-10',
+                    'opacity-0'); // Remove initial hidden and translate classes
+                alertElement.classList.add('translate-y-2', 'opacity-100',
+                    'block'); // Add animation classes to slide in and make visible
+            }, 500); // 100ms delay to trigger the animation after the page load
+
+            // Remove the sessionStorage item so it doesn't show again
+            sessionStorage.removeItem('showAlert');
+        }
+    </script>
 @endsection

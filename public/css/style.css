@@ -77,6 +77,10 @@ main {
   background: #888;
 }
 
+.alert-animation {
+    animation: slide-in 0.7s ease-in-out forwards;
+}
+
 /* Hidden rows in mobile view */
 @media (max-width: 768px) {
     .hidden-mobile {

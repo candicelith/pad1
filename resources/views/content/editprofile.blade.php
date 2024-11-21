@@ -27,6 +27,7 @@
                     </div>
                 </div>
 
+                {{-- Profile Details --}}
                 <div class="mt-28 flex flex-col space-y-2 sm:mx-14">
                     <form action="#">
                         <div class="px-10">
@@ -62,11 +63,10 @@
                                     class="block w-full rounded-xl border border-gray-900 bg-gray-50 px-2 pt-2 text-sm text-gray-900">{{ $userDetails->user_description }}</textarea>
                             </div>
 
+                            {{-- Experiences Detail --}}
                             <div class="mb-5 mt-5">
                                 <label for="experience" class="mb-2 block text-xl text-cyan">Experience</label>
-                                <!-- Flex container for the form and button -->
                                 <div id="experience-container" class="flex flex-wrap gap-10">
-                                    <!-- Existing Forms -->
                                     <div class="experience-form rounded-lg bg-gray-300 p-2.5 sm:w-80 sm:p-5">
                                         <div class="my-2.5">
                                             <label for="company" class="mb-2 block text-base text-gray-500">
@@ -97,7 +97,7 @@
                                                 class="block w-full rounded-lg border border-gray-900 bg-gray-50 px-2 pt-2 text-sm text-gray-900"></textarea>
                                         </div>
                                     </div>
-                                    <!-- Button to toggle/add forms -->
+                                    {{-- Button to toggle/add forms --}}
                                     <div id="add-button-container" class="flex w-80 flex-col">
                                         <button type="button" id="add-experience-btn"
                                             class="flex h-1/2 items-center justify-center rounded-lg bg-gray-300 p-5 text-lg text-gray-500"
@@ -118,12 +118,16 @@
 
                 {{-- Logout and Save Button --}}
                 <div class="mx-4 mt-14 flex items-center justify-between p-6 ps-0 sm:mx-14 sm:p-0">
+
+                    {{-- Save Button --}}
                     <div class="sm:ms-14">
-                        <a {{-- ganti ntar --}} href="{{ route('editprofile') }}"
+                        <a {{-- ganti ntar --}} href="{{ route('alumni.profile') }}" onclick="triggerAlert()"
                             class="sm:text-md rounded-full bg-cyan px-4 py-4 text-sm text-white hover:bg-white hover:text-cyan sm:px-8">
                             Save Changes
                         </a>
                     </div>
+
+                    {{-- Logout Button --}}
                     <button data-modal-target="popup-modal" data-modal-toggle="popup-modal"
                         class="rounded-full bg-red-600 p-3 text-white shadow-lg hover:bg-red-400 sm:me-10">
                         <svg class="h-8 w-8 sm:h-14 sm:w-14" fill="none" stroke="currentColor" stroke-width="2"
@@ -204,6 +208,11 @@
 
             // Increment the form count
             formCount++;
+        }
+
+        // Save Button Script
+        function triggerAlert() {
+            sessionStorage.setItem('showAlert', 'true');
         }
     </script>
 @endsection
