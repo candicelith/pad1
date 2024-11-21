@@ -54,14 +54,14 @@
                                             </div>
                                         </div>
                                         <div class="flex justify-end space-x-4">
-                                            <button type="submit"
-                                                class="text-md inline-flex items-center rounded-full bg-white px-5 py-2.5 text-center text-cyan shadow-lg hover:bg-cyan hover:text-white focus:outline-none focus:ring-4 focus:ring-cyan">
-                                                Create
-                                            </button>
                                             <button type="button"
                                                 class="text-md inline-flex items-center rounded-full bg-white px-5 py-2.5 text-center text-cyan shadow-lg hover:bg-cyan hover:text-white focus:outline-none focus:ring-4 focus:ring-cyan"
                                                 data-modal-toggle="crud-modal">
                                                 Cancel
+                                            </button>
+                                            <button type="submit"
+                                                class="text-md inline-flex items-center rounded-full bg-white px-5 py-2.5 text-center text-cyan shadow-lg hover:bg-cyan hover:text-white focus:outline-none focus:ring-4 focus:ring-cyan">
+                                                Create
                                             </button>
                                         </div>
                                     </form>

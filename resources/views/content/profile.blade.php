@@ -7,16 +7,16 @@
                 {{-- Profile Image & Banner --}}
                 <div class="relative">
                     <div class="h-48 rounded-t-3xl bg-cyan-100"></div>
-                    <div class="absolute top-1/2 ms-14">
+                    <div class="absolute top-1/2 mx-12 sm:ms-14">
                         <img class="h-48 w-48 rounded-full object-cover" src="{{ $userDetails->profile_photo }}"
                             alt="Profile Picture" />
                     </div>
                 </div>
 
                 {{-- Profile Details --}}
-                <div class="ms-14 flex flex-col items-start pt-36">
-                    <h2 class="text-2xl text-cyan">{{ $userDetails->name }}</h2>
-                    <p class="pt-5 text-xl text-gray-400">{{ $userDetails->nim }}</p>
+                <div class="flex flex-col justify-center pt-36 text-center sm:ms-14 sm:items-start sm:text-start">
+                    <h2 class="text-xl text-cyan sm:text-2xl">{{ $userDetails->name }}</h2>
+                    <p class="mx-auto text-lg text-gray-400 sm:mx-0 sm:pt-5 sm:text-xl">{{ $userDetails->nim }}</p>
                 </div>
 
                 {{-- Logout Button --}}

@@ -58,15 +58,15 @@
                 </li>
                 <li>
                     <a href="{{ route('adminhome') }}"
-                        class="{{ request()->routeIs('adminhome') ? 'text-cyan-100 bg-white' : 'text-white' }} group flex items-center rounded-lg p-2 hover:bg-white hover:text-cyan-100"
-                        @if (request()->routeIs('adminhome')) aria-current="page" @endif>
+                        class="{{ request()->routeIs('adminhome', 'admindetailalumni') ? 'text-cyan-100 bg-white' : 'text-white' }} group flex items-center rounded-lg p-2 hover:bg-white hover:text-cyan-100"
+                        @if (request()->routeIs('adminhome', 'admindetailalumni')) aria-current="page" @endif>
                         <span class="ms-3 flex-1 whitespace-nowrap">Home</span>
                     </a>
                 </li>
                 <li>
                     <a href="{{ route('adminalumni') }}"
-                        class="{{ request()->routeIs('adminalumni') ? 'text-cyan-100 bg-white' : 'text-white' }} group flex items-center rounded-lg p-2 hover:bg-white hover:text-cyan-100 dark:text-white dark:hover:bg-gray-700"
-                        @if (request()->routeIs('adminalumni')) aria-current="page" @endif>
+                        class="{{ request()->routeIs('adminalumni', 'adminprofilalumni', 'admineditalumni') ? 'text-cyan-100 bg-white' : 'text-white' }} group flex items-center rounded-lg p-2 hover:bg-white hover:text-cyan-100 dark:text-white dark:hover:bg-gray-700"
+                        @if (request()->routeIs('adminalumni', 'adminprofilalumni', 'admineditalumni')) aria-current="page" @endif>
                         <span class="ms-3 flex-1 whitespace-nowrap">Alumni</span>
                     </a>
                 </li>

@@ -128,7 +128,7 @@
                     {{-- Logout and Save Button --}}
                     <div class="mx-4 mt-14 flex items-center justify-between p-6 ps-0 sm:mx-14 sm:p-0">
                         <div class="sm:ms-14">
-                            <a href="{{ route('editprofile') }}"
+                            <a href="{{ route('adminprofilalumni') }}"
                                 class="sm:text-md rounded-full bg-cyan px-2 py-4 text-sm text-white hover:bg-white hover:text-cyan sm:px-8">
                                 Save Changes
                             </a>
