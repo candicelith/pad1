@@ -54,7 +54,7 @@
                                 class="block w-full rounded-xl border border-gray-900 bg-gray-50 px-2 text-sm text-gray-900"
                                 placeholder="Enter responsibility" required />
                             <button type="button"
-                                class="remove-responsibility ml-2 px-2 text-sm text-red-600">Remove</button>
+                                class="remove-responsibility ml-2 rounded-full bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2">Remove</button>
                         </div>
                     </div>
                     <button type="button" id="add-responsibility"
@@ -76,7 +76,7 @@
                                 class="block w-full rounded-xl border border-gray-900 bg-gray-50 px-2 text-sm text-gray-900"
                                 placeholder="Enter qualification" required />
                             <button type="button"
-                                class="remove-qualification ml-2 px-2 text-sm text-red-600">Remove</button>
+                                class="remove-responsibility ml-2 rounded-full bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2">Remove</button>
                         </div>
                     </div>
                     <button type="button" id="add-qualification"
@@ -96,7 +96,8 @@
                             <input type="text" name="vacancy_benefits[]"
                                 class="block w-full rounded-xl border border-gray-900 bg-gray-50 px-2 text-sm text-gray-900"
                                 placeholder="Enter benefits" required />
-                            <button type="button" class="remove-benefits ml-2 px-2 text-sm text-red-600">Remove</button>
+                            <button type="button"
+                                class="remove-responsibility ml-2 rounded-full bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2">Remove</button>
                         </div>
                     </div>
                     <button type="button" id="add-benefits"

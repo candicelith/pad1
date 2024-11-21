@@ -1,7 +1,7 @@
 @extends('layout.headerFooter')
 
 @section('content')
-    <section class="mt-28 bg-white">
+    <section class="mt-28 bg-white sm:mt-0">
         <div class="mx-auto my-16 flex max-w-screen-xl items-center justify-center md:h-screen lg:py-16">
             <div
                 class="mx-10 w-full rounded-lg bg-cyan-100 px-8 py-10 shadow-lg sm:max-w-xl sm:px-14 sm:py-16 lg:max-w-5xl lg:px-20 xl:max-w-6xl">

@@ -40,50 +40,6 @@
                                 <label for="current_company" class="mb-2 block text-xl text-cyan">
                                     Current Company
                                 </label>
-
-                                {{-- <button id="dropdownOffsetButton" data-dropdown-toggle="dropdownSkidding"
-                                    data-dropdown-offset-distance="-710" data-dropdown-offset-skidding="100"
-                                    data-dropdown-placement="right"
-                                    class="flex w-full items-center justify-between rounded-full border border-gray-900 bg-gray-50 p-1 px-6 py-2.5 text-sm text-gray-900"
-                                    type="button">
-                                    <span class="text-gray-400">Current Company</span>
-                                    <svg class="ml-2 h-2 w-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                        fill="none" viewBox="0 0 10 6">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2" d="m1 1 4 4 4-4" />
-                                    </svg>
-                                </button>
-
-                                <!-- Dropdown menu -->
-                                <div id="dropdownSkidding"
-                                    class="z-10 hidden w-full max-w-screen-lg divide-y divide-gray-100 rounded-lg border border-gray-900 bg-gray-50 shadow dark:bg-gray-700">
-                                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
-                                        aria-labelledby="dropdownOffsetButton">
-                                        <li>
-                                            <a href="#"
-                                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Bank
-                                                Central Asia</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"
-                                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Tokopedia</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"
-                                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Shopee</a>
-                                        </li>
-                                        <li>
-                                            <a href="#"
-                                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Traveloka</a>
-                                        </li>
-                                    </ul>
-                                </div> --}}
-
-
-                                {{-- <input type="text" id="current_company"
-                                    class="block w-full rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900"
-                                    required value="{{ $userDetails->current_company }}" /> --}}
-
                                 <select name="current_company" id="current_company"
                                     class="block w-full cursor-pointer rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900">
                                     <option value="BCA">Bank Central Asia</option>
@@ -169,7 +125,7 @@
                         </a>
                     </div>
                     <button data-modal-target="popup-modal" data-modal-toggle="popup-modal"
-                        class="rounded-full bg-red-500 p-3 text-white shadow-lg hover:bg-red-600 sm:me-10">
+                        class="rounded-full bg-red-600 p-3 text-white shadow-lg hover:bg-red-400 sm:me-10">
                         <svg class="h-8 w-8 sm:h-14 sm:w-14" fill="none" stroke="currentColor" stroke-width="2"
                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -177,6 +133,8 @@
                             </path>
                         </svg>
                     </button>
+
+                    {{-- Modal --}}
                     <div id="popup-modal" tabindex="-1"
                         class="fixed left-0 right-0 top-0 z-50 hidden h-full max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0">
                         <div class="relative max-h-full w-full max-w-md p-4">
@@ -185,12 +143,13 @@
                                     <h3 class="mb-5 text-lg font-normal text-white">Are you leaving?</h3>
                                     <p class="mb-5 text-sm font-normal text-white">Are you sure you want to Log Out?</p>
                                     <button data-modal-hide="popup-modal" type="button"
-                                        class="inline-flex items-center rounded-full border border-gray-900 bg-white px-5 py-2.5 text-center text-sm font-medium text-gray-900 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:focus:ring-red-800">
+                                        class="ms-3 rounded-full border border-gray-900 bg-white px-5 py-2.5 text-sm font-medium text-cyan hover:bg-cyan hover:text-white focus:z-10 focus:outline-none focus:ring-4 focus:ring-cyan">
                                         Cancel
                                     </button>
-                                    <button data-modal-hide="popup-modal" type="button"
-                                        class="ms-3 rounded-full border border-gray-900 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700">
+                                    <button data-modal-hide="popup-modal" type="button" id="logout-button"
+                                        class="ms-3 rounded-full border border-gray-900 bg-white px-5 py-2.5 text-sm font-medium text-cyan hover:bg-cyan hover:text-white focus:z-10 focus:outline-none focus:ring-4 focus:ring-cyan">
                                         Log Out
+
                                     </button>
                                 </div>
                             </div>

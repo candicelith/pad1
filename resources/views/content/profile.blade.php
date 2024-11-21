@@ -21,7 +21,7 @@
 
                 {{-- Logout Button --}}
                 <div data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="flex justify-end p-6 sm:p-0">
-                    <button class="rounded-full bg-red-500 p-3 text-white shadow-lg hover:bg-red-600">
+                    <button class="rounded-full bg-red-600 p-3 text-white shadow-lg hover:bg-red-400">
                         <svg class="h-10 w-10 sm:h-14 sm:w-14" fill="none" stroke="currentColor" stroke-width="2"
                             viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round"

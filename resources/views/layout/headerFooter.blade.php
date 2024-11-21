@@ -45,22 +45,22 @@
                         </li>
                         <li>
                             <a href="{{ route('posts') }}"
-                                class="{{ request()->routeIs('posts') ? 'text-cyan' : 'text-gray-400' }} block rounded px-3 py-2 text-xl hover:bg-cyan-100 hover:text-cyan md:border-0 md:p-0 md:hover:bg-transparent"
-                                @if (request()->routeIs('posts')) aria-current="page" @endif>
+                                class="{{ request()->routeIs('posts', 'posts.detail', 'posts.create') ? 'text-cyan' : 'text-gray-400' }} block rounded px-3 py-2 text-xl hover:bg-cyan-100 hover:text-cyan md:border-0 md:p-0 md:hover:bg-transparent"
+                                @if (request()->routeIs('posts', 'posts.detail', 'posts.create')) aria-current="page" @endif>
                                 Posts
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('alumni') }}"
-                                class="{{ request()->routeIs('alumni') ? 'text-cyan' : 'text-gray-400' }} block rounded px-3 py-2 text-xl hover:bg-cyan-100 hover:text-cyan md:border-0 md:p-0 md:hover:bg-transparent"
-                                @if (request()->routeIs('alumni')) aria-current="page" @endif>
+                                class="{{ request()->routeIs('alumni', 'alumni.detail') ? 'text-cyan' : 'text-gray-400' }} block rounded px-3 py-2 text-xl hover:bg-cyan-100 hover:text-cyan md:border-0 md:p-0 md:hover:bg-transparent"
+                                @if (request()->routeIs('alumni', 'alumni.detail')) aria-current="page" @endif>
                                 Alumni
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('companies') }}"
-                                class="{{ request()->routeIs('companies') ? 'text-cyan' : 'text-gray-400' }} block rounded px-3 py-2 text-xl hover:bg-cyan-100 hover:text-cyan md:border-0 md:p-0 md:hover:bg-transparent"
-                                @if (request()->routeIs('companies')) aria-current="page" @endif>
+                                class="{{ request()->routeIs('companies', 'companies.detail') ? 'text-cyan' : 'text-gray-400' }} block rounded px-3 py-2 text-xl hover:bg-cyan-100 hover:text-cyan md:border-0 md:p-0 md:hover:bg-transparent"
+                                @if (request()->routeIs('companies', 'companies.detail')) aria-current="page" @endif>
                                 Companies
                             </a>
                         </li>
@@ -76,8 +76,8 @@
                             @auth
                                 @if (Auth::check() && Auth::user()->id_roles == '2')
                                     <a href="{{ route('alumni.profile') }}"
-                                        class="{{ request()->routeIs('alumni.profile') ? 'text-cyan' : 'text-gray-400' }} block rounded px-3 py-2 text-xl hover:bg-cyan-100 hover:text-cyan md:border-0 md:p-0 md:hover:bg-transparent"
-                                        @if (request()->routeIs('alumni.profile')) aria-current="page" @endif>
+                                        class="{{ request()->routeIs('alumni.profile', 'alumni.show-profile') ? 'text-cyan' : 'text-gray-400' }} block rounded px-3 py-2 text-xl hover:bg-cyan-100 hover:text-cyan md:border-0 md:p-0 md:hover:bg-transparent"
+                                        @if (request()->routeIs('alumni.profile', 'alumni.show-profile')) aria-current="page" @endif>
                                         Profile
                                     </a>
                                 @elseif (Auth::check() && Auth::user()->id_roles == '3')
