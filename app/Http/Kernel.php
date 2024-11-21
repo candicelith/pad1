@@ -62,6 +62,7 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'alumni' => \App\Http\Middleware\Alumni::class,
         'mahasiswa' => \App\Http\Middleware\Mahasiswa::class,
+        'admin' => \App\Http\Middleware\Admin::class,
         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,

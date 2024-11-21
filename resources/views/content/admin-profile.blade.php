@@ -18,8 +18,8 @@
 
                     {{-- Profile Details --}}
                     <div class="flex flex-col items-start justify-center pt-36 text-center sm:ms-14 sm:text-start">
-                        <h2 class="text-xl text-cyan sm:text-2xl">Muhammad Naufal Daffachri</h2>
-                        <p class="mx-auto text-lg text-gray-400 sm:mx-0 sm:pt-5 sm:text-xl">Admin</p>
+                        <h2 class="text-2xl text-cyan">{{ $admin->userDetails->name }}</h2>
+                        <p class="mx-auto text-xl text-gray-400 sm:mx-0 sm:pt-5">Admin</p>
                     </div>
 
                     {{-- Logout Button --}}
@@ -46,7 +46,7 @@
                                         class="ms-3 rounded-full border border-gray-900 bg-white px-5 py-2.5 text-sm font-medium text-cyan hover:bg-cyan hover:text-white focus:z-10 focus:outline-none focus:ring-4 focus:ring-cyan">
                                         Cancel
                                     </button>
-                                    <button data-modal-hide="popup-modal" type="button"
+                                    <button data-modal-hide="popup-modal" type="button" id="logout-button"
                                         class="ms-3 rounded-full border border-gray-900 bg-white px-5 py-2.5 text-sm font-medium text-cyan hover:bg-cyan hover:text-white focus:z-10 focus:outline-none focus:ring-4 focus:ring-cyan">
                                         Log Out
                                     </button>
@@ -58,4 +58,14 @@
             </div>
         </div>
     </section>
+
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none">
+        @csrf
+    </form>
+
+    <script>
+        document.getElementById('logout-button').addEventListener('click', function() {
+            document.getElementById('logout-form').submit();
+        });
+    </script>
 @endsection
