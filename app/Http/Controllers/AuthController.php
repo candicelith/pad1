@@ -44,10 +44,12 @@ class AuthController extends Controller
 
             // Check user role and redirect accordingly
             $user = Auth::user();
-            if ($user->id_roles == '2') {
-                return redirect()->route('alumni.profile')->withSuccess('You Have Successfully Logged In as an Alumni!');
-            } else {
-                return redirect()->route('mahasiswa.profile')->withSuccess('You Have Successfully Logged In!');
+            if ($user->id_roles == '1') {
+                return redirect()->route('admin')->with('success','You Have Successfully Logged In as an Alumni!');
+            } else if($user->id_roles == '2') {
+                return redirect()->route('alumni.profile')->with('success','Welcome back, Admin!');
+            } else{
+                return redirect()->route('mahasiswa.profile')->with('success','You Have Successfully Logged In!');
             }
         }
         return back()->withErrors([
