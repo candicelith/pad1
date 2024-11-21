@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\AdminController;
 use App\Models\Vacancy;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -133,11 +132,4 @@ Route::controller(AlumniController::class)->group(function () {
     Route::get('/profile/alumni', 'profile')->name('alumni.profile');
     Route::get('/profile/show', 'show')->name('alumni.show-profile');
     Route::get('/alumni/detail/{id}', 'detail')->name('alumni.detail');
-});
-
-
-//Admin
-Route::controller(AdminController::class)->group(function (){
-    Route::get('/admin','index')->name('admin');
-    Route::get('/admin/profile','show')->name('admin.profile');
 });

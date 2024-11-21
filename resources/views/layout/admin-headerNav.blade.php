@@ -41,7 +41,7 @@
         <div class="h-full overflow-y-auto bg-cyan-100 px-3 pb-4">
             <ul class="space-y-2 font-medium">
                 <li>
-                    <a href="{{ route('admin.profile') }}"
+                    <a href="{{ route('adminprofile') }}"
                         class="group flex items-center rounded-lg bg-cyan-100 p-2 text-white">
                         <div class="rounded-full bg-white p-2">
                             <svg class="h-11 w-11 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -51,7 +51,7 @@
                             </svg>
                         </div>
                         <div class="ms-3">
-                            <p class="text-base">{{ Auth::user()->userDetails->name }}</p>
+                            <p class="text-base">Naufal Daffachri</p>
                             <span class="text-sm text-gray-300">Admin</span>
                         </div>
                     </a>

@@ -42,13 +42,11 @@
                                 </label>
                                 <select name="current_company" id="current_company"
                                     class="block w-full cursor-pointer rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900">
-                                    <option value="" disabled {{ $userDetails->current_job ? '' : 'selected' }}>Select a company</option>
-                                    @foreach ($companies as $company)
-                                        <option value="{{ $company->id_company }}"
-                                            {{ old('company') == $company->id_company ? 'selected' : '' }}>
-                                            {{ $company->company_name }}
-                                        </option>
-                                    @endforeach
+                                    <option value="BCA">Bank Central Asia</option>
+                                    <option value="Tokopedia">Tokopedia</option>
+                                    <option value="Shopee">Shopee</option>
+                                    <option value="Traveloka">Traveloka</option>
+                                </select>
                             </div>
                             <div class="mb-5 mt-5">
                                 <label for="current_job" class="mb-2 block text-xl text-cyan">

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Middleware\Alumni;
-use App\Models\Company;
 use App\Models\User;
 use App\Models\UserDetails;
 use Termwind\Components\Dd;
@@ -154,9 +153,7 @@ class AlumniController extends Controller
             return $job;
         });
 
-        $companies = Company::all();
-
-        return view('content.editprofile',compact('user','userDetails','jobDetails','companies'));
+        return view('content.editprofile',compact('user','userDetails','jobDetails'));
     }
 
     public function detail(String $id)
