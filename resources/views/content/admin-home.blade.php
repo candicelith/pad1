@@ -13,7 +13,8 @@
                         <h2 class="mb-4 text-base">Request</h2>
                         <div class="scrollbar-companies grid max-h-[300px] space-y-4 overflow-y-auto pe-2 lg:grid-cols-1">
                             {{-- Req Start --}}
-                            <div class="request-card cursor-pointer rounded-lg bg-cyan-100">
+                            <div class="request-card cursor-pointer rounded-lg bg-cyan-100"
+                                onclick="window.location.href='{{ route('admindetailalumni') }}'">
                                 <div class="flex items-center justify-between px-5 py-2">
                                     <div class="flex items-center space-x-4">
                                         <img class="h-10 w-10 rounded-full"
@@ -43,7 +44,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="request-card cursor-pointer rounded-lg bg-cyan-100">
+                            <div class="request-card cursor-pointer rounded-lg bg-cyan-100"
+                                onclick="window.location.href='{{ route('admindetailalumni') }}'">
                                 <div class="flex items-center justify-between px-5 py-2">
                                     <div class="flex items-center space-x-4">
                                         <img class="h-10 w-10 rounded-full"
