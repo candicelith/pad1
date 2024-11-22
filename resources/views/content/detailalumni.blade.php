@@ -30,7 +30,7 @@
 
                         <div class="mt-8 space-y-4">
                             <h4 class="text-lg text-cyan sm:text-xl">About</h4>
-                            <p class="sm:text-md text-justify text-sm text-cyan">
+                            <p class="sm:text-md text-sm text-cyan sm:text-justify">
                                 {{ $userDetails->user_description }}
                             </p>
                         </div>

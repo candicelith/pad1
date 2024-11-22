@@ -13,14 +13,15 @@
                         <h2 class="mb-4 text-base">Request</h2>
                         <div class="scrollbar-companies grid max-h-[300px] space-y-4 overflow-y-auto pe-2 lg:grid-cols-1">
                             {{-- Req Start --}}
-                            <div class="request-card cursor-pointer rounded-lg bg-cyan-100"
-                                onclick="window.location.href='{{ route('admindetailalumni') }}'">
+                            <div class="request-card cursor-pointer rounded-lg bg-cyan-100">
                                 <div class="flex items-center justify-between px-5 py-2">
                                     <div class="flex items-center space-x-4">
-                                        <img class="h-10 w-10 rounded-full"
+                                        <img onclick="window.location.href='{{ route('admindetailalumni') }}'"
+                                            class="h-10 w-10 rounded-full"
                                             src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
                                             alt="">
-                                        <h3 class="text-sm text-white">Naila Geda Gedi</h3>
+                                        <h3 onclick="window.location.href='{{ route('admindetailalumni') }}'"
+                                            class="text-sm text-white">Naila Geda Gedi</h3>
                                     </div>
                                     <div class="button-group flex items-center space-x-2">
                                         <button onclick="approveAlumni(this.closest('.request-card'))">
@@ -29,7 +30,7 @@
                                                 fill="none" viewBox="0 0 24 24">
                                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                                     stroke-width="2"
-                                                    d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                    d=" M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                             </svg>
                                         </button>
                                         <button onclick="declineAlumni(this.closest('.request-card'))">
@@ -44,14 +45,15 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="request-card cursor-pointer rounded-lg bg-cyan-100"
-                                onclick="window.location.href='{{ route('admindetailalumni') }}'">
+                            <div class="request-card cursor-pointer rounded-lg bg-cyan-100">
                                 <div class="flex items-center justify-between px-5 py-2">
                                     <div class="flex items-center space-x-4">
-                                        <img class="h-10 w-10 rounded-full"
+                                        <img onclick="window.location.href='{{ route('admindetailalumni') }}'"
+                                            class="h-10 w-10 rounded-full"
                                             src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
                                             alt="">
-                                        <h3 class="text-sm text-white">Nopal Geda Gedi</h3>
+                                        <h3 onclick="window.location.href='{{ route('admindetailalumni') }}'"
+                                            class="text-sm text-white">Nopal Geda Gedi</h3>
                                     </div>
                                     <div class="button-group flex items-center space-x-2">
                                         <button onclick="approveAlumni(this.closest('.request-card'))">
@@ -203,10 +205,6 @@
 
 
     <script>
-        function navigateToAdminDetailAlumni() {
-            window.location.href = '{{ route('admindetailalumni') }}';
-        }
-
         function approveAlumni(element) {
             // Change background color to green for the specific element
             element.classList.remove('bg-cyan-100');
@@ -214,7 +212,7 @@
 
             // Replace buttons with "Approved" text for the specific button group
             const buttonGroup = element.querySelector('.button-group');
-            buttonGroup.innerHTML = '<span class="text-green-800">Approved</span>';
+            buttonGroup.innerHTML = '<span class="text-green-800 text-sm sm:text-base">Approved</span>';
         }
 
         function declineAlumni(element) {
@@ -224,7 +222,7 @@
 
             // Replace buttons with "Declined" text for the specific button group
             const buttonGroup = element.querySelector('.button-group');
-            buttonGroup.innerHTML = '<span class="text-red-800">Declined</span>';
+            buttonGroup.innerHTML = '<span class="text-red-800 text-sm sm:text-base">Declined</span>';
         }
     </script>
 @endsection

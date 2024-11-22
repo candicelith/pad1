@@ -6,7 +6,7 @@
             <div class="mx-4 flex flex-col items-start sm:flex-row">
 
                 <!-- Back Button -->
-                <button class="sm:mb-4 sm:me-16" onclick="handleBack()">
+                <button class="sm:mb-4" onclick="handleBack()">
                     <svg class="h-8 w-8 text-gray-800 sm:h-16 sm:w-16" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                         width="24" height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -27,7 +27,7 @@
                 </script>
 
                 {{-- Content Section --}}
-                <div class="flex flex-col sm:me-0 lg:flex-row">
+                <div class="mx-auto flex flex-col sm:me-0 lg:flex-row">
                     {{-- Post Details --}}
                     <div
                         class="w-full rounded-tl-lg rounded-tr-lg border-b-2 border-cyan bg-lightblue p-5 sm:rounded-e-none sm:rounded-s-lg sm:rounded-tr-none sm:border-b-0 sm:border-e-2 sm:p-10 md:rounded-e-none md:rounded-s-lg md:rounded-tr-none md:border-b-0 md:border-e-2">
@@ -77,7 +77,8 @@
                                 </div>
                             </div>
                             <div>
-                                <img src="{{ asset('storage/vacancies/'.$vacancy->vacancy_picture) }}" alt="vacancy_image" />
+                                <img src="{{ asset('storage/vacancies/' . $vacancy->vacancy_picture) }}"
+                                    alt="vacancy_image" />
                             </div>
                         </div>
                     </div>

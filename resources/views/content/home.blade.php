@@ -156,7 +156,7 @@
                 @endforeach
 
                 <a href="{{ route('posts') }}"
-                    class="mt-2 inline-flex items-center justify-center rounded-lg bg-white px-12 py-3 text-lg text-cyan hover:bg-cyan hover:text-white">
+                    class="mt-2 inline-flex items-center justify-center rounded-lg bg-white px-6 py-2 text-base text-cyan hover:bg-cyan hover:text-white sm:px-12 sm:py-3 sm:text-lg">
                     More
                 </a>
             </div>
@@ -168,7 +168,7 @@
                 <div class="flex flex-grow flex-col">
                     @foreach ($company as $com)
                         <a href="{{ route('companies.detail', ['id' => $com->id_company]) }}">
-                            <div class="mb-8 flex-grow-0">
+                            <div class="mb-7 flex-grow-0">
                                 <article data-aos="fade-up"
                                     class="cursor-pointer rounded-lg border border-gray-500 bg-lightblue p-4 py-5 shadow-lg">
                                     <div class="flex flex-col sm:flex-row sm:space-x-4">

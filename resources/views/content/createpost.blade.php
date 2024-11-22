@@ -53,8 +53,8 @@
                             <input type="text" name="vacancy_responsibility[]"
                                 class="block w-full rounded-xl border border-gray-900 bg-gray-50 px-2 text-sm text-gray-900"
                                 placeholder="Enter responsibility" required />
-                            <button type="button"
-                                class="remove-responsibility ml-2 rounded-full border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2">Remove</button>
+                            {{-- <button type="button"
+                                class="remove-responsibility ml-2 rounded-full border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2">Remove</button> --}}
                         </div>
                     </div>
                     <button type="button" id="add-responsibility"
@@ -75,8 +75,8 @@
                             <input type="text" name="vacancy_qualification[]"
                                 class="block w-full rounded-xl border border-gray-900 bg-gray-50 px-2 text-sm text-gray-900"
                                 placeholder="Enter qualification" required />
-                            <button type="button"
-                                class="remove-responsibility ml-2 rounded-full border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2">Remove</button>
+                            {{-- <button type="button"
+                                class="remove-responsibility ml-2 rounded-full border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2">Remove</button> --}}
                         </div>
                     </div>
                     <button type="button" id="add-qualification"
@@ -96,8 +96,8 @@
                             <input type="text" name="vacancy_benefits[]"
                                 class="block w-full rounded-xl border border-gray-900 bg-gray-50 px-2 text-sm text-gray-900"
                                 placeholder="Enter benefits" required />
-                            <button type="button"
-                                class="remove-responsibility ml-2 rounded-full border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2">Remove</button>
+                            {{-- <button type="button"
+                                class="remove-responsibility ml-2 rounded-full border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2">Remove</button> --}}
                         </div>
                     </div>
                     <button type="button" id="add-benefits"
@@ -139,7 +139,7 @@
                 <input type="text" name="${inputName}[]"
                        class="block w-full rounded-xl border border-gray-900 bg-gray-50 px-2 text-sm text-gray-900"
                        placeholder="Add More" />
-                <button type="button" class="ml-2 px-2 text-sm text-red-600 ${removeClass}">Remove</button>
+                <button type="button" class="ml-2 rounded-full border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2 ${removeClass}">Remove</button>
             `;
                 container.appendChild(newItem);
 

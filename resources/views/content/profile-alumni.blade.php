@@ -3,7 +3,7 @@
 @section('content')
     <section class="mt-20 bg-white">
         <div id="alert-3"
-            class="alert-animation mx-auto mb-4 hidden w-1/2 -translate-y-10 transform rounded-lg bg-lightblue-100 p-4 text-center text-sm text-cyan opacity-0"
+            class="alert-animation mx-auto mb-4 hidden w-3/4 -translate-y-10 transform rounded-lg bg-lightblue-100 p-4 text-center text-sm text-cyan opacity-0 sm:w-1/2"
             role="alert">
             <span>Perubahan data sedang dalam proses verifikasi oleh admin.<br>Mohon tunggu
                 konfirmasi lebih
@@ -14,7 +14,7 @@
                 {{-- Profile Image & Banner --}}
                 <div class="relative">
                     <div class="h-48 rounded-t-3xl bg-cyan-100"></div>
-                    <div class="absolute top-1/2 ms-14">
+                    <div class="absolute top-1/2 mx-12 sm:ms-14">
                         <img class="h-48 w-48 rounded-full object-cover" src="{{ $userDetails->profile_photo }}"
                             alt="Profile Picture" />
                     </div>
@@ -24,10 +24,12 @@
                 <div class="mx-10 flex flex-col space-y-2">
                     <div class="items-center justify-between pt-36 sm:flex">
                         <h2 class="text-center text-xl text-cyan sm:text-start sm:text-2xl">{{ $userDetails->name }}</h2>
-                        <p class="text-center text-lg text-gray-400 sm:text-start sm:text-xl">{{ $userDetails->nim }}</p>
+                        <p class="text-center text-lg text-gray-400 sm:text-left sm:text-xl">{{ $userDetails->nim }}</p>
                     </div>
-                    <h3 class="text-center text-base text-cyan sm:text-start sm:text-lg">{{ $userDetails->job_name }} <br>
-                        {{ $userDetails->company_name }}</h3>
+                    <div class="text-center">
+                        <h3 class="text-base text-cyan sm:text-start sm:text-lg">{{ $userDetails->job_name }}</h3>
+                        <p class="text-base text-cyan sm:text-start sm:text-lg">{{ $userDetails->company_name }}</p>
+                    </div>
                     @if (!empty($userDetails->user_description))
                         <h4 class="text-lg text-cyan sm:text-xl">About</h4>
                         <p class="text-justify text-sm text-cyan sm:text-base">

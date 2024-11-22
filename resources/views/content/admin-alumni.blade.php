@@ -25,42 +25,44 @@
                                 {{-- Modal content --}}
                                 <div class="relative rounded-lg bg-cyan-100 p-2 shadow">
                                     {{-- Modal header --}}
-                                    <div class="flex items-center justify-between rounded-t md:p-5">
-                                        <h3 class="text-xl text-white">
+                                    <div class="flex items-center justify-between rounded-t text-center md:p-5">
+                                        <h3 class="text-xl text-white sm:text-start">
                                             Form Pembuatan Akun Alumni
                                         </h3>
                                     </div>
                                     {{-- Modal body --}}
                                     <form class="p-4 md:p-5">
-                                        <div class="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                                        <div class="mb-4 grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-4">
                                             <div class="col-span-2">
-                                                <label for="name" class="mb-2 block text-lg text-white">Full
+                                                <label for="name" class="mb-2 block text-sm text-white sm:text-lg">Full
                                                     Name</label>
                                                 <input type="text" name="name" id="name"
-                                                    class="block w-full rounded-full border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400"
+                                                    class="block h-1/2 w-full rounded-full border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400 sm:p-2.5"
                                                     placeholder="" required="">
                                             </div>
                                             <div class="col-span-2">
-                                                <label for="niu" class="mb-2 block text-lg text-white">NIU</label>
+                                                <label for="niu"
+                                                    class="mb-2 block text-sm text-white sm:text-lg">NIU</label>
                                                 <input type="text" name="niu" id="niu"
-                                                    class="block w-full rounded-full border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400"
+                                                    class="block h-1/2 w-full rounded-full border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400 sm:p-2.5"
                                                     placeholder="" required="">
                                             </div>
                                             <div class="col-span-2">
-                                                <label for="email" class="mb-2 block text-lg text-white">Email</label>
+                                                <label for="email"
+                                                    class="mb-2 block text-sm text-white sm:text-lg">Email</label>
                                                 <input type="text" name="email" id="email"
-                                                    class="block w-full rounded-full border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400"
+                                                    class="block h-1/2 w-full rounded-full border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400 sm:p-2.5"
                                                     placeholder="" required="">
                                             </div>
                                         </div>
                                         <div class="flex justify-end space-x-4">
                                             <button type="button"
-                                                class="text-md inline-flex items-center rounded-full bg-white px-5 py-2.5 text-center text-cyan shadow-lg hover:bg-cyan hover:text-white focus:outline-none focus:ring-4 focus:ring-cyan"
+                                                class="inline-flex items-center rounded-full bg-white px-5 py-1.5 text-center text-sm text-cyan shadow-lg hover:bg-cyan hover:text-white focus:outline-none focus:ring-4 focus:ring-cyan sm:py-2.5 sm:text-base"
                                                 data-modal-toggle="crud-modal">
                                                 Cancel
                                             </button>
                                             <button type="submit"
-                                                class="text-md inline-flex items-center rounded-full bg-white px-5 py-2.5 text-center text-cyan shadow-lg hover:bg-cyan hover:text-white focus:outline-none focus:ring-4 focus:ring-cyan">
+                                                class="inline-flex items-center rounded-full bg-white px-5 py-1.5 text-center text-sm text-cyan shadow-lg hover:bg-cyan hover:text-white focus:outline-none focus:ring-4 focus:ring-cyan sm:py-2.5 sm:text-base">
                                                 Create
                                             </button>
                                         </div>

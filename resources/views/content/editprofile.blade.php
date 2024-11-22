@@ -43,13 +43,15 @@
                                 </label>
                                 <select name="current_company" id="current_company"
                                     class="block w-full cursor-pointer rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900">
-                                    <option value="" disabled {{ $userDetails->current_job ? '' : 'selected' }}>Select a company</option>
+                                    <option value="" disabled {{ $userDetails->current_job ? '' : 'selected' }}>Select
+                                        a company</option>
                                     @foreach ($companies as $company)
                                         <option value="{{ $company->id_company }}"
                                             {{ old('company') == $company->id_company ? 'selected' : '' }}>
                                             {{ $company->company_name }}
                                         </option>
                                     @endforeach
+                                </select>
                             </div>
                             <div class="mb-5 mt-5">
                                 <label for="current_job" class="mb-2 block text-xl text-cyan">
@@ -106,8 +108,8 @@
                                             onclick="addExperienceForm()">
                                             <svg class="me-2 h-6 w-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                                 width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                                <path stroke="currentColor" stroke-linecap="round"
-                                                    stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5" />
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                    stroke-width="2" d="M5 12h14m-7 7V5" />
                                             </svg>
                                             Add Experience
                                         </button>
