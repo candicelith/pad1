@@ -27,7 +27,7 @@
                 </script>
 
                 {{-- Content Section --}}
-                <div class="mx-auto flex flex-col sm:me-0 lg:flex-row">
+                <div class="mx-auto flex min-h-screen min-w-full flex-col sm:me-0 lg:flex-row">
                     {{-- Post Details --}}
                     <div
                         class="w-full rounded-tl-lg rounded-tr-lg border-b-2 border-cyan bg-lightblue p-5 sm:rounded-e-none sm:rounded-s-lg sm:rounded-tr-none sm:border-b-0 sm:border-e-2 sm:p-10 md:rounded-e-none md:rounded-s-lg md:rounded-tr-none md:border-b-0 md:border-e-2">
