@@ -75,10 +75,6 @@ Route::get('/admineditalumni', function () {
     return view('content.admin-editalumni');
 })->name('admineditalumni');
 
-Route::get('/adminhome', function () {
-    return view('content.admin-home');
-})->name('adminhome');
-
 // Route::get('/404', function () {
 //     return view('errors.404');
 // })->name('404');
@@ -133,6 +129,7 @@ Route::controller(AlumniController::class)->group(function () {
     Route::get('/profile/alumni', 'profile')->name('alumni.profile');
     Route::get('/profile/show', 'show')->name('alumni.show-profile');
     Route::get('/alumni/detail/{id}', 'detail')->name('alumni.detail');
+    Route::post('/alumni/store','store')->name('alumni.store');
 });
 
 
@@ -140,4 +137,6 @@ Route::controller(AlumniController::class)->group(function () {
 Route::controller(AdminController::class)->group(function (){
     Route::get('/admin','index')->name('admin');
     Route::get('/admin/profile','show')->name('admin.profile');
+    Route::get('/admin/alumni','getAlumni')->name('admin.alumni');
+    Route::post('/admin/alumni_store','store')->name('admin.store');
 });

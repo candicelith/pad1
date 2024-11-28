@@ -107,60 +107,65 @@
                                 <textarea type="text" id="user_description"
                                     class="block w-full rounded-xl border border-gray-900 bg-gray-50 px-2 pt-2 text-sm text-gray-900">{{ $userDetails->user_description }}</textarea>
                             </div>
-
-                            <div class="mb-5 mt-5">
-                                <label for="experience" class="mb-2 block text-xl text-cyan">Experience</label>
-                                <!-- Flex container for the form and button -->
-                                <div id="experience-container" class="flex flex-wrap gap-10">
-                                    <!-- Existing Forms -->
-                                    <div class="experience-form rounded-lg bg-gray-300 p-2.5 sm:w-80 sm:p-5">
-                                        <div class="my-2.5">
-                                            <label for="company" class="mb-2 block text-base text-gray-500">
-                                                Company
-                                            </label>
-                                            <input type="text" id="company"
-                                                class="block w-full rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900" />
-                                        </div>
-                                        <div class="my-2.5">
-                                            <label for="position" class="mb-2 block text-base text-gray-500">
-                                                Position
-                                            </label>
-                                            <input type="text" id="position"
-                                                class="block w-full rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900" />
-                                        </div>
-                                        <div class="my-2.5">
-                                            <label for="period" class="mb-2 block text-base text-gray-500">
-                                                Period of Time
-                                            </label>
-                                            <input type="text" id="period_of_time"
-                                                class="block w-full rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900" />
-                                        </div>
-                                        <div class="my-2.5">
-                                            <label for="responsibilities" class="mb-2 block text-base text-gray-500">
-                                                Responsibilities
-                                            </label>
-                                            <textarea cols="30" rows="10"
-                                                class="block w-full rounded-lg border border-gray-900 bg-gray-50 px-2 pt-2 text-sm text-gray-900"></textarea>
-                                        </div>
-                                    </div>
-                                    <!-- Button to toggle/add forms -->
-                                    <div id="add-button-container" class="flex w-80 flex-col">
-                                        <button type="button" id="add-experience-btn"
-                                            class="flex h-1/2 items-center justify-center rounded-lg bg-gray-300 p-5 text-lg text-gray-500"
-                                            onclick="addExperienceForm()">
-                                            <svg class="me-2 h-6 w-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                                width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                                <path stroke="currentColor" stroke-linecap="round"
-                                                    stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5" />
-                                            </svg>
-                                            Add Experience
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </form>
                 </div>
+
+                {{-- // Experiences --}}
+                {{-- <div class="mb-5 mt-5">
+                    <label for="experience" class="mb-2 block text-xl text-cyan">Experience</label>
+                    <!-- Flex container for the form and button -->
+                    <div id="experience-container" class="flex flex-wrap gap-10">
+                        <!-- Existing Forms -->
+                    @foreach ($jobDetails as $job)
+                    <form action="{{ route('alumni.store') }}" method="POST">
+                        <div class="experience-form rounded-lg bg-gray-300 p-2.5 sm:w-80 sm:p-5">
+                            <div class="my-2.5">
+                                <label for="company" class="mb-2 block text-base text-gray-500">
+                                    Company
+                                </label>
+                                <input type="text" id="company" value="{{ $job->company_name }}"
+                                    class="block w-full rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900" />
+                            </div>
+                            <div class="my-2.5">
+                                <label for="position" class="mb-2 block text-base text-gray-500">
+                                    Position
+                                </label>
+                                <input type="text" id="position" value="{{ $job->job_name }}"
+                                    class="block w-full rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900" />
+                            </div>
+                            <div class="my-2.5">
+                                <label for="period" class="mb-2 block text-base text-gray-500">
+                                    Period of Time
+                                </label>
+                                <input type="text" id="period_of_time" value="{{ $job->date_start }} - {{ $job->date_end }}"
+                                    class="block w-full rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900" />
+                            </div>
+                            <div class="my-2.5">
+                                <label for="responsibilities" class="mb-2 block text-base text-gray-500">
+                                    Responsibilities
+                                </label>
+                                <textarea cols="30" rows="10"
+                                    class="block w-full rounded-lg border border-gray-900 bg-gray-50 px-2 pt-2 text-sm text-gray-900"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                    @endforeach
+                        <!-- Button to toggle/add forms -->
+                        <div id="add-button-container" class="flex w-80 flex-col">
+                            <button type="button" id="add-experience-btn"
+                                class="flex h-1/2 items-center justify-center rounded-lg bg-gray-300 p-5 text-lg text-gray-500"
+                                onclick="addExperienceForm()">
+                                <svg class="me-2 h-6 w-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                    width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round"
+                                        stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5" />
+                                </svg>
+                                Add Experience
+                            </button>
+                        </div>
+                    </div>
+                </div> --}}
 
                 {{-- Logout and Save Button --}}
                 <div class="mx-4 mt-14 flex items-center justify-between p-6 ps-0 sm:mx-14 sm:p-0">

@@ -193,4 +193,9 @@ class AlumniController extends Controller
 
         return view('content.detailalumni',compact('userDetails','jobDetails'));
     }
+
+    public function store()
+    {
+        //tba
+    }
 }

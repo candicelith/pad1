@@ -31,7 +31,7 @@
                                         </h3>
                                     </div>
                                     {{-- Modal body --}}
-                                    <form class="p-4 md:p-5">
+                                    <form class="p-4 md:p-5" method="POST" action="{{ route('admin.store') }}">
                                         <div class="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
                                             <div class="col-span-2">
                                                 <label for="name" class="mb-2 block text-lg text-white">Full
@@ -41,8 +41,8 @@
                                                     placeholder="" required="">
                                             </div>
                                             <div class="col-span-2">
-                                                <label for="niu" class="mb-2 block text-lg text-white">NIU</label>
-                                                <input type="text" name="niu" id="niu"
+                                                <label for="nim" class="mb-2 block text-lg text-white">NIM</label>
+                                                <input type="text" name="nim" id="nim"
                                                     class="block w-full rounded-full border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400"
                                                     placeholder="" required="">
                                             </div>
@@ -98,18 +98,19 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($alumni as $index => $a)
                                 <tr class="border-b border-black bg-white hover:bg-gray-50">
                                     <th scope="row" class="whitespace-nowrap px-6 py-4 text-sm sm:text-base">
-                                        1
+                                        {{ $index+1 }}
                                     </th>
                                     <td class="px-6 py-4 text-sm sm:text-base">
-                                        Naila Geda Gedi
+                                        {{ $a->name }}
                                     </td>
                                     <td class="hidden-mobile px-6 py-4">
-                                        12345
+                                        {{ $a->nim_part }}
                                     </td>
                                     <td class="hidden-mobile px-6 py-4">
-                                        aku@gmail.com
+                                        {{ $a->email }}
                                     </td>
                                     <td class="px-6 py-4">
                                         <a href="{{ route('adminprofilalumni') }}"
@@ -118,6 +119,7 @@
                                         </a>
                                     </td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

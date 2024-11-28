@@ -67,7 +67,7 @@
                 </div>
 
 
-                {{-- // Qualification --}}
+                {{-- Qualification --}}
                 <div class="mb-5 mt-5">
                     <label for="qualification" class="mb-2 block text-lg text-white sm:text-xl">Qualification</label>
                     <div id="qualification-container">
