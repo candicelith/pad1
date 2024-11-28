@@ -36,7 +36,7 @@
                                     <div class="relative mx-4 max-h-full w-full sm:max-w-4xl">
                                         <!-- Modal content -->
                                         <div
-                                            class="relative my-14 rounded-lg border border-gray-900 bg-lightblue p-4 shadow dark:bg-gray-700 sm:mx-10 md:p-5">
+                                            class="scrollbar-modal relative my-14 max-h-96 overflow-y-auto rounded-lg border border-gray-900 bg-lightblue p-4 shadow dark:bg-gray-700 sm:mx-10 md:p-5">
                                             <!-- Modal body -->
                                             <div class="flex items-start justify-end">
                                                 <button data-modal-hide="crud-modal2" class="z-10 p-2 pe-0">
@@ -117,7 +117,7 @@
                                     <div class="relative mx-4 max-h-full w-full sm:max-w-4xl">
                                         <!-- Modal content -->
                                         <div
-                                            class="relative my-14 rounded-lg border border-gray-900 bg-lightblue p-4 shadow dark:bg-gray-700 sm:mx-10 md:p-5">
+                                            class="scrollbar-modal relative my-14 max-h-96 overflow-y-auto rounded-lg border border-gray-900 bg-lightblue p-4 shadow dark:bg-gray-700 sm:mx-10 md:p-5">
                                             <!-- Modal body -->
                                             <div class="flex items-start justify-end">
                                                 <button data-modal-hide="crud-modal" class="z-10 p-2 pe-0">
