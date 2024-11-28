@@ -31,7 +31,7 @@
             </div>
 
             {{-- Filter --}}
-            <div class="mb-16 mt-9 flex flex-wrap items-center justify-center gap-2 sm:mx-10 sm:mb-0 sm:px-5">
+            <div class="mt-9 flex flex-wrap items-center justify-center gap-2 sm:mx-10 sm:mb-0 sm:px-5">
                 <div class="hidden w-full flex-wrap gap-1 sm:flex sm:w-auto">
                     <button
                         class="rounded-full bg-cyan px-4 py-1 text-center text-sm text-white hover:bg-cyan-100 hover:text-white focus:bg-cyan-100 focus:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100"

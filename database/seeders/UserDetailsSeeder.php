@@ -17,10 +17,10 @@ class UserDetailsSeeder extends Seeder
 
     public function run(): void
     {
-        for ($i=0; $i < 10; $i++) {
+        for ($i = 0; $i < 10; $i++) {
 
             UserDetails::create([
-                'id_users' => fake()->unique()->numberBetween(1,10),
+                'id_users' => fake()->unique()->numberBetween(1, 10),
                 'name' => fake()->name(),
                 'nim' => fake()->unique()->numerify('2#/######/SV/#####'),
                 'email' => fake()->unique()->safeEmail(),
