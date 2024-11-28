@@ -41,9 +41,9 @@
                                                     placeholder="" required="">
                                             </div>
                                             <div class="col-span-2">
-                                                <label for="niu"
-                                                    class="mb-2 block text-sm text-white sm:text-lg">NIU</label>
-                                                <input type="text" name="niu" id="niu"
+                                                <label for="nim"
+                                                    class="mb-2 block text-sm text-white sm:text-lg">NIM</label>
+                                                <input type="text" name="nim" id="nim"
                                                     class="block h-1/2 w-full rounded-full border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400 sm:p-2.5"
                                                     placeholder="" required="">
                                             </div>

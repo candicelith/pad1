@@ -77,6 +77,14 @@ main {
   background: #888;
 }
 
+.scrollbar-modal::-webkit-scrollbar {
+    width: 5px;
+}
+
+.scrollbar-modal::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
 .alert-animation {
     animation: slide-in 0.7s ease-in-out forwards;
 }

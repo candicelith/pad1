@@ -9,8 +9,8 @@
                 konfirmasi lebih
                 lanjut.</span>
         </div>
-        <div class="mx-auto max-w-screen-xl px-4 py-8 lg:px-6 lg:py-16">
 
+        <div class="mx-auto max-w-screen-xl px-4 py-8 lg:px-6 lg:py-16">
             {{-- Profile Start --}}
             <div class="w-full max-w-none rounded-3xl border border-gray-400 bg-lightblue shadow-md">
                 {{-- Profile Image & Banner --}}
@@ -44,10 +44,22 @@
                                 class="fixed left-0 right-0 top-0 z-50 hidden h-[calc(100%-1rem)] max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0">
                                 <div class="relative mx-4 max-h-full w-full sm:max-w-4xl">
                                     <!-- Modal content -->
-                                    <div class="relative rounded-lg bg-white pb-5 shadow">
+                                    <div
+                                        class="scrollbar-modal relative max-h-96 overflow-y-auto rounded-lg bg-white pb-5 shadow">
                                         <!-- Modal header -->
                                         <div class="relative">
-                                            <div class="h-24 rounded-t-lg bg-cyan-100"></div>
+                                            <!-- Back Button -->
+                                            <div class="flex h-24 items-start justify-end bg-cyan-100">
+                                                <button data-modal-hide="crud-modal1" class="z-10 p-2">
+                                                    <svg class="h-6 w-6 text-white dark:text-white" aria-hidden="true"
+                                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        fill="none" viewBox="0 0 24 24">
+                                                        <path stroke="currentColor" stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="2"
+                                                            d="M6 18 17.94 6M18 18 6.06 6" />
+                                                    </svg>
+                                                </button>
+                                            </div>
                                             <div class="absolute top-1/2 mx-12">
                                                 <div class="relative">
                                                     <img class="h-24 w-24 rounded-full object-cover"
@@ -173,6 +185,7 @@
                 <div class="mx-10 flex flex-col space-y-2 py-5 sm:mx-14 sm:py-10">
                     <div class="flex flex-col sm:flex-row-reverse">
                         <div class="mb-2 flex justify-end sm:mb-0">
+
                             {{-- Edit Button --}}
                             <a href="{{ route('editprofile') }}"
                                 class="z-10 rounded-full bg-gray-300 p-2 hover:bg-gray-400 sm:p-4">
@@ -184,13 +197,14 @@
                                         d="M10.779 17.779 4.36 19.918 6.5 13.5m4.279 4.279 8.364-8.643a3.027 3.027 0 0 0-2.14-5.165 3.03 3.03 0 0 0-2.14.886L6.5 13.5m4.279 4.279L6.499 13.5m2.14 2.14 6.213-6.504M12.75 7.04 17 11.28" />
                                 </svg>
                             </a>
+
                         </div>
                         <div class="-mt-8 mb-4 flex justify-start text-center sm:-mt-10 sm:text-start">
                             <h4 class="text-lg text-cyan sm:text-xl">Experience</h4>
                         </div>
                     </div>
                     @if ($jobDetails && count($jobDetails) > 0)
-                        <ol class="relative ms-4 border-s border-gray-900">
+                        <ol class="relative border-s border-gray-900">
                             @foreach ($jobDetails as $job)
                                 <li class="mb-10 ms-4">
                                     <div

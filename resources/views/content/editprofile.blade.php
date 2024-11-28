@@ -26,14 +26,27 @@
                                     <div
                                         class="relative my-14 rounded-lg border border-gray-900 bg-lightblue p-4 shadow dark:bg-gray-700 sm:mx-10 md:p-5">
                                         <!-- Modal body -->
+                                        <div class="flex items-start justify-end">
+                                            <button data-modal-hide="crud-modal2" class="z-10 p-2 pe-0">
+                                                <svg class="h-6 w-6 text-gray-900 dark:text-white" aria-hidden="true"
+                                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    fill="none" viewBox="0 0 24 24">
+                                                    <path stroke="currentColor" stroke-linecap="round"
+                                                        stroke-linejoin="round" stroke-width="2"
+                                                        d="M6 18 17.94 6M18 18 6.06 6" />
+                                                </svg>
+                                            </button>
+                                        </div>
                                         <form class="">
                                             <div class="mb-4 grid grid-cols-2 gap-4 rounded-lg bg-gray-300 px-4 py-5">
                                                 <div class="col-span-2">
                                                     <label for="company"
                                                         class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">Company</label>
-                                                    <input type="text" name="company" id="company"
-                                                        class="block w-full rounded-full border border-gray-500 bg-gray-50 p-2.5 text-sm text-gray-900 shadow"
+                                                    <select type="text" name="company" id="company"
+                                                        class="block w-full cursor-pointer rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900"
                                                         placeholder="" required="">
+                                                        <option value="BCA">BCA</option>
+                                                    </select>
                                                 </div>
                                                 <div class="col-span-2">
                                                     <label for="position"
@@ -94,14 +107,27 @@
                                     <div
                                         class="relative my-14 rounded-lg border border-gray-900 bg-lightblue p-4 shadow dark:bg-gray-700 sm:mx-10 md:p-5">
                                         <!-- Modal body -->
+                                        <div class="flex items-start justify-end">
+                                            <button data-modal-hide="crud-modal" class="z-10 p-2 pe-0">
+                                                <svg class="h-6 w-6 text-gray-900 dark:text-white" aria-hidden="true"
+                                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    fill="none" viewBox="0 0 24 24">
+                                                    <path stroke="currentColor" stroke-linecap="round"
+                                                        stroke-linejoin="round" stroke-width="2"
+                                                        d="M6 18 17.94 6M18 18 6.06 6" />
+                                                </svg>
+                                            </button>
+                                        </div>
                                         <form class="">
                                             <div class="mb-4 grid grid-cols-2 gap-4 rounded-lg bg-gray-300 px-4 py-5">
                                                 <div class="col-span-2">
                                                     <label for="company"
                                                         class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">Company</label>
-                                                    <input type="text" name="company" id="company"
-                                                        class="block w-full rounded-full border border-gray-500 bg-gray-50 p-2.5 text-sm text-gray-900 shadow"
+                                                    <select type="text" name="company" id="company"
+                                                        class="block w-full cursor-pointer rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900"
                                                         placeholder="" required="">
+                                                        <option value="BCA">BCA</option>
+                                                    </select>
                                                 </div>
                                                 <div class="col-span-2">
                                                     <label for="position"
@@ -182,38 +208,38 @@
     <script>
         let formCount = 0; // Initialize a variable to count the forms
 
-        function addExperienceForm() {
-            // Create a new form container
-            const newFormContainer = document.createElement('div');
-            newFormContainer.className = 'experience-form w-80 rounded-lg bg-gray-300 p-5';
+        // function addExperienceForm() {
+        //     // Create a new form container
+        //     const newFormContainer = document.createElement('div');
+        //     newFormContainer.className = 'experience-form w-80 rounded-lg bg-gray-300 p-5';
 
-            // Create form fields
-            newFormContainer.innerHTML = `
-                <div class="my-2.5">
-                    <label for="company-${formCount}" class="mb-2 block text-base text-gray-500">Company</label>
-                    <input type="text" id="company-${formCount}" class="block w-full rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900" />
-                </div>
-                <div class="my-2.5">
-                    <label for="position-${formCount}" class="mb-2 block text-base text-gray-500">Position</label>
-                    <input type="text" id="position-${formCount}" class="block w-full rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900" />
-                </div>
-                <div class="my-2.5">
-                    <label for="period_of_time-${formCount}" class="mb-2 block text-base text-gray-500">Period of Time</label>
-                    <input type="text" id="period_of_time-${formCount}" class="block w-full rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900" />
-                </div>
-                <div class="my-2.5">
-                    <label for="responsibilities-${formCount}" class="mb-2 block text-base text-gray-500">Responsibilities</label>
-                    <textarea cols="30" rows="10" class="block w-full rounded-lg border border-gray-900 bg-gray-50 px-2 pt-2 text-sm text-gray-900"></textarea>
-                </div>
-            `;
+        //     // Create form fields
+        //     newFormContainer.innerHTML = `
+    //         <div class="my-2.5">
+    //             <label for="company-${formCount}" class="mb-2 block text-base text-gray-500">Company</label>
+    //             <input type="text" id="company-${formCount}" class="block w-full rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900" />
+    //         </div>
+    //         <div class="my-2.5">
+    //             <label for="position-${formCount}" class="mb-2 block text-base text-gray-500">Position</label>
+    //             <input type="text" id="position-${formCount}" class="block w-full rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900" />
+    //         </div>
+    //         <div class="my-2.5">
+    //             <label for="period_of_time-${formCount}" class="mb-2 block text-base text-gray-500">Period of Time</label>
+    //             <input type="text" id="period_of_time-${formCount}" class="block w-full rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900" />
+    //         </div>
+    //         <div class="my-2.5">
+    //             <label for="responsibilities-${formCount}" class="mb-2 block text-base text-gray-500">Responsibilities</label>
+    //             <textarea cols="30" rows="10" class="block w-full rounded-lg border border-gray-900 bg-gray-50 px-2 pt-2 text-sm text-gray-900"></textarea>
+    //         </div>
+    //     `;
 
-            // Append the new form to the experience container
-            const experienceContainer = document.getElementById('experience-container');
-            experienceContainer.insertBefore(newFormContainer, document.getElementById('add-button-container'));
+        //     // Append the new form to the experience container
+        //     const experienceContainer = document.getElementById('experience-container');
+        //     experienceContainer.insertBefore(newFormContainer, document.getElementById('add-button-container'));
 
-            // Increment the form count
-            formCount++;
-        }
+        //     // Increment the form count
+        //     formCount++;
+        // }
 
         // Save Button Script
         function triggerAlert() {
