@@ -11,7 +11,7 @@
                         <div class="h-48 rounded-t-3xl bg-cyan-100"></div>
                         <div class="absolute top-1/2 sm:ms-14">
                             <img class="h-48 w-48 rounded-full object-cover"
-                                src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
+                                src="{{ $admin->userDetails->profile_photo }}"
                                 alt="Profile Picture" />
                         </div>
                     </div>
