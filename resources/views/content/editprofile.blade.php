@@ -46,6 +46,9 @@
                                                         class="block w-full cursor-pointer rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900"
                                                         placeholder="" required="">
                                                         <option value="BCA">BCA</option>
+                                                        <option value="Tokopedia">Tokopedia</option>
+                                                        <option value="Shopee">Shopee</option>
+                                                        <option value="UGM">UGM</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-span-2">
@@ -85,112 +88,115 @@
                         </div>
                     </div>
                     {{-- @if ($jobDetails && count($jobDetails) > 0) --}}
-                    <div class="flex flex-col sm:flex-row-reverse">
-                        <div class="mb-2 flex justify-end sm:mb-0">
-                            {{-- Edit Button --}}
-                            <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
-                                class="z-10 rounded-full bg-gray-300 p-2 hover:bg-gray-400 sm:p-4">
-                                <svg class="h-6 w-6 text-gray-800 dark:text-white" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
-                                    viewBox="0 0 24 24">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M10.779 17.779 4.36 19.918 6.5 13.5m4.279 4.279 8.364-8.643a3.027 3.027 0 0 0-2.14-5.165 3.03 3.03 0 0 0-2.14.886L6.5 13.5m4.279 4.279L6.499 13.5m2.14 2.14 6.213-6.504M12.75 7.04 17 11.28" />
-                                </svg>
-                            </button>
+                    @foreach ($jobDetails as $job)
+                        <div class="flex flex-col sm:flex-row-reverse">
+                            <div class="mb-2 flex justify-end sm:mb-0">
+                                {{-- Edit Button --}}
+                                <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
+                                    class="z-10 rounded-full bg-gray-300 p-2 hover:bg-gray-400 sm:p-4">
+                                    <svg class="h-6 w-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none"
+                                        viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M10.779 17.779 4.36 19.918 6.5 13.5m4.279 4.279 8.364-8.643a3.027 3.027 0 0 0-2.14-5.165 3.03 3.03 0 0 0-2.14.886L6.5 13.5m4.279 4.279L6.499 13.5m2.14 2.14 6.213-6.504M12.75 7.04 17 11.28" />
+                                    </svg>
+                                </button>
 
-                            <!-- Main modal -->
-                            <div id="crud-modal" tabindex="-1" aria-hidden="true"
-                                class="fixed left-0 right-0 top-0 z-50 hidden h-[calc(100%-1rem)] max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0">
-                                <div class="relative mx-4 max-h-full w-full sm:max-w-4xl">
-                                    <!-- Modal content -->
-                                    <div
-                                        class="scrollbar-modal relative my-14 max-h-96 overflow-y-auto rounded-lg border border-gray-900 bg-lightblue p-4 shadow dark:bg-gray-700 sm:mx-10 md:p-5">
-                                        <!-- Modal body -->
-                                        <div class="flex items-start justify-end">
-                                            <button data-modal-hide="crud-modal" class="z-10 p-2 pe-0">
-                                                <svg class="h-6 w-6 text-gray-900 dark:text-white" aria-hidden="true"
-                                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                    fill="none" viewBox="0 0 24 24">
-                                                    <path stroke="currentColor" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="2"
-                                                        d="M6 18 17.94 6M18 18 6.06 6" />
-                                                </svg>
+                                <!-- Main modal -->
+                                <div id="crud-modal" tabindex="-1" aria-hidden="true"
+                                    class="fixed left-0 right-0 top-0 z-50 hidden h-[calc(100%-1rem)] max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0">
+                                    <div class="relative mx-4 max-h-full w-full sm:max-w-4xl">
+                                        <!-- Modal content -->
+                                        <div
+                                            class="scrollbar-modal relative my-14 max-h-96 overflow-y-auto rounded-lg border border-gray-900 bg-lightblue p-4 shadow dark:bg-gray-700 sm:mx-10 md:p-5">
+                                            <!-- Modal body -->
+                                            <div class="flex items-start justify-end">
+                                                <button data-modal-hide="crud-modal" class="z-10 p-2 pe-0">
+                                                    <svg class="h-6 w-6 text-gray-900 dark:text-white" aria-hidden="true"
+                                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        fill="none" viewBox="0 0 24 24">
+                                                        <path stroke="currentColor" stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="2"
+                                                            d="M6 18 17.94 6M18 18 6.06 6" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                            <form class="">
+                                                <div class="mb-4 grid grid-cols-2 gap-4 rounded-lg bg-gray-300 px-4 py-5">
+                                                    <div class="col-span-2">
+                                                        <label for="company"
+                                                            class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">Company</label>
+                                                        <select type="text" name="company" id="company"
+                                                            class="block w-full cursor-pointer rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900"
+                                                            placeholder="" required="">
+                                                            <option value="BCA">BCA</option>
+                                                            <option value="Tokopedia">Tokopedia</option>
+                                                            <option value="Shopee">Shopee</option>
+                                                            <option value="UGM">UGM</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-span-2">
+                                                        <label for="position"
+                                                            class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">Position</label>
+                                                        <input type="text" name="position" id="position"
+                                                            class="block w-full rounded-full border border-gray-500 bg-gray-50 p-2.5 text-sm text-gray-900 shadow"
+                                                            placeholder="" required="">
+                                                    </div>
+                                                    <div class="col-span-2">
+                                                        <label for="period_of_time"
+                                                            class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">Period
+                                                            of Time</label>
+                                                        <input type="text" name="period_of_time" id="period_of_time"
+                                                            class="block w-full rounded-full border border-gray-500 bg-gray-50 p-2.5 text-sm text-gray-900 shadow"
+                                                            placeholder="" required="">
+                                                    </div>
+                                                    <div class="col-span-2">
+                                                        <label for="responsibilities"
+                                                            class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">Responsibilities</label>
+                                                        <textarea id="responsibilities" rows="4"
+                                                            class="block w-full rounded-lg border border-gray-500 bg-gray-50 p-2.5 text-sm text-gray-900 shadow"
+                                                            placeholder=""></textarea>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <button data-modal-hide="crud-modal" type="submit"
+                                                class="bg-btn-cyan m-4 rounded-full bg-cyan px-5 py-2.5 text-white shadow-lg hover:bg-white hover:text-cyan">
+                                                Save Changes
                                             </button>
                                         </div>
-                                        <form class="">
-                                            <div class="mb-4 grid grid-cols-2 gap-4 rounded-lg bg-gray-300 px-4 py-5">
-                                                <div class="col-span-2">
-                                                    <label for="company"
-                                                        class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">Company</label>
-                                                    <select type="text" name="company" id="company"
-                                                        class="block w-full cursor-pointer rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900"
-                                                        placeholder="" required="">
-                                                        <option value="BCA">BCA</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-span-2">
-                                                    <label for="position"
-                                                        class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">Position</label>
-                                                    <input type="text" name="position" id="position"
-                                                        class="block w-full rounded-full border border-gray-500 bg-gray-50 p-2.5 text-sm text-gray-900 shadow"
-                                                        placeholder="" required="">
-                                                </div>
-                                                <div class="col-span-2">
-                                                    <label for="period_of_time"
-                                                        class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">Period
-                                                        of Time</label>
-                                                    <input type="text" name="period_of_time" id="period_of_time"
-                                                        class="block w-full rounded-full border border-gray-500 bg-gray-50 p-2.5 text-sm text-gray-900 shadow"
-                                                        placeholder="" required="">
-                                                </div>
-                                                <div class="col-span-2">
-                                                    <label for="responsibilities"
-                                                        class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">Responsibilities</label>
-                                                    <textarea id="responsibilities" rows="4"
-                                                        class="block w-full rounded-lg border border-gray-500 bg-gray-50 p-2.5 text-sm text-gray-900 shadow"
-                                                        placeholder=""></textarea>
-                                                </div>
-                                            </div>
-                                        </form>
-                                        <button data-modal-hide="crud-modal" type="submit"
-                                            class="bg-btn-cyan m-4 rounded-full bg-cyan px-5 py-2.5 text-white shadow-lg hover:bg-white hover:text-cyan">
-                                            Save Changes
-                                        </button>
                                     </div>
                                 </div>
-                            </div>
 
+                            </div>
+                            <ol class="relative -mt-12 list-none sm:-mt-12">
+                                <li class="mb-2 sm:mb-0">
+                                    <h3 class="text-lg text-cyan sm:text-xl">
+                                        UI/UX
+                                    </h3>
+                                    <h3 class="text-base text-cyan sm:text-lg">
+                                        BCA
+                                    </h3>
+                                    <p class="text-xs text-gray-400 sm:text-sm">
+                                        August 2023
+                                        -
+                                        Now
+                                    </p>
+                                    <ol class="ms-4 list-outside list-disc text-sm text-cyan sm:text-base">
+                                        @if (is_array($job->job_description))
+                                            @foreach ($job->job_description as $description)
+                                                <li>deskripsi</li>
+                                            @endforeach
+                                        @else
+                                            <li>jobdesc</li>
+                                        @endif
+                                    </ol>
+                                </li>
+                            </ol>
                         </div>
-                        <ol class="relative -mt-12 list-none sm:-mt-12">
-                            {{-- @foreach ($jobDetails as $job) --}}
-                            <li class="mb-10">
-                                <h3 class="text-lg text-cyan sm:text-xl">
-                                    UI/UX
-                                </h3>
-                                <h3 class="text-base text-cyan sm:text-lg">
-                                    BCA
-                                </h3>
-                                <p class="text-xs text-gray-400 sm:text-sm">
-                                    August 2023
-                                    -
-                                    Now
-                                </p>
-                                <ol class="ms-4 list-outside list-disc text-sm text-cyan sm:text-base">
-                                    {{-- @if (is_array($job->job_description)) --}}
-                                    {{-- @foreach ($job->job_description as $description) --}}
-                                    <li>deskripsi</li>
-                                    {{-- @endforeach --}}
-                                    {{-- @else --}}
-                                    <li>jobdesc</li>
-                                    {{-- @endif --}}
-                                </ol>
-                            </li>
-                            {{-- @endforeach --}}
-                        </ol>
-                    </div>
-                    {{-- @endif --}}
+                    @endforeach
                 </div>
+                {{-- @endif --}}
             </div>
         </div>
     </section>

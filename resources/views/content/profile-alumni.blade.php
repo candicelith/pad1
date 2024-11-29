@@ -187,7 +187,7 @@
                         <div class="mb-2 flex justify-end sm:mb-0">
 
                             {{-- Edit Button --}}
-                            <a href="{{ route('editprofile') }}"
+                            <a href="{{ route('alumni.show-profile') }}"
                                 class="z-10 rounded-full bg-gray-300 p-2 hover:bg-gray-400 sm:p-4">
                                 <svg class="h-6 w-6 text-gray-800 dark:text-white" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
