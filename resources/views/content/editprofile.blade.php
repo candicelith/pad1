@@ -71,7 +71,8 @@
                             <h4 class="text-lg text-cyan sm:text-xl">Experience</h4>
                         </div>
                     </div>
-                    {{-- @if ($jobDetails && count($jobDetails) > 0) --}}
+                @if ($jobDetails && count($jobDetails) > 0)
+                @foreach ($jobDetails as $job)
                     <div class="flex flex-col sm:flex-row-reverse">
                         <div class="mb-2 flex justify-end sm:mb-0">
                             {{-- Edit Button --}}
@@ -137,33 +138,32 @@
 
                         </div>
                         <ol class="relative -mt-12 list-none sm:-mt-12">
-                            {{-- @foreach ($jobDetails as $job) --}}
-                            <li class="mb-10">
-                                <h3 class="text-lg text-cyan sm:text-xl">
-                                    UI/UX
-                                </h3>
-                                <h3 class="text-base text-cyan sm:text-lg">
-                                    BCA
-                                </h3>
-                                <p class="text-xs text-gray-400 sm:text-sm">
-                                    August 2023
-                                    -
-                                    Now
-                                </p>
-                                <ol class="ms-4 list-outside list-disc text-sm text-cyan sm:text-base">
-                                    {{-- @if (is_array($job->job_description)) --}}
-                                    {{-- @foreach ($job->job_description as $description) --}}
-                                    <li>deskripsi</li>
-                                    {{-- @endforeach --}}
-                                    {{-- @else --}}
-                                    <li>jobdesc</li>
-                                    {{-- @endif --}}
-                                </ol>
-                            </li>
-                            {{-- @endforeach --}}
+                                <li class="mb-10">
+                                    <h3 class="text-lg text-cyan sm:text-xl">
+                                        {{ $job->job_name }}
+                                    </h3>
+                                    <h3 class="text-base text-cyan sm:text-lg">
+                                        {{ $job->company_name }}
+                                    </h3>
+                                    <p class="text-xs text-gray-400 sm:text-sm">
+                                        {{ $job->date_start }}
+                                        -
+                                        {{ $job->date_end }}
+                                    </p>
+                                    <ol class="ms-4 list-outside list-disc text-sm text-cyan sm:text-base">
+                                        @if (is_array($job->job_description))
+                                            @foreach ($job->job_description as $description)
+                                                <li>{{ $description }}</li>
+                                            @endforeach
+                                        @else
+                                            <li>{{ $job->job_description }}</li>
+                                        @endif
+                                    </ol>
+                                </li>
+                            @endforeach
                         </ol>
                     </div>
-                    {{-- @endif --}}
+                @endif
                 </div>
             </div>
         </div>

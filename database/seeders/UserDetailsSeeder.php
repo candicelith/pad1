@@ -25,7 +25,7 @@ class UserDetailsSeeder extends Seeder
                 'nim' => fake()->unique()->numerify('2#/######/SV/#####'),
                 'email' => fake()->unique()->safeEmail(),
                 'phone' => fake()->phoneNumber(),
-                'profile_photo' =>fake()->imageUrl(),
+                // 'profile_photo' =>fake()->imageUrl(),
                 'user_description' =>fake()->sentence(5),
                 'current_job' => fake()->sentence(1),
                 'current_company' => fake()->sentence(1),

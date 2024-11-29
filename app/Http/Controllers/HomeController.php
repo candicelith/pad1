@@ -18,12 +18,21 @@ class HomeController extends Controller
     public function index()
     {
         //get posts
+        // Get posts
         $posts = DB::table('vacancy')
             ->join('users', 'vacancy.id_users', '=', 'users.id_users')
             ->join('user_details', 'users.id_users', '=', 'user_details.id_users')
             ->join('company', 'vacancy.id_company', '=', 'company.id_company')
-            ->select('vacancy.*', 'users.*', 'user_details.*', 'company.*')
+            ->select(
+                'vacancy.*',
+                'users.*',
+                'user_details.*',
+                'company.*',
+                DB::raw("COALESCE(user_details.profile_photo, 'default_profile.png') as profile_photo"),
+                DB::raw("COALESCE(vacancy.vacancy_picture, 'default-vacancy.jpg') as vacancy_picture")
+            )
             ->paginate(2);
+
 
         foreach ($posts as $post) {
 
@@ -40,20 +49,20 @@ class HomeController extends Controller
 
         // Get Company Name, Picture, and Total Employees Count
         $company = DB::table('company')
-        ->join('jobs', 'company.id_company', '=', 'jobs.id_company')
-        ->join('job_tracking', 'jobs.id_jobs', '=', 'job_tracking.id_jobs')
-        ->join('user_details', 'job_tracking.id_userDetails', '=', 'user_details.id_userDetails')
-        ->select(
-            'company.id_company',
-            'company.company_name',
-            // set default company picture
-            DB::raw("COALESCE(company.company_picture, 'https://picsum.photos/id/870/200/300?grayscale&blur=2') as company_picture"),
-            // set employee_count
-            DB::raw('count(distinct user_details.id_userDetails) as employee_count')
-        )
-        ->groupBy('company.id_company', 'company.company_name', 'company.company_picture')
-        ->orderBy('employee_count', 'desc')
-        ->paginate(5);
+            ->join('jobs', 'company.id_company', '=', 'jobs.id_company')
+            ->join('job_tracking', 'jobs.id_jobs', '=', 'job_tracking.id_jobs')
+            ->join('user_details', 'job_tracking.id_userDetails', '=', 'user_details.id_userDetails')
+            ->select(
+                'company.id_company',
+                'company.company_name',
+                // set default company picture
+                DB::raw("COALESCE(company.company_picture, 'https://picsum.photos/id/870/200/300?grayscale&blur=2') as company_picture"),
+                // set employee_count
+                DB::raw('count(distinct user_details.id_userDetails) as employee_count')
+            )
+            ->groupBy('company.id_company', 'company.company_name', 'company.company_picture')
+            ->orderBy('employee_count', 'desc')
+            ->paginate(5);
 
 
         return view('content.home', compact('posts', 'company'));

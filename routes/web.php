@@ -43,13 +43,13 @@ Route::get('/detailcompanies', function () {
 //     return view('content.createpost');
 // })->name('createpost');
 
-Route::get('/profilealumni', function () {
-    return view('content.profile-alumni');
-})->name('profilealumni');
+// Route::get('/profilealumni', function () {
+//     return view('content.profile-alumni');
+// })->name('profilealumni');
 
-Route::get('/editprofile', function () {
-    return view('content.editprofile');
-})->name('editprofile');
+// Route::get('/editprofile', function () {
+//     return view('content.editprofile');
+// })->name('editprofile');
 
 Route::get('/admindetailalumni', function () {
     return view('content.admin-detailalumni');
@@ -130,12 +130,13 @@ Route::controller(AlumniController::class)->group(function () {
     Route::get('/profile/show', 'show')->name('alumni.show-profile');
     Route::get('/alumni/detail/{id}', 'detail')->name('alumni.detail');
     Route::post('/alumni/store','store')->name('alumni.store');
+    Route::post('/alumni/update/{id}','update')->name('alumni.update');
 });
 
 
 //Admin
 Route::controller(AdminController::class)->group(function (){
-    Route::get('/admin','index')->name('admin');
+    Route::get('/admin','index')->name('admin.home');
     Route::get('/admin/profile','show')->name('admin.profile');
     Route::get('/admin/alumni','getAlumni')->name('admin.alumni');
     Route::post('/admin/alumni_store','store')->name('admin.store');

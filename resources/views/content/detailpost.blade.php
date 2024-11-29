@@ -33,7 +33,7 @@
                         class="w-full rounded-tl-lg rounded-tr-lg border-b-2 border-cyan bg-lightblue p-5 sm:rounded-e-none sm:rounded-s-lg sm:rounded-tr-none sm:border-b-0 sm:border-e-2 sm:p-10 md:rounded-e-none md:rounded-s-lg md:rounded-tr-none md:border-b-0 md:border-e-2">
                         <div class="flex flex-col lg:flex-row lg:space-x-8">
                             <div class="flex-shrink-0">
-                                <img class="h-28 w-28 rounded-full object-cover" src="{{ $vacancy->profile_photo }}"
+                                <img class="h-28 w-28 rounded-full object-cover" src="{{ asset('storage/profile/' . $vacancy->profile_photo)  }}"
                                     alt="" />
                             </div>
                             <div class="mt-4 lg:mt-0">
@@ -77,7 +77,7 @@
                                 </div>
                             </div>
                             <div>
-                                <img src="{{ asset('storage/vacancies/' . $vacancy->vacancy_picture) }}"
+                                <img src="{{asset('storage/vacancies/' . $vacancy->vacancy_picture) }}"
                                     alt="vacancy_image" />
                             </div>
                         </div>
@@ -99,7 +99,7 @@
                                     {{-- Comment Start --}}
                                     @foreach ($comments as $comment)
                                         <div class="flex items-start space-x-2 sm:space-x-4">
-                                            <img src="{{ $comment->user->userDetails->profile_photo }}" alt="avatar"
+                                            <img src="{{ asset('storage/profile/' . $comment->user->userDetails->profile_photo) }}" alt="avatar"
                                                 class="h-14 w-14 rounded-full object-cover">
                                             <div class="relative max-w-md">
                                                 <h2 class="text-sm sm:text-base">{{ $comment->user->userDetails->name }}

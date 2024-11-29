@@ -35,7 +35,7 @@
                             </div>
                             <div class="flex flex-col lg:flex-row lg:space-x-8">
                                 <div class="flex-shrink-0">
-                                    <img class="h-20 w-20 rounded-full object-cover" src="{{ $vc->profile_photo }}"
+                                    <img class="h-20 w-20 rounded-full object-cover" src="{{  asset('storage/profile/' . $vc->profile_photo)  }}"
                                         alt="{{ $vc->name }}" />
                                 </div>
                                 <div class="mt-4 lg:mt-0">

@@ -114,7 +114,8 @@
                                         {{ $al->graduate_year }}
                                     </span>
                                 </div>
-                                <img class="mb-3 h-24 w-24 rounded-full shadow-lg" src="{{ $al->profile_photo }}"
+                                <img class="mb-3 h-24 w-24 rounded-full shadow-lg"
+                                    src="{{  asset('storage/profile/' . $al->profile_photo)  }}"
                                     alt="{{ $al->name }} image" />
                                 <h2 class="mb-1 text-2xl text-cyan">
                                     {{ $al->name }}

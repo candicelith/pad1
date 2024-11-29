@@ -20,10 +20,13 @@ class UserDetails extends Model
         'email',
         'phone',
         'graduate_year',
-        'profile_picture',
-        'isAlumni',
+        'user_description',
+        'current_company',
+        'current_job',
+        'profile_photo',
         'modifiedBy',
         'modifiedDate',
+        'status'
     ];
 
     // User Accessor
@@ -38,9 +41,15 @@ class UserDetails extends Model
         return $this->hasOne(JobTracking::class, 'id_users', 'id_users');
     }
 
-    // Profile Picture Accessor
-    public function getProfilePictureAttribute($value)
+    public function getProfilePictureAttribute()
     {
-        return $value ?? 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png';
+        // Check if profile_photo exists and is not empty
+        if (!empty($this->attributes['profile_photo'])) {
+            return asset('storage/profile/' . $this->attributes['profile_photo']);
+        }
+
+        // Return the default profile picture URL
+        return 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png';
     }
+
 }
