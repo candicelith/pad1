@@ -24,16 +24,32 @@
                                 <div class="relative mx-4 max-h-full w-full sm:max-w-4xl">
                                     <!-- Modal content -->
                                     <div
-                                        class="relative my-14 rounded-lg border border-gray-900 bg-lightblue p-4 shadow dark:bg-gray-700 sm:mx-10 md:p-5">
+                                        class="scrollbar-modal relative my-14 max-h-96 overflow-y-auto rounded-lg border border-gray-900 bg-lightblue p-4 shadow dark:bg-gray-700 sm:mx-10 md:p-5">
                                         <!-- Modal body -->
+                                        <div class="flex items-start justify-end">
+                                            <button data-modal-hide="crud-modal2" class="z-10 p-2 pe-0">
+                                                <svg class="h-6 w-6 text-gray-900 dark:text-white" aria-hidden="true"
+                                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    fill="none" viewBox="0 0 24 24">
+                                                    <path stroke="currentColor" stroke-linecap="round"
+                                                        stroke-linejoin="round" stroke-width="2"
+                                                        d="M6 18 17.94 6M18 18 6.06 6" />
+                                                </svg>
+                                            </button>
+                                        </div>
                                         <form class="">
                                             <div class="mb-4 grid grid-cols-2 gap-4 rounded-lg bg-gray-300 px-4 py-5">
                                                 <div class="col-span-2">
                                                     <label for="company"
                                                         class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">Company</label>
-                                                    <input type="text" name="company" id="company"
-                                                        class="block w-full rounded-full border border-gray-500 bg-gray-50 p-2.5 text-sm text-gray-900 shadow"
+                                                    <select type="text" name="company" id="company"
+                                                        class="block w-full cursor-pointer rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900"
                                                         placeholder="" required="">
+                                                        <option value="BCA">BCA</option>
+                                                        <option value="Tokopedia">Tokopedia</option>
+                                                        <option value="Shopee">Shopee</option>
+                                                        <option value="UGM">UGM</option>
+                                                    </select>
                                                 </div>
                                                 <div class="col-span-2">
                                                     <label for="position"
@@ -87,55 +103,96 @@
                                 </svg>
                             </button>
 
-                            <!-- Main modal -->
-                            <div id="crud-modal" tabindex="-1" aria-hidden="true"
-                                class="fixed left-0 right-0 top-0 z-50 hidden h-[calc(100%-1rem)] max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0">
-                                <div class="relative mx-4 max-h-full w-full sm:max-w-4xl">
-                                    <!-- Modal content -->
-                                    <div
-                                        class="relative my-14 rounded-lg border border-gray-900 bg-lightblue p-4 shadow dark:bg-gray-700 sm:mx-10 md:p-5">
-                                        <!-- Modal body -->
-                                        <form class="">
-                                            <div class="mb-4 grid grid-cols-2 gap-4 rounded-lg bg-gray-300 px-4 py-5">
-                                                <div class="col-span-2">
-                                                    <label for="company"
-                                                        class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">Company</label>
-                                                    <input type="text" name="company" id="company"
-                                                        class="block w-full rounded-full border border-gray-500 bg-gray-50 p-2.5 text-sm text-gray-900 shadow"
-                                                        placeholder="" required="">
-                                                </div>
-                                                <div class="col-span-2">
-                                                    <label for="position"
-                                                        class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">Position</label>
-                                                    <input type="text" name="position" id="position"
-                                                        class="block w-full rounded-full border border-gray-500 bg-gray-50 p-2.5 text-sm text-gray-900 shadow"
-                                                        placeholder="" required="">
-                                                </div>
-                                                <div class="col-span-2">
-                                                    <label for="period_of_time"
-                                                        class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">Period
-                                                        of Time</label>
-                                                    <input type="text" name="period_of_time" id="period_of_time"
-                                                        class="block w-full rounded-full border border-gray-500 bg-gray-50 p-2.5 text-sm text-gray-900 shadow"
-                                                        placeholder="" required="">
-                                                </div>
-                                                <div class="col-span-2">
-                                                    <label for="responsibilities"
-                                                        class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">Responsibilities</label>
-                                                    <textarea id="responsibilities" rows="4"
-                                                        class="block w-full rounded-lg border border-gray-500 bg-gray-50 p-2.5 text-sm text-gray-900 shadow"
-                                                        placeholder=""></textarea>
-                                                </div>
+                                <!-- Main modal -->
+                                <div id="crud-modal" tabindex="-1" aria-hidden="true"
+                                    class="fixed left-0 right-0 top-0 z-50 hidden h-[calc(100%-1rem)] max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0">
+                                    <div class="relative mx-4 max-h-full w-full sm:max-w-4xl">
+                                        <!-- Modal content -->
+                                        <div
+                                            class="scrollbar-modal relative my-14 max-h-96 overflow-y-auto rounded-lg border border-gray-900 bg-lightblue p-4 shadow dark:bg-gray-700 sm:mx-10 md:p-5">
+                                            <!-- Modal body -->
+                                            <div class="flex items-start justify-end">
+                                                <button data-modal-hide="crud-modal" class="z-10 p-2 pe-0">
+                                                    <svg class="h-6 w-6 text-gray-900 dark:text-white" aria-hidden="true"
+                                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        fill="none" viewBox="0 0 24 24">
+                                                        <path stroke="currentColor" stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="2"
+                                                            d="M6 18 17.94 6M18 18 6.06 6" />
+                                                    </svg>
+                                                </button>
                                             </div>
-                                        </form>
-                                        <button data-modal-hide="crud-modal" type="submit"
-                                            class="bg-btn-cyan m-4 rounded-full bg-cyan px-5 py-2.5 text-white shadow-lg hover:bg-white hover:text-cyan">
-                                            Save Changes
-                                        </button>
+                                            <form class="">
+                                                <div class="mb-4 grid grid-cols-2 gap-4 rounded-lg bg-gray-300 px-4 py-5">
+                                                    <div class="col-span-2">
+                                                        <label for="company"
+                                                            class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">Company</label>
+                                                        <select type="text" name="company" id="company"
+                                                            class="block w-full cursor-pointer rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900"
+                                                            placeholder="" required="">
+                                                            <option value="BCA">BCA</option>
+                                                            <option value="Tokopedia">Tokopedia</option>
+                                                            <option value="Shopee">Shopee</option>
+                                                            <option value="UGM">UGM</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-span-2">
+                                                        <label for="position"
+                                                            class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">Position</label>
+                                                        <input type="text" name="position" id="position"
+                                                            class="block w-full rounded-full border border-gray-500 bg-gray-50 p-2.5 text-sm text-gray-900 shadow"
+                                                            placeholder="" required="">
+                                                    </div>
+                                                    <div class="col-span-2">
+                                                        <label for="period_of_time"
+                                                            class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">Period
+                                                            of Time</label>
+                                                        <input type="text" name="period_of_time" id="period_of_time"
+                                                            class="block w-full rounded-full border border-gray-500 bg-gray-50 p-2.5 text-sm text-gray-900 shadow"
+                                                            placeholder="" required="">
+                                                    </div>
+                                                    <div class="col-span-2">
+                                                        <label for="responsibilities"
+                                                            class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">Responsibilities</label>
+                                                        <textarea id="responsibilities" rows="4"
+                                                            class="block w-full rounded-lg border border-gray-500 bg-gray-50 p-2.5 text-sm text-gray-900 shadow"
+                                                            placeholder=""></textarea>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <button data-modal-hide="crud-modal" type="submit"
+                                                class="bg-btn-cyan m-4 rounded-full bg-cyan px-5 py-2.5 text-white shadow-lg hover:bg-white hover:text-cyan">
+                                                Save Changes
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
+                            </div>
+                            <ol class="relative -mt-12 list-none sm:-mt-12">
+                                <li class="mb-2 sm:mb-0">
+                                    <h3 class="text-lg text-cyan sm:text-xl">
+                                        UI/UX
+                                    </h3>
+                                    <h3 class="text-base text-cyan sm:text-lg">
+                                        BCA
+                                    </h3>
+                                    <p class="text-xs text-gray-400 sm:text-sm">
+                                        August 2023
+                                        -
+                                        Now
+                                    </p>
+                                    <ol class="ms-4 list-outside list-disc text-sm text-cyan sm:text-base">
+                                        @if (is_array($job->job_description))
+                                            @foreach ($job->job_description as $description)
+                                                <li>deskripsi</li>
+                                            @endforeach
+                                        @else
+                                            <li>jobdesc</li>
+                                        @endif
+                                    </ol>
+                                </li>
+                            </ol>
                         </div>
                         <ol class="relative -mt-12 list-none sm:-mt-12">
                                 <li class="mb-10">
@@ -182,38 +239,38 @@
     <script>
         let formCount = 0; // Initialize a variable to count the forms
 
-        function addExperienceForm() {
-            // Create a new form container
-            const newFormContainer = document.createElement('div');
-            newFormContainer.className = 'experience-form w-80 rounded-lg bg-gray-300 p-5';
+        // function addExperienceForm() {
+        //     // Create a new form container
+        //     const newFormContainer = document.createElement('div');
+        //     newFormContainer.className = 'experience-form w-80 rounded-lg bg-gray-300 p-5';
 
-            // Create form fields
-            newFormContainer.innerHTML = `
-                <div class="my-2.5">
-                    <label for="company-${formCount}" class="mb-2 block text-base text-gray-500">Company</label>
-                    <input type="text" id="company-${formCount}" class="block w-full rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900" />
-                </div>
-                <div class="my-2.5">
-                    <label for="position-${formCount}" class="mb-2 block text-base text-gray-500">Position</label>
-                    <input type="text" id="position-${formCount}" class="block w-full rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900" />
-                </div>
-                <div class="my-2.5">
-                    <label for="period_of_time-${formCount}" class="mb-2 block text-base text-gray-500">Period of Time</label>
-                    <input type="text" id="period_of_time-${formCount}" class="block w-full rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900" />
-                </div>
-                <div class="my-2.5">
-                    <label for="responsibilities-${formCount}" class="mb-2 block text-base text-gray-500">Responsibilities</label>
-                    <textarea cols="30" rows="10" class="block w-full rounded-lg border border-gray-900 bg-gray-50 px-2 pt-2 text-sm text-gray-900"></textarea>
-                </div>
-            `;
+        //     // Create form fields
+        //     newFormContainer.innerHTML = `
+    //         <div class="my-2.5">
+    //             <label for="company-${formCount}" class="mb-2 block text-base text-gray-500">Company</label>
+    //             <input type="text" id="company-${formCount}" class="block w-full rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900" />
+    //         </div>
+    //         <div class="my-2.5">
+    //             <label for="position-${formCount}" class="mb-2 block text-base text-gray-500">Position</label>
+    //             <input type="text" id="position-${formCount}" class="block w-full rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900" />
+    //         </div>
+    //         <div class="my-2.5">
+    //             <label for="period_of_time-${formCount}" class="mb-2 block text-base text-gray-500">Period of Time</label>
+    //             <input type="text" id="period_of_time-${formCount}" class="block w-full rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900" />
+    //         </div>
+    //         <div class="my-2.5">
+    //             <label for="responsibilities-${formCount}" class="mb-2 block text-base text-gray-500">Responsibilities</label>
+    //             <textarea cols="30" rows="10" class="block w-full rounded-lg border border-gray-900 bg-gray-50 px-2 pt-2 text-sm text-gray-900"></textarea>
+    //         </div>
+    //     `;
 
-            // Append the new form to the experience container
-            const experienceContainer = document.getElementById('experience-container');
-            experienceContainer.insertBefore(newFormContainer, document.getElementById('add-button-container'));
+        //     // Append the new form to the experience container
+        //     const experienceContainer = document.getElementById('experience-container');
+        //     experienceContainer.insertBefore(newFormContainer, document.getElementById('add-button-container'));
 
-            // Increment the form count
-            formCount++;
-        }
+        //     // Increment the form count
+        //     formCount++;
+        // }
 
         // Save Button Script
         function triggerAlert() {
