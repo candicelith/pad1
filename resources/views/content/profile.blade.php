@@ -8,7 +8,7 @@
                 <div class="relative">
                     <div class="h-48 rounded-t-3xl bg-cyan-100"></div>
                     <div class="absolute top-1/2 mx-12 sm:ms-14">
-                        <img class="h-48 w-48 rounded-full object-cover" src="{{ $userDetails->profile_photo }}"
+                        <img class="h-48 w-48 rounded-full object-cover" src="{{  asset('storage/profile/' . $userDetails->profile_photo) }}"
                             alt="Profile Picture" />
                     </div>
                 </div>

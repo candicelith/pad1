@@ -27,9 +27,9 @@ use App\Http\Middleware\Alumni;
 //     return view('content.detailpost');
 // })->name('detailpost');
 
-Route::get('/detailalumni', function () {
-    return view('content.detailalumni');
-})->name('detailalumni');
+// Route::get('/detailalumni', function () {
+//     return view('content.detailalumni');
+// })->name('detailalumni');
 
 Route::get('/postalumni', function () {
     return view('content.posts-alumni');
@@ -51,25 +51,25 @@ Route::get('/detailcompanies', function () {
 //     return view('content.editprofile');
 // })->name('editprofile');
 
-Route::get('/admindetailalumni', function () {
-    return view('content.admin-detailalumni');
-})->name('admindetailalumni');
+// Route::get('/admindetailalumni', function () {
+//     return view('content.admin-detailalumni');
+// })->name('admindetailalumni');
 
-Route::get('/adminprofile', function () {
-    return view('content.admin-profile');
-})->name('adminprofile');
+// Route::get('/adminprofile', function () {
+//     return view('content.admin-profile');
+// })->name('adminprofile');
 
-Route::get('/adminalumni', function () {
-    return view('content.admin-alumni');
-})->name('adminalumni');
+// Route::get('/adminalumni', function () {
+//     return view('content.admin-alumni');
+// })->name('adminalumni');
 
 Route::get('/adminprofilalumni', function () {
     return view('content.admin-profilealumni');
 })->name('adminprofilalumni');
 
-Route::get('/admindetailalumni', function () {
-    return view('content.admin-detailalumni');
-})->name('admindetailalumni');
+// Route::get('/admindetailalumni', function () {
+//     return view('content.admin-detailalumni');
+// })->name('admindetailalumni');
 
 Route::get('/admineditalumni', function () {
     return view('content.admin-editalumni');
@@ -131,6 +131,8 @@ Route::controller(AlumniController::class)->group(function () {
     Route::get('/alumni/detail/{id}', 'detail')->name('alumni.detail');
     Route::post('/alumni/store','store')->name('alumni.store');
     Route::post('/alumni/update/{id}','update')->name('alumni.update');
+    Route::post('/alumni/create/experiences','addExperiences')->name('alumni.create-experiences');
+    Route::post('/alumni/update/experiences/{id}','updateExperiences')->name('alumni.update-experiences');
 });
 
 
@@ -140,4 +142,11 @@ Route::controller(AdminController::class)->group(function (){
     Route::get('/admin/profile','show')->name('admin.profile');
     Route::get('/admin/alumni','getAlumni')->name('admin.alumni');
     Route::post('/admin/alumni_store','store')->name('admin.store');
+    Route::post('/admin/handle-approval/{id}','handleApproval')->name('admin.handleApproval');
+    Route::get('/admin/detail-alumni/{id}','detailAlumni')->name('admin.detail-alumni');
+    Route::get('/admin/approval/{id}','viewApproval')->name('admin.approval');
+    Route::post('/admin/edit-alumni/{id}','editAlumni')->name('admin.edit-alumni');
+    Route::get('/admin/edit-alumni/experiences/{id}','editExperiencesAlumni')->name('admin.edit-alumni.experiences');
+    Route::post('/admin/edit-alumni/add-experiences/{id}','addAlumniExperiences')->name('admin.edit-alumni.add-experiences');
+    Route::post('/admin/edit-alumni/update-experiences/{id}','updateAlumniExperiences')->name('admin.edit-alumni.update-experiences');
 });

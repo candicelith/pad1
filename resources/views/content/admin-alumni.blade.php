@@ -115,7 +115,7 @@
                                         {{ $a->email }}
                                     </td>
                                     <td class="px-6 py-4">
-                                        <a href="{{ route('adminprofilalumni') }}"
+                                        <a href="{{ route('admin.detail-alumni',['id'=>$a->id_userDetails]) }}"
                                             class="rounded-full bg-cyan-100 px-4 py-2 text-center text-sm text-white shadow-md hover:bg-white hover:text-cyan-100 sm:px-7 sm:text-base">
                                             Detail
                                         </a>

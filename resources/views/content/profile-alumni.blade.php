@@ -226,8 +226,6 @@
                                             @foreach ($job->job_description as $description)
                                                 <li>{{ $description }}</li>
                                             @endforeach
-                                        @else
-                                            <li>{{ $job->job_description }}</li>
                                         @endif
                                     </ol>
                                 </li>

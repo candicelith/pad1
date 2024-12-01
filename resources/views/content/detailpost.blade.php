@@ -99,7 +99,7 @@
                                     {{-- Comment Start --}}
                                     @foreach ($comments as $comment)
                                         <div class="flex items-start space-x-2 sm:space-x-4">
-                                            <img src="{{ asset('storage/profile/' . $comment->user->userDetails->profile_photo) }}" alt="avatar"
+                                            <img src="{{ asset('storage/profile/' . ($comment->user->userDetails->profile_photo ?? 'default_profile.png')) }}" alt="avatar"
                                                 class="h-14 w-14 rounded-full object-cover">
                                             <div class="relative max-w-md">
                                                 <h2 class="text-sm sm:text-base">{{ $comment->user->userDetails->name }}
@@ -137,7 +137,7 @@
                                         @if ($comment->replies->count() > 0)
                                             @foreach ($comment->replies as $reply)
                                                 <div class="ms-5 flex items-start space-x-4 sm:ms-10">
-                                                    <img src="{{ $reply->user->userDetails->profile_photo }}"
+                                                    <img src="{{ asset('storage/profile/' . ($reply->user->userDetails->profile_photo ?? 'default_profile.png')) }}"
                                                         alt="avatar" class="h-14 w-14 rounded-full object-cover">
                                                     <div class="relative max-w-md">
                                                         <h2 class="text-sm sm:text-base">
