@@ -31,8 +31,8 @@
                                         </h3>
                                     </div>
                                     {{-- Modal body --}}
-                                    <form class="p-4 md:p-5">
-                                        <div class="mb-4 grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-4">
+                                    <form class="p-4 md:p-5" method="POST" action="{{ route('admin.store') }}">
+                                        <div class="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
                                             <div class="col-span-2">
                                                 <label for="name" class="mb-2 block text-sm text-white sm:text-lg">Full
                                                     Name</label>
@@ -100,26 +100,28 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($alumni as $index => $a)
                                 <tr class="border-b border-black bg-white hover:bg-gray-50">
                                     <th scope="row" class="whitespace-nowrap px-6 py-4 text-sm sm:text-base">
-                                        1
+                                        {{ $index+1 }}
                                     </th>
                                     <td class="px-6 py-4 text-sm sm:text-base">
-                                        Naila Geda Gedi
+                                        {{ $a->name }}
                                     </td>
                                     <td class="hidden-mobile px-6 py-4">
-                                        12345
+                                        {{ $a->nim_part }}
                                     </td>
                                     <td class="hidden-mobile px-6 py-4">
-                                        aku@gmail.com
+                                        {{ $a->email }}
                                     </td>
                                     <td class="px-6 py-4">
-                                        <a href="{{ route('adminprofilalumni') }}"
+                                        <a href="{{ route('admin.detail-alumni',['id'=>$a->id_userDetails]) }}"
                                             class="rounded-full bg-cyan-100 px-4 py-2 text-center text-sm text-white shadow-md hover:bg-white hover:text-cyan-100 sm:px-7 sm:text-base">
                                             Detail
                                         </a>
                                     </td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

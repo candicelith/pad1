@@ -17,9 +17,8 @@ return new class extends Migration
             $table->unsignedBigInteger('id_jobs');
             $table->date('date_start');
             $table->date('date_end')->nullable();
-            $table->enum('status',array('Active','Inactive'));
-            $table->enum('type',array('Internship', 'Fulltime', 'Part Time'));
-            $table->json('job_description');
+            // $table->enum('type',array('Internship', 'Fulltime', 'Part Time'));
+            $table->json('job_description')->nullable();
             $table->timestamps();
 
             $table->foreign('id_userDetails')->references('id_userDetails')->on('user_details');

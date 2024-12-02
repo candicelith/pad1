@@ -14,16 +14,19 @@ class JobTracking extends Model
     protected $primaryKey = 'id_tracking';
 
     protected $fillable = [
-        'id_users',
+        'id_userDetails',
         'id_jobs',
         'date_start',
         'date_end',
-        'status',
-        'type',
+        // 'status',
+        // 'type',
+        'job_description'
     ];
 
     protected $casts = [
         'job_description' => 'array',
+        'date_start' => 'datetime',
+        'date_end' => 'datetime'
     ];
 
 

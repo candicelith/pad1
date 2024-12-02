@@ -49,9 +49,14 @@ class Vacancy extends Model
     }
 
 
-    // Accessor for vacancy_picture
-    public function getVacancyPictureAttribute($value)
-    {
-        return $value ?? 'assets\default-vacancy.jpg';
+// Accessor for vacancy_picture
+public function getVacancyPictureAttribute($value)
+{
+    if ($value) {
+        return asset('storage/profile/' . $value);
     }
+
+    return asset('assets/default-vacancy.jpg'); // Ensure you use forward slashes for consistency in URLs
+}
+
 }

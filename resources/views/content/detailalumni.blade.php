@@ -19,7 +19,7 @@
                     <div class="lg:mx-14">
                         <div class="flex flex-col lg:flex-row lg:space-x-8">
                             <img class="h-24 w-24 rounded-full object-cover sm:h-28 sm:w-28"
-                                src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
+                                src="{{ asset('storage/profile/' . $userDetails->profile_photo)  }}"
                                 alt="" />
                             <div class="mt-4">
                                 <h2 class="text-xl text-cyan sm:text-2xl">{{ $userDetails->name }}</h2>
@@ -52,8 +52,6 @@
                                                 @foreach ($job->job_description as $description)
                                                     <li>{{ $description }}</li>
                                                 @endforeach
-                                            @else
-                                                <li>{{ $job->job_description }}</li>
                                             @endif
                                         </ol>
                                     </li>

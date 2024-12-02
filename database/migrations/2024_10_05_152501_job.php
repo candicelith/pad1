@@ -15,8 +15,8 @@ return new class extends Migration
             $table->bigIncrements('id_jobs');
             $table->unsignedBigInteger('id_company');
             $table->string('job_name');
-            $table->string('job_description');
-            $table->string('job_role');
+            $table->string('job_description')->nullable();
+            $table->string('job_role')->nullable();
             $table->timestamps();
 
             $table->foreign('id_company')->references('id_company')->on('company');

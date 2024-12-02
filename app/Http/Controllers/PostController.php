@@ -28,7 +28,7 @@ class PostController extends Controller
                 'users.*',
                 'user_details.*',
                 'company.*',
-                DB::raw("COALESCE(user_details.profile_photo, 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png') as profile_photo")
+                DB::raw("COALESCE(user_details.profile_photo, 'default_profile.png') as profile_photo"),
             )
             ->paginate(10);
 
@@ -92,7 +92,8 @@ class PostController extends Controller
             $extension = $request->file('vacancy_picture')->getClientOriginalExtension();
 
             $filenameSimpan = $filename . '_' . time() . '.' . $extension;
-            $file->storeAs('public/vacancies', $filenameSimpan);        }
+            $file->storeAs('public/vacancies', $filenameSimpan);
+        }
 
         Vacancy::create([
             'id_company' => $request->company,
@@ -113,7 +114,6 @@ class PostController extends Controller
      */
     public function show(Vacancy $posts, string $id)
     {
-        // dd($posts->comments());
         $post = Vacancy::findorFail($id);
 
         // Fetch the joined vacancy data for a single item
@@ -126,7 +126,8 @@ class PostController extends Controller
                 'users.*',
                 'user_details.*',
                 'company.*',
-                DB::raw("COALESCE(user_details.profile_photo, 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png') as profile_photo")
+                DB::raw("COALESCE(user_details.profile_photo, 'default_profile.png') as profile_photo"),
+                DB::raw("COALESCE(vacancy.vacancy_picture, 'default-vacancy.jpg') as vacancy_picture")
             )
             ->where('id_vacancy', $id)
             ->first();

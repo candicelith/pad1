@@ -17,7 +17,7 @@
                 <div class="relative">
                     <div class="h-48 rounded-t-3xl bg-cyan-100"></div>
                     <div class="absolute top-1/2 mx-12 sm:ms-14">
-                        <img class="h-48 w-48 rounded-full object-cover" src="{{ $userDetails->profile_photo }}"
+                        <img class="h-48 w-48 rounded-full object-cover" src="{{ asset('storage/profile/' . $userDetails->profile_photo) }}"
                             alt="Profile Picture" />
                     </div>
                 </div>
@@ -63,10 +63,10 @@
                                             <div class="absolute top-1/2 mx-12">
                                                 <div class="relative">
                                                     <img class="h-24 w-24 rounded-full object-cover"
-                                                        src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
+                                                        src="{{ asset('storage/profile/' . $userDetails->profile_photo) }}"
                                                         alt="Profile Picture" />
                                                     {{-- Camera Icon --}}
-                                                    <div
+                                                    <label for="profile_picture"
                                                         class="absolute bottom-0 ms-24 flex h-10 w-10 items-center justify-center rounded-full bg-cyan p-1 hover:bg-cyan-100 sm:h-16 sm:w-16">
                                                         <svg class="h-8 w-8 text-white" aria-hidden="true"
                                                             xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -77,17 +77,22 @@
                                                             <path stroke="currentColor" stroke-linejoin="round"
                                                                 stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                                                         </svg>
-                                                    </div>
+                                                    </label>
                                                 </div>
                                             </div>
                                         </div>
                                         <!-- Modal body -->
-                                        <form action="#">
+                                        <form action="{{ route('alumni.update', ['id' => $userDetails->id_userDetails]) }}"
+                                            method="POST" enctype="multipart/form-data">
+                                            @csrf
+                                            <!-- Hidden Input -->
+                                            <input id="profile_picture" name="profile_picture" type="file" class="hidden"
+                                                accept="image/*" />
                                             <div class="mx-10 my-14">
                                                 <div class="mb-5 mt-5">
                                                     <label for="full_name" class="mb-2 block text-xl text-cyan">Full
                                                         Name</label>
-                                                    <input type="text" id="full_name"
+                                                    <input type="text" id="full_name" name="full_name"
                                                         class="block w-full rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900"
                                                         required value="{{ $userDetails->name }}" />
                                                 </div>
@@ -97,34 +102,36 @@
                                                     <select name="current_company" id="current_company"
                                                         class="block w-full cursor-pointer rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900">
                                                         <option value="" disabled
-                                                            {{ $userDetails->current_job ? '' : 'selected' }}>Select a
-                                                            company</option>
-                                                        {{-- @foreach ($companies as $company) --}}
-                                                        <option value=" {{-- {{ $company->id_company }} --}} ">
-                                                            {{-- {{ $company->company_name }} --}}
+                                                            {{ $userDetails->current_company ? '' : 'selected' }}>
+                                                            Select a company
                                                         </option>
-                                                        {{-- @endforeach --}}
+                                                        @foreach ($companies as $company)
+                                                            <option value="{{ $company->company_name }}"
+                                                                {{ $company->company_name == $userDetails->current_company ? 'selected' : '' }}>
+                                                                {{ $company->company_name }}
+                                                            </option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                                 <div class="mb-5 mt-5">
                                                     <label for="current_job" class="mb-2 block text-xl text-cyan">Current
                                                         Position</label>
-                                                    <input type="text" id="current_job"
+                                                    <input type="text" id="current_job" name="current_job"
                                                         class="block w-full rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900"
                                                         required value="{{ $userDetails->current_job }}" />
                                                 </div>
                                                 <div class="mb-5 mt-5">
                                                     <label for="user_description"
                                                         class="mb-2 block text-xl text-cyan">About</label>
-                                                    <textarea type="text" id="user_description"
+                                                    <textarea type="text" id="user_description" name="user_description"
                                                         class="block w-full rounded-xl border border-gray-900 bg-gray-50 px-2 pt-2 text-sm text-gray-900">{{ $userDetails->user_description }}</textarea>
                                                 </div>
                                             </div>
+                                            <button data-modal-hide="crud-modal" type="submit"
+                                                class="bg-btn-cyan mx-10 rounded-full bg-cyan px-5 py-2.5 text-white shadow-lg hover:bg-white hover:text-cyan">
+                                                Save Changes
+                                            </button>
                                         </form>
-                                        <button data-modal-hide="crud-modal" type="submit"
-                                            class="bg-btn-cyan mx-10 rounded-full bg-cyan px-5 py-2.5 text-white shadow-lg hover:bg-white hover:text-cyan">
-                                            Save Changes
-                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -219,8 +226,6 @@
                                             @foreach ($job->job_description as $description)
                                                 <li>{{ $description }}</li>
                                             @endforeach
-                                        @else
-                                            <li>{{ $job->job_description }}</li>
                                         @endif
                                     </ol>
                                 </li>

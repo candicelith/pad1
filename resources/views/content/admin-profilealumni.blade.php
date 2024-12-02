@@ -22,11 +22,12 @@
                             <div class="lg:mx-14">
                                 <div class="flex flex-col lg:flex-row lg:space-x-8">
                                     <img class="h-24 w-24 rounded-full object-cover sm:h-28 sm:w-28"
-                                        src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
+                                        src="{{ asset('storage/profile/' . $userDetails->profile_photo) }}"
                                         alt="" />
                                     <div class="mt-4">
-                                        <h2 class="text-xl text-cyan sm:text-2xl">Andi Prasetyo</h2>
-                                        <h3 class="text-md text-cyan sm:text-lg">UI/UX Designer, PT. Traveloka Indonesia
+                                        <h2 class="text-xl text-cyan sm:text-2xl">{{ $userDetails->name }}</h2>
+                                        <h3 class="text-md text-cyan sm:text-lg">{{ $userDetails->current_job }},
+                                            {{ $userDetails->current_company }}
                                         </h3>
                                     </div>
                                 </div>
@@ -73,7 +74,7 @@
                                                                     src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
                                                                     alt="Profile Picture" />
                                                                 {{-- Camera Icon --}}
-                                                                <div
+                                                                <label for="profile_picture"
                                                                     class="absolute bottom-0 ms-24 flex h-10 w-10 items-center justify-center rounded-full bg-cyan p-1 hover:bg-cyan-100 sm:h-16 sm:w-16">
                                                                     <svg class="h-8 w-8 text-white" aria-hidden="true"
                                                                         xmlns="http://www.w3.org/2000/svg" width="24"
@@ -85,23 +86,25 @@
                                                                             stroke-width="2"
                                                                             d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                                                                     </svg>
-                                                                </div>
+                                                                </label>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <!-- Modal body -->
-                                                    <form action="#">
+                                                    <form action="{{ route('admin.edit-alumni', ['id' => $userDetails->id_userDetails]) }}" method="POST" enctype="multipart/form-data">
+                                                        @csrf
+                                                        <!-- Hidden Input -->
+                                                        <input id="profile_picture" name="profile_picture" type="file"
+                                                            class="hidden" accept="image/*" />
                                                         <div class="mx-10 my-14">
                                                             <div class="mb-5 mt-5">
                                                                 <label for="full_name"
                                                                     class="mb-2 block text-xl text-cyan">Full
                                                                     Name</label>
-                                                                <input type="text" id="full_name"
+                                                                <input type="text" id="full_name" name="full_name"
                                                                     class="block w-full rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900"
                                                                     required
-                                                                    value="
-                                                                    {{-- {{ $userDetails->name }} --}}
-                                                                     " />
+                                                                    value="{{ $userDetails->name }}" />
                                                             </div>
                                                             <div class="mb-5 mt-5">
                                                                 <label for="current_company"
@@ -109,41 +112,38 @@
                                                                     Company</label>
                                                                 <select name="current_company" id="current_company"
                                                                     class="block w-full cursor-pointer rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900">
-                                                                    <option value="" disabled {{-- {{ $userDetails->current_job ? '' : 'selected' }} --}}>
-                                                                        Select a
-                                                                        company</option>
-                                                                    {{-- @foreach ($companies as $company) --}}
-                                                                    <option value=" {{-- {{ $company->id_company }} --}} ">
-                                                                        {{-- {{ $company->company_name }} --}}
-                                                                    </option>
-                                                                    {{-- @endforeach --}}
+                                                                    <option value="" disabled
+                                                                        {{ $userDetails->current_job ? '' : 'selected' }}>
+                                                                        Select a company</option>
+                                                                    @foreach ($companies as $company)
+                                                                        <option value="{{ $company->company_name }}"
+                                                                            {{ $company->company_name == $userDetails->current_company ? 'selected' : '' }}>
+                                                                            {{ $company->company_name }}
+                                                                        </option>
+                                                                    @endforeach
                                                                 </select>
                                                             </div>
                                                             <div class="mb-5 mt-5">
                                                                 <label for="current_job"
                                                                     class="mb-2 block text-xl text-cyan">Current
                                                                     Position</label>
-                                                                <input type="text" id="current_job"
+                                                                <input type="text" id="current_job" name="current_job"
                                                                     class="block w-full rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900"
                                                                     required
-                                                                    value="
-                                                                    {{-- {{ $userDetails->current_job }} --}}
-                                                                     " />
+                                                                    value="{{ $userDetails->current_job }}" />
                                                             </div>
                                                             <div class="mb-5 mt-5">
                                                                 <label for="user_description"
                                                                     class="mb-2 block text-xl text-cyan">About</label>
-                                                                <textarea type="text" id="user_description"
-                                                                    class="block w-full rounded-xl border border-gray-900 bg-gray-50 px-2 pt-2 text-sm text-gray-900">
-                                                                    {{-- {{ $userDetails->user_description }} --}}
-                                                                </textarea>
+                                                                <textarea type="text" id="user_description" name="user_description"
+                                                                    class="block w-full rounded-xl border border-gray-900 bg-gray-50 px-2 pt-2 text-sm text-gray-900">{{ $userDetails->user_description }}</textarea>
                                                             </div>
                                                         </div>
-                                                    </form>
-                                                    <button data-modal-hide="crud-modal" type="submit"
+                                                        <button data-modal-hide="crud-modal" type="submit"
                                                         class="bg-btn-cyan mx-10 rounded-full bg-cyan px-5 py-2.5 text-white shadow-lg hover:bg-white hover:text-cyan">
                                                         Save Changes
-                                                    </button>
+                                                        </button>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
@@ -151,22 +151,7 @@
                                     <div class="-mt-8 space-y-4">
                                         <h4 class="text-lg text-cyan sm:text-xl">About</h4>
                                         <p class="sm:text-md text-justify text-sm text-cyan">
-                                            Saya Andi, seorang UI/UX Designer. Saya telah bekerja dengan berbagai klien di
-                                            industri
-                                            teknologi, e-commerce, dan pendidikan. Dalam setiap proyek, saya selalu berusaha
-                                            untuk
-                                            memahami kebutuhan pengguna melalui riset dan pengujian, yang memungkinkan saya
-                                            untuk
-                                            merancang antarmuka yang tidak hanya estetik tetapi juga fungsional. Saya
-                                            menguasai
-                                            berbagai
-                                            alat desain seperti Figma dan Adobe XD, serta memiliki pengetahuan mendalam
-                                            tentang
-                                            prinsip
-                                            desain berpusat pada pengguna. Selain itu, saya selalu bersemangat untuk
-                                            berkolaborasi
-                                            dengan tim pengembang untuk menciptakan solusi yang memenuhi ekspektasi
-                                            pengguna.
+                                            {{ $userDetails->user_description }}
                                         </p>
                                     </div>
                                 </div>
@@ -181,7 +166,7 @@
                                         <div class="mb-2 flex justify-end sm:mb-0">
 
                                             {{-- Edit Button --}}
-                                            <a href="{{ route('admineditalumni') }}"
+                                            <a href="{{ route('admin.edit-alumni.experiences',['id'=>$userDetails->id_userDetails]) }}"
                                                 class="z-10 rounded-full bg-gray-300 p-2 hover:bg-gray-400 sm:p-4">
                                                 <svg class="h-6 w-6 text-gray-800 dark:text-white" aria-hidden="true"
                                                     xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -198,51 +183,24 @@
                                         </div>
                                     </div>
                                     <ol class="relative border-s border-gray-900">
-                                        <li class="mb-10 ms-4">
-                                            <div
-                                                class="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full border border-gray-900 bg-gray-900">
-                                            </div>
-                                            <h3 class="text-lg text-cyan sm:text-xl">UI/UX Designer</h3>
-                                            <h3 class="text-md text-cyan sm:text-lg">Traveloka Indonesia</h3>
-                                            <p class="text-xs text-gray-400 sm:text-sm">Aug 2023 - Present</p>
-                                            <ol class="ms-2 list-outside list-disc">
-                                                <li>Riset pengguna dan analisis kebutuhan.</li>
-                                                <li>Membuat wireframes dan prototipe interaktif.</li>
-                                                <li>Bekerja sama dengan tim pengembang, pemasar, dan stakeholder lainnya.
-                                                </li>
-                                            </ol>
-                                        </li>
-
-                                        <li class="mb-10 ms-4">
-                                            <div
-                                                class="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full border border-gray-900 bg-gray-900">
-                                            </div>
-                                            <h3 class="text-lg text-cyan sm:text-xl">UI/UX Designer</h3>
-                                            <h3 class="text-md text-cyan sm:text-lg">Shopee Indonesia</h3>
-                                            <p class="text-xs text-gray-400 sm:text-sm">Des 2023 - Jul 2023</p>
-                                            <ol class="ms-2 list-outside list-disc">
-                                                <li>Mengembangkan elemen visual seperti palet warna, tipografi, dan
-                                                    ikonografi.
-                                                </li>
-                                                <li>Melakukan pengujian A/B untuk membandingkan berbagai versi desain.</li>
-                                                <li>Menyusun dokumentasi dan spesifikasi desain untuk memudahkan pengembang.
-                                                </li>
-                                            </ol>
-                                        </li>
-
-                                        <li class="mb-10 ms-4">
-                                            <div
-                                                class="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full border border-gray-900 bg-gray-900">
-                                            </div>
-                                            <h3 class="text-lg text-cyan sm:text-xl">UI/UX Designer</h3>
-                                            <h3 class="text-md text-cyan sm:text-lg">Bank Central Asia</h3>
-                                            <p class="text-xs text-gray-400 sm:text-sm">Jan 2022 - Dec 2022</p>
-                                            <ol class="ms-2 list-outside list-disc">
-                                                <li>Menciptakan solusi desain yang inovatif dan menarik.</li>
-                                                <li>Mengembangkan persona pengguna berdasarkan data riset.</li>
-                                                <li>Mengumpulkan umpan balik dari pengguna dan pemangku kepentingan.</li>
-                                            </ol>
-                                        </li>
+                                        @foreach ($jobDetails as $job)
+                                            <li class="mb-10 ms-4">
+                                                <div
+                                                    class="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full border border-gray-900 bg-gray-900">
+                                                </div>
+                                                <h3 class="text-lg text-cyan sm:text-xl">{{ $job->job_name }}</h3>
+                                                <h3 class="text-md text-cyan sm:text-lg">{{ $job->company_name }}</h3>
+                                                <p class="text-xs text-gray-400 sm:text-sm">{{ $job->date_start }} -
+                                                    {{ $job->date_end }}</p>
+                                                <ol class="ms-2 list-outside list-disc">
+                                                    @if (is_array($job->job_description))
+                                                        @foreach ($job->job_description as $description)
+                                                            <li>{{ $description }}</li>
+                                                        @endforeach
+                                                    @endif
+                                                </ol>
+                                            </li>
+                                        @endforeach
                                     </ol>
                                 </div>
                             </div>

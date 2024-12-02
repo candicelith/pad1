@@ -38,7 +38,7 @@ class PostSeeder extends Seeder
 
                 'date_open' => fake()->date(),
                 'date_closed' => fake()->date(),
-                'vacancy_picture' => fake()->imageUrl(),
+                // 'vacancy_picture' => fake()->imageUrl(),
                 'vacancy_link' => fake()->url()
             ]);
         }

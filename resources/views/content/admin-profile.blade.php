@@ -11,14 +11,14 @@
                         <div class="h-48 rounded-t-3xl bg-cyan-100"></div>
                         <div class="absolute top-1/2 mx-12 sm:ms-14">
                             <img class="h-48 w-48 rounded-full object-cover"
-                                src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
+                                src="{{ asset('storage/profile/' . $userDetails->profile_photo) }}"
                                 alt="Profile Picture" />
                         </div>
                     </div>
 
                     {{-- Profile Details --}}
                     <div class="flex flex-col justify-center pt-36 text-center sm:ms-14 sm:items-start sm:text-start">
-                        <h2 class="text-xl text-cyan sm:text-2xl">{{ $admin->userDetails->name }}</h2>
+                        <h2 class="text-xl text-cyan sm:text-2xl">{{ $userDetails->name }}</h2>
                         <p class="mx-auto text-lg text-gray-400 sm:mx-0 sm:pt-5 sm:text-xl">Admin</p>
                     </div>
 

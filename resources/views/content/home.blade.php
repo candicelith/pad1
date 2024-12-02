@@ -130,7 +130,7 @@
                                 </div>
                                 <div class="mb-2 flex flex-col sm:flex-row sm:space-x-4">
                                     <div class="h-16 w-16">
-                                        <img class="h-full w-full rounded-full object-cover" src="{{ $ps->profile_photo }}"
+                                        <img class="h-full w-full rounded-full object-cover" src="{{  asset('storage/profile/' . $ps->profile_photo)  }}"
                                             alt="Profile Photo" />
                                     </div>
                                     <div class="mt-2">
@@ -148,7 +148,7 @@
                                         {{ $ps->vacancy_description }}
                                     </p>
                                     <img class="h-36 w-full rounded-tl-md rounded-tr-md object-cover md:h-40"
-                                        src="{{ $ps->vacancy_picture }}" alt="Vacancy Picture" />
+                                        src="{{asset('storage/vacancies/' . $ps->vacancy_picture) }}" alt="Vacancy Picture" />
                                 </div>
                             </article>
                         </div>

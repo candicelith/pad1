@@ -71,7 +71,7 @@
                                                     </span>
                                                 </div>
                                                 <img class="mb-3 h-24 w-24 rounded-full shadow-lg"
-                                                    src="{{ $wk->profile_photo }}" alt="{{ $wk->name }} image" />
+                                                    src="{{ asset('storage/profile/' . $wk->profile_photo) }}" alt="{{ $wk->name }} image" />
                                                 <h2 class="mb-1 text-lg text-white sm:text-xl">
                                                     {{ $wk->name }}
                                                 </h2>

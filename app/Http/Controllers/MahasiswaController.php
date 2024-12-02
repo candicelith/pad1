@@ -27,6 +27,13 @@ class MahasiswaController extends Controller
             $user = Auth::user();
             $userDetails = $user->userDetails;
 
+
+            // Ensure profile_photo is set to "default_profile.png" if null
+            if (is_null($userDetails->profile_photo)) {
+                $userDetails->profile_photo = 'default_profile.png';
+                $userDetails->save(); // Save the change to the database
+            }
+
             if ($user->id_roles == '3') {
                 return view('content.profile', compact('user', 'userDetails'));
             }
