@@ -1,7 +1,16 @@
 @extends('layout.headerFooter')
 
 @section('content')
+
+
+
     <section class="mt-20 bg-white">
+        @if (Session::has('info'))
+            <div class="mx-auto mb-4 w-3/4 transform rounded-lg bg-lightblue-100 p-4 text-center text-sm text-cyan opacity-100 transition-opacity duration-500 sm:w-1/2"
+                role="alert">
+                {!! Session::get('info') !!}
+            </div>
+        @endif
         <div class="mx-auto max-w-screen-xl px-4 py-8 lg:px-6 lg:py-16">
             <div class="w-full max-w-none rounded-3xl border border-gray-400 bg-lightblue shadow-md">
                 <div class="mx-10 flex flex-col space-y-2 py-5 sm:mx-14 sm:py-10">

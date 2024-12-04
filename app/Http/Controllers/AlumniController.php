@@ -89,9 +89,21 @@ class AlumniController extends Controller
                         return $job;
                     });
 
+                // Fetch pending requests count
+                $pendingCount = DB::table('pending_request')
+                ->where('id_userDetails', $user->userDetails->id_userDetails)
+                ->where('approval_status', 'pending')
+                ->count();
+
+                // Fetch approved requests count
+                $approvedCount = DB::table('pending_request')
+                ->where('id_userDetails', $user->userDetails->id_userDetails)
+                ->where('approval_status', 'approved')
+                ->count();
+
                 $companies = Company::all();
 
-                return view('content.profile-alumni', compact('user', 'userDetails', 'jobDetails', 'companies'));
+                return view('content.profile-alumni', compact('user', 'userDetails', 'jobDetails', 'companies','pendingCount','approvedCount'));
             }
         }
         return redirect()->route('login');
@@ -231,7 +243,9 @@ class AlumniController extends Controller
             'request_type' => 'create'
         ]);
 
-        return redirect()->route('alumni.show-profile');
+        return redirect()->route('alumni.show-profile')->with('info','Perubahan data sedang dalam proses verifikasi oleh admin.<br>Mohon tunggu
+                konfirmasi lebih
+                lanjut.');
     }
 
     public function updateExperiences(Request $request, string $id)
@@ -281,7 +295,7 @@ class AlumniController extends Controller
 
 
         // Redirect with info message
-        return redirect()->route('alumni.profile')
+        return redirect()->route('alumni.show-profile')
             ->with('info', 'Perubahan data sedang dalam proses verifikasi oleh admin.<br>Mohon tunggu
                 konfirmasi lebih
                 lanjut.');

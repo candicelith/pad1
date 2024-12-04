@@ -326,7 +326,7 @@ class AdminController extends Controller
                     'id_company' => $pendingRequest->id_company,
                     'date_start' => $pendingRequest->date_start,
                     'date_end' => $pendingRequest->date_end,
-                    'job_description' => ($pendingRequest->job_description),
+                    'job_description' => json_decode($pendingRequest->job_description),
                 ]);
             }
 
@@ -343,7 +343,7 @@ class AdminController extends Controller
     public function viewApproval(string $id)
     {
         $pendingRequest = PendingRequest::findOrFail($id);
-        $job = ($pendingRequest->job_description);
+        $job = json_decode($pendingRequest->job_description);
         $userDetails = $pendingRequest->userDetails;
         return view('content.admin-detailalumni', compact('pendingRequest', 'userDetails', 'job'));
     }

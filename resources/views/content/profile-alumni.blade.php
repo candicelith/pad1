@@ -3,12 +3,13 @@
 @section('content')
     <section class="mt-20 bg-white">
 
-        @if (Session::has('info'))
-            <div class="mx-auto mb-4 w-3/4 transform rounded-lg bg-lightblue-100 p-4 text-center text-sm text-cyan opacity-100 transition-opacity duration-500 sm:w-1/2"
-                role="alert">
-                {!! Session::get('info') !!}
-            </div>
-        @endif
+            @if($pendingCount > 0)
+                <div class="mx-auto mb-4 w-3/4 transform rounded-lg bg-lightblue-100 p-4 text-center text-sm text-cyan opacity-100 transition-opacity duration-500 sm:w-1/2" role="alert">
+                    <div class="alert alert-warning">
+                        You have <strong>{{ $pendingCount }}</strong> experience(s) pending approval.
+                    </div>
+                </div>
+            @endif
 
         <div class="mx-auto max-w-screen-xl px-4 py-8 lg:px-6 lg:py-16">
             {{-- Profile Start --}}
