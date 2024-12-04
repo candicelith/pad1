@@ -34,5 +34,8 @@ export default {
             charts: true,
         }),
         require('@tailwindcss/forms'),
+        require('flowbite/plugin')({
+            datatables: true,
+        }),
     ],
 };

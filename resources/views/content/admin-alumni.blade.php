@@ -89,57 +89,52 @@
                                 </div>
                             </div>
                         </div>
-                        <label for="table-search" class="sr-only">Search</label>
-                        <div class="relative mt-1">
-                            <input type="text" id="table-search"
-                                class="block w-60 rounded-full border border-gray-300 bg-gray-100 ps-4 pt-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-                                placeholder="Search Alumni...">
-                        </div>
                     </div>
 
                     <div class="">
-                        <table class="w-full text-left text-sm">
+                        <table id="search-table" class="w-full text-left text-sm">
                             <thead class="bg-lightblue text-base">
                                 <tr>
-                                    <th scope="col" class="px-6 py-3 text-sm font-normal sm:text-base">
-                                        NO
+                                    <th scope="col" class="px-6 py-3 text-sm font-normal text-black sm:text-base">
+                                        <span>NO</span>
                                     </th>
-                                    <th scope="col" class="px-6 py-3 text-sm font-normal sm:text-base">
-                                        NAME
+                                    <th scope="col" class="px-6 py-3 text-sm font-normal text-black sm:text-base">
+                                        <span>NAME</span>
                                     </th>
-                                    <th scope="col" class="hidden-mobile px-6 py-3 font-normal">
-                                        NIU
+                                    <th scope="col" class="hidden-mobile px-6 py-3 font-normal text-black sm:text-base">
+                                        <span>NIU</span>
                                     </th>
-                                    <th scope="col" class="hidden-mobile px-6 py-3 font-normal">
-                                        EMAIL
+                                    <th scope="col" class="hidden-mobile px-6 py-3 font-normal text-black sm:text-base">
+                                        <span>EMAIL</span>
                                     </th>
-                                    <th scope="col" class="px-6 py-3 text-sm font-normal sm:text-base">
-                                        ACTION
+                                    <th scope="col" class="px-6 py-3 text-sm font-normal text-black sm:text-base">
+                                        <span>ACTION</span>
                                     </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($alumni as $index => $a)
-                                <tr class="border-b border-black bg-white hover:bg-gray-50">
-                                    <th scope="row" class="whitespace-nowrap px-6 py-4 text-sm sm:text-base">
-                                        {{ $index+1 }}
-                                    </th>
-                                    <td class="px-6 py-4 text-sm sm:text-base">
-                                        {{ $a->name }}
-                                    </td>
-                                    <td class="hidden-mobile px-6 py-4">
-                                        {{ $a->nim_part }}
-                                    </td>
-                                    <td class="hidden-mobile px-6 py-4">
-                                        {{ $a->email }}
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <a href="{{ route('admin.detail-alumni',['id'=>$a->id_userDetails]) }}"
-                                            class="rounded-full bg-cyan-100 px-4 py-2 text-center text-sm text-white shadow-md hover:bg-white hover:text-cyan-100 sm:px-7 sm:text-base">
-                                            Detail
-                                        </a>
-                                    </td>
-                                </tr>
+                                    <tr class="border-b border-black bg-white hover:bg-gray-50">
+                                        <th scope="row"
+                                            class="whitespace-nowrap px-6 py-4 text-sm text-black sm:text-base">
+                                            {{ $index + 1 }}
+                                        </th>
+                                        <td class="px-6 py-4 text-sm text-black sm:text-base">
+                                            {{ $a->name }}
+                                        </td>
+                                        <td class="hidden-mobile px-6 py-4 text-black">
+                                            {{ $a->nim_part }}
+                                        </td>
+                                        <td class="hidden-mobile px-6 py-4 text-black">
+                                            {{ $a->email }}
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <a href="{{ route('admin.detail-alumni', ['id' => $a->id_userDetails]) }}"
+                                                class="rounded-full bg-cyan-100 px-4 py-2 text-center text-sm text-white shadow-md hover:bg-white hover:text-cyan-100 sm:px-7 sm:text-base">
+                                                Detail
+                                            </a>
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
@@ -148,4 +143,14 @@
             </div>
         </div>
     </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@9.0.3"></script>
+    <script>
+        if (document.getElementById("search-table") && typeof simpleDatatables.DataTable !== 'undefined') {
+            const dataTable = new simpleDatatables.DataTable("#search-table", {
+                searchable: true,
+                sortable: false
+            });
+        }
+    </script>
 @endsection

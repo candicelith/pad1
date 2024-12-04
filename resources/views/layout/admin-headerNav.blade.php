@@ -65,8 +65,8 @@
                 </li>
                 <li>
                     <a href="{{ route('admin.alumni') }}"
-                        class="{{ request()->routeIs('admin.alumni', 'adminprofilalumni', 'admineditalumni') ? 'text-cyan-100 bg-white' : 'text-white' }} group flex items-center rounded-lg p-2 hover:bg-white hover:text-cyan-100 dark:text-white dark:hover:bg-gray-700"
-                        @if (request()->routeIs('admin.alumni', 'adminprofilalumni', 'admineditalumni')) aria-current="page" @endif>
+                        class="{{ request()->routeIs('admin.alumni', 'admin.detail-alumni', 'admin.edit-alumni.experiences') ? 'text-cyan-100 bg-white' : 'text-white' }} group flex items-center rounded-lg p-2 hover:bg-white hover:text-cyan-100 dark:text-white dark:hover:bg-gray-700"
+                        @if (request()->routeIs('admin.alumni', 'admin.detail-alumni', 'admin.edit-alumni.experiences')) aria-current="page" @endif>
                         <span class="ms-3 flex-1 whitespace-nowrap">Alumni</span>
                     </a>
                 </li>
@@ -81,6 +81,9 @@
 
     <!-- Flowbite JS -->
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+
+    <!-- Flowbite datatables JS -->
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@9.0.3"></script>
 
     <!-- Sidebar Toggle Script -->
     <script>

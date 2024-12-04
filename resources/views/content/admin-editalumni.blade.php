@@ -50,98 +50,101 @@
                                                 </button>
                                             </div>
 
-                                        <form action="{{ route('admin.edit-alumni.add-experiences',['id'=>$userDetails->id_userDetails]) }}" method="POST">
-                                            @csrf
-                                            <div class="mb-4 grid grid-cols-2 gap-4 rounded-lg bg-gray-300 px-4 py-5">
-                                                <div class="col-span-2">
-                                                    <label for="company"
-                                                        class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">Company</label>
-                                                    <select type="text" name="company" id="company"
-                                                        class="block w-full cursor-pointer rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900"
-                                                        placeholder="" required="">
-                                                        @foreach ($companies as $company)
-                                                            <option value="{{ $company->id_company }}">
-                                                                {{ $company->company_name }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                    @error('company')
-                                                        <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                                                    @enderror
-                                                </div>
-                                                <div class="col-span-2">
-                                                    <label for="position"
-                                                        class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">Position</label>
-                                                    <input type="text" name="position" id="position"
-                                                        class="block w-full rounded-full border border-gray-500 bg-gray-50 p-2.5 text-sm text-gray-900 shadow"
-                                                        placeholder="" required="">
-                                                    @error('position')
-                                                        <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                                                    @enderror
-                                                </div>
-                                                <div>
-                                                    <label for="date_start"
-                                                        class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">Start
-                                                        Date</label>
-                                                    <input type="date" name="date_start" id="date_start"
-                                                        class="block w-full rounded-full border border-gray-500 bg-gray-50 p-2.5 text-sm text-gray-900 shadow"
-                                                        placeholder="Enter start date" required>
-                                                    @error('date_start')
-                                                        <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                                                    @enderror
-                                                </div>
-                                                <div>
-                                                    <label for="date_end"
-                                                        class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">End
-                                                        Date</label>
-                                                    <input type="date" name="date_end" id="date_end"
-                                                        class="block w-full rounded-full border border-gray-500 bg-gray-50 p-2.5 text-sm text-gray-900 shadow"
-                                                        placeholder="Enter end date">
-                                                    <p class="mt-1 text-sm text-gray-400">Empty the field if its still
-                                                        Active</p>
-
-                                                    @error('date_end')
-                                                        <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                                                    @enderror
-                                                </div>
-
-                                                <div class="col-span-2">
-                                                    <label for="responsibility"
-                                                        class="mb-2 block text-lg text-white sm:text-xl">Responsibility</label>
-                                                    <div id="responsibility-container-create">
-                                                        <div class="responsibility-item mb-2 flex items-center">
-                                                            <input type="text" name="job_responsibility[]"
-                                                                class="block w-full rounded-xl border border-gray-900 bg-gray-50 px-2 text-sm text-gray-900"
-                                                                placeholder="Enter responsibility" required />
-                                                            <button type="button"
-                                                                class="remove-responsibility ml-2 rounded-full border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2">
-                                                                Remove
-                                                            </button>
-                                                        </div>
+                                            <form
+                                                action="{{ route('admin.edit-alumni.add-experiences', ['id' => $userDetails->id_userDetails]) }}"
+                                                method="POST">
+                                                @csrf
+                                                <div class="mb-4 grid grid-cols-2 gap-4 rounded-lg bg-gray-300 px-4 py-5">
+                                                    <div class="col-span-2">
+                                                        <label for="company"
+                                                            class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">Company</label>
+                                                        <select type="text" name="company" id="company"
+                                                            class="block w-full cursor-pointer rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900"
+                                                            placeholder="" required="">
+                                                            @foreach ($companies as $company)
+                                                                <option value="{{ $company->id_company }}">
+                                                                    {{ $company->company_name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                        @error('company')
+                                                            <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                                                        @enderror
                                                     </div>
-                                                    <button type="button" id="add-responsibility-create"
-                                                        class="bg-btn-cyan mt-2 rounded-full px-4 py-2 text-sm text-white hover:bg-cyan-300 sm:text-base">
-                                                        Add Responsibility
-                                                    </button>
-                                                    @error('job_responsibility')
-                                                        <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                                                    @enderror
+                                                    <div class="col-span-2">
+                                                        <label for="position"
+                                                            class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">Position</label>
+                                                        <input type="text" name="position" id="position"
+                                                            class="block w-full rounded-full border border-gray-500 bg-gray-50 p-2.5 text-sm text-gray-900 shadow"
+                                                            placeholder="" required="">
+                                                        @error('position')
+                                                            <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="col-span-2 sm:col-span-1">
+                                                        <label for="date_start"
+                                                            class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">Start
+                                                            Date</label>
+                                                        <input type="date" name="date_start" id="date_start"
+                                                            class="block w-full rounded-full border border-gray-500 bg-gray-50 p-2.5 text-sm text-gray-900 shadow"
+                                                            placeholder="Enter start date" required>
+                                                        @error('date_start')
+                                                            <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="col-span-2 sm:col-span-1">
+                                                        <label for="date_end"
+                                                            class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">End
+                                                            Date</label>
+                                                        <input type="date" name="date_end" id="date_end"
+                                                            class="block w-full rounded-full border border-gray-500 bg-gray-50 p-2.5 text-sm text-gray-900 shadow"
+                                                            placeholder="Enter end date">
+                                                        <p class="mt-1 text-sm text-gray-400">Empty the field if its still
+                                                            Active</p>
+
+                                                        @error('date_end')
+                                                            <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="col-span-2">
+                                                        <label for="responsibility"
+                                                            class="mb-2 block text-lg text-white sm:text-xl">Responsibility</label>
+                                                        <div id="responsibility-container-create">
+                                                            <div class="responsibility-item mb-2 flex items-center">
+                                                                <input type="text" name="job_responsibility[]"
+                                                                    class="block w-full rounded-xl border border-gray-900 bg-gray-50 px-2 text-sm text-gray-900"
+                                                                    placeholder="Enter responsibility" required />
+                                                                <button type="button"
+                                                                    class="remove-responsibility ml-2 rounded-full border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2"
+                                                                    style="display: none;">
+                                                                    Remove
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <button type="button" id="add-responsibility-create"
+                                                            class="bg-btn-cyan mt-2 rounded-full px-4 py-2 text-sm text-white hover:bg-cyan-300 sm:text-base">
+                                                            Add Responsibility
+                                                        </button>
+
+                                                        @error('job_responsibility')
+                                                            <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                                                        @enderror
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <button data-modal-hide="crud-modal" type="submit"
-                                                class="bg-btn-cyan m-4 rounded-full bg-cyan px-5 py-2.5 text-white shadow-lg hover:bg-white hover:text-cyan">
-                                                Save Changes
-                                            </button>
-                                        </form>
+                                                <button data-modal-hide="crud-modal" type="submit"
+                                                    class="bg-btn-cyan m-4 rounded-full bg-cyan px-5 py-2.5 text-white shadow-lg hover:bg-white hover:text-cyan">
+                                                    Save Changes
+                                                </button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                             <div class="-mt-8 mb-4 flex justify-start text-center sm:-mt-10 sm:text-start">
                                 <h4 class="text-lg text-cyan sm:text-xl">Experience</h4>
                             </div>
                         </div>
+
                         @if ($jobDetails && count($jobDetails) > 0)
                             @foreach ($jobDetails as $job)
                                 <div class="flex flex-col sm:flex-row-reverse">
@@ -180,7 +183,7 @@
                                                         </button>
                                                     </div>
                                                     <form
-                                                        action="{{ route('admin.edit-alumni.update-experiences',['id'=>$job->id_tracking]) }}"
+                                                        action="{{ route('admin.edit-alumni.update-experiences', ['id' => $job->id_tracking]) }}"
                                                         method="POST">
                                                         @csrf
                                                         <div
@@ -190,7 +193,8 @@
                                                                     class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">Company</label>
                                                                 <select type="text" name="company" id="company"
                                                                     class="block w-full cursor-pointer rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900"
-                                                                    placeholder="{{ $job->company_name }}" required="">
+                                                                    placeholder="{{ $job->company_name }}"
+                                                                    required="">
                                                                     @foreach ($companies as $company)
                                                                         <option value="{{ $company->id_company }}"
                                                                             {{ $company->company_name == $job->company_name ? 'selected' : '' }}>
@@ -215,7 +219,7 @@
                                                                     </p>
                                                                 @enderror
                                                             </div>
-                                                            <div>
+                                                            <div class="col-span-2 sm:col-span-1">
                                                                 <label for="date_start"
                                                                     class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">Start
                                                                     Date</label>
@@ -228,7 +232,7 @@
                                                                     </p>
                                                                 @enderror
                                                             </div>
-                                                            <div>
+                                                            <div class="col-span-2 sm:col-span-1">
                                                                 <label for="date_end"
                                                                     class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">End
                                                                     Date</label>
@@ -247,7 +251,7 @@
                                                             @if (is_array($job->job_description) && !empty($job->job_description))
                                                                 <div class="col-span-2">
                                                                     <label for="responsibility"
-                                                                        class="mb-2 block text-lg text-white sm:text-xl">Responsibility</label>
+                                                                        class="mb-2 block text-sm text-gray-400">Responsibility</label>
                                                                     <div
                                                                         id="responsibility-container-update-{{ $job->id_tracking }}">
                                                                         @foreach ($job->job_description as $responsibility)
@@ -260,7 +264,8 @@
                                                                                     placeholder="Enter responsibility"
                                                                                     required />
                                                                                 <button type="button"
-                                                                                    class="remove-responsibility ml-2 rounded-full border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2">
+                                                                                    class="remove-responsibility ml-2 rounded-full border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2"
+                                                                                    style="display: inline-block;">
                                                                                     Remove
                                                                                 </button>
                                                                             </div>
@@ -272,17 +277,15 @@
                                                                         Add Responsibility
                                                                     </button>
 
-
                                                                     @error('job_responsibility')
                                                                         <p class="mt-1 text-sm text-red-500">
-                                                                            {{ $message }}
-                                                                        </p>
+                                                                            {{ $message }}</p>
                                                                     @enderror
                                                                 </div>
                                                             @else
                                                                 <div class="col-span-2">
                                                                     <label for="responsibility"
-                                                                        class="mb-2 block text-lg text-white sm:text-xl">Responsibility</label>
+                                                                        class="mb-2 block text-sm text-gray-400">Responsibility</label>
                                                                     <div
                                                                         id="responsibility-container-update-{{ $job->id_tracking }}">
                                                                         <div
@@ -293,7 +296,8 @@
                                                                                 placeholder="Enter responsibility"
                                                                                 required />
                                                                             <button type="button"
-                                                                                class="remove-responsibility ml-2 rounded-full border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2">
+                                                                                class="remove-responsibility ml-2 rounded-full border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2"
+                                                                                style="display: none;">
                                                                                 Remove
                                                                             </button>
                                                                         </div>
@@ -304,11 +308,9 @@
                                                                         Add Responsibility
                                                                     </button>
 
-
                                                                     @error('job_responsibility')
                                                                         <p class="mt-1 text-sm text-red-500">
-                                                                            {{ $message }}
-                                                                        </p>
+                                                                            {{ $message }}</p>
                                                                     @enderror
                                                                 </div>
                                                             @endif
@@ -318,8 +320,8 @@
                                                             class="bg-btn-cyan m-4 rounded-full bg-cyan px-5 py-2.5 text-white shadow-lg hover:bg-white hover:text-cyan">
                                                             Save Changes
                                                         </button>
+                                                    </form>
                                                 </div>
-                                                </form>
                                             </div>
                                         </div>
                                     </div>
@@ -345,10 +347,11 @@
                                             </ol>
                                         </li>
                                     </ol>
+                                </div>
                             @endforeach
-                            </ol>
+                        @endif
+
                     </div>
-                    @endif
                 </div>
             </div>
         </div>
@@ -356,7 +359,7 @@
     </section>
 
     <script>
-document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', () => {
             const responsibilityContainer = document.getElementById('responsibility-container-create');
             const addButton = document.getElementById('add-responsibility-create');
             const maxResponsibilities = 3; // Set maximum number of responsibilities
@@ -409,50 +412,50 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Update Forms
         document.addEventListener('DOMContentLoaded', () => {
-    const modals = document.querySelectorAll('[id^="crud-modal-"]');
+            const modals = document.querySelectorAll('[id^="crud-modal-"]');
 
-    modals.forEach((modal) => {
-        const trackingId = modal.id.split('-').pop(); // Extract the unique ID
-        const responsibilityContainer = document.getElementById(
-            `responsibility-container-update-${trackingId}`
-        );
-        const addButton = document.getElementById(`add-responsibility-update-${trackingId}`);
-        const maxResponsibilities = 3; // Set maximum number of responsibilities
+            modals.forEach((modal) => {
+                const trackingId = modal.id.split('-').pop(); // Extract the unique ID
+                const responsibilityContainer = document.getElementById(
+                    `responsibility-container-update-${trackingId}`
+                );
+                const addButton = document.getElementById(`add-responsibility-update-${trackingId}`);
+                const maxResponsibilities = 3; // Set maximum number of responsibilities
 
-        if (!responsibilityContainer || !addButton) return;
+                if (!responsibilityContainer || !addButton) return;
 
-        // Hide "Add Responsibility" button initially if the limit is already reached
-        if (responsibilityContainer.children.length >= maxResponsibilities) {
-            addButton.style.display = 'none';
-        }
-
-        // Function to handle "Remove" button clicks
-        const handleRemoveClick = (e) => {
-            if (e.target.classList.contains('remove-responsibility')) {
-                // Remove the parent responsibility item when "Remove" is clicked
-                e.target.closest('.responsibility-item').remove();
-
-                // Show the "Add Responsibility" button if it was hidden
-                if (responsibilityContainer.children.length < maxResponsibilities) {
-                    addButton.style.display = 'inline-block';
+                // Hide "Add Responsibility" button initially if the limit is already reached
+                if (responsibilityContainer.children.length >= maxResponsibilities) {
+                    addButton.style.display = 'none';
                 }
-            }
-        };
 
-        // Add event delegation for pre-populated and dynamically added "Remove" buttons
-        responsibilityContainer.addEventListener('click', handleRemoveClick);
+                // Function to handle "Remove" button clicks
+                const handleRemoveClick = (e) => {
+                    if (e.target.classList.contains('remove-responsibility')) {
+                        // Remove the parent responsibility item when "Remove" is clicked
+                        e.target.closest('.responsibility-item').remove();
 
-        // Add new responsibility input field when "Add Responsibility" button is clicked
-        addButton.addEventListener('click', () => {
-            // Check if the limit has been reached
-            if (responsibilityContainer.children.length >= maxResponsibilities) {
-                return; // Do not add more fields
-            }
+                        // Show the "Add Responsibility" button if it was hidden
+                        if (responsibilityContainer.children.length < maxResponsibilities) {
+                            addButton.style.display = 'inline-block';
+                        }
+                    }
+                };
 
-            // Create a new responsibility field with a "Remove" button
-            const newItem = document.createElement('div');
-            newItem.classList.add('responsibility-item', 'mb-2', 'flex', 'items-center');
-            newItem.innerHTML = `
+                // Add event delegation for pre-populated and dynamically added "Remove" buttons
+                responsibilityContainer.addEventListener('click', handleRemoveClick);
+
+                // Add new responsibility input field when "Add Responsibility" button is clicked
+                addButton.addEventListener('click', () => {
+                    // Check if the limit has been reached
+                    if (responsibilityContainer.children.length >= maxResponsibilities) {
+                        return; // Do not add more fields
+                    }
+
+                    // Create a new responsibility field with a "Remove" button
+                    const newItem = document.createElement('div');
+                    newItem.classList.add('responsibility-item', 'mb-2', 'flex', 'items-center');
+                    newItem.innerHTML = `
                 <input type="text" name="job_responsibility[]"
                        class="block w-full rounded-xl border border-gray-900 bg-gray-50 px-2 text-sm text-gray-900"
                        placeholder="Enter Responsibility" required />
@@ -461,15 +464,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 </button>
             `;
 
-            // Append the new responsibility field to the container
-            responsibilityContainer.appendChild(newItem);
+                    // Append the new responsibility field to the container
+                    responsibilityContainer.appendChild(newItem);
 
-            // Hide the "Add Responsibility" button if the limit is reached
-            if (responsibilityContainer.children.length >= maxResponsibilities) {
-                addButton.style.display = 'none';
-            }
+                    // Hide the "Add Responsibility" button if the limit is reached
+                    if (responsibilityContainer.children.length >= maxResponsibilities) {
+                        addButton.style.display = 'none';
+                    }
+                });
+            });
         });
-    });
-});
     </script>
 @endsection

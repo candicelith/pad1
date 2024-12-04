@@ -112,7 +112,7 @@ class AdminController extends Controller
         return view('content.admin-alumni', compact('alumni'));
     }
 
-    public function detailAlumni(String $id)
+    public function detailAlumni(string $id)
     {
         $userDetails = DB::table('user_details')
             ->select(
@@ -148,7 +148,7 @@ class AdminController extends Controller
         return view('content.admin-profilealumni', compact('userDetails', 'jobDetails', 'companies'));
     }
 
-    public function editAlumni(Request $request, String $id)
+    public function editAlumni(Request $request, string $id)
     {
         $request->validate([
             'full_name' => 'required|string|max:255',
@@ -189,7 +189,7 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
-    public function editExperiencesAlumni(String $id)
+    public function editExperiencesAlumni(string $id)
     {
         $userDetails = DB::table('user_details')
             ->select(
@@ -220,10 +220,10 @@ class AdminController extends Controller
                 return $job;
             });
         $companies = Company::all();
-        return view('content.admin-editalumni', compact('userDetails', 'jobDetails', 'companies',));
+        return view('content.admin-editalumni', compact('userDetails', 'jobDetails', 'companies', ));
     }
 
-    public function addAlumniExperiences(Request $request, String $id)
+    public function addAlumniExperiences(Request $request, string $id)
     {
         $request->validate([
             'company' => 'required|exists:company,id_company',
@@ -251,7 +251,7 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
-    public function updateAlumniExperiences(Request $request, String $id)
+    public function updateAlumniExperiences(Request $request, string $id)
     {
         // Validate incoming request
         $request->validate([
@@ -299,7 +299,7 @@ class AdminController extends Controller
         return response()->json($queryData); // Return data as JSON for frontend
     }
 
-    public function handleApproval(Request $request, String $id)
+    public function handleApproval(Request $request, string $id)
     {
         $pendingRequest = PendingRequest::findOrFail($id);
 
@@ -326,24 +326,24 @@ class AdminController extends Controller
                     'id_company' => $pendingRequest->id_company,
                     'date_start' => $pendingRequest->date_start,
                     'date_end' => $pendingRequest->date_end,
-                    'job_description' => json_decode($pendingRequest->job_description),
+                    'job_description' => ($pendingRequest->job_description),
                 ]);
             }
 
             $pendingRequest->update(['approval_status' => 'approved']);
-            return back()->with('status', 'Request approved successfully.');
+            return back()->with('approved', 'Request approved successfully.');
         }
 
         if ($request->action === 'reject') {
             $pendingRequest->update(['approval_status' => 'rejected']);
-            return back()->with('status', 'Request rejected.');
+            return back()->with('rejected', 'Request declined.');
         }
     }
 
-    public function viewApproval(String $id)
+    public function viewApproval(string $id)
     {
         $pendingRequest = PendingRequest::findOrFail($id);
-        $job = json_decode($pendingRequest->job_description);
+        $job = ($pendingRequest->job_description);
         $userDetails = $pendingRequest->userDetails;
         return view('content.admin-detailalumni', compact('pendingRequest', 'userDetails', 'job'));
     }

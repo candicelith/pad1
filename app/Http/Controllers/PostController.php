@@ -57,7 +57,7 @@ class PostController extends Controller
     public function create()
     {
         $companies = Company::all();
-        return view('content.createpost',compact('companies'));
+        return view('content.createpost', compact('companies'));
     }
 
     /**
@@ -106,7 +106,7 @@ class PostController extends Controller
             'vacancy_picture' => $filenameSimpan ?? null
         ]);
 
-        return redirect()->route('posts')->with('success','Vacancy Added Successfully');
+        return redirect()->route('posts')->with('success', 'Berhasil menambahkan unggahan');
     }
 
     /**
@@ -138,7 +138,7 @@ class PostController extends Controller
 
         $comments = $post->comments()->whereNull('parent_id')->get();
 
-        return view('content.detailpost', compact('post', 'vacancy','comments','posts'));
+        return view('content.detailpost', compact('post', 'vacancy', 'comments', 'posts'));
     }
 
     /**
