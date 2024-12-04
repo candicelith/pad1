@@ -1,16 +1,17 @@
 <?php
 
-use App\Http\Controllers\AdminController;
 use App\Models\Vacancy;
+use App\Http\Middleware\Alumni;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AlumniController;
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\MahasiswaController;
-use App\Http\Middleware\Alumni;
+use App\Http\Controllers\NotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -150,3 +151,7 @@ Route::controller(AdminController::class)->group(function (){
     Route::post('/admin/edit-alumni/add-experiences/{id}','addAlumniExperiences')->name('admin.edit-alumni.add-experiences');
     Route::post('/admin/edit-alumni/update-experiences/{id}','updateAlumniExperiences')->name('admin.edit-alumni.update-experiences');
 });
+
+// Notifications Logic
+Route::post('/notifications/read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
+

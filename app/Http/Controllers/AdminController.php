@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Company;
 use App\Models\Job;
 use App\Models\User;
+use App\Models\Company;
 use App\Models\JobTracking;
 use App\Models\UserDetails;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use App\Models\PendingRequest;
 use Illuminate\Support\Facades\DB;
@@ -318,15 +319,37 @@ class AdminController extends Controller
                     'date_end' => $pendingRequest->date_end,
                     'job_description' => json_decode($pendingRequest->job_description),
                 ]);
+                Notification::create([
+                    'id_users' => $pendingRequest->userDetails->user->id_users,
+                    'type' => 'approved',
+                    'message' => 'Your create experience request has been approved. Thank you!',
+                ]);
+
             } elseif ($pendingRequest->request_type === 'update') {
                 // Update the existing JobTracking record
                 $jobTracking = JobTracking::findOrFail($pendingRequest->id_tracking);
-                $jobTracking->update([
+
+                // Update the related Job record
+                $job_id = $jobTracking->id_jobs; // get job id
+
+                // initialize job
+                $job = Job::findOrFail($job_id);
+
+                $job->update([
                     'job_name' => $pendingRequest->job_name,
-                    'id_company' => $pendingRequest->id_company,
+                    'id_company' => $pendingRequest->id_company
+                ]);
+
+                $jobTracking->update([
                     'date_start' => $pendingRequest->date_start,
                     'date_end' => $pendingRequest->date_end,
                     'job_description' => json_decode($pendingRequest->job_description),
+                ]);
+
+                Notification::create([
+                    'id_users' => $pendingRequest->userDetails->user->id_users,
+                    'type' => 'approved',
+                    'message' => 'Your update experience request has been approved. Thank you!',
                 ]);
             }
 
@@ -336,6 +359,13 @@ class AdminController extends Controller
 
         if ($request->action === 'reject') {
             $pendingRequest->update(['approval_status' => 'rejected']);
+
+            Notification::create([
+                'id_users' => $pendingRequest->userDetails->user->id_users,
+                'type' => 'rejected',
+                'message' => 'Your experience request was rejected. Please review and resubmit.',
+            ]);
+
             return back()->with('rejected', 'Request declined.');
         }
     }
