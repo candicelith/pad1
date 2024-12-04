@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Company;
 use App\Models\Job;
 use App\Models\User;
+use App\Models\Company;
 use App\Models\JobTracking;
 use App\Models\UserDetails;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use App\Models\PendingRequest;
 use Illuminate\Support\Facades\DB;
@@ -50,24 +51,50 @@ class AdminController extends Controller
         return view('content.admin-profile', compact('admin', 'userDetails'));
     }
 
+    /**
+     * Extracts the middle portion (second segment) of the NIM input.
+     *
+     * @param string $nim The full NIM string (e.g., '23/523246/SV/23875').
+     * @return string The extracted NIM part (e.g., '523246').
+     */
+    private function getNimPart(string $nim): string
+    {
+        // Split the NIM by the '/' character
+        $nimParts = explode('/', $nim);
+
+        // Return the second part if it exists, otherwise return an empty string
+        return $nimParts[1] ?? '';
+    }
+
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'name' => 'required|string|max:255',
-        //     'nim' => 'required|string',
-        //     'email' => 'required|email',
-        // ]);
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'nim' => 'required|string',
+            'email' => 'required|email',
+            // 'phone' => 'required|string|regex:/^\+62[0-9]{8,13}$/',
+            'graduate_year' => 'required|integer|between:2018,2024'
+        ]);
 
-        // // Extract the 'nim_part' (i.e., the middle portion of NIM)
-        // $nimPart = $this->getNimPart($request->nim);
+        // Extract the 'nim_part' (i.e., the middle portion of NIM)
+        $nimPart = $this->getNimPart($request->nim);
 
-        // User::create([
-        //     'email' => $request->email,
-        //     'password' => Hash::make($nimPart),
-        //     'nim' => $request->nim
-        // ]);
+        $user = User::create([
+            'email' => $request->email,
+            'id_roles' => 2,
+            'password' => Hash::make($nimPart),
+        ]);
 
-        return view('content.admin-alumni');
+        UserDetails::create([
+            'id_users' => $user->id_users,
+            'name' => $request->name,
+            'nim' => $request->nim,
+            // 'phone' => $request->phone,
+            'graduate_year' => $request->graduate_year,
+            'modifiedBy' => Auth::user()->userDetails->name,
+        ]);
+
+        return redirect()->back()->with('success', 'Alumni' . $request->name . 'Has Been Created!');
     }
 
     public function getAlumni()
@@ -223,7 +250,6 @@ class AdminController extends Controller
         ]);
 
         return redirect()->back();
-
     }
 
     public function updateAlumniExperiences(Request $request, string $id)
@@ -291,17 +317,39 @@ class AdminController extends Controller
                     'id_jobs' => $job->id_jobs,
                     'date_start' => $pendingRequest->date_start,
                     'date_end' => $pendingRequest->date_end,
-                    'job_description' => $pendingRequest->job_description,
+                    'job_description' => json_decode($pendingRequest->job_description),
                 ]);
+                Notification::create([
+                    'id_users' => $pendingRequest->userDetails->user->id_users,
+                    'type' => 'approved',
+                    'message' => 'Your create experience request has been approved. Thank you!',
+                ]);
+
             } elseif ($pendingRequest->request_type === 'update') {
                 // Update the existing JobTracking record
                 $jobTracking = JobTracking::findOrFail($pendingRequest->id_tracking);
-                $jobTracking->update([
+
+                // Update the related Job record
+                $job_id = $jobTracking->id_jobs; // get job id
+
+                // initialize job
+                $job = Job::findOrFail($job_id);
+
+                $job->update([
                     'job_name' => $pendingRequest->job_name,
-                    'id_company' => $pendingRequest->id_company,
+                    'id_company' => $pendingRequest->id_company
+                ]);
+
+                $jobTracking->update([
                     'date_start' => $pendingRequest->date_start,
                     'date_end' => $pendingRequest->date_end,
-                    'job_description' => ($pendingRequest->job_description),
+                    'job_description' => json_decode($pendingRequest->job_description),
+                ]);
+
+                Notification::create([
+                    'id_users' => $pendingRequest->userDetails->user->id_users,
+                    'type' => 'approved',
+                    'message' => 'Your update experience request has been approved. Thank you!',
                 ]);
             }
 
@@ -311,6 +359,13 @@ class AdminController extends Controller
 
         if ($request->action === 'reject') {
             $pendingRequest->update(['approval_status' => 'rejected']);
+
+            Notification::create([
+                'id_users' => $pendingRequest->userDetails->user->id_users,
+                'type' => 'rejected',
+                'message' => 'Your experience request was rejected. Please review and resubmit.',
+            ]);
+
             return back()->with('rejected', 'Request declined.');
         }
     }
@@ -318,10 +373,8 @@ class AdminController extends Controller
     public function viewApproval(string $id)
     {
         $pendingRequest = PendingRequest::findOrFail($id);
-        $job = ($pendingRequest->job_description);
+        $job = json_decode($pendingRequest->job_description);
         $userDetails = $pendingRequest->userDetails;
         return view('content.admin-detailalumni', compact('pendingRequest', 'userDetails', 'job'));
     }
-
-
 }

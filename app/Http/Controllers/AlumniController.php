@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Job;
 use App\Models\User;
 use App\Models\Company;
+use App\Models\JobTracking;
 use App\Models\UserDetails;
 use Termwind\Components\Dd;
+use App\Models\Notification;
 use Illuminate\Http\Request;
-use App\Http\Middleware\Alumni;
-use App\Models\Job;
-use App\Models\JobTracking;
 use App\Models\PendingRequest;
+use App\Http\Middleware\Alumni;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -89,9 +90,21 @@ class AlumniController extends Controller
                         return $job;
                     });
 
+                // Get The Latest Notification
+                $latestNotification = Notification::where('id_users', $user->id_users)
+                ->where('is_read', false)
+                ->orderBy('created_at', 'desc')
+                ->first();
+
+                // Mark all other unread notifications as read
+                Notification::where('id_users', $user->id_users)
+                    ->where('is_read', false)
+                    ->where('id', '!=', $latestNotification->id ?? null)
+                    ->update(['is_read' => true]);
+
                 $companies = Company::all();
 
-                return view('content.profile-alumni', compact('user', 'userDetails', 'jobDetails', 'companies'));
+                return view('content.profile-alumni', compact('user', 'userDetails', 'jobDetails', 'companies','latestNotification'));
             }
         }
         return redirect()->route('login');
@@ -220,18 +233,11 @@ class AlumniController extends Controller
             'job_responsibility.*' => 'string|max:1000',
         ]);
 
-        // $job = Job::create([
-        //     'job_name' => $request->position,
-        //     'id_company' => $request->company
-        // ]);
-
-        // JobTracking::create([
-        //     'id_userDetails' => Auth::user()->userDetails->id_userDetails,
-        //     'id_jobs' => $job->id_jobs,
-        //     'date_start' => $request->date_start,
-        //     'date_end' => $request->date_end,
-        //     'job_description' => $request->job_responsibility,
-        // ]);
+        Notification::create([
+            'id_users' => Auth::user()->id_users, // ID of the user being notified
+            'type' => 'pending_approval',
+            'message' => 'Your experience change request has been submitted for approval.',
+        ]);
 
         PendingRequest::create([
             'id_userDetails' => Auth::user()->userDetails->id_userDetails,
@@ -239,12 +245,14 @@ class AlumniController extends Controller
             'id_company' => $request->company,
             'date_start' => $request->date_start,
             'date_end' => $request->date_end,
-            'job_description' => $request->job_responsibility,
+            'job_description' => json_encode($request->job_responsibility),
             'approval_status' => 'pending',
             'request_type' => 'create'
         ]);
 
-        return redirect()->route('alumni.show-profile');
+        return redirect()->route('alumni.show-profile')->with('info','Perubahan data sedang dalam proses verifikasi oleh admin.<br>Mohon tunggu
+                konfirmasi lebih
+                lanjut.');
     }
 
     public function updateExperiences(Request $request, string $id)
@@ -262,22 +270,12 @@ class AlumniController extends Controller
         // Find the existing JobTracking record
         $jobTracking = JobTracking::findOrFail($id); // Find by ID, or return 404 if not found
 
-        // // Update the related Job record
-        // $job_id = $jobTracking->id_jobs; // get job id
-
-        // // initialize job
-        // $job = Job::findOrFail($job_id);
-
-        // $job->job_name = $request->position;
-        // $job->id_company = $request->company;
-        // $job->save(); // Save the updated Job record
-
-        // // Update the JobTracking record
-        // $jobTracking->date_start = $request->date_start;
-        // $jobTracking->date_end = $request->date_end ?: null; // Set to null if not provided
-        // $jobTracking->job_description = $request->job_responsibility; // Assuming this is a JSON field or array
-        // $jobTracking->save(); // Save the updated JobTracking record
-
+        // Create Notifications
+        Notification::create([
+            'id_users' => Auth::user()->id_users, // ID of the user being notified
+            'type' => 'pending_approval',
+            'message' => 'Your newly added experience has been submitted for approval.',
+        ]);
 
         // Store the changes in the pending_changes table
         PendingRequest::create([
@@ -294,7 +292,7 @@ class AlumniController extends Controller
 
 
         // Redirect with info message
-        return redirect()->route('alumni.profile')
+        return redirect()->route('alumni.show-profile')
             ->with('info', 'Perubahan data sedang dalam proses verifikasi oleh admin.<br>Mohon tunggu
                 konfirmasi lebih
                 lanjut.');

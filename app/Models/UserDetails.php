@@ -17,7 +17,6 @@ class UserDetails extends Model
         'id_users',
         'name',
         'nim',
-        'email',
         'phone',
         'graduate_year',
         'user_description',

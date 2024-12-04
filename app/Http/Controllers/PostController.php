@@ -30,6 +30,7 @@ class PostController extends Controller
                 'company.*',
                 DB::raw("COALESCE(user_details.profile_photo, 'default_profile.png') as profile_photo"),
             )
+            ->orderBy('id_vacancy','desc')
             ->paginate(10);
 
 
@@ -70,6 +71,9 @@ class PostController extends Controller
             'company' => 'required|exists:company,id_company',
             'vacancy_description' => 'required|string|max:500',
 
+            'start_date'=>'required|date',
+            'end_date'=>'required|date',
+
             'vacancy_responsibility' => 'required|array|min:1',
             'vacancy_responsibility.*' => 'required|string|max:1000',
 
@@ -99,6 +103,8 @@ class PostController extends Controller
             'id_company' => $request->company,
             'position' => $request->position,
             'id_users' => Auth::user()->id_users,
+            'date_open' => $request->start_date,
+            'date_closed' => $request->end_date,
             'vacancy_description' => $request->vacancy_description,
             'vacancy_responsibilities' => $request->vacancy_responsibility,
             'vacancy_qualification' => $request->vacancy_qualification,

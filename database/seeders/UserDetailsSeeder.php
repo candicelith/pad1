@@ -23,7 +23,6 @@ class UserDetailsSeeder extends Seeder
                 'id_users' => fake()->unique()->numberBetween(1, 10),
                 'name' => fake()->name(),
                 'nim' => fake()->unique()->numerify('2#/######/SV/#####'),
-                'email' => fake()->unique()->safeEmail(),
                 'phone' => fake()->phoneNumber(),
                 // 'profile_photo' =>fake()->imageUrl(),
                 'user_description' =>fake()->sentence(5),

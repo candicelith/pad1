@@ -44,6 +44,7 @@
                     @enderror
                 </div>
 
+                {{-- Start and End Date --}}
                 <div class="mb-5 mt-5 justify-between sm:flex sm:space-x-4">
                     <div class="w-full sm:w-1/2">
                         <label for="start_date" class="mb-2 block text-lg text-white sm:text-xl">Start Date</label>

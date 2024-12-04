@@ -3,12 +3,28 @@
 @section('content')
     <section class="mt-20 bg-white">
 
-        @if (Session::has('info'))
-            <div class="mx-auto mb-4 w-3/4 transform rounded-lg bg-lightblue-100 p-4 text-center text-sm text-cyan opacity-100 transition-opacity duration-500 sm:w-1/2"
-                role="alert">
-                {!! Session::get('info') !!}
+
+        @if ($latestNotification)
+        @php
+            // Determine classes based on notification type
+            $notificationClasses = match($latestNotification->type) {
+                'approved' => 'bg-lightgreen text-green-800',
+                'rejected' => 'bg-red-100 text-red-800',
+                'pending' => 'bg-yellow-100 text-yellow-800',
+                default => 'bg-gray-100 text-gray-800',
+            };
+        @endphp
+
+        <div id="notification-bar"
+            class="mx-auto mb-4 w-3/4 transform rounded-lg p-4 text-center text-sm opacity-100 transition-opacity duration-500 sm:w-1/2 {{ $notificationClasses }}"
+            role="alert">
+            <div class="alert">
+                {{ $latestNotification->message }}
+                <button onclick="markNotificationAsRead()" class="close-btn">✕</button>
             </div>
+        </div>
         @endif
+
 
         <div class="mx-auto max-w-screen-xl px-4 py-8 lg:px-6 lg:py-16">
             {{-- Profile Start --}}
@@ -249,22 +265,22 @@
         </div>
     </section>
 
-    {{-- <script>
-        // Alert Script
-        if (sessionStorage.getItem('showAlert') === 'true') {
-            const alertElement = document.getElementById('alert-3');
-
-            // Delay to make sure the alert appears with animation
-            setTimeout(function() {
-                alertElement.classList.remove('hidden', '-translate-y-10',
-                    'opacity-0'); // Remove initial hidden and translate classes
-                alertElement.classList.add('translate-y-2', 'opacity-100',
-                    'block'); // Add animation classes to slide in and make visible
-            }, 500); // 100ms delay to trigger the animation after the page load
-
-            // Remove the sessionStorage item so it doesn't show again
-            sessionStorage.removeItem('showAlert');
+    <script>
+        function markNotificationAsRead() {
+            fetch('{{ route('notifications.markAsRead') }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById('notification-bar').style.display = 'none';
+                    }
+                })
+                .catch(error => console.error('Error:', error));
         }
-
-    </script> --}}
+    </script>
 @endsection

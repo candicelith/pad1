@@ -16,10 +16,9 @@ return new class extends Migration
             $table->unsignedBigInteger('id_users');
             $table->string('name');
             $table->string('nim')->unique();
-            $table->string('email')->unique();
-            $table->string('phone');
+            $table->string('phone')->nullable();
             $table->string('profile_photo')->nullable();
-            $table->string('user_description')->nullable();
+            $table->text('user_description')->nullable();
             $table->string('current_job')->nullable();
             $table->string('current_company')->nullable();
             $table->year('graduate_year');
