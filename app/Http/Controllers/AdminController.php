@@ -316,7 +316,7 @@ class AdminController extends Controller
                     'id_jobs' => $job->id_jobs,
                     'date_start' => $pendingRequest->date_start,
                     'date_end' => $pendingRequest->date_end,
-                    'job_description' => $pendingRequest->job_description,
+                    'job_description' => json_decode($pendingRequest->job_description),
                 ]);
             } elseif ($pendingRequest->request_type === 'update') {
                 // Update the existing JobTracking record
@@ -326,7 +326,7 @@ class AdminController extends Controller
                     'id_company' => $pendingRequest->id_company,
                     'date_start' => $pendingRequest->date_start,
                     'date_end' => $pendingRequest->date_end,
-                    'job_description' => $pendingRequest->job_description,
+                    'job_description' => json_decode($pendingRequest->job_description),
                 ]);
             }
 

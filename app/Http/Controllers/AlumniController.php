@@ -220,26 +220,13 @@ class AlumniController extends Controller
             'job_responsibility.*' => 'string|max:1000',
         ]);
 
-        // $job = Job::create([
-        //     'job_name' => $request->position,
-        //     'id_company' => $request->company
-        // ]);
-
-        // JobTracking::create([
-        //     'id_userDetails' => Auth::user()->userDetails->id_userDetails,
-        //     'id_jobs' => $job->id_jobs,
-        //     'date_start' => $request->date_start,
-        //     'date_end' => $request->date_end,
-        //     'job_description' => $request->job_responsibility,
-        // ]);
-
         PendingRequest::create([
             'id_userDetails' => Auth::user()->userDetails->id_userDetails,
             'job_name' => $request->position,
             'id_company' => $request->company,
             'date_start' => $request->date_start,
             'date_end' => $request->date_end,
-            'job_description' => $request->job_responsibility,
+            'job_description' => json_encode($request->job_responsibility),
             'approval_status' => 'pending',
             'request_type' => 'create'
         ]);
