@@ -76,20 +76,20 @@
                             @auth
                                 @if (Auth::check() && Auth::user()->id_roles == '2')
                                     <a href="{{ route('alumni.profile') }}"
-                                        class="{{ request()->routeIs('alumni.profile', 'alumni.show-profile') ? 'text-cyan' : 'text-gray-400' }} block rounded px-3 py-2 text-xl hover:bg-cyan-100 hover:text-cyan md:border-0 md:p-0 md:hover:bg-transparent"
-                                        @if (request()->routeIs('alumni.profile', 'alumni.show-profile')) aria-current="page" @endif>
+                                        class="{{ request()->routeIs('alumni.profile', 'alumni.show-profile', 'login', 'profile') ? 'text-cyan' : 'text-gray-400' }} block rounded px-3 py-2 text-xl hover:bg-cyan-100 hover:text-cyan md:border-0 md:p-0 md:hover:bg-transparent"
+                                        @if (request()->routeIs('alumni.profile', 'alumni.show-profile', 'login', 'profile')) aria-current="page" @endif>
                                         Profile
                                     </a>
                                 @elseif (Auth::check() && Auth::user()->id_roles == '3')
                                     <a href="{{ route('mahasiswa.profile') }}"
-                                        class="{{ request()->routeIs('mahasiswa.profile') ? 'text-cyan' : 'text-gray-400' }} block rounded px-3 py-2 text-xl hover:bg-cyan-100 hover:text-cyan md:border-0 md:p-0 md:hover:bg-transparent"
-                                        @if (request()->routeIs('mahasiswa.profile')) aria-current="page" @endif>
+                                        class="{{ request()->routeIs('mahasiswa.profile', 'login', 'profile') ? 'text-cyan' : 'text-gray-400' }} block rounded px-3 py-2 text-xl hover:bg-cyan-100 hover:text-cyan md:border-0 md:p-0 md:hover:bg-transparent"
+                                        @if (request()->routeIs('mahasiswa.profile', 'login', 'profile')) aria-current="page" @endif>
                                         Profile
                                     </a>
                                 @elseif (Auth::check() && Auth::user()->id_roles == '1')
                                     <a href="{{ route('admin.home') }}"
-                                        class="{{ request()->routeIs('admin.home') ? 'text-cyan' : 'text-gray-400' }} block rounded px-3 py-2 text-xl hover:bg-cyan-100 hover:text-cyan md:border-0 md:p-0 md:hover:bg-transparent"
-                                        @if (request()->routeIs('admin.home')) aria-current="page" @endif>
+                                        class="{{ request()->routeIs('admin.home', 'login', 'profile') ? 'text-cyan' : 'text-gray-400' }} block rounded px-3 py-2 text-xl hover:bg-cyan-100 hover:text-cyan md:border-0 md:p-0 md:hover:bg-transparent"
+                                        @if (request()->routeIs('admin.home', 'login', 'profile')) aria-current="page" @endif>
                                         Admin
                                     </a>
                                 @endif

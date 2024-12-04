@@ -2,13 +2,13 @@
 
 @section('content')
     <section class="mt-20 bg-white">
-        <div id="alert-3"
-            class="alert-animation mx-auto mb-4 hidden w-3/4 -translate-y-10 transform rounded-lg bg-lightblue-100 p-4 text-center text-sm text-cyan opacity-0 sm:w-1/2"
-            role="alert">
-            <span>Perubahan data sedang dalam proses verifikasi oleh admin.<br>Mohon tunggu
-                konfirmasi lebih
-                lanjut.</span>
-        </div>
+
+        @if (Session::has('info'))
+            <div class="mx-auto mb-4 w-3/4 transform rounded-lg bg-lightblue-100 p-4 text-center text-sm text-cyan opacity-100 transition-opacity duration-500 sm:w-1/2"
+                role="alert">
+                {!! Session::get('info') !!}
+            </div>
+        @endif
 
         <div class="mx-auto max-w-screen-xl px-4 py-8 lg:px-6 lg:py-16">
             {{-- Profile Start --}}
@@ -17,8 +17,8 @@
                 <div class="relative">
                     <div class="h-48 rounded-t-3xl bg-cyan-100"></div>
                     <div class="absolute top-1/2 mx-12 sm:ms-14">
-                        <img class="h-48 w-48 rounded-full object-cover" src="{{ asset('storage/profile/' . $userDetails->profile_photo) }}"
-                            alt="Profile Picture" />
+                        <img class="h-48 w-48 rounded-full object-cover"
+                            src="{{ asset('storage/profile/' . $userDetails->profile_photo) }}" alt="Profile Picture" />
                     </div>
                 </div>
 
@@ -249,7 +249,7 @@
         </div>
     </section>
 
-    <script>
+    {{-- <script>
         // Alert Script
         if (sessionStorage.getItem('showAlert') === 'true') {
             const alertElement = document.getElementById('alert-3');
@@ -265,5 +265,6 @@
             // Remove the sessionStorage item so it doesn't show again
             sessionStorage.removeItem('showAlert');
         }
-    </script>
+
+    </script> --}}
 @endsection

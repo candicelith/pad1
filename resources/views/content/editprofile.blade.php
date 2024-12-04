@@ -5,6 +5,7 @@
         <div class="mx-auto max-w-screen-xl px-4 py-8 lg:px-6 lg:py-16">
             <div class="w-full max-w-none rounded-3xl border border-gray-400 bg-lightblue shadow-md">
                 <div class="mx-10 flex flex-col space-y-2 py-5 sm:mx-14 sm:py-10">
+
                     <div class="flex flex-col sm:flex-row-reverse">
                         <div class="mb-2 flex justify-end sm:mb-0">
                             {{-- Add Button --}}
@@ -66,7 +67,7 @@
                                                         <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                                                     @enderror
                                                 </div>
-                                                <div>
+                                                <div class="col-span-2 sm:col-span-1">
                                                     <label for="date_start"
                                                         class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">Start
                                                         Date</label>
@@ -77,7 +78,7 @@
                                                         <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                                                     @enderror
                                                 </div>
-                                                <div>
+                                                <div class="col-span-2 sm:col-span-1">
                                                     <label for="date_end"
                                                         class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">End
                                                         Date</label>
@@ -94,16 +95,16 @@
 
                                                 <div class="col-span-2">
                                                     <label for="responsibility"
-                                                        class="mb-2 block text-lg text-white sm:text-xl">Responsibility</label>
+                                                        class="mb-2 block text-sm text-gray-400">Responsibility</label>
                                                     <div id="responsibility-container-create">
+                                                        <!-- The initial responsibility item -->
                                                         <div class="responsibility-item mb-2 flex items-center">
                                                             <input type="text" name="job_responsibility[]"
                                                                 class="block w-full rounded-xl border border-gray-900 bg-gray-50 px-2 text-sm text-gray-900"
                                                                 placeholder="Enter responsibility" required />
                                                             <button type="button"
-                                                                class="remove-responsibility ml-2 rounded-full border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2">
-                                                                Remove
-                                                            </button>
+                                                                class="remove-responsibility ml-2 rounded-full border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2"
+                                                                style="display: none;">Remove</button>
                                                         </div>
                                                     </div>
                                                     <button type="button" id="add-responsibility-create"
@@ -200,7 +201,7 @@
                                                                 <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                                                             @enderror
                                                         </div>
-                                                        <div>
+                                                        <div class="col-span-2 sm:col-span-1">
                                                             <label for="date_start"
                                                                 class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">Start
                                                                 Date</label>
@@ -212,7 +213,7 @@
                                                                 <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                                                             @enderror
                                                         </div>
-                                                        <div>
+                                                        <div class="col-span-2 sm:col-span-1">
                                                             <label for="date_end"
                                                                 class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">End
                                                                 Date</label>
@@ -229,7 +230,7 @@
                                                         @if (is_array($job->job_description) && !empty($job->job_description))
                                                             <div class="col-span-2">
                                                                 <label for="responsibility"
-                                                                    class="mb-2 block text-lg text-white sm:text-xl">Responsibility</label>
+                                                                    class="mb-2 block text-sm text-gray-400">Responsibility</label>
                                                                 <div
                                                                     id="responsibility-container-update-{{ $job->id_tracking }}">
                                                                     @foreach ($job->job_description as $responsibility)
@@ -242,7 +243,8 @@
                                                                                 placeholder="Enter responsibility"
                                                                                 required />
                                                                             <button type="button"
-                                                                                class="remove-responsibility ml-2 rounded-full border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2">
+                                                                                class="remove-responsibility ml-2 rounded-full border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2"
+                                                                                style="display: none;">
                                                                                 Remove
                                                                             </button>
                                                                         </div>
@@ -254,7 +256,6 @@
                                                                     Add Responsibility
                                                                 </button>
 
-
                                                                 @error('job_responsibility')
                                                                     <p class="mt-1 text-sm text-red-500">{{ $message }}
                                                                     </p>
@@ -263,7 +264,7 @@
                                                         @else
                                                             <div class="col-span-2">
                                                                 <label for="responsibility"
-                                                                    class="mb-2 block text-lg text-white sm:text-xl">Responsibility</label>
+                                                                    class="mb-2 block text-sm text-gray-400">Responsibility</label>
                                                                 <div
                                                                     id="responsibility-container-update-{{ $job->id_tracking }}">
                                                                     <div
@@ -272,7 +273,8 @@
                                                                             class="block w-full rounded-xl border border-gray-900 bg-gray-50 px-2 text-sm text-gray-900"
                                                                             placeholder="Enter responsibility" required />
                                                                         <button type="button"
-                                                                            class="remove-responsibility ml-2 rounded-full border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2">
+                                                                            class="remove-responsibility ml-2 rounded-full border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2"
+                                                                            style="display: none;">
                                                                             Remove
                                                                         </button>
                                                                     </div>
@@ -282,7 +284,6 @@
                                                                     class="bg-btn-cyan mt-2 rounded-full px-4 py-2 text-sm text-white hover:bg-cyan-300 sm:text-base">
                                                                     Add Responsibility
                                                                 </button>
-
 
                                                                 @error('job_responsibility')
                                                                     <p class="mt-1 text-sm text-red-500">{{ $message }}
@@ -296,8 +297,8 @@
                                                         class="bg-btn-cyan m-4 rounded-full bg-cyan px-5 py-2.5 text-white shadow-lg hover:bg-white hover:text-cyan">
                                                         Save Changes
                                                     </button>
+                                                </form>
                                             </div>
-                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -323,12 +324,11 @@
                                         </ol>
                                     </li>
                                 </ol>
+                            </div>
                         @endforeach
+                    @endif
                 </div>
             </div>
-            @endif
-        </div>
-        </div>
         </div>
     </section>
 
@@ -344,14 +344,10 @@
     </script>
 
     <script>
-        // Save Button Script
-        function triggerAlert() {
-            sessionStorage.setItem('showAlert', 'true');
-        }
-
         document.addEventListener('DOMContentLoaded', () => {
-            const responsibilityContainer = document.getElementById('responsibility-container-create');
-            const addButton = document.getElementById('add-responsibility-create');
+            // Variables for create modal
+            const responsibilityContainerCreate = document.getElementById('responsibility-container-create');
+            const addButtonCreate = document.getElementById('add-responsibility-create');
             const maxResponsibilities = 3; // Set maximum number of responsibilities
 
             // Function to handle "Remove" button clicks
@@ -361,20 +357,20 @@
                     e.target.closest('.responsibility-item').remove();
 
                     // Re-add the "Add Responsibility" button if it was removed
-                    if (!addButton.parentNode && responsibilityContainer.children.length <
+                    if (!addButtonCreate.parentNode && responsibilityContainerCreate.children.length <
                         maxResponsibilities) {
-                        responsibilityContainer.parentNode.appendChild(addButton);
+                        responsibilityContainerCreate.parentNode.appendChild(addButtonCreate);
                     }
                 }
             };
 
             // Add event delegation for pre-populated and dynamically added "Remove" buttons
-            responsibilityContainer.addEventListener('click', handleRemoveClick);
+            responsibilityContainerCreate.addEventListener('click', handleRemoveClick);
 
             // Add new responsibility input field when "Add Responsibility" button is clicked
-            addButton.addEventListener('click', () => {
+            addButtonCreate.addEventListener('click', () => {
                 // Check if the limit has been reached
-                if (responsibilityContainer.children.length >= maxResponsibilities) {
+                if (responsibilityContainerCreate.children.length >= maxResponsibilities) {
                     return; // Do not add more fields
                 }
 
@@ -382,88 +378,87 @@
                 const newItem = document.createElement('div');
                 newItem.classList.add('responsibility-item', 'mb-2', 'flex', 'items-center');
                 newItem.innerHTML = `
-            <input type="text" name="job_responsibility[]"
-                   class="block w-full rounded-xl border border-gray-900 bg-gray-50 px-2 text-sm text-gray-900"
-                   placeholder="Enter Responsibility" required />
-            <button type="button" class="remove-responsibility ml-2 rounded-full border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2">
-                Remove
-            </button>
-        `;
+                <input type="text" name="job_responsibility[]"
+                    class="block w-full rounded-xl border border-gray-900 bg-gray-50 px-2 text-sm text-gray-900"
+                    placeholder="Enter Responsibility" required />
+                <button type="button" class="remove-responsibility ml-2 rounded-full border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2">
+                    Remove
+                </button>
+            `;
 
                 // Append the new responsibility field to the container
-                responsibilityContainer.appendChild(newItem);
+                responsibilityContainerCreate.appendChild(newItem);
 
-                // Remove the "Add Responsibility" button if the limit is reached
-                if (responsibilityContainer.children.length >= maxResponsibilities) {
-                    addButton.remove();
+                // Hide the "Add Responsibility" button if the limit is reached
+                if (responsibilityContainerCreate.children.length >= maxResponsibilities) {
+                    addButtonCreate.remove();
                 }
             });
         });
 
         // Update Forms
         document.addEventListener('DOMContentLoaded', () => {
-    const modals = document.querySelectorAll('[id^="crud-modal-"]');
+            const modals = document.querySelectorAll('[id^="crud-modal-"]');
 
-    modals.forEach((modal) => {
-        const trackingId = modal.id.split('-').pop(); // Extract the unique ID
-        const responsibilityContainer = document.getElementById(
-            `responsibility-container-update-${trackingId}`
-        );
-        const addButton = document.getElementById(`add-responsibility-update-${trackingId}`);
-        const maxResponsibilities = 3; // Set maximum number of responsibilities
+            modals.forEach((modal) => {
+                const trackingId = modal.id.split('-').pop(); // Extract the unique ID
+                const responsibilityContainerUpdate = document.getElementById(
+                    `responsibility-container-update-${trackingId}`
+                );
+                const addButtonUpdate = document.getElementById(`add-responsibility-update-${trackingId}`);
+                const maxResponsibilities = 3; // Set maximum number of responsibilities
 
-        if (!responsibilityContainer || !addButton) return;
+                if (!responsibilityContainerUpdate || !addButtonUpdate) return;
 
-        // Hide "Add Responsibility" button initially if the limit is already reached
-        if (responsibilityContainer.children.length >= maxResponsibilities) {
-            addButton.style.display = 'none';
-        }
-
-        // Function to handle "Remove" button clicks
-        const handleRemoveClick = (e) => {
-            if (e.target.classList.contains('remove-responsibility')) {
-                // Remove the parent responsibility item when "Remove" is clicked
-                e.target.closest('.responsibility-item').remove();
-
-                // Show the "Add Responsibility" button if it was hidden
-                if (responsibilityContainer.children.length < maxResponsibilities) {
-                    addButton.style.display = 'inline-block';
+                // Hide "Add Responsibility" button initially if the limit is already reached
+                if (responsibilityContainerUpdate.children.length >= maxResponsibilities) {
+                    addButtonUpdate.style.display = 'none';
                 }
-            }
-        };
 
-        // Add event delegation for pre-populated and dynamically added "Remove" buttons
-        responsibilityContainer.addEventListener('click', handleRemoveClick);
+                // Function to handle "Remove" button clicks
+                const handleRemoveClick = (e) => {
+                    if (e.target.classList.contains('remove-responsibility')) {
+                        // Remove the parent responsibility item when "Remove" is clicked
+                        e.target.closest('.responsibility-item').remove();
 
-        // Add new responsibility input field when "Add Responsibility" button is clicked
-        addButton.addEventListener('click', () => {
-            // Check if the limit has been reached
-            if (responsibilityContainer.children.length >= maxResponsibilities) {
-                return; // Do not add more fields
-            }
+                        // Show the "Add Responsibility" button if it was hidden
+                        if (responsibilityContainerUpdate.children.length < maxResponsibilities) {
+                            addButtonUpdate.style.display = 'inline-block';
+                        }
+                    }
+                };
 
-            // Create a new responsibility field with a "Remove" button
-            const newItem = document.createElement('div');
-            newItem.classList.add('responsibility-item', 'mb-2', 'flex', 'items-center');
-            newItem.innerHTML = `
-                <input type="text" name="job_responsibility[]"
-                       class="block w-full rounded-xl border border-gray-900 bg-gray-50 px-2 text-sm text-gray-900"
-                       placeholder="Enter Responsibility" required />
-                <button type="button" class="remove-responsibility ml-2 rounded-full border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2">
-                    Remove
-                </button>
-            `;
+                // Add event delegation for pre-populated and dynamically added "Remove" buttons
+                responsibilityContainerUpdate.addEventListener('click', handleRemoveClick);
 
-            // Append the new responsibility field to the container
-            responsibilityContainer.appendChild(newItem);
+                // Add new responsibility input field when "Add Responsibility" button is clicked
+                addButtonUpdate.addEventListener('click', () => {
+                    // Check if the limit has been reached
+                    if (responsibilityContainerUpdate.children.length >= maxResponsibilities) {
+                        return; // Do not add more fields
+                    }
 
-            // Hide the "Add Responsibility" button if the limit is reached
-            if (responsibilityContainer.children.length >= maxResponsibilities) {
-                addButton.style.display = 'none';
-            }
+                    // Create a new responsibility field with a "Remove" button
+                    const newItem = document.createElement('div');
+                    newItem.classList.add('responsibility-item', 'mb-2', 'flex', 'items-center');
+                    newItem.innerHTML = `
+                    <input type="text" name="job_responsibility[]"
+                        class="block w-full rounded-xl border border-gray-900 bg-gray-50 px-2 text-sm text-gray-900"
+                        placeholder="Enter Responsibility" required />
+                    <button type="button" class="remove-responsibility ml-2 rounded-full border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2">
+                        Remove
+                    </button>
+                `;
+
+                    // Append the new responsibility field to the container
+                    responsibilityContainerUpdate.appendChild(newItem);
+
+                    // Hide the "Add Responsibility" button if the limit is reached
+                    if (responsibilityContainerUpdate.children.length >= maxResponsibilities) {
+                        addButtonUpdate.style.display = 'none';
+                    }
+                });
+            });
         });
-    });
-});
-
     </script>
 @endsection

@@ -2,6 +2,14 @@
 
 @section('content')
     <section class="mt-20 bg-white">
+
+        @if (Session::has('success'))
+            <div class="mx-auto mb-4 w-3/4 transform rounded-lg bg-lightgreen p-4 text-center text-sm text-green-800 opacity-100 transition-opacity duration-500 sm:w-1/2"
+                role="alert">
+                {!! Session::get('success') !!}
+            </div>
+        @endif
+
         <div class="sticky top-20 z-20 w-full bg-white pb-8 pt-16">
             {{-- Title --}}
             <div class="mx-auto mb-8 max-w-screen-sm text-center lg:mb-16">
@@ -35,7 +43,8 @@
                             </div>
                             <div class="flex flex-col lg:flex-row lg:space-x-8">
                                 <div class="flex-shrink-0">
-                                    <img class="h-20 w-20 rounded-full object-cover" src="{{  asset('storage/profile/' . $vc->profile_photo)  }}"
+                                    <img class="h-20 w-20 rounded-full object-cover"
+                                        src="{{ asset('storage/profile/' . $vc->profile_photo) }}"
                                         alt="{{ $vc->name }}" />
                                 </div>
                                 <div class="mt-4 lg:mt-0">

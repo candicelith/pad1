@@ -81,7 +81,7 @@ class AlumniController extends Controller
                         DB::raw('COALESCE(YEAR(job_tracking.date_end), "Now") as date_end'),
                         DB::raw('COALESCE(YEAR(job_tracking.date_start), "Now") as date_start')
                     )
-                    ->orderBy('job_tracking.id_tracking','desc')
+                    ->orderBy('job_tracking.id_tracking', 'desc')
                     ->get()
                     ->map(function ($job) {
                         // Decode job_description if it's stored as a JSON string
@@ -97,43 +97,43 @@ class AlumniController extends Controller
         return redirect()->route('login');
     }
 
-        public function show()
-        {
-            $user = Auth::user();
-            $userDetails = DB::table('user_details')
-                ->select(
-                    'user_details.*',  // Select only user_details fields
-                    DB::raw('COALESCE(user_details.current_job, "Jobless") as job_name'),
-                    DB::raw('COALESCE(user_details.current_company, "-") as company_name'),
-                    DB::raw("COALESCE(user_details.profile_photo, 'default_profile.png') as profile_photo"),
-                )
-                ->where('user_details.id_users', $user->id_users)  // Fetch details for the authenticated user only
-                ->first();
+    public function show()
+    {
+        $user = Auth::user();
+        $userDetails = DB::table('user_details')
+            ->select(
+                'user_details.*',  // Select only user_details fields
+                DB::raw('COALESCE(user_details.current_job, "Jobless") as job_name'),
+                DB::raw('COALESCE(user_details.current_company, "-") as company_name'),
+                DB::raw("COALESCE(user_details.profile_photo, 'default_profile.png') as profile_photo"),
+            )
+            ->where('user_details.id_users', $user->id_users)  // Fetch details for the authenticated user only
+            ->first();
 
-            $jobDetails = DB::table('job_tracking')
-                ->join('jobs', 'job_tracking.id_jobs', '=', 'jobs.id_jobs')
-                ->leftJoin('company', 'jobs.id_company', '=', 'company.id_company')
-                ->where('job_tracking.id_userDetails', $userDetails->id_userDetails)
-                ->select(
-                    'job_tracking.*',
-                    'jobs.job_name',
-                    'company.*',
-                    DB::raw('COALESCE(YEAR(job_tracking.date_end), "Now") as date_end'),
-                    DB::raw('COALESCE(YEAR(job_tracking.date_start), "Now") as date_start')
-                )
-                ->orderBy('job_tracking.id_tracking','desc')
-                ->get()
-                ->map(function ($job) {
-                    // Decode job_description if it's stored as a JSON string
-                    $job->job_description = json_decode($job->job_description, true);
-                    return $job;
-                });
+        $jobDetails = DB::table('job_tracking')
+            ->join('jobs', 'job_tracking.id_jobs', '=', 'jobs.id_jobs')
+            ->leftJoin('company', 'jobs.id_company', '=', 'company.id_company')
+            ->where('job_tracking.id_userDetails', $userDetails->id_userDetails)
+            ->select(
+                'job_tracking.*',
+                'jobs.job_name',
+                'company.*',
+                DB::raw('COALESCE(YEAR(job_tracking.date_end), "Now") as date_end'),
+                DB::raw('COALESCE(YEAR(job_tracking.date_start), "Now") as date_start')
+            )
+            ->orderBy('job_tracking.id_tracking', 'desc')
+            ->get()
+            ->map(function ($job) {
+                // Decode job_description if it's stored as a JSON string
+                $job->job_description = json_decode($job->job_description, true);
+                return $job;
+            });
 
-            $companies = Company::all();
-            return view('content.editprofile', compact('user', 'userDetails', 'jobDetails', 'companies',));
-        }
+        $companies = Company::all();
+        return view('content.editprofile', compact('user', 'userDetails', 'jobDetails', 'companies', ));
+    }
 
-    public function detail(String $id)
+    public function detail(string $id)
     {
         $userDetails = DB::table('user_details')
             ->select(
@@ -156,7 +156,7 @@ class AlumniController extends Controller
                 DB::raw('COALESCE(YEAR(job_tracking.date_end), "Now") as date_end'),
                 DB::raw('COALESCE(YEAR(job_tracking.date_start), "Now") as date_start')
             )
-            ->orderBy('job_tracking.id_tracking','desc')
+            ->orderBy('job_tracking.id_tracking', 'desc')
             ->get()
             ->map(function ($job) {
                 // Decode job_description if it's stored as a JSON string
@@ -168,7 +168,7 @@ class AlumniController extends Controller
         return view('content.detailalumni', compact('userDetails', 'jobDetails'));
     }
 
-    public function update(Request $request, String $id)
+    public function update(Request $request, string $id)
     {
         $request->validate([
             'full_name' => 'required|string|max:255',
@@ -247,7 +247,7 @@ class AlumniController extends Controller
         return redirect()->route('alumni.show-profile');
     }
 
-    public function updateExperiences(Request $request, String $id)
+    public function updateExperiences(Request $request, string $id)
     {
         // Validate incoming request
         $request->validate([
@@ -293,9 +293,11 @@ class AlumniController extends Controller
         ]);
 
 
-        // Redirect with success message
-        return redirect()->route('alumni.show-profile')
-            ->with('success', 'Job experience updated successfully');
+        // Redirect with info message
+        return redirect()->route('alumni.profile')
+            ->with('info', 'Perubahan data sedang dalam proses verifikasi oleh admin.<br>Mohon tunggu
+                konfirmasi lebih
+                lanjut.');
     }
 
 }

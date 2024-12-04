@@ -44,6 +44,20 @@
                     @enderror
                 </div>
 
+                <div class="mb-5 mt-5 justify-between sm:flex sm:space-x-4">
+                    <div class="w-full sm:w-1/2">
+                        <label for="start_date" class="mb-2 block text-lg text-white sm:text-xl">Start Date</label>
+                        <input type="date" name="start_date" id="start_date"
+                            class="block w-full rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900">
+                    </div>
+                    <div class="w-full sm:w-1/2">
+                        <label for="end_date" class="mb-2 block text-lg text-white sm:text-xl">End Date</label>
+                        <input type="date" name="end_date" id="end_date"
+                            class="block w-full rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900">
+                    </div>
+
+                </div>
+
 
                 {{-- Responsibility --}}
                 <div class="mb-5 mt-5">
