@@ -50,24 +50,50 @@ class AdminController extends Controller
         return view('content.admin-profile', compact('admin', 'userDetails'));
     }
 
+    /**
+     * Extracts the middle portion (second segment) of the NIM input.
+     *
+     * @param string $nim The full NIM string (e.g., '23/523246/SV/23875').
+     * @return string The extracted NIM part (e.g., '523246').
+     */
+    private function getNimPart(string $nim): string
+    {
+        // Split the NIM by the '/' character
+        $nimParts = explode('/', $nim);
+
+        // Return the second part if it exists, otherwise return an empty string
+        return $nimParts[1] ?? '';
+    }
+
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'name' => 'required|string|max:255',
-        //     'nim' => 'required|string',
-        //     'email' => 'required|email',
-        // ]);
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'nim' => 'required|string',
+            'email' => 'required|email',
+            // 'phone' => 'required|string|regex:/^\+62[0-9]{8,13}$/',
+            'graduate_year' => 'required|integer|between:2018,2024'
+        ]);
 
-        // // Extract the 'nim_part' (i.e., the middle portion of NIM)
-        // $nimPart = $this->getNimPart($request->nim);
+        // Extract the 'nim_part' (i.e., the middle portion of NIM)
+        $nimPart = $this->getNimPart($request->nim);
 
-        // User::create([
-        //     'email' => $request->email,
-        //     'password' => Hash::make($nimPart),
-        //     'nim' => $request->nim
-        // ]);
+        $user = User::create([
+            'email' => $request->email,
+            'id_roles' => 2,
+            'password' => Hash::make($nimPart),
+        ]);
 
-        return view('content.admin-alumni');
+        UserDetails::create([
+            'id_users' => $user->id_users,
+            'name' => $request->name,
+            'nim' => $request->nim,
+            // 'phone' => $request->phone,
+            'graduate_year' => $request->graduate_year,
+            'modifiedBy' => Auth::user()->userDetails->name,
+        ]);
+
+        return redirect()->back()->with('success', 'Alumni' . $request->name . 'Has Been Created!');
     }
 
     public function getAlumni()
@@ -223,7 +249,6 @@ class AdminController extends Controller
         ]);
 
         return redirect()->back();
-
     }
 
     public function updateAlumniExperiences(Request $request, String $id)
@@ -301,7 +326,7 @@ class AdminController extends Controller
                     'id_company' => $pendingRequest->id_company,
                     'date_start' => $pendingRequest->date_start,
                     'date_end' => $pendingRequest->date_end,
-                    'job_description' => json_decode($pendingRequest->job_description),
+                    'job_description' => $pendingRequest->job_description,
                 ]);
             }
 
@@ -320,8 +345,6 @@ class AdminController extends Controller
         $pendingRequest = PendingRequest::findOrFail($id);
         $job = json_decode($pendingRequest->job_description);
         $userDetails = $pendingRequest->userDetails;
-        return view('content.admin-detailalumni', compact('pendingRequest','userDetails','job'));
+        return view('content.admin-detailalumni', compact('pendingRequest', 'userDetails', 'job'));
     }
-
-
 }

@@ -65,7 +65,7 @@
                                 <h3 class="mb-5 text-lg font-normal text-red-950">
                                     Login failed. Please check your email or password and try again.
                                 </h3>
-                                <button data-modal-hide="popup-modal" type="button"
+                                <button data-modal-hide="popup-modal" type="button" onclick="closeModal()"
                                     class="ms-3 rounded-full border border-gray-900 bg-white px-5 py-2.5 text-sm font-medium text-red-950 hover:bg-red-950 hover:text-white focus:z-10 focus:outline-none focus:ring-4 focus:ring-red-950">
                                     Close
                                 </button>
