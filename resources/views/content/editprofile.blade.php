@@ -46,6 +46,7 @@
                                                 </svg>
                                             </button>
                                         </div>
+
                                         <form action="{{ route('alumni.create-experiences') }}" method="POST">
                                             @csrf
                                             <div class="mb-4 grid grid-cols-2 gap-4 rounded-lg bg-gray-300 px-4 py-5">
@@ -105,7 +106,6 @@
                                                     <label for="responsibility"
                                                         class="mb-2 block text-sm text-gray-400">Responsibility</label>
                                                     <div id="responsibility-container-create">
-                                                        <!-- The initial responsibility item -->
                                                         <div class="responsibility-item mb-2 flex items-center">
                                                             <input type="text" name="job_responsibility[]"
                                                                 class="block w-full rounded-xl border border-gray-900 bg-gray-50 px-2 text-sm text-gray-900"
@@ -251,8 +251,7 @@
                                                                                 placeholder="Enter responsibility"
                                                                                 required />
                                                                             <button type="button"
-                                                                                class="remove-responsibility ml-2 rounded-full border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2"
-                                                                                style="display: none;">
+                                                                                class="remove-responsibility ml-2 flex rounded-full border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2">
                                                                                 Remove
                                                                             </button>
                                                                         </div>

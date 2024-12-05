@@ -5,6 +5,7 @@
         <div class="mt-16 sm:ms-60">
             <div
                 class="mx-4 mt-14 flex max-w-screen-xl flex-col items-start justify-center px-2 py-8 sm:mx-auto sm:ms-4 sm:flex-row sm:px-4">
+
                 <!-- Back Button -->
                 <button class="mb-4" onclick="history.back()">
                     <svg class="h-8 w-8 text-gray-800 sm:h-16 sm:w-16" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -14,7 +15,7 @@
                     </svg>
                 </button>
 
-                <div class="space-y-14">
+                <div class="w-full max-w-none space-y-14">
                     <!-- Content Section -->
                     <div class="w-full rounded-3xl bg-lightblue shadow-lg">
                         {{-- Alumni Details --}}
@@ -91,7 +92,9 @@
                                                         </div>
                                                     </div>
                                                     <!-- Modal body -->
-                                                    <form action="{{ route('admin.edit-alumni', ['id' => $userDetails->id_userDetails]) }}" method="POST" enctype="multipart/form-data">
+                                                    <form
+                                                        action="{{ route('admin.edit-alumni', ['id' => $userDetails->id_userDetails]) }}"
+                                                        method="POST" enctype="multipart/form-data">
                                                         @csrf
                                                         <!-- Hidden Input -->
                                                         <input id="profile_picture" name="profile_picture" type="file"
@@ -103,8 +106,7 @@
                                                                     Name</label>
                                                                 <input type="text" id="full_name" name="full_name"
                                                                     class="block w-full rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900"
-                                                                    required
-                                                                    value="{{ $userDetails->name }}" />
+                                                                    required value="{{ $userDetails->name }}" />
                                                             </div>
                                                             <div class="mb-5 mt-5">
                                                                 <label for="current_company"
@@ -129,8 +131,7 @@
                                                                     Position</label>
                                                                 <input type="text" id="current_job" name="current_job"
                                                                     class="block w-full rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900"
-                                                                    required
-                                                                    value="{{ $userDetails->current_job }}" />
+                                                                    required value="{{ $userDetails->current_job }}" />
                                                             </div>
                                                             <div class="mb-5 mt-5">
                                                                 <label for="user_description"
@@ -140,8 +141,8 @@
                                                             </div>
                                                         </div>
                                                         <button data-modal-hide="crud-modal" type="submit"
-                                                        class="bg-btn-cyan mx-10 rounded-full bg-cyan px-5 py-2.5 text-white shadow-lg hover:bg-white hover:text-cyan">
-                                                        Save Changes
+                                                            class="bg-btn-cyan mx-10 rounded-full bg-cyan px-5 py-2.5 text-white shadow-lg hover:bg-white hover:text-cyan">
+                                                            Save Changes
                                                         </button>
                                                     </form>
                                                 </div>
@@ -166,7 +167,7 @@
                                         <div class="mb-2 flex justify-end sm:mb-0">
 
                                             {{-- Edit Button --}}
-                                            <a href="{{ route('admin.edit-alumni.experiences',['id'=>$userDetails->id_userDetails]) }}"
+                                            <a href="{{ route('admin.edit-alumni.experiences', ['id' => $userDetails->id_userDetails]) }}"
                                                 class="z-10 rounded-full bg-gray-300 p-2 hover:bg-gray-400 sm:p-4">
                                                 <svg class="h-6 w-6 text-gray-800 dark:text-white" aria-hidden="true"
                                                     xmlns="http://www.w3.org/2000/svg" width="24" height="24"
