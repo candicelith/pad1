@@ -92,9 +92,9 @@ class AlumniController extends Controller
 
                 // Get The Latest Notification
                 $latestNotification = Notification::where('id_users', $user->id_users)
-                ->where('is_read', false)
-                ->orderBy('created_at', 'desc')
-                ->first();
+                    ->where('is_read', false)
+                    ->orderBy('created_at', 'desc')
+                    ->first();
 
                 // Mark all other unread notifications as read
                 Notification::where('id_users', $user->id_users)
@@ -104,7 +104,7 @@ class AlumniController extends Controller
 
                 $companies = Company::all();
 
-                return view('content.profile-alumni', compact('user', 'userDetails', 'jobDetails', 'companies','latestNotification'));
+                return view('content.profile-alumni', compact('user', 'userDetails', 'jobDetails', 'companies', 'latestNotification'));
             }
         }
         return redirect()->route('login');
@@ -236,7 +236,9 @@ class AlumniController extends Controller
         Notification::create([
             'id_users' => Auth::user()->id_users, // ID of the user being notified
             'type' => 'pending_approval',
-            'message' => 'Your experience change request has been submitted for approval.',
+            'message' => 'Perubahan data sedang dalam proses verifikasi oleh admin. Mohon tunggu
+                konfirmasi lebih
+                lanjut.',
         ]);
 
         PendingRequest::create([
@@ -250,7 +252,7 @@ class AlumniController extends Controller
             'request_type' => 'create'
         ]);
 
-        return redirect()->route('alumni.show-profile')->with('info','Perubahan data sedang dalam proses verifikasi oleh admin.<br>Mohon tunggu
+        return redirect()->route('alumni.show-profile')->with('info', 'Perubahan data sedang dalam proses verifikasi oleh admin. Mohon tunggu
                 konfirmasi lebih
                 lanjut.');
     }
@@ -274,7 +276,9 @@ class AlumniController extends Controller
         Notification::create([
             'id_users' => Auth::user()->id_users, // ID of the user being notified
             'type' => 'pending_approval',
-            'message' => 'Your newly added experience has been submitted for approval.',
+            'message' => 'Perubahan data sedang dalam proses verifikasi oleh admin. Mohon tunggu
+                konfirmasi lebih
+                lanjut.',
         ]);
 
         // Store the changes in the pending_changes table
@@ -293,7 +297,7 @@ class AlumniController extends Controller
 
         // Redirect with info message
         return redirect()->route('alumni.show-profile')
-            ->with('info', 'Perubahan data sedang dalam proses verifikasi oleh admin.<br>Mohon tunggu
+            ->with('info', 'Perubahan data sedang dalam proses verifikasi oleh admin. Mohon tunggu
                 konfirmasi lebih
                 lanjut.');
     }

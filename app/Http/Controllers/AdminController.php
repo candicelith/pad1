@@ -286,7 +286,7 @@ class AdminController extends Controller
 
         // Redirect with success message
         return redirect()->back()
-            ->with('success', 'Job experience updated successfully');
+            ->with('success', 'Berhasil memperbarui pengalaman kerja.');
     }
 
     public function getChartData()
@@ -322,7 +322,7 @@ class AdminController extends Controller
                 Notification::create([
                     'id_users' => $pendingRequest->userDetails->user->id_users,
                     'type' => 'approved',
-                    'message' => 'Your create experience request has been approved. Thank you!',
+                    'message' => 'Data Anda berhasil diverifikasi. Perubahan telah diterapkan.',
                 ]);
 
             } elseif ($pendingRequest->request_type === 'update') {
@@ -349,12 +349,12 @@ class AdminController extends Controller
                 Notification::create([
                     'id_users' => $pendingRequest->userDetails->user->id_users,
                     'type' => 'approved',
-                    'message' => 'Your update experience request has been approved. Thank you!',
+                    'message' => 'Data Anda berhasil diverifikasi. Perubahan telah diterapkan.',
                 ]);
             }
 
             $pendingRequest->update(['approval_status' => 'approved']);
-            return back()->with('approved', 'Request approved successfully.');
+            return back()->with('approved', 'Permintaaan pengubahan data disetujui.');
         }
 
         if ($request->action === 'reject') {
@@ -363,10 +363,10 @@ class AdminController extends Controller
             Notification::create([
                 'id_users' => $pendingRequest->userDetails->user->id_users,
                 'type' => 'rejected',
-                'message' => 'Your experience request was rejected. Please review and resubmit.',
+                'message' => 'Verifikasi data tidak berhasil. Mohon periksa kembali informasi yang Anda berikan atau coba lagi nanti.',
             ]);
 
-            return back()->with('rejected', 'Request declined.');
+            return back()->with('rejected', 'Permintaan pengubahan data ditolak.');
         }
     }
 

@@ -3,28 +3,51 @@
 @section('content')
     <section class="mt-20 bg-white">
 
+        @if ($latestNotification && !$latestNotification->is_read)
+            @php
+                // Determine classes based on notification type
+                $notificationClasses = match ($latestNotification->type) {
+                    'approved'
+                        => 'mx-auto mb-4 w-3/4 transform rounded-lg p-4 text-center text-sm opacity-100 transition-opacity duration-500 sm:w-1/2 bg-lightgreen text-green-800',
+                    'rejected'
+                        => 'mx-auto mb-4 w-3/4 transform rounded-lg p-4 text-center text-sm opacity-100 transition-opacity duration-500 sm:w-1/2 bg-red-300 text-red-800',
+                    'pending'
+                        => 'mx-auto mb-4 w-3/4 transform rounded-lg p-4 text-center text-sm opacity-100 transition-opacity duration-500 sm:w-1/2 bg-yellow-100 text-yellow-800',
+                    default
+                        => 'mx-auto mb-4 w-3/4 transform rounded-lg bg-lightblue-100 p-4 text-center text-sm text-cyan opacity-100 transition-opacity duration-500 sm:w-1/2',
+                };
+            @endphp
 
-        @if ($latestNotification)
-        @php
-            // Determine classes based on notification type
-            $notificationClasses = match($latestNotification->type) {
-                'approved' => 'bg-lightgreen text-green-800',
-                'rejected' => 'bg-red-100 text-red-800',
-                'pending' => 'bg-yellow-100 text-yellow-800',
-                default => 'bg-gray-100 text-gray-800',
-            };
-        @endphp
-
-        <div id="notification-bar"
-            class="mx-auto mb-4 w-3/4 transform rounded-lg p-4 text-center text-sm opacity-100 transition-opacity duration-500 sm:w-1/2 {{ $notificationClasses }}"
-            role="alert">
-            <div class="alert">
-                {{ $latestNotification->message }}
-                <button onclick="markNotificationAsRead()" class="close-btn">✕</button>
+            <div id="notification-bar"
+                class="{{ $notificationClasses }} mx-auto mb-4 w-3/4 transform rounded-lg p-4 text-center text-sm opacity-100 transition-opacity duration-500 sm:w-1/2"
+                role="alert">
+                <div class="alert">
+                    {{ $latestNotification->message }}
+                </div>
             </div>
-        </div>
-        @endif
 
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    var notificationBar = document.getElementById('notification-bar');
+                    if (notificationBar) {
+                        // Fade out after 3 seconds
+                        setTimeout(function() {
+                            notificationBar.style.opacity = '0';
+                            setTimeout(function() {
+                                notificationBar.style.display = 'none';
+                            }, 500); // Complete hide after transition
+                        }, 3000);
+                    }
+                });
+            </script>
+
+            {{-- Mark only "approved" and "rejected" notifications as read --}}
+            @if (in_array($latestNotification->type, ['approved', 'rejected']))
+                @php
+                    $latestNotification->update(['is_read' => true]);
+                @endphp
+            @endif
+        @endif
 
         <div class="mx-auto max-w-screen-xl px-4 py-8 lg:px-6 lg:py-16">
             {{-- Profile Start --}}
