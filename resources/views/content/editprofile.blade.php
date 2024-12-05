@@ -252,7 +252,7 @@
                                                                                 required />
                                                                             <button type="button"
                                                                                 class="remove-responsibility ml-2 rounded-full border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2"
-                                                                                style="display: none;">
+                                                                                style="display: inline-block;">
                                                                                 Remove
                                                                             </button>
                                                                         </div>
