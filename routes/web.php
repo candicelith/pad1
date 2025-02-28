@@ -12,6 +12,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\ResetPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,14 +25,6 @@ use App\Http\Controllers\NotificationController;
 |
 */
 
-// Route::get('/detailpost', function () {
-//     return view('content.detailpost');
-// })->name('detailpost');
-
-// Route::get('/detailalumni', function () {
-//     return view('content.detailalumni');
-// })->name('detailalumni');
-
 Route::get('/postalumni', function () {
     return view('content.posts-alumni');
 })->name('postalumni');
@@ -40,52 +33,20 @@ Route::get('/detailcompanies', function () {
     return view('content.detailcompanies');
 })->name('detailcompanies');
 
-// Route::get('/createpost', function () {
-//     return view('content.createpost');
-// })->name('createpost');
-
-// Route::get('/profilealumni', function () {
-//     return view('content.profile-alumni');
-// })->name('profilealumni');
-
-// Route::get('/editprofile', function () {
-//     return view('content.editprofile');
-// })->name('editprofile');
-
-// Route::get('/admindetailalumni', function () {
-//     return view('content.admin-detailalumni');
-// })->name('admindetailalumni');
-
-// Route::get('/adminprofile', function () {
-//     return view('content.admin-profile');
-// })->name('adminprofile');
-
-// Route::get('/adminalumni', function () {
-//     return view('content.admin-alumni');
-// })->name('adminalumni');
-
 Route::get('/adminprofilalumni', function () {
     return view('content.admin-profilealumni');
 })->name('adminprofilalumni');
 
-// Route::get('/admindetailalumni', function () {
-//     return view('content.admin-detailalumni');
-// })->name('admindetailalumni');
-
 Route::get('/admineditalumni', function () {
     return view('content.admin-editalumni');
 })->name('admineditalumni');
-
-// Route::get('/404', function () {
-//     return view('errors.404');
-// })->name('404');
 
 Route::get('/505', function () {
     return view('errors.505');
 })->name('505');
 
 // Index
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/companies', [CompanyController::class, 'index'])->name('companies');
 
 
