@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\Vacancy;
-use App\Http\Middleware\Alumni;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
@@ -11,8 +9,8 @@ use App\Http\Controllers\AlumniController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\MahasiswaController;
+use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\NotificationController;
-use App\Http\Controllers\ResetPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -115,4 +113,11 @@ Route::controller(AdminController::class)->group(function (){
 
 // Notifications Logic
 Route::post('/notifications/read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
+
+
+// Google Auth
+Route::get('/auth/google/redirect',[GoogleAuthController::class, 'redirect']);
+Route::get('/auth/google/callback',[GoogleAuthController::class, 'callback']);
+
+
 

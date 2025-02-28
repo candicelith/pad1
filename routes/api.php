@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Api\NewsController;
+use App\Http\Controllers\CompanyController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,3 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Fetch Alumni Data By Graduate Count
 Route::get('/alumni-data', [AdminController::class, 'getChartData']);
+
+// API
+Route::apiResource('news',NewsController::class);
+Route::apiResource('company',CompanyController::class);

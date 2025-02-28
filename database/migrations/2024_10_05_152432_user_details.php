@@ -15,14 +15,14 @@ return new class extends Migration
             $table->bigIncrements('id_userDetails');
             $table->unsignedBigInteger('id_users');
             $table->string('name');
-            $table->string('nim')->unique();
+            $table->string('nim')->unique(); //TBF
             $table->string('phone')->nullable();
             $table->string('profile_photo')->nullable();
             $table->text('user_description')->nullable();
             $table->string('current_job')->nullable();
             $table->string('current_company')->nullable();
-            $table->year('graduate_year');
-            $table->string('modifiedBy');
+            $table->year('graduate_year'); // TBF
+            $table->string('modifiedBy'); // TBF
             $table->timestamp('modifiedDate')->useCurrent();
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->timestamps();
