@@ -58,8 +58,8 @@
                 </li>
                 <li>
                     <a href="{{ route('admin.home') }}"
-                        class="{{ request()->routeIs('admin.home', 'admindetailalumni') ? 'text-cyan-100 bg-white' : 'text-white' }} group flex items-center rounded-lg p-2 hover:bg-white hover:text-cyan-100"
-                        @if (request()->routeIs('admin.home', 'admindetailalumni')) aria-current="page" @endif>
+                        class="{{ request()->routeIs('admin.home', 'admindetailalumni', 'admin.approval') ? 'text-cyan-100 bg-white' : 'text-white' }} group flex items-center rounded-lg p-2 hover:bg-white hover:text-cyan-100"
+                        @if (request()->routeIs('admin.home', 'admindetailalumni', 'admin.approval')) aria-current="page" @endif>
                         <span class="ms-3 flex-1 whitespace-nowrap">Home</span>
                     </a>
                 </li>

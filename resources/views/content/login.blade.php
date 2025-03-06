@@ -57,7 +57,6 @@
                         <img src="assets/google.png" alt="Google" width="25">
                     </button> --}}
 
-
                     {{-- Backdrop for Modal --}}
                     <div id="modal-backdrop" class="fixed inset-0 z-40 hidden bg-black bg-opacity-50 backdrop-blur-sm">
                     </div>

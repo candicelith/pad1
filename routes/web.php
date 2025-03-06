@@ -89,26 +89,26 @@ Route::controller(AlumniController::class)->group(function () {
     Route::get('/profile/alumni', 'profile')->name('alumni.profile');
     Route::get('/profile/show', 'show')->name('alumni.show-profile');
     Route::get('/alumni/detail/{id}', 'detail')->name('alumni.detail');
-    Route::post('/alumni/store','store')->name('alumni.store');
-    Route::post('/alumni/update/{id}','update')->name('alumni.update');
-    Route::post('/alumni/create/experiences','addExperiences')->name('alumni.create-experiences');
-    Route::post('/alumni/update/experiences/{id}','updateExperiences')->name('alumni.update-experiences');
+    Route::post('/alumni/store', 'store')->name('alumni.store');
+    Route::post('/alumni/update/{id}', 'update')->name('alumni.update');
+    Route::post('/alumni/create/experiences', 'addExperiences')->name('alumni.create-experiences');
+    Route::post('/alumni/update/experiences/{id}', 'updateExperiences')->name('alumni.update-experiences');
 });
 
 
 //Admin
-Route::controller(AdminController::class)->group(function (){
-    Route::get('/admin','index')->name('admin.home');
-    Route::get('/admin/profile','show')->name('admin.profile');
-    Route::get('/admin/alumni','getAlumni')->name('admin.alumni');
-    Route::post('/admin/alumni_store','store')->name('admin.store');
-    Route::post('/admin/handle-approval/{id}','handleApproval')->name('admin.handleApproval');
-    Route::get('/admin/detail-alumni/{id}','detailAlumni')->name('admin.detail-alumni');
-    Route::get('/admin/approval/{id}','viewApproval')->name('admin.approval');
-    Route::post('/admin/edit-alumni/{id}','editAlumni')->name('admin.edit-alumni');
-    Route::get('/admin/edit-alumni/experiences/{id}','editExperiencesAlumni')->name('admin.edit-alumni.experiences');
-    Route::post('/admin/edit-alumni/add-experiences/{id}','addAlumniExperiences')->name('admin.edit-alumni.add-experiences');
-    Route::post('/admin/edit-alumni/update-experiences/{id}','updateAlumniExperiences')->name('admin.edit-alumni.update-experiences');
+Route::controller(AdminController::class)->group(function () {
+    Route::get('/admin', 'index')->name('admin.home');
+    Route::get('/admin/profile', 'show')->name('admin.profile');
+    Route::get('/admin/alumni', 'getAlumni')->name('admin.alumni');
+    Route::post('/admin/alumni_store', 'store')->name('admin.store');
+    Route::post('/admin/handle-approval/{id}', 'handleApproval')->name('admin.handleApproval');
+    Route::get('/admin/detail-alumni/{id}', 'detailAlumni')->name('admin.detail-alumni');
+    Route::get('/admin/approval/{id}', 'viewApproval')->name('admin.approval');
+    Route::post('/admin/edit-alumni/{id}', 'editAlumni')->name('admin.edit-alumni');
+    Route::get('/admin/edit-alumni/experiences/{id}', 'editExperiencesAlumni')->name('admin.edit-alumni.experiences');
+    Route::post('/admin/edit-alumni/add-experiences/{id}', 'addAlumniExperiences')->name('admin.edit-alumni.add-experiences');
+    Route::post('/admin/edit-alumni/update-experiences/{id}', 'updateAlumniExperiences')->name('admin.edit-alumni.update-experiences');
 });
 
 // Notifications Logic

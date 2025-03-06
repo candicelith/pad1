@@ -5,7 +5,7 @@
         <div class="mx-auto max-w-screen-xl py-8 lg:px-6 lg:py-16">
             <div class="mx-4 flex flex-col items-start sm:flex-row">
 
-                <!-- Back Button -->
+                {{-- Back Button --}}
                 <button class="sm:mb-4" onclick="handleBack()">
                     <svg class="h-8 w-8 text-gray-800 sm:h-16 sm:w-16" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                         width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -28,22 +28,33 @@
 
                 {{-- Content Section --}}
                 <div class="mx-auto flex min-h-screen min-w-full flex-col sm:me-0 lg:flex-row">
+
                     {{-- Post Details --}}
                     <div
                         class="w-full rounded-tl-lg rounded-tr-lg border-b-2 border-cyan bg-lightblue p-5 sm:rounded-e-none sm:rounded-s-lg sm:rounded-tr-none sm:border-b-0 sm:border-e-2 sm:p-10 md:rounded-e-none md:rounded-s-lg md:rounded-tr-none md:border-b-0 md:border-e-2">
                         <div class="flex flex-col lg:flex-row lg:space-x-8">
                             <div class="flex-shrink-0">
-                                <img class="h-28 w-28 rounded-full object-cover" src="{{ asset('storage/profile/' . $vacancy->profile_photo)  }}"
-                                    alt="" />
+                                <img class="h-28 w-28 rounded-full object-cover"
+                                    src="{{ asset('storage/profile/' . $vacancy->profile_photo) }}" alt="" />
                             </div>
                             <div class="mt-4 lg:mt-0">
-                                <!-- Position -->
+                                {{-- Position --}}
                                 <h2 class="mb-2 text-xl tracking-tight text-cyan sm:text-2xl">{{ $vacancy->position }}</h2>
-                                <!-- Company Name -->
+                                {{-- Company Name --}}
                                 <h2 class="mb-2 text-lg tracking-tight text-cyan sm:text-xl">{{ $vacancy->company_name }}
                                 </h2>
-                                <!-- Posted By "Name" -->
+                                {{-- Posted By "Name" --}}
                                 <p class="text-base text-gray-400 sm:text-lg">Posted by {{ $vacancy->name }}</p>
+                                <div class="flex">
+                                    {{-- Start Date --}}
+                                    <p class="pe-5 text-xs text-gray-400 sm:text-sm">
+                                        Start Date: {{ \Carbon\Carbon::parse($vacancy->date_open)->format('d M Y') }}
+                                    </p>
+                                    {{-- End Date --}}
+                                    <p class="text-xs text-gray-400 sm:text-sm">
+                                        End Date: {{ \Carbon\Carbon::parse($vacancy->date_closed)->format('d M Y') }}
+                                    </p>
+                                </div>
                             </div>
                         </div>
                         <div class="mt-4 space-y-6 sm:mt-8">
@@ -77,7 +88,7 @@
                                 </div>
                             </div>
                             <div>
-                                <img src="{{asset('storage/vacancies/' . $vacancy->vacancy_picture) }}"
+                                <img src="{{ asset('storage/vacancies/' . $vacancy->vacancy_picture) }}"
                                     alt="vacancy_image" />
                             </div>
                         </div>
@@ -99,8 +110,8 @@
                                     {{-- Comment Start --}}
                                     @foreach ($comments as $comment)
                                         <div class="flex items-start space-x-2 sm:space-x-4">
-                                            <img src="{{ asset('storage/profile/' . ($comment->user->userDetails->profile_photo ?? 'default_profile.png')) }}" alt="avatar"
-                                                class="h-14 w-14 rounded-full object-cover">
+                                            <img src="{{ asset('storage/profile/' . ($comment->user->userDetails->profile_photo ?? 'default_profile.png')) }}"
+                                                alt="avatar" class="h-14 w-14 rounded-full object-cover">
                                             <div class="relative max-w-md">
                                                 <h2 class="text-sm sm:text-base">{{ $comment->user->userDetails->name }}
                                                 </h2>
@@ -119,7 +130,7 @@
                                             </div>
                                         </div>
 
-                                        <!-- Reply form -->
+                                        {{-- Reply form --}}
                                         <div class="reply-form mt-2 hidden" id="reply-form-{{ $comment->id_comment }}">
                                             <form
                                                 action="{{ route('posts.detail.reply', ['vacancy' => $vacancy->id_vacancy, 'id' => $comment->id_comment]) }}"
@@ -158,7 +169,7 @@
                             </div>
                         </div>
 
-                        <!-- Input Section -->
+                        {{-- Input Section --}}
                         <form
                             action="{{ route('posts.detail.comment', ['vacancy' => $vacancy->id_vacancy, 'id' => $vacancy->id_vacancy]) }}"
                             method="POST">

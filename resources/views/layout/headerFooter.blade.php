@@ -35,7 +35,7 @@
                 </button>
                 <div class="hidden w-full md:block md:w-auto" id="navbar-default">
                     <ul
-                        class="mt-4 flex flex-col rounded-lg border border-gray-100 bg-white p-4 rtl:space-x-reverse md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-white md:p-0">
+                        class="mt-4 flex flex-col rounded-lg border border-gray-100 bg-white p-4 md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-white md:p-0 rtl:space-x-reverse">
                         <li>
                             <a href="{{ route('home') }}"
                                 class="{{ request()->routeIs('home') ? 'text-cyan' : 'text-gray-400' }} block rounded px-3 py-2 text-xl hover:bg-cyan-100 hover:text-cyan md:border-0 md:p-0 md:hover:bg-transparent"

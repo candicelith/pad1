@@ -17,10 +17,10 @@
                         <p class="mb-8 text-base font-normal text-gray-300 sm:text-lg lg:text-xl">
                             Memasuki dunia kerja setelah lulus merupakan tantangan tersendiri bagi banyak alumni...
                         </p>
-                        <a {{-- href="{{ route('404') }}" --}}
+                        {{-- <a href="{{ route('404') }}"
                             class="inline-flex items-center justify-center rounded-lg bg-cyan-100 px-5 py-3 text-base font-medium text-white hover:bg-white hover:text-cyan-100 focus:ring-4 focus:ring-cyan">
                             Read More
-                        </a>
+                        </a> --}}
                     </div>
                 </div>
             </div>
@@ -39,10 +39,10 @@
                             profesional untuk terus beradaptasi dengan berbagai skill baru yang dibutuhkan oleh
                             industri. Dari kemampuan analisis data hingga keahlian dalam menggunakan alat kolaborasi...
                         </p>
-                        <a {{-- href="{{ route('404') }}" --}}
+                        {{-- <a href="{{ route('404') }}"
                             class="inline-flex items-center justify-center rounded-lg bg-cyan-100 px-5 py-3 text-base font-medium text-white hover:bg-white hover:text-cyan-100 focus:ring-4 focus:ring-cyan">
                             Read More
-                        </a>
+                        </a> --}}
                     </div>
                 </div>
             </div>
@@ -61,10 +61,10 @@
                             persaingan yang ketat, lulusan baru juga perlu memahami etika profesional dan cara
                             beradaptasi di lingkungan kerja yang dinamis. ...
                         </p>
-                        <a {{-- href="{{ route('404') }}" --}}
+                        {{-- <a href="{{ route('404') }}"
                             class="inline-flex items-center justify-center rounded-lg bg-cyan-100 px-5 py-3 text-base font-medium text-white hover:bg-white hover:text-cyan-100 focus:ring-4 focus:ring-cyan">
                             Read More
-                        </a>
+                        </a> --}}
                     </div>
                 </div>
             </div>
@@ -130,7 +130,8 @@
                                 </div>
                                 <div class="mb-2 flex flex-col sm:flex-row sm:space-x-4">
                                     <div class="h-16 w-16">
-                                        <img class="h-full w-full rounded-full object-cover" src="{{  asset('storage/profile/' . $ps->profile_photo)  }}"
+                                        <img class="h-full w-full rounded-full object-cover"
+                                            src="{{ asset('storage/profile/' . $ps->profile_photo) }}"
                                             alt="Profile Photo" />
                                     </div>
                                     <div class="mt-2">
@@ -148,7 +149,8 @@
                                         {{ $ps->vacancy_description }}
                                     </p>
                                     <img class="h-36 w-full rounded-tl-md rounded-tr-md object-cover md:h-40"
-                                        src="{{asset('storage/vacancies/' . $ps->vacancy_picture) }}" alt="Vacancy Picture" />
+                                        src="{{ asset('storage/vacancies/' . $ps->vacancy_picture) }}"
+                                        alt="Vacancy Picture" />
                                 </div>
                             </article>
                         </div>
@@ -168,7 +170,7 @@
                 <div class="flex flex-grow flex-col">
                     @foreach ($company as $com)
                         <a href="{{ route('companies.detail', ['id' => $com->id_company]) }}">
-                            <div class="mb-7 flex-grow-0">
+                            <div class="mb-6 flex-grow-0">
                                 <article data-aos="fade-up"
                                     class="cursor-pointer rounded-lg border border-gray-500 bg-lightblue p-4 py-5 shadow-lg">
                                     <div class="flex flex-col sm:flex-row sm:space-x-4">
