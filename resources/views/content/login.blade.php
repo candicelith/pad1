@@ -52,6 +52,10 @@
                             </script>
                         @endif
                     </div>
+                    {{-- <button type="button" class="flex flex-row justify-center gap-3 w-full py-2 border border-black text-black font-bold rounded-md hover:bg-gray-50" onclick="window.location.href='/auth/google/redirect'">
+                        <p>Sign In with</p>
+                        <img src="assets/google.png" alt="Google" width="25">
+                    </button> --}}
 
                     {{-- Backdrop for Modal --}}
                     <div id="modal-backdrop" class="fixed inset-0 z-40 hidden bg-black bg-opacity-50 backdrop-blur-sm">

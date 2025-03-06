@@ -108,8 +108,10 @@ class AdminController extends Controller
             ->whereRaw('id_roles = ?', [2])
             ->get();
 
+        // $alumni = User::join('user_details','users.id_users','=','user_details.id_users')
+        //     ->where('id_roles',2)
+        //     ->get(['name','nim_part']);
         // dd($alumni);
-
         return view('content.admin-alumni', compact('alumni'));
     }
 

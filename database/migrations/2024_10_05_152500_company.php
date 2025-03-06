@@ -15,8 +15,8 @@ return new class extends Migration
             $table->bigIncrements('id_company');
             $table->string('company_name');
             $table->string('company_field');
-            $table->string('company_description');
-            $table->string('company_phone');
+            $table->string('company_description')->nullable();
+            $table->string('company_phone')->nullable();
             $table->string('company_address')->nullable();
             $table->string('company_picture')->nullable(); //url or image PATH
             $table->timestamps();
