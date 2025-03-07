@@ -60,7 +60,9 @@ Route::controller(PostController::class)->group(function () {
 Route::controller(CommentController::class)->group(function () {
     Route::post('/posts/detail/{vacancy}/comment', 'store')->name('posts.detail.comment');
     Route::post('/posts/detail/{vacancy}/comment/{id}', 'store')->name('posts.detail.reply');
-});
+    Route::patch('/comments/{id}', [CommentController::class, 'update'])->name('comments.update');
+    Route::delete('/comments/{id}', [CommentController::class, 'destroy'])->name('comments.delete');
+    });
 
 
 // Company Controller
