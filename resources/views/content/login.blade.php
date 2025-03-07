@@ -23,7 +23,7 @@
                     <div class="flex flex-col items-center space-y-3">
                         <div class="flex items-center justify-center rounded-xl bg-white pe-8">
                             <img src="{{ asset('assets/Google Icon.svg') }}" alt="" class="p-4">
-                            <button class="px-4 py-5 text-center text-lg">Sign In With Google</button>
+                            <button class="px-4 py-5 text-center text-lg" onclick="window.location.href='/auth/google/redirect'">Sign In With Google</button>
                         </div>
                         <p class="text-sm text-white">Sign in with your UGM account</p>
                     </div>
