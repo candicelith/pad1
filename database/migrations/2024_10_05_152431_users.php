@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('users',function(Blueprint $table){
             $table->bigIncrements('id_users');
             $table->unsignedBigInteger('id_roles');
-            $table->string('email');
+            $table->string('email')->unique();
             $table->string('password');
+            $table->string('google_id')->nullable();
             $table->timestamps();
 
             $table->foreign('id_roles')->references('id_roles')->on('roles');

@@ -130,8 +130,11 @@
                                                     alt="avatar" class="h-14 w-14 rounded-full object-cover">
                                                 <div class="relative max-w-md w-full">
                                                     <div class="flex justify-between items-start">
-                                                        <h2 class="text-sm font-medium sm:text-base">
-                                                            {{ $comment->user->userDetails->name }}</h2>
+                                                        <h2 class="text-sm font-medium sm:text-base hover:underline">
+                                                            <a
+                                                                href="{{ route('alumni.detail', ['id' => optional($comment->user)->userDetails->id_userDetails ?? null]) }}">
+                                                                {{ optional($comment->user)->userDetails->name ?? 'Unknown User' }}
+                                                            </a>
                                                     </div>
 
                                                     <span class="mt-1 block text-xs text-cyan">
@@ -155,7 +158,7 @@
                                                                 Reply
                                                             </span>
 
-                                                            @if ($comment->replies && $comment->replies->count() > 1)
+                                                            @if ($comment->replies && $comment->replies->count() > 0)
                                                                 <span
                                                                     class="show-all-replies cursor-pointer text-xs text-cyan-600 hover:underline "
                                                                     data-comment-id="{{ $comment->id_comment }}">
@@ -188,7 +191,8 @@
                                                                     <div class="relative max-w-md w-full">
                                                                         <div class="flex justify-between items-start">
                                                                             <h2 class="text-sm font-medium sm:text-base">
-                                                                                {{ $reply->user->userDetails->name }}</h2>
+                                                                                <a href="{{ route('alumni.detail', ['id' => optional($comment->user)->userDetails->id_userDetails ?? null]) }}">{{ $reply->user->userDetails->name }}</a>
+                                                                                </h2>
                                                                         </div>
 
                                                                         <span class="mt-1 block text-xs text-cyan">

@@ -19,28 +19,33 @@ class GoogleAuthController extends Controller
     public function callback()
     {
         $googleUser = Socialite::driver("google")->user();
-
+        // Update or create the user
         $user = User::updateOrCreate(
-            ['google_id' => $googleUser->id],
+            ['google_id' => $googleUser->getId()],
             [
-                'email' => $googleUser->email,
+                'email' => $googleUser->getEmail(),
                 'id_roles' => 2,
                 'password' => Str::password(8),
                 'email_verified_at' => now(),
             ]
         );
 
-        // UserDetails::updateOrCreate([
-        //     'id_users' => $user->id_users,
-        //     'name' => $googleUser->getName(),
-        //     'nim' => "23/696969/SV/55555", // Not Have
-        //     'graduate_year' => 2019, // Not Have
-        //     'profile_photo' => $googleUser->getAvatar(),
-        //     'modifiedBy' => $googleUser->getName()
-        // ]);
+            // Only create a new user detail if it doesn't exist
+            UserDetails::updateOrcreate([
+                'id_users' => $user->id_users,
+                'name' => $googleUser->getName(),
+                // 'nim' => "23/696969/SV/55555", // Default value
+                'graduate_year' => 2019, // Default value
+                'profile_photo' => $googleUser->getAvatar(),
+                'modifiedBy' => $googleUser->getName(),
+            ]);
 
 
+
+        // Log in the user
         Auth::login($user);
+
+        // Redirect to the intended page
         return redirect()->intended('/');
     }
 }
