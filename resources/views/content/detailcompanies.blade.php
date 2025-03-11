@@ -58,33 +58,48 @@
                                 </h4>
                             @endif
 
-                            <div
-                                class="scrollbar-companies smpx-8 grid max-h-[700px] gap-16 overflow-y-auto sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                                @foreach ($workers as $wk)
-                                    <a href="{{ route('alumni.detail', ['id' => $wk->id_userDetails]) }}"
-                                        class="mt-0 w-full max-w-sm rounded-lg border border-gray-200 bg-cyan-100 shadow-lg">
-                                        <div data-name="Supri" data-year="2020">
-                                            <div class="flex flex-col items-center px-3 py-7 text-center">
-                                                <div class="mb-5 flex w-full justify-end px-6 text-gray-300">
-                                                    <span class="text-sm">
-                                                        {{ $wk->graduate_year }}
-                                                    </span>
-                                                </div>
-                                                <img class="mb-3 h-24 w-24 rounded-full shadow-lg"
-                                                    src="{{ asset('storage/profile/' . $wk->profile_photo) }}" alt="{{ $wk->name }} image" />
-                                                <h2 class="mb-1 text-lg text-white sm:text-xl">
-                                                    {{ $wk->name }}
-                                                </h2>
-                                                <h3 class="text-base text-white">
-                                                    {{ $wk->current_job }}
-                                                </h3>
-                                                <h4 class="text-sm text-gray-300">
-                                                    {{ $wk->date_start }} - {{ $wk->date_end }}
-                                                </h4>
+                            <div class="scrollbar-companies px-4 sm:px-8 grid max-h-[700px] gap-6 overflow-y-auto sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                                @forelse ($workers as $worker)
+                                    <a
+                                        href="{{ route('alumni.detail', ['id' => $worker->id_userDetails]) }}"
+                                        class="w-full max-w-sm rounded-lg border border-gray-200 bg-cyan-100 shadow-lg transition-transform duration-300 hover:scale-105"
+                                    >
+                                        <div class="flex flex-col items-center px-3 py-7 text-center">
+                                            {{-- Graduate Year --}}
+                                            <div class="mb-5 flex w-full justify-end px-6 text-gray-300">
+                                                <span class="text-sm">
+                                                    {{ $worker->graduate_year ?? 'N/A' }}
+                                                </span>
                                             </div>
+
+                                            {{-- Profile Image --}}
+                                            <img
+                                                class="mb-3 h-24 w-24 rounded-full object-cover shadow-lg"
+                                                src="{{ $worker->profile_photo
+                                                    ? asset('storage/profile/' . $worker->profile_photo)
+                                                    : asset('images/default-profile.png') }}"
+                                                alt="{{ $worker->name }} profile"
+                                            />
+
+                                            {{-- Name --}}
+                                            <h2 class="mb-1 text-lg text-white sm:text-xl">
+                                                {{ $worker->name }}
+                                            </h2>
+                                            {{-- Job Duration --}}
+                                            <h4 class="text-sm text-gray-300">
+                                                @if ($worker->date_start && $worker->date_end)
+                                                    {{ $worker->date_start }} - {{ $worker->date_end }}
+                                                @else
+                                                    Employment Dates Unavailable
+                                                @endif
+                                            </h4>
                                         </div>
                                     </a>
-                                @endforeach
+                                @empty
+                                    <div class="col-span-full text-center py-10 text-gray-500">
+                                        <p class="text-xl">No workers found for this company</p>
+                                    </div>
+                                @endforelse
                             </div>
 
                             {{-- Script for Handling Back Button --}}

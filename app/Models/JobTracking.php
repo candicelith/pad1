@@ -37,11 +37,11 @@ class JobTracking extends Model
 
     public function userDetails()
     {
-        return $this->belongsTo(UserDetails::class, 'id_users', 'id_users');
+        return $this->belongsTo(UserDetails::class, 'id_userDetails', 'id_userDetails');
     }
 
-    public function isTheCurrentJob()
+    public function job()
     {
-
+        return $this->belongsTo(Job::class, 'id_jobs', 'id_jobs');
     }
 }

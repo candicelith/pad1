@@ -103,6 +103,11 @@ Route::controller(AdminController::class)->group(function () {
     Route::get('/admin', 'index')->name('admin.home');
     Route::get('/admin/profile', 'show')->name('admin.profile');
     Route::get('/admin/alumni', 'getAlumni')->name('admin.alumni');
+    Route::get('/admin/company', 'getCompany')->name('admin.company');
+    Route::get('/admin/news', 'getNews')->name('admin.news');
+
+
+    // Alumni
     Route::post('/admin/alumni_store', 'store')->name('admin.store');
     Route::post('/admin/handle-approval/{id}', 'handleApproval')->name('admin.handleApproval');
     Route::get('/admin/detail-alumni/{id}', 'detailAlumni')->name('admin.detail-alumni');
@@ -111,6 +116,17 @@ Route::controller(AdminController::class)->group(function () {
     Route::get('/admin/edit-alumni/experiences/{id}', 'editExperiencesAlumni')->name('admin.edit-alumni.experiences');
     Route::post('/admin/edit-alumni/add-experiences/{id}', 'addAlumniExperiences')->name('admin.edit-alumni.add-experiences');
     Route::post('/admin/edit-alumni/update-experiences/{id}', 'updateAlumniExperiences')->name('admin.edit-alumni.update-experiences');
+
+    // Company
+    Route::post('/admin/company_store', 'storeCompany')->name('admin.company.store');
+    Route::post('/admin/company_update/{id}', 'updateCompany')->name('admin.company.update');
+    Route::post('/admin/company_delete/{id}', 'deleteCompany')->name('admin.company.delete');
+    Route::get('/admin/company/detail/{id}', 'detailCompany')->name('admin.company.detail');
+    // Route::get('/admin/company/edit/{id}', 'editCompany')->name('admin.company.edit');
+
+    // News
+    Route::post('/admin/news_store', 'storeNews')->name('admin.news.store');
+    Route::post('/admin/news_update/{id}', 'updateNews')->name('admin.news.update');
 });
 
 // Notifications Logic

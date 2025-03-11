@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Job;
+use App\Models\News;
 use App\Models\User;
 use App\Models\Company;
 use App\Models\JobTracking;
@@ -10,6 +11,7 @@ use App\Models\UserDetails;
 use App\Models\Notification;
 use Illuminate\Http\Request;
 use App\Models\PendingRequest;
+use App\Services\AdminService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -17,22 +19,24 @@ use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
+    protected $adminService;
+
     /**
      * Inisiasi instansi AuthController
      */
-    public function __construct()
+    public function __construct(AdminService $adminService)
     {
         $this->middleware('admin')->except([
             'getChartData',
             'handleApproval'
         ]);
+
+        $this->adminService = $adminService;
     }
     public function index()
     {
         $admin = Auth::user();
-
-        $pendingRequest = PendingRequest::where('approval_status', 'pending')->get();
-
+        $pendingRequest = $this->adminService->getPendingRequests();
         return view('content.admin-home', compact('admin', 'pendingRequest'));
     }
 
@@ -94,61 +98,22 @@ class AdminController extends Controller
             'modifiedBy' => Auth::user()->userDetails->name,
         ]);
 
-        return redirect()->back()->with('success', 'Alumni' . $request->name . 'Has Been Created!');
+        // Clear the alumni cache after creating a new alumni
+        $this->adminService->clearCaches('alumni');
+
+        return redirect()->back()->with('success', 'Alumni ' . $request->name . ' Has Been Created!');
     }
 
     public function getAlumni()
     {
-        $alumni = User::join('user_details', 'users.id_users', '=', 'user_details.id_users')
-            ->select(
-                'users.*',
-                'user_details.*',
-                DB::raw("SUBSTRING_INDEX(SUBSTRING_INDEX(NIM, '/', 2), '/', -1) as nim_part"),
-            )
-            ->whereRaw('id_roles = ?', [2])
-            ->get();
-
-        // $alumni = User::join('user_details','users.id_users','=','user_details.id_users')
-        //     ->where('id_roles',2)
-        //     ->get(['name','nim_part']);
-        // dd($alumni);
+        $alumni = $this->adminService->getAllAlumni();
         return view('content.admin-alumni', compact('alumni'));
     }
 
     public function detailAlumni(string $id)
     {
-        $userDetails = DB::table('user_details')
-            ->select(
-                'user_details.*',  // Select only user_details fields
-                DB::raw('COALESCE(user_details.current_job, "Jobless") as job_name'),
-                DB::raw('COALESCE(user_details.current_company, "-") as company_name'),
-                DB::raw("COALESCE(user_details.profile_photo, 'default_profile.png') as profile_photo"),
-            )
-            ->where('user_details.id_userDetails', $id)  // Fetch details for the authenticated user only
-            ->first();
-
-        $jobDetails = DB::table('job_tracking')
-            ->join('jobs', 'job_tracking.id_jobs', '=', 'jobs.id_jobs')
-            ->leftJoin('company', 'jobs.id_company', '=', 'company.id_company')
-            ->where('job_tracking.id_userDetails', $userDetails->id_userDetails)
-            ->select(
-                'job_tracking.*',
-                'jobs.job_name',
-                'company.company_name',
-                DB::raw('COALESCE(YEAR(job_tracking.date_end), "Now") as date_end'),
-                DB::raw('COALESCE(YEAR(job_tracking.date_start), "Now") as date_start')
-            )
-            ->orderBy('job_tracking.id_tracking', 'desc')
-            ->get()
-            ->map(function ($job) {
-                // Decode job_description if it's stored as a JSON string
-                $job->job_description = json_decode($job->job_description, true);
-                return $job;
-            });
-
-        $companies = Company::all();
-
-        return view('content.admin-profilealumni', compact('userDetails', 'jobDetails', 'companies'));
+        $data = $this->adminService->getAlumniDetails($id);
+        return view('content.admin-profilealumni', $data);
     }
 
     public function editAlumni(Request $request, string $id)
@@ -189,6 +154,9 @@ class AdminController extends Controller
         $user->user_description = $request->user_description;
         $user->save();
 
+        // Clear the alumni cache after updating an alumni
+        $this->adminService->clearCaches('alumni', $id);
+
         return redirect()->back();
     }
 
@@ -223,7 +191,7 @@ class AdminController extends Controller
                 return $job;
             });
         $companies = Company::all();
-        return view('content.admin-editalumni', compact('userDetails', 'jobDetails', 'companies', ));
+        return view('content.admin-editalumni', compact('userDetails', 'jobDetails', 'companies',));
     }
 
     public function addAlumniExperiences(Request $request, string $id)
@@ -326,7 +294,6 @@ class AdminController extends Controller
                     'type' => 'approved',
                     'message' => 'Data Anda berhasil diverifikasi. Perubahan telah diterapkan.',
                 ]);
-
             } elseif ($pendingRequest->request_type === 'update') {
                 // Update the existing JobTracking record
                 $jobTracking = JobTracking::findOrFail($pendingRequest->id_tracking);
@@ -378,5 +345,112 @@ class AdminController extends Controller
         $job = json_decode($pendingRequest->job_description);
         $userDetails = $pendingRequest->userDetails;
         return view('content.admin-detailalumni', compact('pendingRequest', 'userDetails', 'job'));
+    }
+
+    public function getCompany()
+    {
+        $companies = $this->adminService->getAllCompanies();
+        return view('content.admin-company', compact('companies'));
+    }
+
+    public function detailCompany(string $id)
+    {
+        $data = $this->adminService->getCompanyDetails($id);
+        return view('content.detailcompanies', $data);
+    }
+
+    public function storeCompany(Request $request)
+    {
+        $request->validate([
+            'company_name' => 'required|string|max:255',
+            'company_field' => 'required|string|max:255',
+            'company_description' => 'required|string|max:255',
+            'company_phone' => 'required|string|max:255',
+            'company_address' => 'required|string|max:255',
+            'company_picture' => 'required|image|mimes:jpeg,png,jpg,gif|max:4096',
+        ]);
+
+        $company = Company::create([
+            'company_name' => $request->company_name,
+            'company_field' => $request->company_field,
+            'company_description' => $request->company_description,
+            'company_phone' => $request->company_phone,
+            'company_address' => $request->company_address,
+            'company_picture' => $request->company_picture,
+        ]);
+
+        if ($request->hasFile('company_picture')) {
+            $file = $request->file('company_picture');
+            $filenameWithExt = $file->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('company_picture')->getClientOriginalExtension();
+            $filenameSimpan = $filename . '_' . time() . '.' . $extension;
+            $file->storeAs('public/company', $filenameSimpan);
+            $company->company_picture = $filenameSimpan;
+            $company->save();
+        }
+
+        return redirect()->back();
+    }
+
+    public function updateCompany(Request $request, string $id)
+    {
+        $request->validate([
+            'company_name' => 'required|string|max:255',
+            'company_field' => 'required|string|max:255',
+            'company_phone' => 'required|string|max:255',
+            'company_email' => 'required|email|max:255',
+            'company_website' => 'required|url|max:255',
+            'company_address' => 'required|string|max:255',
+            'company_description' => 'required|string',
+            'company_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $company = Company::findOrFail($id);
+        $company->company_name = $request->company_name;
+        $company->company_field = $request->company_field;
+        $company->company_phone = $request->company_phone;
+        $company->company_email = $request->company_email;
+        $company->company_website = $request->company_website;
+        $company->company_address = $request->company_address;
+        $company->company_description = $request->company_description;
+
+        if ($request->hasFile('company_picture')) {
+            // Delete old image if it exists
+            if ($company->company_picture) {
+                Storage::delete('public/company/' . $company->company_picture);
+            }
+
+            $image = $request->file('company_picture');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->storeAs('public/company', $imageName);
+            $company->company_picture = $imageName;
+        }
+
+        $company->save();
+
+        // Clear cache after update
+        $this->adminService->clearCaches('company', $id);
+
+        return redirect()->back();
+    }
+
+    public function deleteCompany(string $id)
+    {
+        $company = Company::findOrFail($id);
+        $company->delete();
+
+        // Clear cache after delete
+        $this->adminService->clearCaches('company', $id);
+        $this->adminService->clearCaches('company');
+
+        return redirect()->back();
+    }
+
+
+    public function getNews()
+    {
+        $news = $this->adminService->getAllNews();
+        return view('content.admin-news', compact('news'));
     }
 }

@@ -120,16 +120,16 @@
                                             {{ $index + 1 }}
                                         </th>
                                         <td class="px-6 py-4 text-sm text-black sm:text-base">
-                                            {{ $a->name }}
+                                            {{ $a->userDetails->name ?? 'N/A' }}
                                         </td>
                                         <td class="hidden-mobile px-6 py-4 text-black">
-                                            {{ $a->nim_part }}
+                                            {{ $a->userDetails->nim_part ?? 'N/A' }}
                                         </td>
                                         <td class="hidden-mobile px-6 py-4 text-black">
                                             {{ $a->email }}
                                         </td>
                                         <td class="px-6 py-4">
-                                            <a href="{{ route('admin.detail-alumni', ['id' => $a->id_userDetails]) }}"
+                                            <a href="{{ route('admin.detail-alumni', ['id' => $a->userDetails->id_userDetails ?? '']) }}"
                                                 class="rounded-full bg-cyan-100 px-4 py-2 text-center text-sm text-white shadow-md hover:bg-white hover:text-cyan-100 sm:px-7 sm:text-base">
                                                 Detail
                                             </a>
