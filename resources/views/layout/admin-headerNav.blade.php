@@ -70,6 +70,20 @@
                         <span class="ms-3 flex-1 whitespace-nowrap">Alumni</span>
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('admin.company') }}"
+                        class="{{ request()->routeIs('admin.company') ? 'text-cyan-100 bg-white' : 'text-white' }} group flex items-center rounded-lg p-2 hover:bg-white hover:text-cyan-100 dark:text-white dark:hover:bg-gray-700"
+                        @if (request()->routeIs('admin.company')) aria-current="page" @endif>
+                        <span class="ms-3 flex-1 whitespace-nowrap">Company</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.news') }}"
+                        class="{{ request()->routeIs('admin.news') ? 'text-cyan-100 bg-white' : 'text-white' }} group flex items-center rounded-lg p-2 hover:bg-white hover:text-cyan-100 dark:text-white dark:hover:bg-gray-700"
+                        @if (request()->routeIs('admin.news')) aria-current="page" @endif>
+                        <span class="ms-3 flex-1 whitespace-nowrap">News</span>
+                    </a>
+                </li>
             </ul>
         </div>
     </aside>

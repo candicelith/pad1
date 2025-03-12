@@ -15,7 +15,7 @@ return new class extends Migration
             $table->bigIncrements('id_userDetails');
             $table->unsignedBigInteger('id_users');
             $table->string('name');
-            $table->string('nim')->unique(); //TBF
+            $table->string('nim')->nullable()->unique(); //TBF
             $table->string('phone')->nullable();
             $table->string('profile_photo')->nullable();
             $table->text('user_description')->nullable();

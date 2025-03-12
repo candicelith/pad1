@@ -22,6 +22,7 @@ class User extends Authenticatable
         'email',
         'id_roles',
         'password',
+        'google_id'
     ];
 
     /**
@@ -46,5 +47,10 @@ class User extends Authenticatable
     public function vacancies()
     {
         return $this->hasMany(Vacancy::class, 'id_users');
+    }
+
+    public function comment()
+    {
+        return $this->hasMany(Comment::class, 'id_users');
     }
 }

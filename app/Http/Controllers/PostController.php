@@ -142,7 +142,10 @@ class PostController extends Controller
         $vacancy->vacancy_qualification = json_decode($vacancy->vacancy_qualification, true);
         $vacancy->vacancy_benefits = json_decode($vacancy->vacancy_benefits, true);
 
-        $comments = $post->comments()->whereNull('parent_id')->get();
+        $comments = $post->comments()
+            ->whereNull('parent_id')
+            ->with('user.userDetails')
+            ->get();
 
         return view('content.detailpost', compact('post', 'vacancy', 'comments', 'posts'));
     }
