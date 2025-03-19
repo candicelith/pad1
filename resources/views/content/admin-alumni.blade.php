@@ -8,6 +8,7 @@
                 <div class="relative sm:mx-10">
                     <div class="top-0 z-20 flex justify-between bg-white pb-4">
 
+                        {{-- Add Alumni Button --}}
                         <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
                             class="rounded-xl bg-cyan-100 p-2 shadow-md hover:bg-white">
                             <svg class="h-6 w-6 text-white hover:text-cyan-100" aria-hidden="true"
@@ -23,34 +24,43 @@
                             class="fixed left-0 right-0 top-0 z-50 hidden h-[calc(100%-1rem)] max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0">
                             <div class="relative max-h-full w-full max-w-5xl p-4">
                                 {{-- Modal content --}}
-                                <div class="relative rounded-lg bg-cyan-100 p-2 shadow">
+                                <div class="relative rounded-2xl bg-cyan-400 px-9 py-8 shadow">
                                     {{-- Modal header --}}
                                     <div class="flex items-center justify-between rounded-t text-center md:p-5">
-                                        <h3 class="text-xl text-white sm:text-start">
-                                            Form Pembuatan Akun Alumni
+                                        <h3 class="text-3xl text-cyan sm:text-start">
+                                            Create New Alumni’s Account
                                         </h3>
+                                        <button type="button" data-modal-toggle="crud-modal">
+                                            <svg class="h-6 w-6 text-white" aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                fill="none" viewBox="0 0 24 24">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                    stroke-width="4" d="M6 18 17.94 6M18 18 6.06 6" />
+                                            </svg>
+                                        </button>
                                     </div>
+                                    <hr class="border-1 h-px bg-white">
                                     {{-- Modal body --}}
                                     <form class="p-4 md:p-5" method="POST" action="{{ route('admin.store') }}">
                                         @csrf
-                                        <div class="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                                        <div class="mb-4 grid grid-cols-1 gap-8 sm:grid-cols-2">
                                             <div class="col-span-2">
-                                                <label for="name" class="mb-2 block text-sm text-white sm:text-lg">Full
+                                                <label for="name" class="mb-3 block text-sm text-cyan sm:text-2xl">Full
                                                     Name</label>
                                                 <input type="text" name="name" id="name"
-                                                    class="block h-1/2 w-full rounded-full border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400 sm:p-2.5"
-                                                    placeholder="" required="">
+                                                    class="m:p-2.5 block h-11 w-full rounded-full border border-gray-300 bg-gray-50 px-4 py-2 text-sm text-gray-900"
+                                                    placeholder="Jane Doe" required="">
                                             </div>
                                             <div class="col-span-2">
                                                 <label for="nim"
-                                                    class="mb-2 block text-sm text-white sm:text-lg">NIM</label>
+                                                    class="mb-3 block text-sm text-cyan sm:text-lg">NIM</label>
                                                 <input type="text" name="nim" id="nim"
                                                     class="block h-1/2 w-full rounded-full border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400 sm:p-2.5"
                                                     placeholder="23/******/SV/*****" required="">
                                             </div>
                                             <div class="col-span-2">
                                                 <label for="email"
-                                                    class="mb-2 block text-sm text-white sm:text-lg">Email</label>
+                                                    class="mb-3 block text-sm text-cyan sm:text-lg">Email</label>
                                                 <input type="text" name="email" id="email"
                                                     class="block h-1/2 w-full rounded-full border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400 sm:p-2.5"
                                                     placeholder="trpl@mail.ugm.ac.id" required="">
@@ -61,8 +71,9 @@
                                                     class="block h-1/2 w-full rounded-full border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400 sm:p-2.5"
                                                     placeholder="+6281234567890" pattern="^\+62[0-9]{8,13}$" required>
                                             </div> --}}
-                                            <div class="col-span-2">
-                                                <label for="graduate_year" class="mb-2 block text-sm text-white sm:text-lg">Graduate Year</label>
+                                            {{-- <div class="col-span-2">
+                                                <label for="graduate_year"
+                                                    class="mb-2 block text-sm text-white sm:text-lg">Graduate Year</label>
                                                 <select name="graduate_year" id="graduate_year"
                                                     class="block h-1/2 w-full rounded-full border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400 sm:p-2.5"
                                                     required>
@@ -71,17 +82,12 @@
                                                         <option value="{{ $year }}">{{ $year }}</option>
                                                     @endfor
                                                 </select>
-                                            </div>
+                                            </div> --}}
                                         </div>
 
-                                        <div class="flex justify-end space-x-4">
-                                            <button type="button"
-                                                class="inline-flex items-center rounded-full bg-white px-5 py-1.5 text-center text-sm text-cyan shadow-lg hover:bg-cyan hover:text-white focus:outline-none focus:ring-4 focus:ring-cyan sm:py-2.5 sm:text-base"
-                                                data-modal-toggle="crud-modal">
-                                                Cancel
-                                            </button>
+                                        <div class="flex justify-end">
                                             <button type="submit"
-                                                class="inline-flex items-center rounded-full bg-white px-5 py-1.5 text-center text-sm text-cyan shadow-lg hover:bg-cyan hover:text-white focus:outline-none focus:ring-4 focus:ring-cyan sm:py-2.5 sm:text-base">
+                                                class="bg-btn-cyan inline-flex items-center rounded-xl bg-cyan px-8 py-2 text-center text-sm text-white shadow-lg hover:bg-cyan-100 hover:text-white focus:outline-none focus:ring-4 focus:ring-cyan sm:py-2.5 sm:text-base">
                                                 Create
                                             </button>
                                         </div>

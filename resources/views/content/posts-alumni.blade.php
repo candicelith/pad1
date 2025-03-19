@@ -11,7 +11,7 @@
 
             {{-- New Post Button --}}
             <div class="mt-6 flex justify-end">
-                <a href="{{ route('createpost') }}"
+                <a href="{{ route(name: 'createpost') }}"
                     class="items-center rounded-full bg-cyan-100 px-5 py-1 text-lg text-white shadow hover:bg-white hover:text-cyan-100">
                     New Post +
                 </a>

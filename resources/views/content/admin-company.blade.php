@@ -8,11 +8,8 @@
                 <div class="relative sm:mx-10">
                     <div class="top-0 z-20 flex justify-between bg-white pb-4">
                         {{-- Add Company Button --}}
-                        <button
-                            data-modal-target="crud-modal"
-                            data-modal-toggle="crud-modal"
-                            class="rounded-xl bg-cyan-100 p-2 shadow-md hover:bg-white"
-                        >
+                        <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
+                            class="rounded-xl bg-cyan-100 p-2 shadow-md hover:bg-white">
                             <svg class="h-6 w-6 text-white hover:text-cyan-100" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                 viewBox="0 0 24 24">
@@ -22,138 +19,90 @@
                         </button>
 
                         {{-- Add Company Modal --}}
-                        <div
-                            id="crud-modal"
-                            tabindex="-1"
-                            aria-hidden="true"
-                            class="fixed left-0 right-0 top-0 z-50 hidden h-[calc(100%-1rem)] max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0"
-                        >
+                        <div id="crud-modal" tabindex="-1" aria-hidden="true"
+                            class="fixed left-0 right-0 top-0 z-50 hidden h-[calc(100%-1rem)] max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0">
                             <div class="relative max-h-full w-full max-w-5xl p-4">
                                 <div class="relative rounded-lg bg-cyan-100 p-2 shadow">
-                                    <div class="flex items-center justify-between rounded-t text-center md:p-5">
+                                    <div
+                                        class="flex items-center justify-between rounded-t border-b-2 border-white text-center md:p-5">
                                         <h3 class="text-xl text-white sm:text-start">
                                             Add New Company
                                         </h3>
+                                        <button type="button" class="inline-flex items-center"
+                                            data-modal-toggle="crud-modal">
+                                            <svg class="h-6 w-6 text-white" aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                fill="none" viewBox="0 0 24 24">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                    stroke-width="3" d="M6 18 17.94 6M18 18 6.06 6" />
+                                            </svg>
+                                        </button>
                                     </div>
 
-                                    <form
-                                        class="p-4 md:p-5"
-                                        method="POST"
-                                        action="{{ route('admin.company.store') }}"
-                                        enctype="multipart/form-data"
-                                    >
+                                    <form class="p-4 md:p-5" method="POST" action="{{ route('admin.company.store') }}"
+                                        enctype="multipart/form-data">
                                         @csrf
                                         <div class="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
                                             <div class="col-span-2 sm:col-span-1">
-                                                <label
-                                                    for="company_name"
-                                                    class="mb-2 block text-sm text-white sm:text-lg"
-                                                >
+                                                <label for="company_name" class="mb-2 block text-sm text-white sm:text-lg">
                                                     Company Name
                                                 </label>
-                                                <input
-                                                    type="text"
-                                                    name="company_name"
-                                                    id="company_name"
+                                                <input type="text" name="company_name" id="company_name"
                                                     class="block h-1/2 w-full rounded-full border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400 sm:p-2.5"
-                                                    placeholder="Enter company name"
-                                                    required
-                                                >
+                                                    placeholder="Enter company name" required>
                                             </div>
 
                                             <div class="col-span-2 sm:col-span-1">
-                                                <label
-                                                    for="company_field"
-                                                    class="mb-2 block text-sm text-white sm:text-lg"
-                                                >
+                                                <label for="company_field" class="mb-2 block text-sm text-white sm:text-lg">
                                                     Company Field
                                                 </label>
-                                                <input
-                                                    type="text"
-                                                    name="company_field"
-                                                    id="company_field"
+                                                <input type="text" name="company_field" id="company_field"
                                                     class="block h-1/2 w-full rounded-full border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400 sm:p-2.5"
-                                                    placeholder="Enter company field"
-                                                    required
-                                                >
+                                                    placeholder="Enter company field" required>
                                             </div>
 
                                             <div class="col-span-2">
-                                                <label
-                                                    for="company_description"
-                                                    class="mb-2 block text-sm text-white sm:text-lg"
-                                                >
+                                                <label for="company_description"
+                                                    class="mb-2 block text-sm text-white sm:text-lg">
                                                     Company Description
                                                 </label>
-                                                <textarea
-                                                    name="company_description"
-                                                    id="company_description"
+                                                <textarea name="company_description" id="company_description"
                                                     class="block w-full rounded-lg border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400 sm:p-2.5"
-                                                    placeholder="Enter company description"
-                                                    rows="3"
-                                                ></textarea>
+                                                    placeholder="Enter company description" rows="3"></textarea>
                                             </div>
 
                                             <div class="col-span-2 sm:col-span-1">
-                                                <label
-                                                    for="company_phone"
-                                                    class="mb-2 block text-sm text-white sm:text-lg"
-                                                >
+                                                <label for="company_phone" class="mb-2 block text-sm text-white sm:text-lg">
                                                     Company Phone
                                                 </label>
-                                                <input
-                                                    type="tel"
-                                                    name="company_phone"
-                                                    id="company_phone"
+                                                <input type="tel" name="company_phone" id="company_phone"
                                                     class="block h-1/2 w-full rounded-full border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400 sm:p-2.5"
-                                                    placeholder="+62 8123456789"
-                                                >
+                                                    placeholder="+62 8123456789">
                                             </div>
 
                                             <div class="col-span-2 sm:col-span-1">
-                                                <label
-                                                    for="company_picture"
-                                                    class="mb-2 block text-sm text-white sm:text-lg"
-                                                >
+                                                <label for="company_picture"
+                                                    class="mb-2 block text-sm text-white sm:text-lg">
                                                     Company Logo
                                                 </label>
-                                                <input
-                                                    type="file"
-                                                    name="company_picture"
-                                                    id="company_picture"
-                                                    class="block h-1/2 w-full rounded-full border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400 sm:p-2.5"
-                                                >
+                                                <input type="file" name="company_picture" id="company_picture"
+                                                    class="block h-1/2 w-full rounded-full border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400 sm:p-2.5">
                                             </div>
 
                                             <div class="col-span-2">
-                                                <label
-                                                    for="company_address"
-                                                    class="mb-2 block text-sm text-white sm:text-lg"
-                                                >
+                                                <label for="company_address"
+                                                    class="mb-2 block text-sm text-white sm:text-lg">
                                                     Company Address
                                                 </label>
-                                                <textarea
-                                                    name="company_address"
-                                                    id="company_address"
+                                                <textarea name="company_address" id="company_address"
                                                     class="block w-full rounded-lg border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400 sm:p-2.5"
-                                                    placeholder="Enter company address"
-                                                    rows="2"
-                                                ></textarea>
+                                                    placeholder="Enter company address" rows="2"></textarea>
                                             </div>
                                         </div>
 
-                                        <div class="flex justify-end space-x-4">
-                                            <button
-                                                type="button"
-                                                class="inline-flex items-center rounded-full bg-white px-5 py-1.5 text-center text-sm text-cyan shadow-lg hover:bg-cyan hover:text-white focus:outline-none focus:ring-4 focus:ring-cyan sm:py-2.5 sm:text-base"
-                                                data-modal-toggle="crud-modal"
-                                            >
-                                                Cancel
-                                            </button>
-                                            <button
-                                                type="submit"
-                                                class="inline-flex items-center rounded-full bg-white px-5 py-1.5 text-center text-sm text-cyan shadow-lg hover:bg-cyan hover:text-white focus:outline-none focus:ring-4 focus:ring-cyan sm:py-2.5 sm:text-base"
-                                            >
+                                        <div class="flex justify-end">
+                                            <button type="submit"
+                                                class="inline-flex items-center rounded-full bg-white px-5 py-1.5 text-center text-sm text-cyan shadow-lg hover:bg-cyan hover:text-white focus:outline-none focus:ring-4 focus:ring-cyan sm:py-2.5 sm:text-base">
                                                 Create
                                             </button>
                                         </div>
@@ -174,25 +123,32 @@
                                     <th scope="col" class="px-6 py-3 text-sm font-normal text-black sm:text-base">
                                         <span>COMPANY NAME</span>
                                     </th>
-                                    <th scope="col" class="hidden-mobile px-6 py-3 font-normal text-black sm:text-base">
+                                    <th scope="col"
+                                        class="hidden-mobile px-6 py-3 font-normal text-black sm:text-base">
                                         <span>COMPANY FIELD</span>
                                     </th>
-                                    <th scope="col" class="hidden-mobile px-6 py-3 font-normal text-black sm:text-base">
+                                    <th scope="col"
+                                        class="hidden-mobile px-6 py-3 font-normal text-black sm:text-base">
                                         <span>COMPANY PHONE</span>
                                     </th>
-                                    <th scope="col" class="hidden-mobile px-6 py-3 font-normal text-black sm:text-base">
+                                    <th scope="col"
+                                        class="hidden-mobile px-6 py-3 font-normal text-black sm:text-base">
                                         <span>COMPANY EMAIL</span>
                                     </th>
-                                    <th scope="col" class="hidden-mobile px-6 py-3 font-normal text-black sm:text-base">
+                                    <th scope="col"
+                                        class="hidden-mobile px-6 py-3 font-normal text-black sm:text-base">
                                         <span>COMPANY WEBSITE</span>
                                     </th>
-                                    <th scope="col" class="hidden-mobile px-6 py-3 font-normal text-black sm:text-base">
+                                    <th scope="col"
+                                        class="hidden-mobile px-6 py-3 font-normal text-black sm:text-base">
                                         <span>COMPANY ADDRESS</span>
                                     </th>
-                                    <th scope="col" class="hidden-mobile px-6 py-3 font-normal text-black sm:text-base">
+                                    <th scope="col"
+                                        class="hidden-mobile px-6 py-3 font-normal text-black sm:text-base">
                                         <span>COMPANY DESCRIPTION</span>
                                     </th>
-                                    <th scope="col" class="hidden-mobile px-6 py-3 font-normal text-black sm:text-base">
+                                    <th scope="col"
+                                        class="hidden-mobile px-6 py-3 font-normal text-black sm:text-base">
                                         <span>COMPANY PICTURE</span>
                                     </th>
 
@@ -230,12 +186,11 @@
                                             {{ $company->company_description }}
                                         </td>
                                         <td class="hidden-mobile px-6 py-4 text-sm text-black sm:text-base">
-                                            <img src="{{ asset('storage/company/' . $company->company_picture) }}" alt="Company Logo" class="w-10 h-10 rounded-full">
+                                            <img src="{{ asset('storage/company/' . $company->company_picture) }}"
+                                                alt="Company Logo" class="h-10 w-10 rounded-full">
                                         <td class="px-6 py-4">
-                                            <a
-                                                href="{{ route('admin.company.detail', ['id' => $company->id_company]) }}"
-                                                class="rounded-full bg-cyan-100 px-4 py-2 text-center text-sm text-white shadow-md hover:bg-white hover:text-cyan-100 sm:px-7 sm:text-base"
-                                            >
+                                            <a href="{{ route('admin.company.detail', ['id' => $company->id_company]) }}"
+                                                class="rounded-full bg-cyan-100 px-4 py-2 text-center text-sm text-white shadow-md hover:bg-white hover:text-cyan-100 sm:px-7 sm:text-base">
                                                 Detail
                                             </a>
                                         </td>

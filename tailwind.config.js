@@ -14,6 +14,7 @@ export default {
                 'cyan-100': '#7393A7',
                 'cyan-200': '#3E787E',
                 'cyan-300': '#266276',
+                'cyan-400': '#ABBECA',
                 lightblue: '#E8ECF1',
                 'lightblue-100': '#DCF4FD',
                 lightgreen: '#C4DEC1',

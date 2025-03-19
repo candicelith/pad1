@@ -114,7 +114,7 @@
                     <div
                         class="flex w-full flex-col rounded-bl-lg rounded-br-lg border-t-2 border-cyan bg-lightblue px-5 py-10 sm:rounded-e-lg sm:rounded-bl-none sm:border-s-2 sm:border-t-0 lg:mt-0 lg:w-1">
                         <div class="mx-2 flex-grow sm:my-10 sm:mt-10">
-                            <div class="scrollbar-detailposts max-h-screen space-y-6 overflow-y-auto custom-scrollbar">
+                            <div class="scrollbar-detailposts custom-scrollbar max-h-screen space-y-6 overflow-y-auto">
                                 @if ($comments->isEmpty())
                                     <div class="flex h-full flex-col items-center justify-center space-y-8 text-center">
                                         <img src="{{ asset('assets/Thinking Bubble.svg') }}" alt="">
@@ -124,13 +124,13 @@
                                 @else
                                     {{-- Comment Start --}}
                                     @foreach ($comments as $comment)
-                                        <div id="comment-{{ $comment->id_comment }}" class="comment-item mb-6 relative">
+                                        <div id="comment-{{ $comment->id_comment }}" class="comment-item relative mb-6">
                                             <div class="flex items-start space-x-2 sm:space-x-4">
                                                 <img src="{{ asset('storage/profile/' . ($comment->user->userDetails->profile_photo ?? 'default_profile.png')) }}"
                                                     alt="avatar" class="h-14 w-14 rounded-full object-cover">
-                                                <div class="relative max-w-md w-full">
-                                                    <div class="flex justify-between items-start">
-                                                        <h2 class="text-sm font-medium sm:text-base hover:underline">
+                                                <div class="relative w-full max-w-md">
+                                                    <div class="flex items-start justify-between">
+                                                        <h2 class="text-sm font-medium hover:underline sm:text-base">
                                                             <a
                                                                 href="{{ route('alumni.detail', ['id' => optional($comment->user)->userDetails->id_userDetails ?? null]) }}">
                                                                 {{ optional($comment->user)->userDetails->name ?? 'Unknown User' }}
@@ -152,7 +152,7 @@
                                                         {{-- Reply button --}}
                                                         <div class="flex items-center space-x-4">
                                                             <span
-                                                                class="reply-toggle cursor-pointer text-xs hover:underline text-cyan-600"
+                                                                class="reply-toggle text-cyan-600 cursor-pointer text-xs hover:underline"
                                                                 data-comment-id="{{ $comment->id_comment }}"
                                                                 data-comment-text="{{ $comment->text_comment }}">
                                                                 Reply
@@ -160,7 +160,7 @@
 
                                                             @if ($comment->replies && $comment->replies->count() > 0)
                                                                 <span
-                                                                    class="show-all-replies cursor-pointer text-xs text-cyan-600 hover:underline "
+                                                                    class="show-all-replies text-cyan-600 cursor-pointer text-xs hover:underline"
                                                                     data-comment-id="{{ $comment->id_comment }}">
                                                                     Show all replies ({{ $comment->replies->count() }})
                                                                 </span>
@@ -174,25 +174,26 @@
 
                                             {{-- Nested Replies --}}
                                             @if ($comment->replies && $comment->replies->count() > 0)
-                                                <div class="replies-container ml-10 sm:ml-16 mt-4 space-y-4 relative">
+                                                <div class="replies-container relative ml-10 mt-4 space-y-4 sm:ml-16">
                                                     {{-- Vertical line to separate replies --}}
-                                                    <div class="absolute left-[-20px] top-0 bottom-0 w-0.5 bg-gray-300">
+                                                    <div class="absolute bottom-0 left-[-20px] top-0 w-0.5 bg-gray-300">
                                                     </div>
 
                                                     <div class="replies-list hidden"
                                                         id="replies-{{ $comment->id_comment }}">
                                                         @foreach ($comment->replies as $reply)
                                                             <div id="comment-{{ $reply->id_comment }}"
-                                                                class="reply-item pl-4 relative mb-4">
+                                                                class="reply-item relative mb-4 pl-4">
                                                                 <div class="flex items-start space-x-2 sm:space-x-4">
                                                                     <img src="{{ asset('storage/profile/' . ($reply->user->userDetails->profile_photo ?? 'default_profile.png')) }}"
                                                                         alt="avatar"
-                                                                        class="h-10 w-10 sm:h-14 sm:w-14 rounded-full object-cover">
-                                                                    <div class="relative max-w-md w-full">
-                                                                        <div class="flex justify-between items-start">
+                                                                        class="h-10 w-10 rounded-full object-cover sm:h-14 sm:w-14">
+                                                                    <div class="relative w-full max-w-md">
+                                                                        <div class="flex items-start justify-between">
                                                                             <h2 class="text-sm font-medium sm:text-base">
-                                                                                <a href="{{ route('alumni.detail', ['id' => optional($comment->user)->userDetails->id_userDetails ?? null]) }}">{{ $reply->user->userDetails->name }}</a>
-                                                                                </h2>
+                                                                                <a
+                                                                                    href="{{ route('alumni.detail', ['id' => optional($comment->user)->userDetails->id_userDetails ?? null]) }}">{{ $reply->user->userDetails->name }}</a>
+                                                                            </h2>
                                                                         </div>
 
                                                                         <span class="mt-1 block text-xs text-cyan">
@@ -228,18 +229,18 @@
                                 <input type="hidden" name="parent_id" id="parent-comment-id">
 
                                 <div class="mt-auto flex items-center space-x-2 pt-10 sm:pt-0">
-                                    <div class="flex-grow relative">
+                                    <div class="relative flex-grow">
                                         {{-- Reply Context --}}
                                         <div id="reply-context"
-                                            class="hidden absolute bottom-full left-0 right-0 bg-gray-500 text-white rounded-t-lg px-4 py-2 flex justify-between items-center mb-1">
-                                            <div class="flex items-center space-x-2 min-w-0">
-                                                <span class="text-sm font-semibold whitespace-nowrap">Replying to:</span>
-                                                <span id="reply-context-text" class="truncate flex-grow text-sm">
+                                            class="absolute bottom-full left-0 right-0 mb-1 flex hidden items-center justify-between rounded-t-lg bg-gray-500 px-4 py-2 text-white">
+                                            <div class="flex min-w-0 items-center space-x-2">
+                                                <span class="whitespace-nowrap text-sm font-semibold">Replying to:</span>
+                                                <span id="reply-context-text" class="flex-grow truncate text-sm">
                                                     <!-- Reply text will be inserted here -->
                                                 </span>
                                             </div>
                                             <button type="button" id="cancel-reply"
-                                                class="ml-2 text-white hover:text-gray-200 flex-shrink-0">
+                                                class="ml-2 flex-shrink-0 text-white hover:text-gray-200">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
                                                     viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -249,13 +250,13 @@
                                         </div>
 
                                         <input type="text" name="comment"
-                                            class="bg-gray-600 w-full rounded-lg border-none px-4 py-2 text-white placeholder-gray-300 focus:ring-2 focus:ring-blue-500"
+                                            class="w-full rounded-lg border-none bg-gray-600 px-4 py-2 text-white placeholder-gray-300 focus:ring-2 focus:ring-blue-500"
                                             placeholder="Write a comment..." id="comment-input">
                                     </div>
                                     <button type="submit" class="comment-button"
                                         style="background-color: #0097A7; border-radius: 10px; padding: 4px;">
 
-                                        <svg class="h-9 w-9 rotate-90 text-white sm:h-11 sm:w-11 transition-transform duration-300"
+                                        <svg class="h-9 w-9 rotate-90 text-white transition-transform duration-300 sm:h-11 sm:w-11"
                                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                                             height="24" fill="none" viewBox="0 0 24 24">
 

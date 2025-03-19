@@ -58,12 +58,11 @@
                                 </h4>
                             @endif
 
-                            <div class="scrollbar-companies px-4 sm:px-8 grid max-h-[700px] gap-6 overflow-y-auto sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                            <div
+                                class="scrollbar-companies grid max-h-[700px] gap-6 overflow-y-auto px-4 sm:grid-cols-1 sm:px-8 md:grid-cols-2 lg:grid-cols-3">
                                 @forelse ($workers as $worker)
-                                    <a
-                                        href="{{ route('alumni.detail', ['id' => $worker->id_userDetails]) }}"
-                                        class="w-full max-w-sm rounded-lg border border-gray-200 bg-cyan-100 shadow-lg transition-transform duration-300 hover:scale-105"
-                                    >
+                                    <a href="{{ route('alumni.detail', ['id' => $worker->id_userDetails]) }}"
+                                        class="w-full max-w-sm rounded-lg border border-gray-200 bg-cyan-100 shadow-lg transition-transform duration-300 hover:scale-105">
                                         <div class="flex flex-col items-center px-3 py-7 text-center">
                                             {{-- Graduate Year --}}
                                             <div class="mb-5 flex w-full justify-end px-6 text-gray-300">
@@ -73,13 +72,11 @@
                                             </div>
 
                                             {{-- Profile Image --}}
-                                            <img
-                                                class="mb-3 h-24 w-24 rounded-full object-cover shadow-lg"
+                                            <img class="mb-3 h-24 w-24 rounded-full object-cover shadow-lg"
                                                 src="{{ $worker->profile_photo
                                                     ? asset('storage/profile/' . $worker->profile_photo)
                                                     : asset('images/default-profile.png') }}"
-                                                alt="{{ $worker->name }} profile"
-                                            />
+                                                alt="{{ $worker->name }} profile" />
 
                                             {{-- Name --}}
                                             <h2 class="mb-1 text-lg text-white sm:text-xl">
@@ -96,7 +93,7 @@
                                         </div>
                                     </a>
                                 @empty
-                                    <div class="col-span-full text-center py-10 text-gray-500">
+                                    <div class="col-span-full py-10 text-center text-gray-500">
                                         <p class="text-xl">No workers found for this company</p>
                                     </div>
                                 @endforelse

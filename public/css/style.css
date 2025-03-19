@@ -52,6 +52,10 @@ main {
     background-color: #3E787E;
 }
 
+.border-input-cyan:active {
+    border-color: #183d55;
+}
+
 .scrollbar-hide::-webkit-scrollbar {
     display: none;
 }
@@ -88,6 +92,10 @@ main {
 .alert-animation {
     animation: slide-in 0.7s ease-in-out forwards;
 }
+/*
+.post-card-shadow {
+    box-shadow: #000000;
+} */
 
 /* Hidden rows in mobile view */
 @media (max-width: 768px) {

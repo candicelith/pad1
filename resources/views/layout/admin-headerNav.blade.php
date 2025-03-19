@@ -16,7 +16,7 @@
 <body>
 
     <!-- Navbar -->
-    <header id="navbar" class="fixed top-0 z-50 w-full border-gray-200 bg-white transition-shadow duration-300">
+    <header id="navbar" class="fixed top-0 z-40 w-full border-gray-200 bg-white transition-shadow duration-300">
         <nav class="flex items-center justify-between p-4">
             <!-- Hamburger Button (Visible only on small screens) -->
             <button id="hamburger-btn" class="p-2 text-black lg:hidden">
@@ -36,7 +36,7 @@
 
     <!-- Sidebar -->
     <aside id="logo-sidebar"
-        class="fixed left-0 top-0 z-40 h-full w-64 -translate-x-full border-r bg-cyan-100 pt-28 transition-transform sm:translate-x-0"
+        class="fixed left-0 top-0 z-30 h-full w-64 -translate-x-full border-r bg-cyan-100 pt-28 transition-transform sm:translate-x-0"
         aria-label="Sidebar">
         <div class="h-full overflow-y-auto bg-cyan-100 px-3 pb-4">
             <ul class="space-y-2 font-medium">
