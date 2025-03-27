@@ -43,6 +43,14 @@ Route::get('/505', function () {
     return view('errors.505');
 })->name('505');
 
+//Sementara (del later)
+Route::get('/loginform', function () {
+    return view('content.login-form');
+})->name('login-form');
+Route::get('/privacy-policy', function () {
+    return view('content.privacy-policy');
+})->name('privacypolicy');
+
 // Index
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/companies', [CompanyController::class, 'index'])->name('companies');
@@ -62,7 +70,7 @@ Route::controller(CommentController::class)->group(function () {
     Route::post('/posts/detail/{vacancy}/comment/{id}', 'store')->name('posts.detail.reply');
     Route::patch('/comments/{id}', [CommentController::class, 'update'])->name('comments.update');
     Route::delete('/comments/{id}', [CommentController::class, 'destroy'])->name('comments.delete');
-    });
+});
 
 
 // Company Controller
@@ -134,8 +142,8 @@ Route::post('/notifications/read', [NotificationController::class, 'markAsRead']
 
 
 // Google Auth
-Route::get('/auth/google/redirect',[GoogleAuthController::class, 'redirect']);
-Route::get('/auth/google/callback',[GoogleAuthController::class, 'callback']);
+Route::get('/auth/google/redirect', [GoogleAuthController::class, 'redirect']);
+Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback']);
 
 
 

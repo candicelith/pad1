@@ -48,6 +48,10 @@ main {
     background-color: #183d55;
 }
 
+.bg-btn-lightblue {
+    background-color: #E8ECF1;
+}
+
 .bg-input-cyan-200 {
     background-color: #3E787E;
 }
@@ -92,6 +96,11 @@ main {
 .alert-animation {
     animation: slide-in 0.7s ease-in-out forwards;
 }
+
+.blue-stepper {
+    border-color: #1c64f2;
+}
+
 /*
 .post-card-shadow {
     box-shadow: #000000;
