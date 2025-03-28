@@ -69,6 +69,8 @@ Route::controller(CommentController::class)->group(function () {
 Route::controller(CompanyController::class)->group(function () {
     Route::get('/companies', 'index')->name('companies');
     Route::get('/companies/detail/{id}', 'show')->name('companies.detail');
+    Route::post('/companies/store', 'store')->name('companies.store');
+    Route::get('/companies/create','create')->name('companies.create');
 });
 
 

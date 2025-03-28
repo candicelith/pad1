@@ -34,8 +34,11 @@
                                     <!-- Modal content -->
                                     <div
                                         class="scrollbar-modal relative my-14 max-h-96 overflow-y-auto rounded-lg border border-gray-900 bg-lightblue p-4 shadow dark:bg-gray-700 sm:mx-10 md:p-5">
-                                        <!-- Modal body -->
-                                        <div class="flex items-start justify-end">
+                                        <!-- Modal header -->
+                                        <div class="flex items-center justify-between border-b pb-4 mb-4">
+                                            <h3 class="text-lg font-semibold text-cyan">
+                                                Add New Experience
+                                            </h3>
                                             <button data-modal-hide="crud-modal2" class="z-10 p-2 pe-0">
                                                 <svg class="h-6 w-6 text-gray-900 dark:text-white" aria-hidden="true"
                                                     xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -52,20 +55,35 @@
                                             <div class="mb-4 grid grid-cols-2 gap-4 rounded-lg bg-gray-300 px-4 py-5">
                                                 <div class="col-span-2">
                                                     <label for="company"
-                                                        class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">Company</label>
-                                                    <select type="text" name="company" id="company"
-                                                        class="block w-full cursor-pointer rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900"
-                                                        placeholder="" required="">
-                                                        @foreach ($companies as $company)
-                                                            <option value="{{ $company->id_company }}">
-                                                                {{ $company->company_name }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
+                                                        class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">
+                                                        Company
+                                                    </label>
+
+                                                <div class="flex items-center">
+                                                        <select type="text" name="company" id="company_select"
+                                                            class="company-select block w-full cursor-pointer rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900"
+                                                            required>
+                                                            @foreach ($companies as $company)
+                                                                <option value="{{ $company->id_company }}">
+                                                                    {{ $company->company_name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                        <a href="{{ route('companies.create') }}"
+                                                            class="ml-2 bg-cyan text-white rounded-full p-2 hover:bg-cyan-600">
+                                                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                                                xmlns="http://www.w3.org/2000/svg">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                    d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                                            </svg>
+                                                        </a>
+                                                    </div>
+
                                                     @error('company')
                                                         <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                                                     @enderror
                                                 </div>
+
                                                 <div class="col-span-2">
                                                     <label for="position"
                                                         class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">Position</label>
@@ -76,31 +94,67 @@
                                                         <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                                                     @enderror
                                                 </div>
-                                                <div class="col-span-2 sm:col-span-1">
-                                                    <label for="date_start"
-                                                        class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">Start
-                                                        Date</label>
-                                                    <input type="date" name="date_start" id="date_start"
-                                                        class="block w-full rounded-full border border-gray-500 bg-gray-50 p-2.5 text-sm text-gray-900 shadow"
-                                                        placeholder="Enter start date" required>
-                                                    @error('date_start')
-                                                        <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                                                    @enderror
+                                                <div date-rangepicker datepicker datepicker-buttons
+                                                    datepicker-autoselect-today
+                                                    class="col-span-2 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                                                    <div class="col-span-1">
+                                                        <label for="date_start"
+                                                            class="mb-2 block text-sm font-medium text-gray-700 dark:text-white">Start
+                                                            Date <span class="text-red-500">*</span></label>
+                                                        <div class="relative">
+                                                            <div
+                                                                class="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3">
+                                                                <svg class="h-4 w-4 text-gray-500 dark:text-gray-400"
+                                                                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                                    fill="currentColor" viewBox="0 0 20 20">
+                                                                    <path
+                                                                        d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                                                                </svg>
+                                                            </div>
+                                                            <input id="datepicker-range-start" name="date_start"
+                                                                type="text"
+                                                                class="block w-full rounded-full border border-gray-500 bg-gray-50 p-2.5 ps-10 text-sm text-gray-900 shadow focus:border-cyan focus:ring-cyan"
+                                                                placeholder="Select start date" required>
+                                                        </div>
+                                                        @error('date_start')
+                                                            <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="col-span-1">
+                                                        <label for="date_end"
+                                                            class="mb-2 block text-sm font-medium text-gray-700 dark:text-white">End
+                                                            Date</label>
+                                                        <div class="space-y-2">
+                                                            <div class="relative">
+                                                                <div
+                                                                    class="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3">
+                                                                    <svg class="h-4 w-4 text-gray-500 dark:text-gray-400"
+                                                                        aria-hidden="true"
+                                                                        xmlns="http://www.w3.org/2000/svg"
+                                                                        fill="currentColor" viewBox="0 0 20 20">
+                                                                        <path
+                                                                            d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                                                                    </svg>
+                                                                </div>
+                                                                <input id="datepicker-range-end" name="date_end"
+                                                                    type="text"
+                                                                    class="date-end-input block w-full rounded-full border border-gray-500 bg-gray-50 p-2.5 ps-10 text-sm text-gray-900 shadow focus:border-cyan focus:ring-cyan"
+                                                                    placeholder="Select end date">
+                                                            </div>
+                                                            <div class="flex items-center">
+                                                                <input id="current_position" type="checkbox"
+                                                                    class="current-job-checkbox h-4 w-4 rounded border-gray-300 bg-gray-100 text-cyan focus:ring-2 focus:ring-cyan">
+                                                                <label for="current_position"
+                                                                    class="ms-2 text-sm font-medium text-gray-700">This is
+                                                                    my current position</label>
+                                                            </div>
+                                                        </div>
+                                                        @error('date_end')
+                                                            <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                                                        @enderror
+                                                    </div>
                                                 </div>
-                                                <div class="col-span-2 sm:col-span-1">
-                                                    <label for="date_end"
-                                                        class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">End
-                                                        Date</label>
-                                                    <input type="date" name="date_end" id="date_end"
-                                                        class="block w-full rounded-full border border-gray-500 bg-gray-50 p-2.5 text-sm text-gray-900 shadow"
-                                                        placeholder="Enter end date">
-                                                    <p class="mt-1 text-sm text-gray-400">Empty the field if its still
-                                                        Active</p>
 
-                                                    @error('date_end')
-                                                        <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                                                    @enderror
-                                                </div>
 
                                                 <div class="col-span-2">
                                                     <label for="responsibility"
@@ -138,6 +192,9 @@
                         </div>
                     </div>
 
+                    <!-- We're removing the modal entirely and using a separate page -->
+                    <!-- End of Company Modal -->
+
                     @if ($jobDetails && count($jobDetails) > 0)
                         @foreach ($jobDetails as $job)
                             <div class="flex flex-col sm:flex-row-reverse">
@@ -161,8 +218,11 @@
                                             <!-- Modal content -->
                                             <div
                                                 class="scrollbar-modal relative my-14 max-h-96 overflow-y-auto rounded-lg border border-gray-900 bg-lightblue p-4 shadow dark:bg-gray-700 sm:mx-10 md:p-5">
-                                                <!-- Modal body -->
-                                                <div class="flex items-start justify-end">
+                                                <!-- Modal header -->
+                                                <div class="flex items-center justify-between border-b pb-4 mb-4">
+                                                    <h3 class="text-lg font-semibold text-cyan">
+                                                        Edit Experience
+                                                    </h3>
                                                     <button data-modal-hide="crud-modal-{{ $job->id_tracking }}"
                                                         class="z-10 p-2 pe-0">
                                                         <svg class="h-6 w-6 text-gray-900 dark:text-white"
@@ -209,31 +269,76 @@
                                                                 <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                                                             @enderror
                                                         </div>
-                                                        <div class="col-span-2 sm:col-span-1">
-                                                            <label for="date_start"
-                                                                class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">Start
-                                                                Date</label>
-                                                            <input type="date" name="date_start" id="date_start"
-                                                                class="block w-full rounded-full border border-gray-500 bg-gray-50 p-2.5 text-sm text-gray-900 shadow"
-                                                                placeholder="Enter start date"
-                                                                value="{{ old('date_start') }}" required>
-                                                            @error('date_start')
-                                                                <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                                                            @enderror
-                                                        </div>
-                                                        <div class="col-span-2 sm:col-span-1">
-                                                            <label for="date_end"
-                                                                class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">End
-                                                                Date</label>
-                                                            <input type="date" name="date_end" id="date_end"
-                                                                class="block w-full rounded-full border border-gray-500 bg-gray-50 p-2.5 text-sm text-gray-900 shadow"
-                                                                placeholder="Enter end date"
-                                                                value="{{ old('date_end') }}">
-                                                            <p class="mt-1 text-sm text-gray-400">Empty the field if its
-                                                                still Active</p>
-                                                            @error('date_end')
-                                                                <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                                                            @enderror
+                                                        <div class="col-span-2 grid grid-cols-1 gap-4 sm:grid-cols-2"
+                                                            date-rangepicker datepicker datepicker-buttons
+                                                            datepicker-autoselect-today>
+                                                            <div class="col-span-1">
+                                                                <label for="date_start"
+                                                                    class="mb-2 block text-sm font-medium text-gray-700 dark:text-white">Start
+                                                                    Date <span class="text-red-500">*</span></label>
+                                                                <div class="relative">
+                                                                    <div
+                                                                        class="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3">
+                                                                        <svg class="h-4 w-4 text-gray-500 dark:text-gray-400"
+                                                                            aria-hidden="true"
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            fill="currentColor" viewBox="0 0 20 20">
+                                                                            <path
+                                                                                d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                                                                        </svg>
+                                                                    </div>
+                                                                    <input
+                                                                        id="datepicker-range-start-{{ $job->id_tracking }}"
+                                                                        name="date_start" type="text"
+                                                                        value="{{ $job->date_start }}"
+                                                                        class="block w-full rounded-full border border-gray-500 bg-gray-50 p-2.5 ps-10 text-sm text-gray-900 shadow focus:border-cyan focus:ring-cyan"
+                                                                        placeholder="Select start date" required>
+                                                                </div>
+                                                                @error('date_start')
+                                                                    <p class="mt-1 text-sm text-red-500">{{ $message }}
+                                                                    </p>
+                                                                @enderror
+                                                            </div>
+                                                            <div class="col-span-1">
+                                                                <label for="date_end"
+                                                                    class="mb-2 block text-sm font-medium text-gray-700 dark:text-white">End
+                                                                    Date</label>
+                                                                <div class="space-y-2">
+                                                                    <div class="relative">
+                                                                        <div
+                                                                            class="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3">
+                                                                            <svg class="h-4 w-4 text-gray-500 dark:text-gray-400"
+                                                                                aria-hidden="true"
+                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                                fill="currentColor" viewBox="0 0 20 20">
+                                                                                <path
+                                                                                    d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                                                                            </svg>
+                                                                        </div>
+                                                                        <input
+                                                                            id="datepicker-range-end-{{ $job->id_tracking }}"
+                                                                            name="date_end" type="text"
+                                                                            value="{{ $job->date_end }}"
+                                                                            class="date-end-input block w-full rounded-full border border-gray-500 bg-gray-50 p-2.5 ps-10 text-sm text-gray-900 shadow focus:border-cyan focus:ring-cyan"
+                                                                            placeholder="Select end date">
+                                                                    </div>
+                                                                    <div class="flex items-center">
+                                                                        <input
+                                                                            id="current_position_{{ $job->id_tracking }}"
+                                                                            type="checkbox"
+                                                                            class="current-job-checkbox h-4 w-4 rounded border-gray-300 bg-gray-100 text-cyan focus:ring-2 focus:ring-cyan"
+                                                                            {{ $job->date_end == 'Present' || $job->date_end == null ? 'checked' : '' }}>
+                                                                        <label
+                                                                            for="current_position_{{ $job->id_tracking }}"
+                                                                            class="ms-2 text-sm font-medium text-gray-700">This
+                                                                            is my current position</label>
+                                                                    </div>
+                                                                </div>
+                                                                @error('date_end')
+                                                                    <p class="mt-1 text-sm text-red-500">{{ $message }}
+                                                                    </p>
+                                                                @enderror
+                                                            </div>
                                                         </div>
                                                         @if (is_array($job->job_description) && !empty($job->job_description))
                                                             <div class="col-span-2">
@@ -352,6 +457,35 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Current job checkbox functionality
+            const currentJobCheckboxes = document.querySelectorAll('.current-job-checkbox');
+
+            currentJobCheckboxes.forEach(checkbox => {
+                const endDateInput = checkbox.closest('.space-y-2').querySelector('.date-end-input');
+
+                // Set initial state
+                if (checkbox.checked) {
+                    endDateInput.value = 'Present';
+                    endDateInput.disabled = true;
+                    endDateInput.classList.add('bg-gray-100');
+                }
+
+                // Handle checkbox change
+                checkbox.addEventListener('change', function() {
+                    if (this.checked) {
+                        // If checked, disable end date input and set value to "Present"
+                        endDateInput.value = 'Present';
+                        endDateInput.disabled = true;
+                        endDateInput.classList.add('bg-gray-100');
+                    } else {
+                        // If unchecked, enable end date input and clear value
+                        endDateInput.value = '';
+                        endDateInput.disabled = false;
+                        endDateInput.classList.remove('bg-gray-100');
+                    }
+                });
+            });
+
             // Variables for create modal
             const responsibilityContainerCreate = document.getElementById('responsibility-container-create');
             const addButtonCreate = document.getElementById('add-responsibility-create');

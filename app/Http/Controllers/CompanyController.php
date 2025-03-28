@@ -17,6 +17,13 @@ class CompanyController extends Controller
     {
         $company = Company::paginate(10);
         return view('content.companies', compact('company'));
+
+        if ($request->expectsJson()) {
+            return response()->json([
+                "message" => "Succesfully Fetched All Companies!",
+                "company" => CompanyResource::collection($company)
+            ], 200);
+        }
     }
 
     /**
@@ -24,7 +31,7 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        return view('content.create_companies');
+        return view('content.companies-create');
     }
 
     /**
@@ -33,28 +40,34 @@ class CompanyController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'company_name'=>'required|string|max:255',
-            'company_field'=>'required|string|max:255',
-            'company_description'=>'required|string|max:255',
-            'company_phone'=>['/^(?:\+62|62|0)8[1-9][0-9]{6,11}$/','max:255'],
-            'company_address'=>'string|max:255',
-            'company_picture' => 'string|max:255'
+            'company_name' => 'required|string|max:255',
+            'company_field' => 'required|string|max:255',
+            'company_description' => 'required|string|max:255',
+            'company_phone' => ['required', 'regex:/^(?:\+62|62|0)8[1-9][0-9]{6,11}$/', 'max:255'],
+            'company_address' => 'nullable|string|max:255',
+            'company_picture' => 'nullable|string|max:255'
         ]);
 
         $company = Company::create([
-            'company_name'=> $request->company_name,
-            'company_field'=> $request->company_field,
-            'company_description'=> $request->company_description,
-            'company_phone'=> $request->company_phone,
-            'company_address'=> $request->company_address,
+            'company_name' => $request->company_name,
+            'company_field' => $request->company_field,
+            'company_description' => $request->company_description,
+            'company_phone' => $request->company_phone,
+            'company_address' => $request->company_address,
             'company_picture' => $request->company_picture,
         ]);
 
-        return response()->json([
-            "message" => "Succesfully Created a Company!",
-            "company" => new CompanyResource($company)
-        ],201);
+        if ($request->expectsJson()) {
+            return response()->json([
+                "message" => "Successfully Created a Company!",
+                "company" => new CompanyResource($company)
+            ], 201);
+        }
+
+        return redirect()->back()
+            ->with('success', 'Company successfully created!');
     }
+
 
     /**
      * Display the specified resource.
@@ -76,13 +89,13 @@ class CompanyController extends Controller
                 DB::raw('COALESCE(YEAR(job_tracking.date_end), "Now") as date_end'),
                 DB::raw('COALESCE(YEAR(job_tracking.date_start), "Now") as date_start'),
                 DB::raw("COALESCE(user_details.profile_photo, 'default_profile.png') as profile_photo"),
-                )
+            )
             ->where('company.id_company', '=', $id) // filter by company ID
             ->orderBy('user_details.name', 'asc')   // Optional: order workers by name
             ->paginate(10);
 
 
-        return view('content.detailcompanies', compact('company','workers'));
+        return view('content.detailcompanies', compact('company', 'workers'));
     }
 
     /**
@@ -99,28 +112,28 @@ class CompanyController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'company_name'=>'required|string|max:255',
-            'company_field'=>'required|string|max:255',
-            'company_description'=>'required|string|max:255',
-            'company_phone'=>['/^(?:\+62|62|0)8[1-9][0-9]{6,11}$/','max:255'],
-            'company_address'=>'string|max:255',
+            'company_name' => 'required|string|max:255',
+            'company_field' => 'required|string|max:255',
+            'company_description' => 'required|string|max:255',
+            'company_phone' => ['/^(?:\+62|62|0)8[1-9][0-9]{6,11}$/', 'max:255'],
+            'company_address' => 'string|max:255',
             'company_picture' => 'string|max:255'
         ]);
 
         $company = Company::findOrFail($id);
         $company->update([
-            'company_name'=> $request->company_name,
-            'company_field'=> $request->company_field,
-            'company_description'=> $request->company_description,
-            'company_phone'=> $request->company_phone,
-            'company_address'=> $request->company_address,
+            'company_name' => $request->company_name,
+            'company_field' => $request->company_field,
+            'company_description' => $request->company_description,
+            'company_phone' => $request->company_phone,
+            'company_address' => $request->company_address,
             'company_picture' => $request->company_picture,
         ]);
 
         return response()->json([
             "message" => "Succesfully Updated The Company!",
             "company" => new CompanyResource($company)
-        ],200);
+        ], 200);
     }
 
     /**

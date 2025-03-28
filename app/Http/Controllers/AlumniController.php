@@ -227,11 +227,13 @@ class AlumniController extends Controller
             'company' => 'required|exists:company,id_company',
             'position' => 'required|string|max:255',
             'date_start' => 'required|date',
-            'date_end' => 'date|nullable',
-
+            'date_end' => 'nullable',
             'job_responsibility' => 'array|min:1',
             'job_responsibility.*' => 'string|max:1000',
         ]);
+
+        // Handle "Present" value for current position - store as null in the database
+        $dateEnd = ($request->date_end === 'Present') ? null : $request->date_end;
 
         Notification::create([
             'id_users' => Auth::user()->id_users, // ID of the user being notified
@@ -246,7 +248,7 @@ class AlumniController extends Controller
             'job_name' => $request->position,
             'id_company' => $request->company,
             'date_start' => $request->date_start,
-            'date_end' => $request->date_end,
+            'date_end' => $dateEnd,
             'job_description' => json_encode($request->job_responsibility),
             'approval_status' => 'pending',
             'request_type' => 'create'
@@ -264,10 +266,13 @@ class AlumniController extends Controller
             'company' => 'required|exists:company,id_company',
             'position' => 'required|string|max:255',
             'date_start' => 'required|date',
-            'date_end' => 'date|nullable',
+            'date_end' => 'nullable',
             'job_responsibility' => 'array|min:1',
             'job_responsibility.*' => 'string|max:1000'
         ]);
+
+        // Handle "Present" value for current position - store as null in the database
+        $dateEnd = ($request->date_end === 'Present') ? null : $request->date_end;
 
         // Find the existing JobTracking record
         $jobTracking = JobTracking::findOrFail($id); // Find by ID, or return 404 if not found
@@ -289,7 +294,7 @@ class AlumniController extends Controller
             'id_tracking' => $jobTracking->id_tracking, // Relate to the original record
             'job_description' => json_encode($request->job_responsibility), // Assuming it's an array
             'date_start' => $request->date_start,
-            'date_end' => $request->date_end ?: null,
+            'date_end' => $dateEnd,
             'approval_status' => 'pending', // Set status to pending
             'request_type' => 'update'
         ]);
