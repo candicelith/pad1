@@ -31,8 +31,8 @@
             </div>
 
             {{-- Filter --}}
-            <div class="mt-9 flex flex-wrap items-center justify-center gap-2 sm:mx-10 sm:mb-0 sm:px-5">
-                <div class="hidden w-full flex-wrap gap-1 sm:flex sm:w-auto">
+            <div class="mt-9 flex items-center justify-center gap-2 sm:mx-10 sm:mb-0 sm:px-5">
+                <div class="flex w-full gap-1 overflow-x-auto">
                     <button
                         class="rounded-full bg-cyan px-4 py-1 text-center text-sm text-white hover:bg-cyan-100 hover:text-white focus:bg-cyan-100 focus:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100"
                         value="" onclick="filterCompanies(event)">
@@ -48,16 +48,16 @@
                 </div>
 
                 {{-- Paginated alphabet filter for mobile view --}}
-                <div id="company-alphabet-filter" class="flex w-full flex-row gap-1 sm:hidden">
+                {{-- <div id="company-alphabet-filter" class="flex w-full flex-row gap-1 sm:hidden">
                     <button
                         class="rounded-full bg-cyan px-4 py-1 text-center text-sm text-white hover:bg-cyan-100 hover:text-white focus:bg-cyan-100 focus:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100"
                         value="" onclick="filterCompanies(event)">
                         All
                     </button>
-                </div>
+                </div> --}}
 
                 {{-- Pagination controls for mobile view only --}}
-                <div class="mt-4 flex w-full justify-center sm:hidden">
+                {{-- <div class="mt-4 flex w-full justify-center sm:hidden">
                     <div class="flex items-center space-x-2">
                         <button id="prev-company-btn"
                             class="rounded-md bg-cyan-100 px-3 py-1 text-white hover:bg-white hover:text-cyan-100 disabled:opacity-50"
@@ -70,7 +70,7 @@
                             Next
                         </button>
                     </div>
-                </div>
+                </div> --}}
             </div>
 
             {{-- No Result Found --}}

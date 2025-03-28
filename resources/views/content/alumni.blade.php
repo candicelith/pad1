@@ -5,8 +5,8 @@
     <section class="mt-20 bg-white">
         <div class="sticky top-20 z-20 w-full bg-white px-2 pb-8 pt-16 sm:px-16">
             {{-- Title --}}
-            <div class="mx-auto mb-8 max-w-screen-sm text-center lg:mb-16">
-                <h2 class="mb-4 text-3xl text-cyan lg:text-4xl">Alumni</h2>
+            <div class="mx-auto mb-8 max-w-screen-sm text-center">
+                <h2 class="text-3xl text-cyan lg:text-4xl">Alumni</h2>
             </div>
 
             {{-- Search --}}
@@ -33,7 +33,7 @@
             <div class="max-w-screen-xl sm:mx-auto sm:px-4 lg:px-6">
                 {{-- Filter --}}
                 <div class="mt-9 flex flex-wrap items-center gap-2">
-                    <div class="hidden w-full flex-wrap gap-1 sm:flex sm:w-auto">
+                    <div class="flex w-full gap-1 overflow-x-auto">
                         <button
                             class="rounded-full bg-cyan px-4 py-1 text-center text-sm text-white hover:bg-cyan-100 hover:text-white focus:bg-cyan-100 focus:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100"
                             value="" onclick="filterAlumni(event)">
@@ -49,18 +49,18 @@
                     </div>
 
                     {{-- Paginated alphabet filter for mobile view --}}
-                    <div id="alphabet-filter" class="flex w-full flex-row gap-1 sm:hidden">
+                    {{-- <div id="alphabet-filter" class="flex w-full flex-row gap-1 sm:hidden">
                         <button
                             class="rounded-full bg-cyan px-4 py-1 text-center text-sm text-white hover:bg-cyan-100 hover:text-white focus:bg-cyan-100 focus:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100"
                             value="" onclick="filterAlumni(event)">
                             All
                         </button>
-                    </div>
+                    </div> --}}
 
                     {{-- Dropdown for years --}}
                     <div class="ml-0">
                         <form class="max-w-sm">
-                            <select id="angkatan" class="block w-full rounded-2xl bg-cyan p-2.5 text-xs text-white"
+                            <select id="angkatan" class="block w-full rounded-2xl bg-cyan text-xs text-white"
                                 onchange="filterByYear(event)">
                                 <option value="" selected>All Years</option>
                                 <option value="2022">2022</option>
@@ -74,7 +74,7 @@
             </div>
 
             {{-- Pagination controls for mobile view only --}}
-            <div class="mt-4 flex justify-center sm:hidden">
+            {{-- <div class="mt-4 flex justify-center sm:hidden">
                 <button id="prev-btn"
                     class="rounded-md bg-cyan-100 px-3 py-1 text-white hover:bg-white hover:text-cyan-100 disabled:opacity-50"
                     onclick="prevPage()" disabled>
@@ -85,7 +85,7 @@
                     onclick="nextPage()">
                     Next
                 </button>
-            </div>
+            </div> --}}
 
             {{-- No Result Found --}}
             <div id="no-results" class="hidden h-40 items-center justify-center">
@@ -115,7 +115,7 @@
                                     </span>
                                 </div>
                                 <img class="mb-3 h-24 w-24 rounded-full shadow-lg"
-                                    src="{{  asset('storage/profile/' . $al->profile_photo)  }}"
+                                    src="{{ asset('storage/profile/' . $al->profile_photo) }}"
                                     alt="{{ $al->name }} image" />
                                 <h2 class="mb-1 text-2xl text-cyan">
                                     {{ $al->name }}
