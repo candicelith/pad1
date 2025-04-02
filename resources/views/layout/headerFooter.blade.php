@@ -17,7 +17,7 @@
 <body>
 
     {{-- Header Start --}}
-    <header id="navbar" class="fixed top-0 z-50 w-full border-gray-200 bg-white transition-shadow duration-300">
+    <header id="navbar" class="fixed top-0 z-40 w-full border-gray-200 bg-white transition-shadow duration-300">
         <nav>
             <div class="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between px-4 py-3">
                 <a href="{{ route('home') }}" class="flex items-center space-x-3 rtl:space-x-reverse">

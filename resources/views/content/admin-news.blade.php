@@ -83,7 +83,7 @@
                     {{-- Table --}}
                     <div>
                         <table id="search-table" class="w-full text-left text-sm">
-                            <thead>
+                            <thead class="bg-lightblue text-base">
                                 <tr>
                                     <th scope="col" class="px-6 py-3 text-sm font-normal text-black sm:text-base">
                                         <span>NO</span>
@@ -103,7 +103,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="border-b border-black bg-white hover:bg-gray-50">
+                                <tr class="border-b border-gray-300 bg-white hover:bg-gray-50">
                                     <th scope="row" class="whitespace-nowrap px-6 py-4 text-sm text-black sm:text-base">
                                         1
                                     </th>
@@ -143,5 +143,17 @@
                         </table>
                     </div>
                 </div>
+            </div>
+        </div>
     </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@9.0.3"></script>
+    <script>
+        if (document.getElementById("search-table") && typeof simpleDatatables.DataTable !== 'undefined') {
+            const dataTable = new simpleDatatables.DataTable("#search-table", {
+                searchable: false,
+                sortable: false
+            });
+        }
+    </script>
 @endsection

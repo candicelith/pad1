@@ -108,7 +108,110 @@
                                     alt="vacancy_image" />
                             </div>
                         </div>
+                        <div class="mt-10">
+                            <!-- Modal toggle -->
+                            <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
+                                class="bg-btn-cyan block rounded-lg px-7 py-2 text-center text-sm font-medium text-white hover:bg-cyan-100"
+                                type="button">
+                                Apply
+                            </button>
+
+                            {{-- Main modal --}}
+                            <div id="crud-modal" tabindex="-1" aria-hidden="true"
+                                class="fixed left-0 right-0 top-0 z-50 hidden h-1/2 max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0">
+                                <div class="relative max-h-full w-full max-w-2xl p-4">
+                                    <!-- Modal content -->
+                                    <div class="relative rounded-lg border-4 border-cyan-100 bg-white p-2 shadow">
+                                        {{-- Modal header --}}
+                                        <div
+                                            class="flex items-center justify-between rounded-t border-b-4 border-cyan-100 px-5 py-6 text-center">
+                                            <h3 class="text-3xl text-cyan sm:text-start">
+                                                Apply to (Nama Company)
+                                            </h3>
+                                            <button type="button" class="inline-flex items-center"
+                                                data-modal-toggle="crud-modal">
+                                                <svg class="h-6 w-6 text-cyan" aria-hidden="true"
+                                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    fill="none" viewBox="0 0 24 24">
+                                                    <path stroke="currentColor" stroke-linecap="round"
+                                                        stroke-linejoin="round" stroke-width="3"
+                                                        d="M6 18 17.94 6M18 18 6.06 6" />
+                                                </svg>
+                                            </button>
+                                        </div>
+
+                                        {{-- Modal body --}}
+                                        <form class="max-h-96 overflow-y-auto px-9 pb-5 pt-7">
+                                            <div class="mb-9 space-y-3">
+                                                <h2 class="text-2xl text-cyan">Resume</h2>
+                                                <p class="text-sm text-gray-400">Be sure to include your updated resume</p>
+                                                <div class="col-span-2 sm:col-span-1">
+                                                    <input type="file" name="cv" id="cv"
+                                                        class="w-full rounded-full border-2 shadow-sm" required="">
+                                                </div>
+                                            </div>
+                                            <div class="flex items-end justify-between text-sm text-gray-400">
+                                                <p>Only you and Juminten Suherman can view this</p>
+                                                <button type="submit"
+                                                    class="bg-btn-cyan rounded-lg px-7 py-2 text-center text-sm text-white hover:bg-cyan-100">
+                                                    Submit
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        {{-- Alumni that post this job vacancy can see this start --}}
+                        <div class="mt-12 space-y-2">
+                            <p>Submission Inbox</p>
+                            <div class="rounded-lg border-4 border-cyan-100 bg-white p-4">
+                                <table id="default-table" class="w-full">
+                                    <thead class="bg-lightblue text-left">
+                                        <tr>
+                                            <th class="px-1 text-center">No</th>
+                                            <th class="px-1">Name</th>
+                                            <th class="px-1 text-center">File Submitted</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-left">
+                                        <tr>
+                                            <td class="px-1 text-center">1</td>
+                                            <td class="px-1">Muhammad Naufal Daffachri</td>
+                                            <td class="px-1 text-center"><button><svg
+                                                        class="h-6 w-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        fill="none" viewBox="0 0 24 24">
+                                                        <path stroke="currentColor" stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="2"
+                                                            d="M12 13V4M7 14H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2m-1-5-4 5-4-5m9 8h.01" />
+                                                    </svg>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-1 text-center">2</td>
+                                            <td class="px-1">Naila</td>
+                                            <td class="px-1 text-center"><button><svg
+                                                        class="h-6 w-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        fill="none" viewBox="0 0 24 24">
+                                                        <path stroke="currentColor" stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="2"
+                                                            d="M12 13V4M7 14H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2m-1-5-4 5-4-5m9 8h.01" />
+                                                    </svg>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
+                    {{-- Alumni that post this job vacancy can see this end --}}
+
 
                     {{-- Comment Section --}}
                     <div
@@ -143,7 +246,7 @@
 
                                                     <div class="comment-content">
                                                         <p
-                                                            class="relative mt-2 overflow-hidden whitespace-normal break-words break-all rounded-b-full rounded-e-full rounded-tl-none bg-teal-600 px-8 py-3 text-sm text-white">
+                                                            class="relative mt-2 overflow-hidden whitespace-normal break-words break-all rounded-b-full rounded-e-full rounded-tl-none bg-white px-8 py-3 text-sm shadow">
                                                             {!! nl2br(e($comment->text_comment)) !!}
                                                         </p>
                                                     </div>
@@ -202,7 +305,7 @@
 
                                                                         <div class="comment-content">
                                                                             <p
-                                                                                class="relative mt-2 whitespace-normal break-words break-all rounded-b-full rounded-e-full rounded-tl-none bg-teal-600 px-6 py-2 text-sm text-white sm:px-8 sm:py-3">
+                                                                                class="relative mt-2 whitespace-normal break-words break-all rounded-b-full rounded-e-full rounded-tl-none bg-white px-6 py-2 text-sm shadow sm:px-8 sm:py-3">
                                                                                 {!! nl2br(e($reply->text_comment)) !!}
                                                                             </p>
                                                                         </div>
@@ -232,7 +335,7 @@
                                     <div class="relative flex-grow">
                                         {{-- Reply Context --}}
                                         <div id="reply-context"
-                                            class="absolute bottom-full left-0 right-0 mb-1 flex hidden items-center justify-between rounded-t-lg bg-gray-500 px-4 py-2 text-white">
+                                            class="absolute bottom-full left-0 right-0 mb-1 flex hidden items-center justify-between rounded-t-lg border-green-tertiary bg-white px-4 py-2">
                                             <div class="flex min-w-0 items-center space-x-2">
                                                 <span class="whitespace-nowrap text-sm font-semibold">Replying to:</span>
                                                 <span id="reply-context-text" class="flex-grow truncate text-sm">
@@ -250,13 +353,13 @@
                                         </div>
 
                                         <input type="text" name="comment"
-                                            class="w-full rounded-lg border-none bg-gray-600 px-4 py-2 text-white placeholder-gray-300 focus:ring-2 focus:ring-blue-500"
-                                            placeholder="Write a comment..." id="comment-input">
-                                    </div>
-                                    <button type="submit" class="comment-button"
-                                        style="background-color: #0097A7; border-radius: 10px; padding: 4px;">
+                                            class="border-input-comment w-full rounded-lg border-4 border-green-tertiary bg-white px-4 py-2 placeholder-gray-300"
+                                            placeholder="..." id="comment-input">
 
-                                        <svg class="h-9 w-9 rotate-90 text-white transition-transform duration-300 sm:h-11 sm:w-11"
+                                    </div>
+                                    <button type="submit" class="p-1">
+
+                                        <svg class="h-9 w-9 rotate-90 text-green-900 transition-transform duration-300 sm:h-11 sm:w-11"
                                             aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
                                             height="24" fill="none" viewBox="0 0 24 24">
 
@@ -393,5 +496,7 @@
             });
         });
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@9.0.3"></script>
 
 @endsection

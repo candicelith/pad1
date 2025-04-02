@@ -1,4 +1,4 @@
-@extends('layout.headerFooter')
+{{-- @extends('layout.headerFooter')
 
 @section('content')
     <section class="mt-28 bg-white sm:mt-0">
@@ -29,4 +29,4 @@
             window.location.href = '{{ route('home') }}';
         }
     </script>
-@endsection
+@endsection --}}

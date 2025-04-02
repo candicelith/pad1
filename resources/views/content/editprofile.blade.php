@@ -69,9 +69,17 @@
                                                 <div class="col-span-2">
                                                     <label for="position"
                                                         class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">Position</label>
-                                                    <input type="text" name="position" id="position"
+                                                    <label for="current_job" class="mb-2 block text-xl text-cyan">Current
+                                                        Position</label>
+                                                    <select name="" id=""
+                                                        class="block w-full cursor-pointer rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900">
+                                                        <option value="UIUX">UIUX</option>
+                                                        <option value="UIUX">UIUX</option>
+                                                        <option value="UIUX">UIUX</option>
+                                                    </select>
+                                                    {{-- <input type="text" name="position" id="position"
                                                         class="block w-full rounded-full border border-gray-500 bg-gray-50 p-2.5 text-sm text-gray-900 shadow"
-                                                        placeholder="" required="">
+                                                        placeholder="" required=""> --}}
                                                     @error('position')
                                                         <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                                                     @enderror

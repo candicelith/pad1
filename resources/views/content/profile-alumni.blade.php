@@ -155,9 +155,14 @@
                                                 <div class="mb-5 mt-5">
                                                     <label for="current_job" class="mb-2 block text-xl text-cyan">Current
                                                         Position</label>
-                                                    <input type="text" id="current_job" name="current_job"
+                                                    <select name="" id="">
+                                                        <option value="UIUX">UIUX</option>
+                                                        <option value="UIUX">UIUX</option>
+                                                        <option value="UIUX">UIUX</option>
+                                                    </select>
+                                                    {{-- <input type="text" id="current_job" name="current_job"
                                                         class="block w-full rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900"
-                                                        required value="{{ $userDetails->current_job }}" />
+                                                        required value="{{ $userDetails->current_job }}" /> --}}
                                                 </div>
                                                 <div class="mb-5 mt-5">
                                                     <label for="user_description"
