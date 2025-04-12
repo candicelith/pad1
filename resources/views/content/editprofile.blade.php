@@ -59,10 +59,11 @@
                                                         Company
                                                     </label>
 
-                                                <div class="flex items-center">
+                                                    <div class="flex items-center">
                                                         <select type="text" name="company" id="company_select"
                                                             class="company-select block w-full cursor-pointer rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900"
                                                             required>
+                                                            <option value="">Search or select a company</option>
                                                             @foreach ($companies as $company)
                                                                 <option value="{{ $company->id_company }}">
                                                                     {{ $company->company_name }}
@@ -71,10 +72,10 @@
                                                         </select>
                                                         <a href="{{ route('companies.create') }}"
                                                             class="ml-2 bg-cyan text-white rounded-full p-2 hover:bg-cyan-600">
-                                                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                                                xmlns="http://www.w3.org/2000/svg">
-                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                                    d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                                            <svg class="h-5 w-5" fill="none" stroke="currentColor"
+                                                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                                                             </svg>
                                                         </a>
                                                     </div>
@@ -87,9 +88,24 @@
                                                 <div class="col-span-2">
                                                     <label for="position"
                                                         class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">Position</label>
-                                                    <input type="text" name="position" id="position"
-                                                        class="block w-full rounded-full border border-gray-500 bg-gray-50 p-2.5 text-sm text-gray-900 shadow"
-                                                        placeholder="" required="">
+                                                    <div class="flex items-center">
+                                                        <select name="position" id="position_select"
+                                                            class="position-select block w-full cursor-pointer rounded-full border border-gray-500 bg-gray-50 p-2.5 text-sm text-gray-900 shadow">
+                                                            <option value="">Search or select a position</option>
+                                                            <option value="Software Engineer">Software Engineer</option>
+                                                            <option value="Product Manager">Product Manager</option>
+                                                            <option value="Data Analyst">Data Analyst</option>
+                                                            <option value="UX Designer">UX Designer</option>
+                                                            <option value="Marketing Specialist">Marketing Specialist
+                                                            </option>
+                                                            <option value="Project Manager">Project Manager</option>
+                                                            <option value="Business Analyst">Business Analyst</option>
+                                                            <option value="Full Stack Developer">Full Stack Developer
+                                                            </option>
+                                                            <option value="Frontend Developer">Frontend Developer</option>
+                                                            <option value="Backend Developer">Backend Developer</option>
+                                                        </select>
+                                                    </div>
                                                     @error('position')
                                                         <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                                                     @enderror
@@ -192,9 +208,6 @@
                         </div>
                     </div>
 
-                    <!-- We're removing the modal entirely and using a separate page -->
-                    <!-- End of Company Modal -->
-
                     @if ($jobDetails && count($jobDetails) > 0)
                         @foreach ($jobDetails as $job)
                             <div class="flex flex-col sm:flex-row-reverse">
@@ -244,27 +257,78 @@
                                                         <div class="col-span-2">
                                                             <label for="company"
                                                                 class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">Company</label>
-                                                            <select type="text" name="company" id="company"
-                                                                class="block w-full cursor-pointer rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900"
-                                                                placeholder="{{ $job->company_name }}" required="">
-                                                                @foreach ($companies as $company)
-                                                                    <option value="{{ $company->id_company }}"
-                                                                        {{ $company->company_name == $job->company_name ? 'selected' : '' }}>
-                                                                        {{ $company->company_name }}
+                                                            <div class="flex items-center">
+                                                                <select type="text" name="company" id="company"
+                                                                    class="company-select block w-full cursor-pointer rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900"
+                                                                    placeholder="{{ $job->company_name }}"
+                                                                    required="">
+                                                                    <option value="">Search or select a company
                                                                     </option>
-                                                                @endforeach
-                                                            </select>
-                                                            @error('company')
-                                                                <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                                                            @enderror
+                                                                    @foreach ($companies as $company)
+                                                                        <option value="{{ $company->id_company }}"
+                                                                            {{ $company->company_name == $job->company_name ? 'selected' : '' }}>
+                                                                            {{ $company->company_name }}
+                                                                        </option>
+                                                                    @endforeach
+                                                                </select>
+                                                                <a href="{{ route('companies.create') }}"
+                                                                    class="ml-2 bg-cyan text-white rounded-full p-2 hover:bg-cyan-600">
+                                                                    <svg class="h-5 w-5" fill="none"
+                                                                        stroke="currentColor" viewBox="0 0 24 24"
+                                                                        xmlns="http://www.w3.org/2000/svg">
+                                                                        <path stroke-linecap="round"
+                                                                            stroke-linejoin="round" stroke-width="2"
+                                                                            d="M12 6v6m0 0v6m0-6h6m-6 0H6">
+                                                                        </path>
+                                                                    </svg>
+                                                                </a>
+                                                                @error('company')
+                                                                    <p class="mt-1 text-sm text-red-500">{{ $message }}
+                                                                    </p>
+                                                                @enderror
+                                                            </div>
                                                         </div>
                                                         <div class="col-span-2">
                                                             <label for="position"
                                                                 class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">Position</label>
-                                                            <input type="text" name="position" id="position"
-                                                                class="block w-full rounded-full border border-gray-500 bg-gray-50 p-2.5 text-sm text-gray-900 shadow"
-                                                                placeholder="" required=""
-                                                                value="{{ $job->job_name }}">
+                                                            <div class="flex items-center">
+                                                                <select name="position"
+                                                                    id="position_select_{{ $job->id_tracking }}"
+                                                                    class="position-select block w-full cursor-pointer rounded-full border border-gray-500 bg-gray-50 p-2.5 text-sm text-gray-900 shadow">
+                                                                    <option value="">Search or select a position
+                                                                    </option>
+                                                                    <option value="Software Engineer"
+                                                                        {{ $job->job_name == 'Software Engineer' ? 'selected' : '' }}>
+                                                                        Software Engineer</option>
+                                                                    <option value="Product Manager"
+                                                                        {{ $job->job_name == 'Product Manager' ? 'selected' : '' }}>
+                                                                        Product Manager</option>
+                                                                    <option value="Data Analyst"
+                                                                        {{ $job->job_name == 'Data Analyst' ? 'selected' : '' }}>
+                                                                        Data Analyst</option>
+                                                                    <option value="UX Designer"
+                                                                        {{ $job->job_name == 'UX Designer' ? 'selected' : '' }}>
+                                                                        UX Designer</option>
+                                                                    <option value="Marketing Specialist"
+                                                                        {{ $job->job_name == 'Marketing Specialist' ? 'selected' : '' }}>
+                                                                        Marketing Specialist</option>
+                                                                    <option value="Project Manager"
+                                                                        {{ $job->job_name == 'Project Manager' ? 'selected' : '' }}>
+                                                                        Project Manager</option>
+                                                                    <option value="Business Analyst"
+                                                                        {{ $job->job_name == 'Business Analyst' ? 'selected' : '' }}>
+                                                                        Business Analyst</option>
+                                                                    <option value="Full Stack Developer"
+                                                                        {{ $job->job_name == 'Full Stack Developer' ? 'selected' : '' }}>
+                                                                        Full Stack Developer</option>
+                                                                    <option value="Frontend Developer"
+                                                                        {{ $job->job_name == 'Frontend Developer' ? 'selected' : '' }}>
+                                                                        Frontend Developer</option>
+                                                                    <option value="Backend Developer"
+                                                                        {{ $job->job_name == 'Backend Developer' ? 'selected' : '' }}>
+                                                                        Backend Developer</option>
+                                                                </select>
+                                                            </div>
                                                             @error('position')
                                                                 <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                                                             @enderror
@@ -449,6 +513,10 @@
         @csrf
     </form>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
     <script>
         document.getElementById('logout-button').addEventListener('click', function() {
             document.getElementById('logout-form').submit();
@@ -456,7 +524,73 @@
     </script>
 
     <script>
+        $(document).ready(function() {
+            // Initialize Select2 for all company dropdowns
+            $('.company-select').select2({
+                placeholder: "Search or select a company",
+                allowClear: false, // This prevents the "X" clear button from appearing
+                width: '100%',
+                dropdownCssClass: 'rounded-xl'
+            });
+
+            // Initialize Select2 for all position dropdowns
+            $('.position-select').select2({
+                placeholder: "Search or select a position",
+                allowClear: false,
+                width: '100%',
+                dropdownCssClass: 'rounded-xl'
+            });
+
+            $.fn.select2.defaults.set('allowClear', false);
+
+            document.getElementById('closePositionBtn').addEventListener('click', closePositionModal);
+            document.getElementById('cancelPositionBtn').addEventListener('click', closePositionModal);
+
+            // Save new position
+            document.getElementById('savePositionBtn').addEventListener('click', function() {
+                const newPositionName = document.getElementById('new_position_name').value.trim();
+
+                if (!newPositionName) {
+                    alert('Please enter a position name');
+                    return;
+                }
+
+                // Get the target select element ID
+                const targetSelectId = this.getAttribute('data-target');
+                const targetSelect = document.getElementById(targetSelectId);
+
+                // Create a new option and append it to the select
+                const newOption = new Option(newPositionName, newPositionName, true, true);
+                $(targetSelect).append(newOption).trigger('change');
+
+                // Close the modal
+                closePositionModal();
+            });
+
+            // Fix Select2 inside modal issue
+            $(document).on('select2:open', () => {
+                document.querySelector('.select2-search__field').focus();
+            });
+        });
         document.addEventListener('DOMContentLoaded', () => {
+            // Initialize modals dynamically when they open
+            document.querySelectorAll('[data-modal-toggle]').forEach(button => {
+                button.addEventListener('click', () => {
+                    const modalId = button.getAttribute('data-modal-toggle');
+                    const modal = document.getElementById(modalId);
+
+                    // Reinitialize Select2 inside the modal
+                    setTimeout(() => {
+                        $(modal).find('.company-select, .position-select').select2({
+                            placeholder: "Search or select",
+                            allowClear: true,
+                            width: '100%',
+                            dropdownCssClass: 'rounded-xl',
+                            tags: true
+                        });
+                    }, 100);
+                });
+            });
             // Current job checkbox functionality
             const currentJobCheckboxes = document.querySelectorAll('.current-job-checkbox');
 

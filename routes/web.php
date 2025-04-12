@@ -88,6 +88,8 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('/authenticate', 'authenticate')->name('authenticate');
     Route::post('/logout', 'logout')->name('logout');
     Route::get('/profile', 'profile')->name('profile');
+    Route::get('/registration','registration')->name('registration');
+    Route::post('/registration/form','create')->name('registration.submit');
 });
 
 // Mahasiswa

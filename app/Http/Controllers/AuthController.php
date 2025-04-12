@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\UserDetails;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redis;
 
 class AuthController extends Controller
 {
@@ -15,10 +18,16 @@ class AuthController extends Controller
     {
         $this->middleware('guest')->except([
             'logout',
-            'profile'
+            'profile',
+            'registration',
+            'create'
         ]);
     }
 
+    public function registration()
+    {
+        return view('content.login-form');
+    }
     public function login()
     {
         return view('content.login');
@@ -45,11 +54,11 @@ class AuthController extends Controller
             // Check user role and redirect accordingly
             $user = Auth::user();
             if ($user->id_roles == '1') {
-                return redirect()->route('admin.home')->with('success','You Have Successfully Logged In as an Alumni!');
-            } else if($user->id_roles == '2') {
-                return redirect()->route('alumni.profile')->with('success','Welcome back, Admin!');
-            } else{
-                return redirect()->route('mahasiswa.profile')->with('success','You Have Successfully Logged In!');
+                return redirect()->route('admin.home')->with('success', 'You Have Successfully Logged In as an Alumni!');
+            } else if ($user->id_roles == '2') {
+                return redirect()->route('alumni.profile')->with('success', 'Welcome back, Admin!');
+            } else {
+                return redirect()->route('mahasiswa.profile')->with('success', 'You Have Successfully Logged In!');
             }
         }
         return back()->withErrors([
@@ -67,5 +76,44 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect()->route('profile')->withSuccess('You Have Succesfully Logged Out!');;
+    }
+
+    public function create(Request $request)
+    {
+        // Validate the input
+        $request->validate([
+            'role' => 'required|in:student,alumni',
+            'name' => 'required|string|max:255',
+            'nim' => 'required|string|max:20|unique:user_details,nim',
+            'graduate_year' => 'required|integer|min:2000|max:' . (date('Y') + 5)
+        ]);
+
+        // Get the authenticated user
+        $user = Auth::user();
+
+        // Determine role ID based on the selected role
+        $roleId = ($request->input('role') === 'alumni') ? 2 : 3;
+
+        // Update user role
+        User::where('id_users', $user->id_users)->update([
+            'id_roles' => $roleId
+        ]);
+        // Create user details
+         UserDetails::updateOrCreate([
+            'id_users' => $user->id_users,
+            'name' => $request->name,
+            'nim' => $request->nim,
+            'graduate_year' => $request->graduate_year,
+            'profile_photo' => session('profile_photo'),
+            'modifiedBy' => $request->name,
+        ]);
+
+
+        // Redirect based on role
+        if ($roleId == 2) {
+            return redirect()->route('alumni.profile')->with('success', 'Registration completed successfully!');
+        } else {
+            return redirect()->route('mahasiswa.profile')->with('success', 'Registration completed successfully!');
+        }
     }
 }
