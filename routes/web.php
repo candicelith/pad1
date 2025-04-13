@@ -77,6 +77,8 @@ Route::controller(CommentController::class)->group(function () {
 Route::controller(CompanyController::class)->group(function () {
     Route::get('/companies', 'index')->name('companies');
     Route::get('/companies/detail/{id}', 'show')->name('companies.detail');
+    Route::post('/companies/store', 'store')->name('companies.store');
+    Route::get('/companies/create','create')->name('companies.create');
 });
 
 
@@ -86,6 +88,8 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('/authenticate', 'authenticate')->name('authenticate');
     Route::post('/logout', 'logout')->name('logout');
     Route::get('/profile', 'profile')->name('profile');
+    Route::get('/registration','registration')->name('registration');
+    Route::post('/registration/form','create')->name('registration.submit');
 });
 
 // Mahasiswa

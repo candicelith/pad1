@@ -84,14 +84,14 @@
                                 <div class="relative mx-4 max-h-full w-full sm:max-w-4xl">
                                     <!-- Modal content -->
                                     <div
-                                        class="scrollbar-modal relative max-h-96 overflow-y-auto rounded-lg bg-white pb-5 shadow">
+                                        class="overflow-y-auto rounded-lg bg-white pb-5 shadow">
                                         <!-- Modal header -->
                                         <div class="relative">
                                             <!-- Back Button -->
                                             <div class="flex h-24 items-start justify-end bg-cyan-100">
                                                 <button data-modal-hide="crud-modal1" class="z-10 p-2">
                                                     <svg class="h-6 w-6 text-white dark:text-white" aria-hidden="true"
-                                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        xmlns="http://www.w3.org/2000/svg" width="" height="24"
                                                         fill="none" viewBox="0 0 24 24">
                                                         <path stroke="currentColor" stroke-linecap="round"
                                                             stroke-linejoin="round" stroke-width="2"
@@ -101,22 +101,24 @@
                                             </div>
                                             <div class="absolute top-1/2 mx-12">
                                                 <div class="relative">
-                                                    <img class="h-24 w-24 rounded-full object-cover"
-                                                        src="{{ asset('storage/profile/' . $userDetails->profile_photo) }}"
-                                                        alt="Profile Picture" />
-                                                    {{-- Camera Icon --}}
-                                                    <label for="profile_picture"
-                                                        class="absolute bottom-0 ms-24 flex h-10 w-10 items-center justify-center rounded-full bg-cyan p-1 hover:bg-cyan-100 sm:h-16 sm:w-16">
-                                                        <svg class="h-8 w-8 text-white" aria-hidden="true"
-                                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                            fill="none" viewBox="0 0 24 24">
-                                                            <path stroke="currentColor" stroke-linejoin="round"
-                                                                stroke-width="2"
-                                                                d="M4 18V8a1 1 0 0 1 1-1h1.5l1.707-1.707A1 1 0 0 1 8.914 5h6.172a1 1 0 0 1 .707.293L17.5 7H19a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Z" />
-                                                            <path stroke="currentColor" stroke-linejoin="round"
-                                                                stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                                                        </svg>
-                                                    </label>
+                                                    <div class="relative mb-3">
+                                                        <div class="h-24 w-24 overflow-hidden rounded-full border-4 border-cyan bg-gray-100 sm:h-32 sm:w-32">
+                                                            <img id="preview-image" class="h-full w-full object-cover"
+                                                                src="{{ asset('storage/profile/' . $userDetails->profile_photo) }}"
+                                                                alt="{{ $userDetails->name }}'s Profile Picture">
+                                                        </div>
+                                                        <label for="profile_picture"
+                                                            class="absolute bottom-0 right-0 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-cyan text-white shadow-md transition-all hover:bg-cyan-600 sm:h-10 sm:w-10">
+                                                            <svg class="h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                    d="M3 9a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z"/>
+                                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                    d="M12 17a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
+                                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                    d="M9 5h6l-1 4"/>
+                                                            </svg>
+                                                        </label>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -125,8 +127,8 @@
                                             method="POST" enctype="multipart/form-data">
                                             @csrf
                                             <!-- Hidden Input -->
-                                            <input id="profile_picture" name="profile_picture" type="file" class="hidden"
-                                                accept="image/*" />
+                                            <input id="profile_picture" name="profile_picture" type="file" accept="image/*" class="hidden"
+                                            onchange="document.getElementById('preview-image').src = window.URL.createObjectURL(this.files[0])">
                                             <div class="mx-10 my-14">
                                                 <div class="mb-5 mt-5">
                                                     <label for="full_name" class="mb-2 block text-xl text-cyan">Full
@@ -155,14 +157,9 @@
                                                 <div class="mb-5 mt-5">
                                                     <label for="current_job" class="mb-2 block text-xl text-cyan">Current
                                                         Position</label>
-                                                    <select name="" id="">
-                                                        <option value="UIUX">UIUX</option>
-                                                        <option value="UIUX">UIUX</option>
-                                                        <option value="UIUX">UIUX</option>
-                                                    </select>
-                                                    {{-- <input type="text" id="current_job" name="current_job"
+                                                    <input type="text" id="current_job" name="current_job"
                                                         class="block w-full rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900"
-                                                        required value="{{ $userDetails->current_job }}" /> --}}
+                                                        required value="{{ $userDetails->current_job }}" />
                                                 </div>
                                                 <div class="mb-5 mt-5">
                                                     <label for="user_description"
