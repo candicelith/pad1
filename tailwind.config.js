@@ -18,6 +18,7 @@ export default {
                 lightblue: '#E8ECF1',
                 'lightblue-100': '#DCF4FD',
                 lightgreen: '#C4DEC1',
+                'green-tertiary': '#9EBC9B',
             },
             fontFamily: {
                 Gilgan: ['Gilgan', 'sans-serif'],
