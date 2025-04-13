@@ -59,25 +59,32 @@
                                                         Company
                                                     </label>
 
-                                                    <div class="flex items-center">
-                                                        <select type="text" name="company" id="company_select"
-                                                            class="company-select block w-full cursor-pointer rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900"
-                                                            required>
-                                                            <option value="">Search or select a company</option>
-                                                            @foreach ($companies as $company)
-                                                                <option value="{{ $company->id_company }}">
-                                                                    {{ $company->company_name }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                        <a href="{{ route('companies.create') }}"
-                                                            class="ml-2 bg-cyan text-white rounded-full p-2 hover:bg-cyan-600">
-                                                            <svg class="h-5 w-5" fill="none" stroke="currentColor"
-                                                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                                    stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-                                                            </svg>
-                                                        </a>
+                                                    <div class="col-span-2" x-data="dropdown({ options: @js($companies->map(fn($c) => ['value' => $c->id_company, 'label' => $c->company_name])) })"
+                                                        class="flex items-center w-full">
+                                                        <div class="relative w-full">
+                                                            <input x-model="search" @click="open = true"
+                                                                @input="filterOptions" @click.away="open = false"
+                                                                class="block w-full rounded-full border border-gray-900 bg-gray-50 px-6 py-2 text-sm text-gray-900 focus:outline-none"
+                                                                placeholder="Search or select a company" />
+
+                                                            <ul x-show="open"
+                                                                class="absolute z-10 mt-1 w-full max-h-60 overflow-y-auto rounded-md border border-gray-200 bg-white shadow">
+                                                                <!-- Existing options -->
+                                                                <template x-for="item in filteredOptions"
+                                                                    :key="item.value">
+                                                                    <li @click="selectOption(item)"
+                                                                        class="cursor-pointer px-4 py-2 text-sm hover:bg-gray-200"
+                                                                        x-text="item.label">
+                                                                    </li>
+                                                                </template>
+                                                                <li @click="open = false; window.location.href='{{ route('companies.create') }}'"
+                                                                    class="border-t cursor-pointer px-4 py-2 text-sm text-cyan-600 hover:bg-gray-100">
+                                                                    + Add a new company
+                                                                </li>
+                                                            </ul>
+                                                            <input type="hidden" name="company" :value="selected?.value"
+                                                                required>
+                                                        </div>
                                                     </div>
 
                                                     @error('company')
@@ -85,31 +92,47 @@
                                                     @enderror
                                                 </div>
 
-                                                <div class="col-span-2">
+                                                <div class="col-span-2" x-data="dropdown({
+                                                    options: [
+                                                        { value: '', label: 'Search or select a position' },
+                                                        { value: 'Software Engineer', label: 'Software Engineer' },
+                                                        { value: 'Product Manager', label: 'Product Manager' },
+                                                        { value: 'Data Analyst', label: 'Data Analyst' },
+                                                        { value: 'UX Designer', label: 'UX Designer' },
+                                                        { value: 'Marketing Specialist', label: 'Marketing Specialist' },
+                                                        { value: 'Project Manager', label: 'Project Manager' },
+                                                        { value: 'Business Analyst', label: 'Business Analyst' },
+                                                        { value: 'Full Stack Developer', label: 'Full Stack Developer' },
+                                                        { value: 'Frontend Developer', label: 'Frontend Developer' },
+                                                        { value: 'Backend Developer', label: 'Backend Developer' },
+                                                    ]
+                                                })">
                                                     <label for="position"
                                                         class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">Position</label>
-                                                    <div class="flex items-center">
-                                                        <select name="position" id="position_select"
-                                                            class="position-select block w-full cursor-pointer rounded-full border border-gray-500 bg-gray-50 p-2.5 text-sm text-gray-900 shadow">
-                                                            <option value="">Search or select a position</option>
-                                                            <option value="Software Engineer">Software Engineer</option>
-                                                            <option value="Product Manager">Product Manager</option>
-                                                            <option value="Data Analyst">Data Analyst</option>
-                                                            <option value="UX Designer">UX Designer</option>
-                                                            <option value="Marketing Specialist">Marketing Specialist
-                                                            </option>
-                                                            <option value="Project Manager">Project Manager</option>
-                                                            <option value="Business Analyst">Business Analyst</option>
-                                                            <option value="Full Stack Developer">Full Stack Developer
-                                                            </option>
-                                                            <option value="Frontend Developer">Frontend Developer</option>
-                                                            <option value="Backend Developer">Backend Developer</option>
-                                                        </select>
+
+                                                    <div class="relative w-full">
+                                                        <input x-model="search" @click="open = true" @input="filterOptions"
+                                                            @click.away="open = false"
+                                                            class="block w-full rounded-full border border-gray-500 px-6 bg-gray-50 p-2.5 text-sm text-gray-900 shadow focus:outline-none"
+                                                            placeholder="Search or select a position" />
+
+                                                        <ul x-show="open"
+                                                            class="absolute z-10 mt-1 w-full max-h-60 overflow-y-auto rounded-md border border-gray-200 bg-white shadow">
+                                                            <template x-for="item in filteredOptions"
+                                                                :key="item.value">
+                                                                <li @click="selectOption(item)"
+                                                                    class="cursor-pointer px-4 py-2 text-sm hover:bg-gray-200"
+                                                                    x-text="item.label"></li>
+                                                            </template>
+                                                        </ul>
+                                                        <input type="hidden" name="position" :value="selected?.value">
                                                     </div>
+
                                                     @error('position')
                                                         <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                                                     @enderror
                                                 </div>
+
                                                 <div date-rangepicker datepicker datepicker-buttons
                                                     datepicker-autoselect-today
                                                     class="col-span-2 grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -254,85 +277,84 @@
                                                     @csrf
                                                     <div
                                                         class="mb-4 grid grid-cols-2 gap-4 rounded-lg bg-gray-300 px-4 py-5">
-                                                        <div class="col-span-2">
-                                                            <label for="company"
-                                                                class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">Company</label>
-                                                            <div class="flex items-center">
-                                                                <select type="text" name="company" id="company"
-                                                                    class="company-select block w-full cursor-pointer rounded-full border border-gray-900 bg-gray-50 p-1 px-6 text-sm text-gray-900"
-                                                                    placeholder="{{ $job->company_name }}"
-                                                                    required="">
-                                                                    <option value="">Search or select a company
-                                                                    </option>
-                                                                    @foreach ($companies as $company)
-                                                                        <option value="{{ $company->id_company }}"
-                                                                            {{ $company->company_name == $job->company_name ? 'selected' : '' }}>
-                                                                            {{ $company->company_name }}
-                                                                        </option>
-                                                                    @endforeach
-                                                                </select>
-                                                                <a href="{{ route('companies.create') }}"
-                                                                    class="ml-2 bg-cyan text-white rounded-full p-2 hover:bg-cyan-600">
-                                                                    <svg class="h-5 w-5" fill="none"
-                                                                        stroke="currentColor" viewBox="0 0 24 24"
-                                                                        xmlns="http://www.w3.org/2000/svg">
-                                                                        <path stroke-linecap="round"
-                                                                            stroke-linejoin="round" stroke-width="2"
-                                                                            d="M12 6v6m0 0v6m0-6h6m-6 0H6">
-                                                                        </path>
-                                                                    </svg>
-                                                                </a>
-                                                                @error('company')
-                                                                    <p class="mt-1 text-sm text-red-500">{{ $message }}
-                                                                    </p>
-                                                                @enderror
+                                                        <div class="col-span-2" x-data="dropdown({
+                                                            options: @js($companies->map(fn($c) => ['value' => $c->id_company, 'label' => $c->company_name])),
+                                                            selected: { value: '{{ $job->id_company }}', label: '{{ $job->company_name }}' }
+                                                        })"
+                                                            class="flex items-center w-full">
+
+                                                            <div class="relative w-full">
+                                                                <input x-model="search" @click="open = true"
+                                                                    @input="filterOptions" @click.away="open = false"
+                                                                    class="block w-full rounded-full border border-gray-900 bg-gray-50 px-6 py-2 text-sm text-gray-900 focus:outline-none"
+                                                                    placeholder="Search or select a company" />
+
+                                                                <ul x-show="open"
+                                                                    class="absolute z-10 mt-1 w-full max-h-60 overflow-y-auto rounded-md border border-gray-200 bg-white shadow">
+                                                                    <template x-for="item in filteredOptions"
+                                                                        :key="item.value">
+                                                                        <li @click="selectOption(item)"
+                                                                            class="cursor-pointer px-4 py-2 text-sm hover:bg-gray-200"
+                                                                            x-text="item.label"></li>
+                                                                    </template>
+                                                                    <li @click="open = false; window.location.href='{{ route('companies.create') }}'"
+                                                                        class="border-t cursor-pointer px-4 py-2 text-sm text-cyan-600 hover:bg-gray-100">
+                                                                        + Add a new company
+                                                                    </li>
+                                                                </ul>
+
+                                                                <input type="hidden" name="company"
+                                                                    :value="selected?.value" required>
                                                             </div>
+
+                                                            @error('company')
+                                                                <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                                                            @enderror
                                                         </div>
-                                                        <div class="col-span-2">
+
+                                                        <div class="col-span-2" x-data="dropdown({
+                                                            options: [
+                                                                { value: 'Software Engineer', label: 'Software Engineer' },
+                                                                { value: 'Product Manager', label: 'Product Manager' },
+                                                                { value: 'Data Analyst', label: 'Data Analyst' },
+                                                                { value: 'UX Designer', label: 'UX Designer' },
+                                                                { value: 'Marketing Specialist', label: 'Marketing Specialist' },
+                                                                { value: 'Project Manager', label: 'Project Manager' },
+                                                                { value: 'Business Analyst', label: 'Business Analyst' },
+                                                                { value: 'Full Stack Developer', label: 'Full Stack Developer' },
+                                                                { value: 'Frontend Developer', label: 'Frontend Developer' },
+                                                                { value: 'Backend Developer', label: 'Backend Developer' }
+                                                            ],
+                                                            selected: { value: '{{ $job->job_name }}', label: '{{ $job->job_name }}' }
+                                                        })">
                                                             <label for="position"
                                                                 class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">Position</label>
-                                                            <div class="flex items-center">
-                                                                <select name="position"
-                                                                    id="position_select_{{ $job->id_tracking }}"
-                                                                    class="position-select block w-full cursor-pointer rounded-full border border-gray-500 bg-gray-50 p-2.5 text-sm text-gray-900 shadow">
-                                                                    <option value="">Search or select a position
-                                                                    </option>
-                                                                    <option value="Software Engineer"
-                                                                        {{ $job->job_name == 'Software Engineer' ? 'selected' : '' }}>
-                                                                        Software Engineer</option>
-                                                                    <option value="Product Manager"
-                                                                        {{ $job->job_name == 'Product Manager' ? 'selected' : '' }}>
-                                                                        Product Manager</option>
-                                                                    <option value="Data Analyst"
-                                                                        {{ $job->job_name == 'Data Analyst' ? 'selected' : '' }}>
-                                                                        Data Analyst</option>
-                                                                    <option value="UX Designer"
-                                                                        {{ $job->job_name == 'UX Designer' ? 'selected' : '' }}>
-                                                                        UX Designer</option>
-                                                                    <option value="Marketing Specialist"
-                                                                        {{ $job->job_name == 'Marketing Specialist' ? 'selected' : '' }}>
-                                                                        Marketing Specialist</option>
-                                                                    <option value="Project Manager"
-                                                                        {{ $job->job_name == 'Project Manager' ? 'selected' : '' }}>
-                                                                        Project Manager</option>
-                                                                    <option value="Business Analyst"
-                                                                        {{ $job->job_name == 'Business Analyst' ? 'selected' : '' }}>
-                                                                        Business Analyst</option>
-                                                                    <option value="Full Stack Developer"
-                                                                        {{ $job->job_name == 'Full Stack Developer' ? 'selected' : '' }}>
-                                                                        Full Stack Developer</option>
-                                                                    <option value="Frontend Developer"
-                                                                        {{ $job->job_name == 'Frontend Developer' ? 'selected' : '' }}>
-                                                                        Frontend Developer</option>
-                                                                    <option value="Backend Developer"
-                                                                        {{ $job->job_name == 'Backend Developer' ? 'selected' : '' }}>
-                                                                        Backend Developer</option>
-                                                                </select>
+
+                                                            <div class="relative w-full">
+                                                                <input x-model="search" @click="open = true"
+                                                                    @input="filterOptions" @click.away="open = false"
+                                                                    class="block w-full rounded-full border border-gray-900 bg-gray-50 px-6 py-2 text-sm text-gray-900 focus:outline-none"
+                                                                    placeholder="Search or select a position" />
+
+                                                                <ul x-show="open"
+                                                                    class="absolute z-10 mt-1 w-full max-h-60 overflow-y-auto rounded-md border border-gray-200 bg-white shadow">
+                                                                    <template x-for="item in filteredOptions"
+                                                                        :key="item.value">
+                                                                        <li @click="selectOption(item)"
+                                                                            class="cursor-pointer px-4 py-2 text-sm hover:bg-gray-200"
+                                                                            x-text="item.label"></li>
+                                                                    </template>
+                                                                </ul>
+
+                                                                <input type="hidden" name="position"
+                                                                    :value="selected?.value" required>
                                                             </div>
+
                                                             @error('position')
                                                                 <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                                                             @enderror
                                                         </div>
+
                                                         <div class="col-span-2 grid grid-cols-1 gap-4 sm:grid-cols-2"
                                                             date-rangepicker datepicker datepicker-buttons
                                                             datepicker-autoselect-today>
@@ -513,10 +535,6 @@
         @csrf
     </form>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
     <script>
         document.getElementById('logout-button').addEventListener('click', function() {
             document.getElementById('logout-form').submit();
@@ -524,54 +542,6 @@
     </script>
 
     <script>
-        $(document).ready(function() {
-            // Initialize Select2 for all company dropdowns
-            $('.company-select').select2({
-                placeholder: "Search or select a company",
-                allowClear: false, // This prevents the "X" clear button from appearing
-                width: '100%',
-                dropdownCssClass: 'rounded-xl'
-            });
-
-            // Initialize Select2 for all position dropdowns
-            $('.position-select').select2({
-                placeholder: "Search or select a position",
-                allowClear: false,
-                width: '100%',
-                dropdownCssClass: 'rounded-xl'
-            });
-
-            $.fn.select2.defaults.set('allowClear', false);
-
-            document.getElementById('closePositionBtn').addEventListener('click', closePositionModal);
-            document.getElementById('cancelPositionBtn').addEventListener('click', closePositionModal);
-
-            // Save new position
-            document.getElementById('savePositionBtn').addEventListener('click', function() {
-                const newPositionName = document.getElementById('new_position_name').value.trim();
-
-                if (!newPositionName) {
-                    alert('Please enter a position name');
-                    return;
-                }
-
-                // Get the target select element ID
-                const targetSelectId = this.getAttribute('data-target');
-                const targetSelect = document.getElementById(targetSelectId);
-
-                // Create a new option and append it to the select
-                const newOption = new Option(newPositionName, newPositionName, true, true);
-                $(targetSelect).append(newOption).trigger('change');
-
-                // Close the modal
-                closePositionModal();
-            });
-
-            // Fix Select2 inside modal issue
-            $(document).on('select2:open', () => {
-                document.querySelector('.select2-search__field').focus();
-            });
-        });
         document.addEventListener('DOMContentLoaded', () => {
             // Initialize modals dynamically when they open
             document.querySelectorAll('[data-modal-toggle]').forEach(button => {
@@ -736,4 +706,29 @@
             });
         });
     </script>
+    <script>
+        function dropdown({
+            options
+        }) {
+            return {
+                open: false,
+                search: '',
+                options,
+                filteredOptions: options,
+                selected: null,
+
+                filterOptions() {
+                    const term = this.search.toLowerCase();
+                    this.filteredOptions = this.options.filter(o => o.label.toLowerCase().includes(term));
+                },
+
+                selectOption(option) {
+                    this.selected = option;
+                    this.search = option.label;
+                    this.open = false;
+                }
+            }
+        }
+    </script>
+
 @endsection

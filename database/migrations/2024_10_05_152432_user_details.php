@@ -21,8 +21,9 @@ return new class extends Migration
             $table->text('user_description')->nullable();
             $table->string('current_job')->nullable();
             $table->string('current_company')->nullable();
-            $table->year('graduate_year'); // TBF
-            $table->string('modifiedBy'); // TBF
+            $table->year('entry_year');
+            $table->year('graduate_year')->nullable();
+            $table->string('modifiedBy');
             $table->timestamp('modifiedDate')->useCurrent();
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->timestamps();

@@ -39,14 +39,12 @@ class GoogleAuthController extends Controller
 
         // If user details don't exist, redirect to registration page
         if (!$userDetails) {
-            return redirect()->route('registration')->with([
-                'email' => $googleUser->getEmail(),
-                'name' => $googleUser->getName(),
-                'profile_photo' => $googleUser->getAvatar()
-            ]);
-        }
+            session()->put('email', $googleUser->getEmail());
+            session()->put('name', $googleUser->getName());
+            session()->put('profile_photo', $googleUser->getAvatar());
 
-        // If user details exist, redirect to intended page
+            return redirect()->route('registration');
+        }
         return redirect()->intended('/');
     }
 }

@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use Log;
 use App\Models\User;
 use App\Models\UserDetails;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Storage;
 
 class AuthController extends Controller
 {
@@ -80,13 +84,24 @@ class AuthController extends Controller
 
     public function create(Request $request)
     {
-        // Validate the input
-        $request->validate([
+        // input validation
+        $validationRules = ([
             'role' => 'required|in:student,alumni',
             'name' => 'required|string|max:255',
             'nim' => 'required|string|max:20|unique:user_details,nim',
-            'graduate_year' => 'required|integer|min:2000|max:' . (date('Y') + 5)
         ]);
+
+        // Role Validation
+        if ($request->input('role') === 'student') {
+            $validationRules['entry_year'] = 'required|integer|min:2000|max:' . (date('Y'));
+            $validationRules['graduate_year'] = 'nullable|integer|min:2000|max:' . (date('Y') + 5);
+        } else if ($request->input('role') === 'alumni') {
+            $validationRules['entry_year'] = 'required|integer|min:2000|max:' . (date('Y'));
+            $validationRules['graduate_year'] = 'required|integer|min:2000|max:' . (date('Y'));
+        }
+
+        // Validate the input with the appropriate rules
+        $validated = $request->validate($validationRules);
 
         // Get the authenticated user
         $user = Auth::user();
@@ -98,16 +113,41 @@ class AuthController extends Controller
         User::where('id_users', $user->id_users)->update([
             'id_roles' => $roleId
         ]);
-        // Create user details
-         UserDetails::updateOrCreate([
-            'id_users' => $user->id_users,
-            'name' => $request->name,
-            'nim' => $request->nim,
-            'graduate_year' => $request->graduate_year,
-            'profile_photo' => session('profile_photo'),
-            'modifiedBy' => $request->name,
-        ]);
 
+        $profilePhotoFilename = null;
+        $imageUrl = session('profile_photo'); // Assuming session contains the direct image URL
+
+        if ($imageUrl) {
+            try {
+                $response = Http::get($imageUrl);
+                if ($response->successful()) {
+                    $imageContent = $response->body();
+
+                    // Generate unique filename
+                    $extension = pathinfo(parse_url($imageUrl, PHP_URL_PATH), PATHINFO_EXTENSION) ?: 'jpg';
+                    $filename = 'profile_' . time() . '_' . Str::random(8) . '.' . $extension;
+
+                    // Save to public/profile
+                    Storage::disk('public')->put('profile/' . $filename, $imageContent);
+
+                    $profilePhotoFilename = $filename;
+                }
+            } catch (\Exception $e) {
+                Log::error('Failed to fetch image from session URL: ' . $e->getMessage());
+            }
+        }
+        // Create user details
+        UserDetails::updateOrCreate(
+            ['id_users' => $user->id_users],
+            [
+                'name' => $request->name,
+                'nim' => $request->nim,
+                'entry_year' => $request->entry_year,
+                'graduate_year' => $request->graduate_year,
+                'profile_photo' => $profilePhotoFilename,
+                'modifiedBy' => $request->name,
+            ]
+        );
 
         // Redirect based on role
         if ($roleId == 2) {

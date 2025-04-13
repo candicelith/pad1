@@ -20,8 +20,8 @@ class DatabaseSeeder extends Seeder
             UserDetailsSeeder::class,
             CompanySeeder::class,
             PostSeeder::class,
-            JobsSeeder::class,
-            JobTrackingSeeder::class
+            // JobsSeeder::class,
+            // JobTrackingSeeder::class
         ]);
     }
 }

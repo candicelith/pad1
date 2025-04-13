@@ -76,13 +76,10 @@ class AdminController extends Controller
             'name' => 'required|string|max:255',
             'nim' => 'required|string',
             'email' => 'required|email',
-            // 'phone' => 'required|string|regex:/^\+62[0-9]{8,13}$/',
             'graduate_year' => 'required|integer|between:2018,2024'
         ]);
 
-        // Extract the 'nim_part' (i.e., the middle portion of NIM)
         $nimPart = $this->getNimPart($request->nim);
-
         $user = User::create([
             'email' => $request->email,
             'id_roles' => 2,
@@ -93,7 +90,6 @@ class AdminController extends Controller
             'id_users' => $user->id_users,
             'name' => $request->name,
             'nim' => $request->nim,
-            // 'phone' => $request->phone,
             'graduate_year' => $request->graduate_year,
             'modifiedBy' => Auth::user()->userDetails->name,
         ]);

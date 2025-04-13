@@ -19,7 +19,6 @@ class JobTrackingSeeder extends Seeder
                 'id_jobs' => fake()->numberBetween(1, 100),
                 'date_start' => fake()->date(),
                 'date_end' => fake()->optional()->date(),
-                // 'type' => fake()->randomElement(['Fulltime', 'Part time', 'Internship']),
                 'job_description' => [
                     fake()->sentence(),
                     fake()->sentence(),

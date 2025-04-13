@@ -18,6 +18,7 @@ class UserDetailsSeeder extends Seeder
     public function run(): void
     {
         for ($i = 0; $i < 10; $i++) {
+            $entryYear = fake()->numberBetween(2018,2024);
 
             UserDetails::create([
                 'id_users' => fake()->unique()->numberBetween(1, 10),
@@ -28,7 +29,8 @@ class UserDetailsSeeder extends Seeder
                 'user_description' =>fake()->sentence(5),
                 'current_job' => fake()->sentence(1),
                 'current_company' => fake()->sentence(1),
-                'graduate_year' => fake()->numberBetween(2018,2024),
+                'entry_year' =>$entryYear,
+                'graduate_year' => $entryYear+4,
                 'modifiedBy' => fake()->name(),
                 'modifiedDate' => now(),
                 'created_at' => now(),

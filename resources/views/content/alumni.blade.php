@@ -106,7 +106,7 @@
                 @foreach ($alumnis as $al)
                     <a class="alumni-card w-full max-w-sm cursor-pointer rounded-lg border border-gray-200 bg-lightblue shadow-md"
                         href="{{ route('alumni.detail', ['id' => $al->id_userDetails]) }}" data-name="{{ $al->name }}"
-                        data-year="{{ $al->graduate_year }}">
+                        data-year="{{ $al->entry_year }}">
                         <div {{-- data-aos="fade-up" --}}>
                             <div class="flex flex-col items-center px-8 py-8 text-center">
                                 <div class="mb-5 flex w-full justify-end px-6 text-gray-400">

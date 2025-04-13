@@ -18,6 +18,7 @@ class UserDetails extends Model
         'name',
         'nim',
         'phone',
+        'entry_year',
         'graduate_year',
         'user_description',
         'current_company',
