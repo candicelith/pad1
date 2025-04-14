@@ -278,15 +278,18 @@
                                             {{-- Nested Replies --}}
                                             @if ($comment->replies && $comment->replies->count() > 0)
                                                 <div class="replies-container relative ml-10 mt-4 space-y-4 sm:ml-16">
-                                                    {{-- Vertical line to separate replies --}}
-                                                    <div class="absolute bottom-0 left-[-20px] top-0 w-0.5 bg-gray-300">
-                                                    </div>
+
 
                                                     <div class="replies-list hidden"
                                                         id="replies-{{ $comment->id_comment }}">
                                                         @foreach ($comment->replies as $reply)
                                                             <div id="comment-{{ $reply->id_comment }}"
                                                                 class="reply-item relative mb-4 pl-4">
+                                                                {{-- Line to separate replies --}}
+                                                                <div class="absolute -top-16 bottom-0 left-[-20px]">
+                                                                    <img src="{{ asset('assets/line chat.svg') }}"
+                                                                        alt="">
+                                                                </div>
                                                                 <div class="flex items-start space-x-2 sm:space-x-4">
                                                                     <img src="{{ asset('storage/profile/' . ($reply->user->userDetails->profile_photo ?? 'default_profile.png')) }}"
                                                                         alt="avatar"

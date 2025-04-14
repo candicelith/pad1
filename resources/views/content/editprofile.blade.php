@@ -35,7 +35,7 @@
                                     <div
                                         class="scrollbar-modal relative my-14 max-h-96 overflow-y-auto rounded-lg border border-gray-900 bg-lightblue p-4 shadow dark:bg-gray-700 sm:mx-10 md:p-5">
                                         <!-- Modal header -->
-                                        <div class="flex items-center justify-between border-b pb-4 mb-4">
+                                        <div class="mb-4 flex items-center justify-between border-b pb-4">
                                             <h3 class="text-lg font-semibold text-cyan">
                                                 Add New Experience
                                             </h3>
@@ -60,7 +60,7 @@
                                                     </label>
 
                                                     <div class="col-span-2" x-data="dropdown({ options: @js($companies->map(fn($c) => ['value' => $c->id_company, 'label' => $c->company_name])) })"
-                                                        class="flex items-center w-full">
+                                                        class="flex w-full items-center">
                                                         <div class="relative w-full">
                                                             <input x-model="search" @click="open = true"
                                                                 @input="filterOptions" @click.away="open = false"
@@ -68,7 +68,7 @@
                                                                 placeholder="Search or select a company" />
 
                                                             <ul x-show="open"
-                                                                class="absolute z-10 mt-1 w-full max-h-60 overflow-y-auto rounded-md border border-gray-200 bg-white shadow">
+                                                                class="absolute z-10 mt-1 max-h-60 w-full overflow-y-auto rounded-md border border-gray-200 bg-white shadow">
                                                                 <!-- Existing options -->
                                                                 <template x-for="item in filteredOptions"
                                                                     :key="item.value">
@@ -78,7 +78,7 @@
                                                                     </li>
                                                                 </template>
                                                                 <li @click="open = false; window.location.href='{{ route('companies.create') }}'"
-                                                                    class="border-t cursor-pointer px-4 py-2 text-sm text-cyan-600 hover:bg-gray-100">
+                                                                    class="text-cyan-600 cursor-pointer border-t px-4 py-2 text-sm hover:bg-gray-100">
                                                                     + Add a new company
                                                                 </li>
                                                             </ul>
@@ -113,11 +113,11 @@
                                                     <div class="relative w-full">
                                                         <input x-model="search" @click="open = true" @input="filterOptions"
                                                             @click.away="open = false"
-                                                            class="block w-full rounded-full border border-gray-500 px-6 bg-gray-50 p-2.5 text-sm text-gray-900 shadow focus:outline-none"
+                                                            class="block w-full rounded-full border border-gray-500 bg-gray-50 p-2.5 px-6 text-sm text-gray-900 shadow focus:outline-none"
                                                             placeholder="Search or select a position" />
 
                                                         <ul x-show="open"
-                                                            class="absolute z-10 mt-1 w-full max-h-60 overflow-y-auto rounded-md border border-gray-200 bg-white shadow">
+                                                            class="absolute z-10 mt-1 max-h-60 w-full overflow-y-auto rounded-md border border-gray-200 bg-white shadow">
                                                             <template x-for="item in filteredOptions"
                                                                 :key="item.value">
                                                                 <li @click="selectOption(item)"
@@ -255,7 +255,7 @@
                                             <div
                                                 class="scrollbar-modal relative my-14 max-h-96 overflow-y-auto rounded-lg border border-gray-900 bg-lightblue p-4 shadow dark:bg-gray-700 sm:mx-10 md:p-5">
                                                 <!-- Modal header -->
-                                                <div class="flex items-center justify-between border-b pb-4 mb-4">
+                                                <div class="mb-4 flex items-center justify-between border-b pb-4">
                                                     <h3 class="text-lg font-semibold text-cyan">
                                                         Edit Experience
                                                     </h3>
@@ -281,7 +281,7 @@
                                                             options: @js($companies->map(fn($c) => ['value' => $c->id_company, 'label' => $c->company_name])),
                                                             selected: { value: '{{ $job->id_company }}', label: '{{ $job->company_name }}' }
                                                         })"
-                                                            class="flex items-center w-full">
+                                                            class="flex w-full items-center">
 
                                                             <div class="relative w-full">
                                                                 <input x-model="search" @click="open = true"
@@ -290,7 +290,7 @@
                                                                     placeholder="Search or select a company" />
 
                                                                 <ul x-show="open"
-                                                                    class="absolute z-10 mt-1 w-full max-h-60 overflow-y-auto rounded-md border border-gray-200 bg-white shadow">
+                                                                    class="absolute z-10 mt-1 max-h-60 w-full overflow-y-auto rounded-md border border-gray-200 bg-white shadow">
                                                                     <template x-for="item in filteredOptions"
                                                                         :key="item.value">
                                                                         <li @click="selectOption(item)"
@@ -298,7 +298,7 @@
                                                                             x-text="item.label"></li>
                                                                     </template>
                                                                     <li @click="open = false; window.location.href='{{ route('companies.create') }}'"
-                                                                        class="border-t cursor-pointer px-4 py-2 text-sm text-cyan-600 hover:bg-gray-100">
+                                                                        class="text-cyan-600 cursor-pointer border-t px-4 py-2 text-sm hover:bg-gray-100">
                                                                         + Add a new company
                                                                     </li>
                                                                 </ul>
@@ -337,7 +337,7 @@
                                                                     placeholder="Search or select a position" />
 
                                                                 <ul x-show="open"
-                                                                    class="absolute z-10 mt-1 w-full max-h-60 overflow-y-auto rounded-md border border-gray-200 bg-white shadow">
+                                                                    class="absolute z-10 mt-1 max-h-60 w-full overflow-y-auto rounded-md border border-gray-200 bg-white shadow">
                                                                     <template x-for="item in filteredOptions"
                                                                         :key="item.value">
                                                                         <li @click="selectOption(item)"
