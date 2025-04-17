@@ -9,8 +9,8 @@
                     <div class="top-0 z-20 flex justify-between bg-white pb-4">
                         {{-- Add Company Button --}}
                         <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
-                            class="rounded-xl bg-cyan-100 p-2 shadow-md hover:bg-white">
-                            <svg class="h-6 w-6 text-white hover:text-cyan-100" aria-hidden="true"
+                            class="rounded-xl bg-cyan p-2 shadow-md hover:bg-cyan-400 hover:text-cyan">
+                            <svg class="h-6 w-6 text-white hover:text-cyan" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                 viewBox="0 0 24 24">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -190,7 +190,7 @@
                                                 alt="Company Logo" class="h-10 w-10 rounded-full">
                                         <td class="px-6 py-4">
                                             <a href="{{ route('admin.company.detail', ['id' => $company->id_company]) }}"
-                                                class="rounded-full bg-cyan-100 px-4 py-2 text-center text-sm text-white shadow-md hover:bg-white hover:text-cyan-100 sm:px-7 sm:text-base">
+                                                class="rounded-lg bg-cyan px-4 py-2 text-center text-sm text-white shadow-md hover:bg-cyan-400 hover:text-cyan sm:px-7 sm:text-base">
                                                 Detail
                                             </a>
                                         </td>

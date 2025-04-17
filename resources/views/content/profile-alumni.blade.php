@@ -83,8 +83,7 @@
                                 class="fixed left-0 right-0 top-0 z-50 hidden h-[calc(100%-1rem)] max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0">
                                 <div class="relative mx-4 max-h-full w-full sm:max-w-4xl">
                                     <!-- Modal content -->
-                                    <div
-                                        class="overflow-y-auto rounded-lg bg-white pb-5 shadow">
+                                    <div class="overflow-y-auto rounded-lg bg-white pb-5 shadow">
                                         <!-- Modal header -->
                                         <div class="relative">
                                             <!-- Back Button -->
@@ -102,20 +101,26 @@
                                             <div class="absolute top-1/2 mx-12">
                                                 <div class="relative">
                                                     <div class="relative mb-3">
-                                                        <div class="h-24 w-24 overflow-hidden rounded-full border-4 border-cyan bg-gray-100 sm:h-32 sm:w-32">
+                                                        <div
+                                                            class="h-24 w-24 overflow-hidden rounded-full border-4 border-cyan bg-gray-100 sm:h-32 sm:w-32">
                                                             <img id="preview-image" class="h-full w-full object-cover"
                                                                 src="{{ asset('storage/profile/' . $userDetails->profile_photo) }}"
                                                                 alt="{{ $userDetails->name }}'s Profile Picture">
                                                         </div>
                                                         <label for="profile_picture"
-                                                            class="absolute bottom-0 right-0 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-cyan text-white shadow-md transition-all hover:bg-cyan-600 sm:h-10 sm:w-10">
-                                                            <svg class="h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                                    d="M3 9a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z"/>
-                                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                                    d="M12 17a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
-                                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                                    d="M9 5h6l-1 4"/>
+                                                            class="hover:bg-cyan-600 absolute bottom-0 right-0 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-cyan text-white shadow-md transition-all sm:h-10 sm:w-10">
+                                                            <svg class="h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true"
+                                                                xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                                viewBox="0 0 24 24">
+                                                                <path stroke="currentColor" stroke-linecap="round"
+                                                                    stroke-linejoin="round" stroke-width="2"
+                                                                    d="M3 9a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z" />
+                                                                <path stroke="currentColor" stroke-linecap="round"
+                                                                    stroke-linejoin="round" stroke-width="2"
+                                                                    d="M12 17a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                                                                <path stroke="currentColor" stroke-linecap="round"
+                                                                    stroke-linejoin="round" stroke-width="2"
+                                                                    d="M9 5h6l-1 4" />
                                                             </svg>
                                                         </label>
                                                     </div>
@@ -127,8 +132,9 @@
                                             method="POST" enctype="multipart/form-data">
                                             @csrf
                                             <!-- Hidden Input -->
-                                            <input id="profile_picture" name="profile_picture" type="file" accept="image/*" class="hidden"
-                                            onchange="document.getElementById('preview-image').src = window.URL.createObjectURL(this.files[0])">
+                                            <input id="profile_picture" name="profile_picture" type="file"
+                                                accept="image/*" class="hidden"
+                                                onchange="document.getElementById('preview-image').src = window.URL.createObjectURL(this.files[0])">
                                             <div class="mx-10 my-14">
                                                 <div class="mb-5 mt-5">
                                                     <label for="full_name" class="mb-2 block text-xl text-cyan">Full

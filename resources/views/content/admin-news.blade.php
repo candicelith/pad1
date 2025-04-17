@@ -10,8 +10,8 @@
 
                         {{-- Add News Button --}}
                         <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
-                            class="rounded-xl bg-cyan p-2 shadow-md hover:bg-white">
-                            <svg class="h-6 w-6 text-white hover:text-cyan-100" aria-hidden="true"
+                            class="rounded-xl bg-cyan p-2 shadow-md hover:bg-cyan-400 hover:text-cyan">
+                            <svg class="h-6 w-6 text-white hover:text-cyan" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                 viewBox="0 0 24 24">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -118,8 +118,8 @@
                                     </td>
                                     <td class="px-6 py-4">
                                         <button href=""
-                                            class="rounded-lg bg-cyan p-2 text-center text-sm text-white shadow-md hover:bg-white hover:text-cyan-100 sm:text-base">
-                                            <svg class="h-6 w-6 text-white" aria-hidden="true"
+                                            class="rounded-lg bg-cyan p-1.5 text-center text-sm text-white shadow-md hover:bg-cyan-400 hover:text-cyan-100 sm:p-2 sm:text-base">
+                                            <svg class="h-6 w-6 text-white hover:text-cyan" aria-hidden="true"
                                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 fill="none" viewBox="0 0 24 24">
                                                 <path stroke="currentColor" stroke-linecap="round"
@@ -128,8 +128,8 @@
                                             </svg>
                                         </button>
                                         <button href=""
-                                            class="rounded-lg bg-cyan p-2 text-center text-sm text-white shadow-md hover:bg-white hover:text-cyan-100 sm:text-base">
-                                            <svg class="h-6 w-6 text-white" aria-hidden="true"
+                                            class="rounded-lg bg-cyan p-1.5 text-center text-sm text-white shadow-md hover:bg-cyan-400 hover:text-cyan-100 sm:p-2 sm:text-base">
+                                            <svg class="h-6 w-6 text-white hover:text-cyan" aria-hidden="true"
                                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 fill="none" viewBox="0 0 24 24">
                                                 <path stroke="currentColor" stroke-linecap="round"

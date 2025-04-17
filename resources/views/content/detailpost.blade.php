@@ -19,7 +19,7 @@
 
     <section class="mt-20 bg-white sm:mt-28">
         <div class="mx-auto max-w-screen-xl py-8 lg:px-6 lg:py-16">
-            <div class="mx-4 flex flex-col items-start sm:flex-row">
+            <div class="mx-2.5 flex flex-col items-start sm:flex-row">
 
                 {{-- Back Button --}}
                 <button class="sm:mb-4" onclick="handleBack()">
@@ -381,22 +381,22 @@
                             class="fixed inset-0 z-50 hidden h-full w-full overflow-y-auto bg-black bg-opacity-50 backdrop-blur-sm">
                             <div
                                 class="absolute left-1/2 top-1/2 w-full max-w-md -translate-x-1/2 -translate-y-1/2 transform p-4">
-                                <div class="relative rounded-lg bg-cyan-100 shadow">
+                                <div class="relative rounded-lg bg-cyan-400 shadow-lg">
                                     <div class="p-4 text-center md:p-5">
-                                        <h3 class="mb-5 text-lg font-normal text-white">Log in to view post & comment
+                                        <h3 class="mb-5 text-lg font-normal text-cyan">Log in to view post & comment
                                             details</h3>
-                                        <p class="mb-5 text-sm font-normal text-white">Would you like to log in?
+                                        <p class="mb-5 text-sm font-normal text-cyan">Would you like to log in?
                                         </p>
 
                                         <button data-modal-hide="defaultModal" type="button"
-                                            onclick="window.location.href='{{ route('posts') }}'"
-                                            class="ms-3 rounded-full border border-gray-900 bg-white px-6 py-2.5 text-sm font-medium text-cyan hover:bg-cyan hover:text-white focus:z-10 focus:outline-none focus:ring-4 focus:ring-cyan">
-                                            No
+                                            onclick="window.location.href='{{ route('login') }}'"
+                                            class="ms-3 rounded-full border border-gray-900 bg-white px-11 py-3 text-sm font-medium text-cyan hover:bg-cyan hover:text-white focus:z-10 focus:outline-none focus:ring-4 focus:ring-cyan">
+                                            Yes
                                         </button>
                                         <button data-modal-hide="defaultModal" type="button"
-                                            onclick="window.location.href='{{ route('login') }}'"
-                                            class="ms-3 rounded-full border border-gray-900 bg-white px-6 py-2.5 text-sm font-medium text-cyan hover:bg-cyan hover:text-white focus:z-10 focus:outline-none focus:ring-4 focus:ring-cyan">
-                                            Yes
+                                            onclick="window.location.href='{{ route('posts') }}'"
+                                            class="ms-3 rounded-full border border-gray-900 bg-white px-11 py-3 text-sm font-medium text-cyan hover:bg-cyan hover:text-white focus:z-10 focus:outline-none focus:ring-4 focus:ring-cyan">
+                                            No
                                         </button>
                                     </div>
                                 </div>

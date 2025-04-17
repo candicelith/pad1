@@ -30,32 +30,34 @@
                             <!-- Main modal -->
                             <div id="crud-modal2" tabindex="-1" aria-hidden="true"
                                 class="fixed left-0 right-0 top-0 z-50 hidden h-[calc(100%-1rem)] max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0">
-                                <div class="relative mx-4 max-h-full w-full sm:max-w-4xl">
+                                <div class="relative max-h-full w-full max-w-3xl p-4">
                                     <!-- Modal content -->
                                     <div
-                                        class="scrollbar-modal relative my-14 max-h-96 overflow-y-auto rounded-lg border border-gray-900 bg-lightblue p-4 shadow dark:bg-gray-700 sm:mx-10 md:p-5">
+                                        class="scrollbar-modal relative max-h-96 overflow-y-auto rounded-lg border-4 border-cyan-100 bg-white p-2 shadow">
                                         <!-- Modal header -->
-                                        <div class="mb-4 flex items-center justify-between border-b pb-4">
-                                            <h3 class="text-lg font-semibold text-cyan">
-                                                Add New Experience
+                                        <div
+                                            class="flex items-center justify-between rounded-t border-b-4 border-cyan-100 p-2 text-center md:p-5">
+                                            <h3 class="text-cyan sm:text-start sm:text-xl">
+                                                Add Your New Experience!
                                             </h3>
-                                            <button data-modal-hide="crud-modal2" class="z-10 p-2 pe-0">
-                                                <svg class="h-6 w-6 text-gray-900 dark:text-white" aria-hidden="true"
+                                            <button type="button" class="inline-flex items-center"
+                                                data-modal-toggle="crud-modal">
+                                                <svg class="h-6 w-6 text-cyan" aria-hidden="true"
                                                     xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                     fill="none" viewBox="0 0 24 24">
                                                     <path stroke="currentColor" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="2"
+                                                        stroke-linejoin="round" stroke-width="3"
                                                         d="M6 18 17.94 6M18 18 6.06 6" />
                                                 </svg>
                                             </button>
                                         </div>
 
-                                        <form action="{{ route('alumni.create-experiences') }}" method="POST">
+                                        <form action="{{ route('alumni.create-experiences') }}" method="POST"
+                                            class="p-4 md:p-5">
                                             @csrf
-                                            <div class="mb-4 grid grid-cols-2 gap-4 rounded-lg bg-gray-300 px-4 py-5">
+                                            <div class="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
                                                 <div class="col-span-2">
-                                                    <label for="company"
-                                                        class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">
+                                                    <label for="company" class="mb-2 block text-sm text-cyan sm:text-lg">
                                                         Company
                                                     </label>
 
@@ -64,7 +66,7 @@
                                                         <div class="relative w-full">
                                                             <input x-model="search" @click="open = true"
                                                                 @input="filterOptions" @click.away="open = false"
-                                                                class="block w-full rounded-full border border-gray-900 bg-gray-50 px-6 py-2 text-sm text-gray-900 focus:outline-none"
+                                                                class="block w-full rounded-xl border border-gray-900 bg-gray-50 px-6 py-2 text-sm text-gray-900 focus:outline-none"
                                                                 placeholder="Search or select a company" />
 
                                                             <ul x-show="open"
@@ -108,12 +110,12 @@
                                                     ]
                                                 })">
                                                     <label for="position"
-                                                        class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">Position</label>
+                                                        class="mb-2 block text-sm text-cyan sm:text-lg">Position</label>
 
                                                     <div class="relative w-full">
                                                         <input x-model="search" @click="open = true" @input="filterOptions"
                                                             @click.away="open = false"
-                                                            class="block w-full rounded-full border border-gray-500 bg-gray-50 p-2.5 px-6 text-sm text-gray-900 shadow focus:outline-none"
+                                                            class="block w-full rounded-xl border border-gray-500 bg-gray-50 p-2.5 px-6 text-sm text-gray-900 shadow focus:outline-none"
                                                             placeholder="Search or select a position" />
 
                                                         <ul x-show="open"
@@ -138,7 +140,7 @@
                                                     class="col-span-2 grid grid-cols-1 gap-4 sm:grid-cols-2">
                                                     <div class="col-span-1">
                                                         <label for="date_start"
-                                                            class="mb-2 block text-sm font-medium text-gray-700 dark:text-white">Start
+                                                            class="mb-2 block text-sm text-cyan sm:text-lg">Start
                                                             Date <span class="text-red-500">*</span></label>
                                                         <div class="relative">
                                                             <div
@@ -152,7 +154,7 @@
                                                             </div>
                                                             <input id="datepicker-range-start" name="date_start"
                                                                 type="text"
-                                                                class="block w-full rounded-full border border-gray-500 bg-gray-50 p-2.5 ps-10 text-sm text-gray-900 shadow focus:border-cyan focus:ring-cyan"
+                                                                class="block w-full rounded-xl border border-gray-500 bg-gray-50 p-2.5 ps-10 text-sm text-gray-900 shadow focus:border-cyan focus:ring-cyan"
                                                                 placeholder="Select start date" required>
                                                         </div>
                                                         @error('date_start')
@@ -161,7 +163,7 @@
                                                     </div>
                                                     <div class="col-span-1">
                                                         <label for="date_end"
-                                                            class="mb-2 block text-sm font-medium text-gray-700 dark:text-white">End
+                                                            class="mb-2 block text-sm text-cyan sm:text-lg">End
                                                             Date</label>
                                                         <div class="space-y-2">
                                                             <div class="relative">
@@ -177,7 +179,7 @@
                                                                 </div>
                                                                 <input id="datepicker-range-end" name="date_end"
                                                                     type="text"
-                                                                    class="date-end-input block w-full rounded-full border border-gray-500 bg-gray-50 p-2.5 ps-10 text-sm text-gray-900 shadow focus:border-cyan focus:ring-cyan"
+                                                                    class="date-end-input block w-full rounded-xl border border-gray-500 bg-gray-50 p-2.5 ps-10 text-sm text-gray-900 shadow focus:border-cyan focus:ring-cyan"
                                                                     placeholder="Select end date">
                                                             </div>
                                                             <div class="flex items-center">
@@ -197,19 +199,19 @@
 
                                                 <div class="col-span-2">
                                                     <label for="responsibility"
-                                                        class="mb-2 block text-sm text-gray-400">Responsibility</label>
+                                                        class="mb-2 block text-sm text-cyan sm:text-lg">Responsibility</label>
                                                     <div id="responsibility-container-create">
                                                         <div class="responsibility-item mb-2 flex items-center">
                                                             <input type="text" name="job_responsibility[]"
                                                                 class="block w-full rounded-xl border border-gray-900 bg-gray-50 px-2 text-sm text-gray-900"
                                                                 placeholder="Enter responsibility" required />
                                                             <button type="button"
-                                                                class="remove-responsibility ml-2 rounded-full border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2"
+                                                                class="remove-responsibility ml-2 rounded-xl border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2"
                                                                 style="display: none;">Remove</button>
                                                         </div>
                                                     </div>
                                                     <button type="button" id="add-responsibility-create"
-                                                        class="bg-btn-cyan mt-2 rounded-full px-4 py-2 text-sm text-white hover:bg-cyan-300 sm:text-base">
+                                                        class="bg-btn-cyan-100 mt-2 rounded-lg px-4 py-2 text-sm text-white hover:bg-cyan-400 hover:text-cyan sm:text-base">
                                                         Add Responsibility
                                                     </button>
                                                     @error('job_responsibility')
@@ -217,10 +219,12 @@
                                                     @enderror
                                                 </div>
                                             </div>
-                                            <button data-modal-hide="crud-modal" type="submit"
-                                                class="bg-btn-cyan m-4 rounded-full bg-cyan px-5 py-2.5 text-white shadow-lg hover:bg-white hover:text-cyan">
-                                                Save Changes
-                                            </button>
+                                            <div class="flex justify-end">
+                                                <button data-modal-hide="crud-modal" type="submit"
+                                                    class="bg-btn-cyan m-4 rounded-lg bg-cyan px-8 py-1 text-white shadow-lg hover:bg-cyan-400 hover:text-cyan sm:py-2.5">
+                                                    Submit
+                                                </button>
+                                            </div>
                                         </form>
                                     </div>
                                 </div>
