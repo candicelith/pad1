@@ -196,7 +196,7 @@
                                                     </svg>
                                                 </a>
                                             </td>
-                                        </tr>
+                                            </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
