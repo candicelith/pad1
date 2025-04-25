@@ -65,14 +65,14 @@ main {
 }
 
 .border-input-comment {
-  border: 4px solid #9EBC9B;
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
-  outline: none;
+    border: 4px solid #9EBC9B;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
 }
 
 .border-input-comment:focus {
-  border: 4px solid #0D5806;
+    border: 4px solid #0D5806;
 }
 
 .scrollbar-hide::-webkit-scrollbar {
@@ -80,8 +80,10 @@ main {
 }
 
 .scrollbar-hide {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
 }
 
 .scrollbar-companies::-webkit-scrollbar {
@@ -89,7 +91,7 @@ main {
 }
 
 .scrollbar-companies::-webkit-scrollbar-thumb {
-  background: #888;
+    background: #888;
 }
 
 .scrollbar-detailposts::-webkit-scrollbar {
@@ -97,7 +99,7 @@ main {
 }
 
 .scrollbar-detailposts::-webkit-scrollbar-thumb {
-  background: #888;
+    background: #888;
 }
 
 .scrollbar-modal::-webkit-scrollbar {
@@ -105,7 +107,7 @@ main {
 }
 
 .scrollbar-modal::-webkit-scrollbar-thumb {
-  background: #888;
+    background: #888;
 }
 
 .alert-animation {
@@ -135,41 +137,42 @@ main {
     height: 38px !important;
     padding-left: 1rem !important;
     background-color: #F9FAFB !important;
-  }
+}
 
-  .select2-container--default .select2-selection--single .select2-selection__rendered {
+.select2-container--default .select2-selection--single .select2-selection__rendered {
     line-height: 36px !important;
     padding-left: 0.5rem !important;
     color: #111827 !important;
     font-size: 0.875rem !important;
-  }
+}
 
-  .select2-container--default .select2-selection--single .select2-selection__arrow {
+.select2-container--default .select2-selection--single .select2-selection__arrow {
     height: 36px !important;
     right: 10px !important;
-  }
+}
 
-  .select2-dropdown {
+.select2-dropdown {
     border-color: #111827 !important;
     border-radius: 0.5rem !important;
     overflow: hidden !important;
-  }
+}
 
-  .select2-search--dropdown .select2-search__field {
+.select2-search--dropdown .select2-search__field {
     border-radius: 0.5rem !important;
     padding: 8px !important;
     border-color: #D1D5DB !important;
-  }
+}
 
-  .select2-container--default .select2-results__option--highlighted[aria-selected] {
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
     background-color: #0891B2 !important;
     color: white !important;
-  }
+}
 
-  /* Fix Select2 in modals */
-  .select2-container--open {
+/* Fix Select2 in modals */
+.select2-container--open {
     z-index: 9999 !important;
-  }
-  .select2-selection__clear {
+}
+
+.select2-selection__clear {
     display: none !important;
 }

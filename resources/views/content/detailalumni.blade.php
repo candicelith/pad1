@@ -19,8 +19,7 @@
                     <div class="lg:mx-14">
                         <div class="flex flex-col lg:flex-row lg:space-x-8">
                             <img class="h-24 w-24 rounded-full object-cover sm:h-28 sm:w-28"
-                                src="{{ asset('storage/profile/' . $userDetails->profile_photo)  }}"
-                                alt="" />
+                                src="{{ asset('storage/profile/' . $userDetails->profile_photo) }}" alt="" />
                             <div class="mt-4">
                                 <h2 class="text-xl text-cyan sm:text-2xl">{{ $userDetails->name }}</h2>
                                 <h3 class="text-md text-cyan sm:text-lg">{{ $userDetails->current_job }},
@@ -43,7 +42,138 @@
                                         <div
                                             class="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full border border-gray-900 bg-gray-900">
                                         </div>
-                                        <h3 class="text-lg text-cyan sm:text-xl">{{ $job->job_name }}</h3>
+
+                                        {{-- Job Drawer Toggle --}}
+                                        <button data-drawer-target="job-drawer" data-drawer-show="job-drawer"
+                                            data-drawer-body-scrolling="true" data-drawer-backdrop="false"
+                                            data-drawer-placement="right" aria-controls="job-drawer"
+                                            class="text-lg text-cyan hover:underline sm:text-xl">{{ $job->job_name }}</button>
+
+                                        {{-- Drawer Content --}}
+                                        <div id="job-drawer"
+                                            class="fixed right-0 top-28 z-20 w-2/5 translate-x-full overflow-y-auto rounded-lg bg-cyan-400 p-4 transition-transform"
+                                            tabindex="-1" aria-labelledby="drawer-right-label">
+                                            <div
+                                                class="flex items-center justify-between rounded-t border-b border-white md:py-6">
+                                                <h3 class="text-3xl text-cyan">
+                                                    {{ $job->job_name }}
+                                                </h3>
+                                                <button type="button"
+                                                    class="ms-auto inline-flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-white"
+                                                    data-drawer-hide="job-drawer" aria-controls="job-drawer">
+                                                    <svg class="h-6 w-6" aria-hidden="true"
+                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 14 14">
+                                                        <path stroke="currentColor" stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="2"
+                                                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                                    </svg>
+                                                    <span class="sr-only">Close</span>
+                                                </button>
+                                            </div>
+                                            <div class="max-h-96 space-y-4">
+                                                <div class="grid gap-10 py-4 sm:grid-cols-1 md:grid-cols-2">
+                                                    <a class="alumni-card w-full max-w-sm cursor-pointer rounded-lg border border-gray-200 bg-lightblue shadow-md"
+                                                        href="">
+                                                        <div {{-- data-aos="fade-up" --}}>
+                                                            <div class="flex flex-col items-center p-2 text-center">
+                                                                <div
+                                                                    class="mb-5 flex w-full justify-end px-6 text-gray-400">
+                                                                    <span class="text-sm">
+                                                                        2019
+                                                                    </span>
+                                                                </div>
+                                                                <img class="mb-3 h-24 w-24 rounded-full shadow-lg"
+                                                                    src="" alt=" image" />
+                                                                <h2 class="mb-1 text-2xl text-cyan">
+                                                                    SUpri
+                                                                </h2>
+                                                                <h3 class="text-base text-cyan">
+                                                                    Software engineer
+                                                                </h3>
+                                                                <h4 class="text-sm text-gray-500">
+                                                                    Tokped
+                                                                </h4>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                    <a class="alumni-card w-full max-w-sm cursor-pointer rounded-lg border border-gray-200 bg-lightblue shadow-md"
+                                                        href="">
+                                                        <div {{-- data-aos="fade-up" --}}>
+                                                            <div class="flex flex-col items-center p-2 text-center">
+                                                                <div
+                                                                    class="mb-5 flex w-full justify-end px-6 text-gray-400">
+                                                                    <span class="text-sm">
+                                                                        2019
+                                                                    </span>
+                                                                </div>
+                                                                <img class="mb-3 h-24 w-24 rounded-full shadow-lg"
+                                                                    src="" alt=" image" />
+                                                                <h2 class="mb-1 text-2xl text-cyan">
+                                                                    SUpri
+                                                                </h2>
+                                                                <h3 class="text-base text-cyan">
+                                                                    Software engineer
+                                                                </h3>
+                                                                <h4 class="text-sm text-gray-500">
+                                                                    Tokped
+                                                                </h4>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                    <a class="alumni-card w-full max-w-sm cursor-pointer rounded-lg border border-gray-200 bg-lightblue shadow-md"
+                                                        href="">
+                                                        <div {{-- data-aos="fade-up" --}}>
+                                                            <div class="flex flex-col items-center p-2 text-center">
+                                                                <div
+                                                                    class="mb-5 flex w-full justify-end px-6 text-gray-400">
+                                                                    <span class="text-sm">
+                                                                        2019
+                                                                    </span>
+                                                                </div>
+                                                                <img class="mb-3 h-24 w-24 rounded-full shadow-lg"
+                                                                    src="" alt=" image" />
+                                                                <h2 class="mb-1 text-2xl text-cyan">
+                                                                    SUpri
+                                                                </h2>
+                                                                <h3 class="text-base text-cyan">
+                                                                    Software engineer
+                                                                </h3>
+                                                                <h4 class="text-sm text-gray-500">
+                                                                    Tokped
+                                                                </h4>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                    <a class="alumni-card w-full max-w-sm cursor-pointer rounded-lg border border-gray-200 bg-lightblue shadow-md"
+                                                        href="">
+                                                        <div {{-- data-aos="fade-up" --}}>
+                                                            <div class="flex flex-col items-center p-2 text-center">
+                                                                <div
+                                                                    class="mb-5 flex w-full justify-end px-6 text-gray-400">
+                                                                    <span class="text-sm">
+                                                                        2019
+                                                                    </span>
+                                                                </div>
+                                                                <img class="mb-3 h-24 w-24 rounded-full shadow-lg"
+                                                                    src="" alt=" image" />
+                                                                <h2 class="mb-1 text-2xl text-cyan">
+                                                                    SUpri
+                                                                </h2>
+                                                                <h3 class="text-base text-cyan">
+                                                                    Software engineer
+                                                                </h3>
+                                                                <h4 class="text-sm text-gray-500">
+                                                                    Tokped
+                                                                </h4>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <h3 class="text-base text-cyan sm:text-lg">{{ $job->company_name }}</h3>
                                         <p class="text-xs text-gray-400 sm:text-sm">{{ $job->date_start }} -
                                             {{ $job->date_end }}</p>
@@ -58,6 +188,7 @@
                                 @endforeach
                             </ol>
                         </div>
+
                     </div>
                 </div>
             </div>
