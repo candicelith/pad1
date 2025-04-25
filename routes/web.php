@@ -62,6 +62,7 @@ Route::controller(PostController::class)->group(function () {
     Route::get('/posts/detail/{id}', 'show')->name('posts.detail');
     Route::get('/posts/create', 'create')->name('posts.create');
     Route::post('/posts/store', 'store')->name('posts.store');
+    Route::post('/posts/detail/{vacancy}/apply', 'apply')->name('posts.detail.apply');
 });
 
 // Comment Controller
