@@ -10,6 +10,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use PhpParser\Node\Expr\PostDec;
+use App\Models\PostRegistration;
 
 class PostController extends Controller
 {
@@ -147,7 +148,9 @@ class PostController extends Controller
             ->with('user.userDetails')
             ->get();
 
-        return view('content.detailpost', compact('post', 'vacancy', 'comments', 'posts'));
+        $registrations = $post->registrations()->with('user')->get();
+
+        return view('content.detailpost', compact('post', 'vacancy', 'comments', 'posts', 'registrations'));
     }
 
     /**
@@ -173,4 +176,29 @@ class PostController extends Controller
     {
         //
     }
+
+    public function apply(Request $request, string $id)
+    {
+        $request->validate([
+            'cv' => 'required|file|mimes:pdf,doc,docx'
+        ]);
+
+        $vacancy = Vacancy::findorFail($id);
+        $user = Auth::user();
+
+        // Handle file upload
+        $cvFile = $request->file('cv');
+        $cvFileName = time() . '_' . $cvFile->getClientOriginalName();
+        $cvFile->storeAs('cvs', $cvFileName, 'public');
+
+        PostRegistration::create([
+            'vacancy_id' => $vacancy->id_vacancy,
+            'user_id' => $user->id_users,
+            'cv' => $cvFileName,
+            'status' => 'pending'
+        ]);
+
+        return redirect()->route('posts.detail', $id)->with('success', 'Berhasil mengirim lamaran');
+    }
+
 }

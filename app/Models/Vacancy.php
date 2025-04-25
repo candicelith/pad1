@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\PostRegistration;
 
 class Vacancy extends Model
 {
@@ -46,6 +47,11 @@ class Vacancy extends Model
     public function comments()
     {
         return $this->hasMany(Comment::class,'id_vacancy','id_vacancy');
+    }
+
+    public function registrations()
+    {
+        return $this->hasMany(PostRegistration::class, 'vacancy_id', 'id_vacancy');
     }
 
 

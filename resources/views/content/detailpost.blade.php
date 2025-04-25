@@ -126,7 +126,7 @@
                                         <div
                                             class="flex items-center justify-between rounded-t border-b-4 border-cyan-100 px-5 py-6 text-center">
                                             <h3 class="text-3xl text-cyan sm:text-start">
-                                                Apply to (Nama Company)
+                                                Apply to {{ $vacancy->company_name }}
                                             </h3>
                                             <button type="button" class="inline-flex items-center"
                                                 data-modal-toggle="crud-modal">
@@ -141,7 +141,10 @@
                                         </div>
 
                                         {{-- Modal body --}}
-                                        <form class="max-h-96 overflow-y-auto px-9 pb-5 pt-7">
+                                        <form class="max-h-96 overflow-y-auto px-9 pb-5 pt-7"
+                                            action="{{ route('posts.detail.apply', ['vacancy' => $vacancy->id_vacancy, 'id' => $vacancy->id_vacancy]) }}"
+                                            method="POST" enctype="multipart/form-data">
+                                            @csrf
                                             <div class="mb-9 space-y-3">
                                                 <h2 class="text-2xl text-cyan">Resume</h2>
                                                 <p class="text-sm text-gray-400">Be sure to include your updated resume</p>
@@ -151,7 +154,7 @@
                                                 </div>
                                             </div>
                                             <div class="flex items-end justify-between text-sm text-gray-400">
-                                                <p>Only you and Juminten Suherman can view this</p>
+                                                <p>Only you and {{ $vacancy->name }} can view this</p>
                                                 <button type="submit"
                                                     class="bg-btn-cyan rounded-lg px-7 py-2 text-center text-sm text-white hover:bg-cyan-100">
                                                     Submit
@@ -164,7 +167,8 @@
 
                         </div>
 
-                        {{-- Alumni that post this job vacancy can see this start --}}
+                        {{-- Only Alumni that post this job vacancy and the people that register can see this start --}}
+                        @if(Auth::check() && (Auth::user()->id_users == $vacancy->id_users || $registrations->contains('user_id', Auth::user()->id_users)))
                         <div class="mt-12 space-y-2">
                             <p>Submission Inbox</p>
                             <div class="rounded-lg border-4 border-cyan-100 bg-white p-4">
@@ -177,38 +181,28 @@
                                         </tr>
                                     </thead>
                                     <tbody class="text-left">
+                                        @foreach ($registrations as $index => $registration)
                                         <tr>
-                                            <td class="px-1 text-center">1</td>
-                                            <td class="px-1">Muhammad Naufal Daffachri</td>
-                                            <td class="px-1 text-center"><button><svg
-                                                        class="h-6 w-6 text-gray-800 dark:text-white" aria-hidden="true"
+                                            <td class="px-1 text-center">{{ $index + 1 }}</td>
+                                            <td class="px-1">{{ $registration->user->email }}</td>
+                                            <td class="px-1 text-center">
+                                                <a href="{{ asset('storage/cvs/' . $registration->cv) }}" target="_blank">
+                                                    <svg class="h-6 w-6 text-gray-800 dark:text-white" aria-hidden="true"
                                                         xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                         fill="none" viewBox="0 0 24 24">
                                                         <path stroke="currentColor" stroke-linecap="round"
                                                             stroke-linejoin="round" stroke-width="2"
                                                             d="M12 13V4M7 14H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2m-1-5-4 5-4-5m9 8h.01" />
                                                     </svg>
-                                                </button>
+                                                </a>
                                             </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="px-1 text-center">2</td>
-                                            <td class="px-1">Naila</td>
-                                            <td class="px-1 text-center"><button><svg
-                                                        class="h-6 w-6 text-gray-800 dark:text-white" aria-hidden="true"
-                                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                        fill="none" viewBox="0 0 24 24">
-                                                        <path stroke="currentColor" stroke-linecap="round"
-                                                            stroke-linejoin="round" stroke-width="2"
-                                                            d="M12 13V4M7 14H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2m-1-5-4 5-4-5m9 8h.01" />
-                                                    </svg>
-                                                </button>
-                                            </td>
-                                        </tr>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
                         </div>
+                        @endif
                     </div>
                     {{-- Alumni that post this job vacancy can see this end --}}
 
