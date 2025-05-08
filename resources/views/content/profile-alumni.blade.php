@@ -233,7 +233,6 @@
             </div>
             {{-- Profile End --}}
 
-
             {{-- Experience Start --}}
             <div class="mt-8 w-full max-w-none rounded-3xl border border-gray-400 bg-lightblue shadow-md">
                 <div class="mx-10 flex flex-col space-y-2 py-5 sm:mx-14 sm:py-10">

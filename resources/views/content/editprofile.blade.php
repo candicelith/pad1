@@ -41,7 +41,7 @@
                                                 Add Your New Experience!
                                             </h3>
                                             <button type="button" class="inline-flex items-center"
-                                                data-modal-toggle="crud-modal">
+                                                data-modal-hide="crud-modal2">
                                                 <svg class="h-6 w-6 text-cyan" aria-hidden="true"
                                                     xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                     fill="none" viewBox="0 0 24 24">
