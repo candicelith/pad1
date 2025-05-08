@@ -2,8 +2,31 @@
 
 @section('admincontent')
     <section>
+        @if (session('success'))
+            <div class="mb-4 rounded-md bg-green-100 p-4 text-green-700 dark:bg-green-200 dark:text-green-800">
+                {{ session('success') }}
+            </div>
+        @endif
+
         <div class="mt-5 pt-4 sm:ml-64">
             <div class="mx-2 mt-14">
+
+                @if ($errors->any())
+                    <div class="mb-4 rounded-md bg-red-100 p-4 text-red-700 dark:bg-red-200 dark:text-red-800">
+                        <ul class="list-disc pl-5">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                @if (session('success'))
+                    <div class="mb-4 rounded-md bg-green-100 p-4 text-green-700 dark:bg-green-200 dark:text-green-800">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
                 <h2 class="flex justify-center text-4xl">Company Management</h2>
                 <div class="relative sm:mx-10">
                     <div class="top-0 z-20 flex justify-between bg-white pb-4">
@@ -17,6 +40,7 @@
                                     d="M5 12h14m-7 7V5" />
                             </svg>
                         </button>
+
 
                         {{-- Add Company Modal --}}
                         <div id="crud-modal" tabindex="-1" aria-hidden="true"
@@ -71,16 +95,7 @@
                                                     placeholder="Enter company description" rows="3"></textarea>
                                             </div>
 
-                                            <div class="col-span-2 sm:col-span-1">
-                                                <label for="company_phone" class="mb-2 block text-sm text-white sm:text-lg">
-                                                    Company Phone
-                                                </label>
-                                                <input type="tel" name="company_phone" id="company_phone"
-                                                    class="block h-1/2 w-full rounded-full border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400 sm:p-2.5"
-                                                    placeholder="+62 8123456789">
-                                            </div>
-
-                                            <div class="col-span-2 sm:col-span-1">
+                                            <div class="col-span-2">
                                                 <label for="company_picture"
                                                     class="mb-2 block text-sm text-white sm:text-lg">
                                                     Company Logo
@@ -129,18 +144,6 @@
                                     </th>
                                     <th scope="col"
                                         class="hidden-mobile px-6 py-3 font-normal text-black sm:text-base">
-                                        <span>COMPANY PHONE</span>
-                                    </th>
-                                    <th scope="col"
-                                        class="hidden-mobile px-6 py-3 font-normal text-black sm:text-base">
-                                        <span>COMPANY EMAIL</span>
-                                    </th>
-                                    <th scope="col"
-                                        class="hidden-mobile px-6 py-3 font-normal text-black sm:text-base">
-                                        <span>COMPANY WEBSITE</span>
-                                    </th>
-                                    <th scope="col"
-                                        class="hidden-mobile px-6 py-3 font-normal text-black sm:text-base">
                                         <span>COMPANY ADDRESS</span>
                                     </th>
                                     <th scope="col"
@@ -171,15 +174,6 @@
                                             {{ $company->company_field }}
                                         </td>
                                         <td class="hidden-mobile px-6 py-4 text-sm text-black sm:text-base">
-                                            {{ $company->company_phone }}
-                                        </td>
-                                        <td class="hidden-mobile px-6 py-4 text-sm text-black sm:text-base">
-                                            {{ $company->company_email ?? 'N/A' }}
-                                        </td>
-                                        <td class="hidden-mobile px-6 py-4 text-sm text-black sm:text-base">
-                                            {{ $company->company_website ?? 'N/A' }}
-                                        </td>
-                                        <td class="hidden-mobile px-6 py-4 text-sm text-black sm:text-base">
                                             {{ $company->company_address }}
                                         </td>
                                         <td class="hidden-mobile px-6 py-4 text-sm text-black sm:text-base">
@@ -193,6 +187,14 @@
                                                 class="rounded-lg bg-cyan px-4 py-2 text-center text-sm text-white shadow-md hover:bg-cyan-400 hover:text-cyan sm:px-7 sm:text-base">
                                                 Detail
                                             </a>
+                                            <form action="{{ route('admin.company.delete', ['id' =>$company->id_company]) }}" method="POST" onsubmit="return confirm('Are you sure?');" class="inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit"
+                                                class="rounded-lg bg-red px-4 py-2 text-center text-sm text-black shadow-md hover:bg-red-400 hover:text-cyan sm:px-7 sm:text-base">
+                                                    Delete
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach

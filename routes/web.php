@@ -134,7 +134,7 @@ Route::controller(AdminController::class)->group(function () {
     // Company
     Route::post('/admin/company_store', 'storeCompany')->name('admin.company.store');
     Route::post('/admin/company_update/{id}', 'updateCompany')->name('admin.company.update');
-    Route::post('/admin/company_delete/{id}', 'deleteCompany')->name('admin.company.delete');
+    Route::delete('/admin/company_delete/{id}', 'deleteCompany')->name('admin.company.delete');
     Route::get('/admin/company/detail/{id}', 'detailCompany')->name('admin.company.detail');
     // Route::get('/admin/company/edit/{id}', 'editCompany')->name('admin.company.edit');
 

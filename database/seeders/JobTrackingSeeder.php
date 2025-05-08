@@ -15,8 +15,8 @@ class JobTrackingSeeder extends Seeder
     {
         for ($i = 0; $i < 100; $i++) {
             JobTracking::create([
-                'id_userDetails' => fake()->numberBetween(1, 10),
-                'id_jobs' => fake()->numberBetween(1, 100),
+                'id_userDetails' => fake()->numberBetween(1, 38),
+                'id_jobs' => fake()->numberBetween(1, 25),
                 'date_start' => fake()->date(),
                 'date_end' => fake()->optional()->date(),
                 'job_description' => [
