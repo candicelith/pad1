@@ -155,7 +155,7 @@ class AlumniController extends Controller
                 DB::raw('COALESCE(user_details.current_company, "-") as company_name'),
                 DB::raw("COALESCE(user_details.profile_photo, 'default_profile.png') as profile_photo"),
             )
-            ->where('user_details.id_userDetails', $id)  // Fetch details for the authenticated user only
+            ->where('user_details.id_userDetails', $id)  // Fetch details for the specified user
             ->first();
 
         $jobDetails = DB::table('job_tracking')
@@ -177,8 +177,44 @@ class AlumniController extends Controller
                 return $job;
             });
 
+        // For each job, find alumni with the same position
+        $jobsWithAlumni = [];
+        foreach ($jobDetails as $job) {
+            // Find alumni with this job as current position (exclude current user)
+            $alumniWithCurrentJob = UserDetails::where('current_job', $job->job_name)
+                ->join('users', 'user_details.id_users', '=', 'users.id_users')
+                ->where('users.id_roles', 2) // Ensure they are alumni
+                ->where('user_details.id_userDetails', '!=', $id) // Exclude the current user
+                ->select(
+                    'user_details.*',
+                    DB::raw("COALESCE(user_details.profile_photo, 'default_profile.png') as profile_photo"),
+                    DB::raw("COALESCE(user_details.graduate_year, '-') as graduate_year")
+                )
+                ->limit(5) // Limit to prevent large lists
+                ->get();
 
-        return view('content.detailalumni', compact('userDetails', 'jobDetails'));
+            // Find alumni who have this job in their tracking history (exclude current user)
+            $alumniWithJobHistory = UserDetails::join('job_tracking', 'user_details.id_userDetails', '=', 'job_tracking.id_userDetails')
+                ->join('jobs', 'job_tracking.id_jobs', '=', 'jobs.id_jobs')
+                ->join('users', 'user_details.id_users', '=', 'users.id_users')
+                ->where('jobs.job_name', $job->job_name)
+                ->where('users.id_roles', 2) // Ensure they are alumni
+                ->where('user_details.id_userDetails', '!=', $id) // Exclude current user
+                ->whereNotIn('user_details.id_userDetails', $alumniWithCurrentJob->pluck('id_userDetails'))
+                ->select(
+                    'user_details.*',
+                    DB::raw("COALESCE(user_details.profile_photo, 'default_profile.png') as profile_photo"),
+                    DB::raw("COALESCE(user_details.graduate_year, '-') as graduate_year")
+                )
+                ->distinct()
+                ->limit(5) // Limit to prevent large lists
+                ->get();
+
+            // Combine and store with job
+            $jobsWithAlumni[$job->id_tracking] = $alumniWithCurrentJob->concat($alumniWithJobHistory);
+        }
+
+        return view('content.detailalumni', compact('userDetails', 'jobDetails', 'jobsWithAlumni'));
     }
 
     public function update(Request $request, string $id)

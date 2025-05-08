@@ -108,6 +108,7 @@ Route::controller(AlumniController::class)->group(function () {
     Route::post('/alumni/update/{id}', 'update')->name('alumni.update');
     Route::post('/alumni/create/experiences', 'addExperiences')->name('alumni.create-experiences');
     Route::post('/alumni/update/experiences/{id}', 'updateExperiences')->name('alumni.update-experiences');
+    Route::get('/alumni/by-position/{position}', 'getAlumniByPosition')->name('alumni.by-position');
 });
 
 
