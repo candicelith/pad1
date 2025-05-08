@@ -36,22 +36,36 @@
                         </div>
 
                         <div class="flex flex-col space-y-4 pt-5">
-                            <div class="scrollbar-hide flex overflow-x-auto">
+                            {{-- <div class="scrollbar-hide flex overflow-x-auto">
                                 <img src=" {{ asset('assets/company-2.png') }} " alt="">
                                 <img src=" {{ asset('assets/company-3.png') }} " alt="">
                                 <img src=" {{ asset('assets/company-1.png') }} " alt="">
                                 <img src=" {{ asset('assets/company-2.png') }} " alt="">
                                 <img src=" {{ asset('assets/company-3.png') }} " alt="">
                                 <img src=" {{ asset('assets/company-1.png') }} " alt="">
+                            </div> --}}
+                            <div class="splide flex">
+                                <div class="splide__slider">
+                                    <div class="splide__track">
+                                        <ul class="splide__list">
+                                            <li class="splide__slide"><img src=" {{ asset('assets/company-2.png') }} "
+                                                    alt=""></li>
+                                            <li class="splide__slide"><img src=" {{ asset('assets/company-3.png') }} "
+                                                    alt=""></li>
+                                            <li class="splide__slide"><img src=" {{ asset('assets/company-1.png') }} "
+                                                    alt=""></li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="flex justify-end">
+                            {{-- <div class="flex justify-end">
                                 <span class="text-sm text-cyan sm:text-base">Scroll for more </span>
                                 <svg class="h-6 w-6 text-cyan" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                     width="24" height="24" fill="none" viewBox="0 0 24 24">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                         stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4" />
                                 </svg>
-                            </div>
+                            </div> --}}
                             @if ($workers->isNotEmpty())
                                 <h4 class="sticky top-0 z-10 pb-6 text-lg text-cyan sm:text-xl">
                                     Career Journeys
@@ -117,5 +131,36 @@
                 </div>
             </div>
         </div>
+        <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1/dist/js/splide.min.js"></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/@splidejs/splide-extension-auto-scroll@0.5/dist/js/splide-extension-auto-scroll.min.js">
+        </script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1/dist/css/splide.min.css">
+        <script>
+            const splide = new Splide('.splide', {
+                type: 'loop',
+                drag: 'free',
+                focus: 'center',
+                perPage: 3,
+                gap: '0',
+                pagination: false,
+                arrows: false,
+                autoScroll: {
+                    speed: 0.5,
+                },
+                breakpoints: {
+                    640: {
+                        perPage: 1,
+                    },
+                    768: {
+                        perPage: 2,
+                    },
+                    1024: {
+                        perPage: 3,
+                    },
+                },
+            });
+            splide.mount(window.splide.Extensions);
+        </script>
     </section>
 @endsection

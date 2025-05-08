@@ -13,7 +13,7 @@
         <div class="sticky top-20 z-20 w-full bg-white py-2 sm:pb-8 sm:pt-2">
             {{-- Title --}}
             <div class="mx-auto mb-8 max-w-screen-sm text-center lg:mb-9">
-                <h2 class="mb-4 text-5xl text-cyan">Posts</h2>
+                <h2 class="mb-4 text-3xl text-cyan lg:text-4xl">Posts</h2>
             </div>
 
             {{-- Search --}}
@@ -42,14 +42,14 @@
                 @if (Auth::check() && Auth::user()->id_roles == '2')
                     {{-- New Post Button --}}
                     <div class="mx-auto mt-6 flex max-w-screen-xl justify-end px-4 sm:px-6">
-                        <a href="{{ route('posts.create') }}"
+                        {{-- <a href="{{ route('posts.create') }}"
                             class="items-center rounded-xl bg-cyan px-6 py-3 text-sm text-white shadow-md hover:bg-cyan-400 hover:text-cyan sm:text-xl">
                             New Post +
-                        </a>
-                        {{-- <button data-modal-target="crud-modal-post" data-modal-toggle="crud-modal-post"
+                        </a> --}}
+                        <button data-modal-target="crud-modal-post" data-modal-toggle="crud-modal-post"
                             class="bg-btn-cyan items-center rounded-xl bg-cyan px-6 py-3 text-sm text-white shadow-md hover:bg-cyan-400 hover:text-cyan sm:text-xl">
                             New Post +
-                        </button> --}}
+                        </button>
                     </div>
                 @endif
             @endauth
@@ -149,6 +149,31 @@
                                     class="block h-1/2 w-full rounded-xl border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-cyan dark:placeholder-gray-400 sm:p-2.5"
                                     placeholder="Enter content" required></textarea>
                             </div>
+                            <div class="col-span-1 sm:col-span-1">
+                                <label for="start_date" class="mb-2 block text-sm text-cyan sm:text-lg">
+                                    Start Date
+                                </label>
+                                <input type="date" name="start_date" id="start_date"
+                                    class="block h-1/2 w-full rounded-full border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-cyan dark:placeholder-gray-400 sm:p-2.5"
+                                    required>
+                            </div>
+                            <div class="col-span-1 sm:col-span-1">
+                                <label for="end_date" class="mb-2 block text-sm text-cyan sm:text-lg">
+                                    End Date
+                                </label>
+                                <input type="date" name="end_date" id="end_date"
+                                    class="block h-1/2 w-full rounded-full border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-cyan dark:placeholder-gray-400 sm:p-2.5"
+                                    required>
+                            </div>
+                            <div class="col-span-2 sm:col-span-2">
+                                <label for="responsibility" class="mb-2 block text-sm text-cyan sm:text-lg">
+                                    Responsibility
+                                </label>
+                                <input type="text" name="responsibility" id="responsibility"
+                                    class="block h-1/2 w-full rounded-xl border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-cyan dark:placeholder-gray-400 sm:p-2.5"
+                                    placeholder="Enter content" required />
+                            </div>
+
                         </div>
                         <div class="flex justify-end">
                             <button type="submit"
