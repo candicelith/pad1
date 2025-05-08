@@ -30,14 +30,13 @@
                             <!-- Main modal -->
                             <div id="crud-modal2" tabindex="-1" aria-hidden="true"
                                 class="fixed left-0 right-0 top-0 z-50 hidden h-[calc(100%-1rem)] max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0">
-                                <div class="relative max-h-full w-full max-w-3xl p-4">
+                                <div class="relative max-h-full w-full max-w-5xl p-4">
                                     <!-- Modal content -->
-                                    <div
-                                        class="scrollbar-modal relative max-h-96 overflow-y-auto rounded-lg border-4 border-cyan-100 bg-white p-2 shadow">
+                                    <div class="relative rounded-lg border-4 border-cyan-100 bg-white p-2 shadow">
                                         <!-- Modal header -->
                                         <div
-                                            class="flex items-center justify-between rounded-t border-b-4 border-cyan-100 p-2 text-center md:p-5">
-                                            <h3 class="text-cyan sm:text-start sm:text-xl">
+                                            class="flex items-center justify-between rounded-t border-b-4 border-cyan-100 text-center md:p-5">
+                                            <h3 class="text-3xl text-cyan sm:text-start">
                                                 Add Your New Experience!
                                             </h3>
                                             <button type="button" class="inline-flex items-center"
@@ -52,13 +51,14 @@
                                             </button>
                                         </div>
 
-                                        <form action="{{ route('alumni.create-experiences') }}" method="POST"
+                                        <form class="scrollbar-modal max-h-96 overflow-y-auto p-4 md:p-5"
+                                            action="{{ route('alumni.create-experiences') }}" method="POST"
                                             class="p-4 md:p-5">
                                             @csrf
                                             <div class="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
                                                 <div class="col-span-2">
                                                     <label for="company" class="mb-2 block text-sm text-cyan sm:text-lg">
-                                                        Company
+                                                        Company <span class="text-4xl text-red-500">*</span>
                                                     </label>
 
                                                     <div class="col-span-2" x-data="dropdown({ options: @js($companies->map(fn($c) => ['value' => $c->id_company, 'label' => $c->company_name])) })"
@@ -110,7 +110,8 @@
                                                     ]
                                                 })">
                                                     <label for="position"
-                                                        class="mb-2 block text-sm text-cyan sm:text-lg">Position</label>
+                                                        class="mb-2 block text-sm text-cyan sm:text-lg">Position <span
+                                                            class="text-4xl text-red-500">*</span></label>
 
                                                     <div class="relative w-full">
                                                         <input x-model="search" @click="open = true" @input="filterOptions"
@@ -141,7 +142,7 @@
                                                     <div class="col-span-1">
                                                         <label for="date_start"
                                                             class="mb-2 block text-sm text-cyan sm:text-lg">Start
-                                                            Date <span class="text-red-500">*</span></label>
+                                                            Date <span class="text-4xl text-red-500">*</span></label>
                                                         <div class="relative">
                                                             <div
                                                                 class="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3">
@@ -196,10 +197,10 @@
                                                     </div>
                                                 </div>
 
-
                                                 <div class="col-span-2">
                                                     <label for="responsibility"
-                                                        class="mb-2 block text-sm text-cyan sm:text-lg">Responsibility</label>
+                                                        class="mb-2 block text-sm text-cyan sm:text-lg">Responsibility
+                                                        <span class="text-4xl text-red-500">*</span></label>
                                                     <div id="responsibility-container-create">
                                                         <div class="responsibility-item mb-2 flex items-center">
                                                             <input type="text" name="job_responsibility[]"
@@ -231,7 +232,8 @@
                             </div>
                         </div>
                         <div class="-mt-8 mb-4 flex justify-start text-center sm:-mt-10 sm:text-start">
-                            <h4 class="text-lg text-cyan sm:text-xl">Experience</h4>
+                            <h4 class="text-lg text-cyan sm:text-xl">Experience <span
+                                    class="text-4xl text-red-500">*</span></h4>
                         </div>
                     </div>
 
@@ -332,7 +334,8 @@
                                                             selected: { value: '{{ $job->job_name }}', label: '{{ $job->job_name }}' }
                                                         })">
                                                             <label for="position"
-                                                                class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">Position</label>
+                                                                class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">Position
+                                                                <span class="text-4xl text-red-500">*</span></label>
 
                                                             <div class="relative w-full">
                                                                 <input x-model="search" @click="open = true"
@@ -365,7 +368,8 @@
                                                             <div class="col-span-1">
                                                                 <label for="date_start"
                                                                     class="mb-2 block text-sm font-medium text-gray-700 dark:text-white">Start
-                                                                    Date <span class="text-red-500">*</span></label>
+                                                                    Date <span
+                                                                        class="text-4xl text-red-500">*</span></label>
                                                                 <div class="relative">
                                                                     <div
                                                                         class="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3">
@@ -433,7 +437,8 @@
                                                         @if (is_array($job->job_description) && !empty($job->job_description))
                                                             <div class="col-span-2">
                                                                 <label for="responsibility"
-                                                                    class="mb-2 block text-sm text-gray-400">Responsibility</label>
+                                                                    class="mb-2 block text-sm text-gray-400">Responsibility
+                                                                    <span class="text-4xl text-red-500">*</span></label>
                                                                 <div
                                                                     id="responsibility-container-update-{{ $job->id_tracking }}">
                                                                     @foreach ($job->job_description as $responsibility)
@@ -466,7 +471,8 @@
                                                         @else
                                                             <div class="col-span-2">
                                                                 <label for="responsibility"
-                                                                    class="mb-2 block text-sm text-gray-400">Responsibility</label>
+                                                                    class="mb-2 block text-sm text-gray-400">Responsibility
+                                                                    <span class="text-4xl text-red-500">*</span></label>
                                                                 <div
                                                                     id="responsibility-container-update-{{ $job->id_tracking }}">
                                                                     <div
