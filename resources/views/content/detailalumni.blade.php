@@ -87,7 +87,7 @@
                                                                     <div class="flex flex-col items-center p-4 text-center">
                                                                         <div class="mb-3 flex w-full justify-end px-2 text-gray-400">
                                                                             <span class="text-sm">
-                                                                                Class of {{ $alumni->graduate_year }}
+                                                                                {{ $alumni->entry_year }}
                                                                             </span>
                                                                         </div>
                                                                         <img class="mb-3 h-20 w-20 rounded-full object-cover shadow-lg"
