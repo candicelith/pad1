@@ -164,44 +164,92 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
 
-                        {{-- Only Alumni that post this job vacancy and the people that register can see this start --}}
-                        @if(Auth::check() && (Auth::user()->id_users == $vacancy->id_users || $registrations->contains('user_id', Auth::user()->id_users)))
+                        {{-- Ini ntar buat yg ngirim cv trs ntar btn applynya disable --}}
                         <div class="mt-12 space-y-2">
                             <p>Submission Inbox</p>
                             <div class="rounded-lg border-4 border-cyan-100 bg-white p-4">
                                 <table id="default-table" class="w-full">
                                     <thead class="bg-lightblue text-left">
                                         <tr>
-                                            <th class="px-1 text-center">No</th>
-                                            <th class="px-1">Name</th>
-                                            <th class="px-1 text-center">File Submitted</th>
+                                            <th class="border-b border-gray-300 px-2 py-2 text-center">No</th>
+                                            <th class="border-b border-gray-300 px-2 py-2">Name</th>
+                                            <th class="border-b border-gray-300 px-2 py-2 text-center">File Submitted</th>
+                                            <th class="border-b border-gray-300 px-2 py-2 text-center">Edit</th>
                                         </tr>
                                     </thead>
                                     <tbody class="text-left">
-                                        @foreach ($registrations as $index => $registration)
                                         <tr>
-                                            <td class="px-1 text-center">{{ $index + 1 }}</td>
-                                            <td class="px-1">{{ $registration->user->email }}</td>
-                                            <td class="px-1 text-center">
-                                                <a href="{{ asset('storage/cvs/' . $registration->cv) }}" target="_blank">
-                                                    <svg class="h-6 w-6 text-gray-800 dark:text-white" aria-hidden="true"
-                                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                        fill="none" viewBox="0 0 24 24">
-                                                        <path stroke="currentColor" stroke-linecap="round"
-                                                            stroke-linejoin="round" stroke-width="2"
-                                                            d="M12 13V4M7 14H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2m-1-5-4 5-4-5m9 8h.01" />
+                                            <td class="border-t border-gray-200 px-2 py-2 text-center">1</td>
+                                            <td class="border-t border-gray-200 px-2 py-2">Bg Nopal</td>
+                                            <td class="border-t border-gray-200 px-2 py-2 text-center">
+                                                <a href="#" target="_blank" aria-label="Download file">
+                                                    <svg class="inline-block h-6 w-6 text-gray-800 dark:text-white"
+                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M12 13V4M7 14H5a1 1 0 00-1 1v4a1 1 0 001 1h14a1 1 0 001-1v-4a1 1 0 00-1-1h-2m-1-5l-4 5-4-5m9 8h.01" />
                                                     </svg>
                                                 </a>
                                             </td>
-                                            </tr>
-                                        @endforeach
+                                            <td class="border-t border-gray-200 px-2 py-2 text-center">
+                                                <a href="#" target="_blank" aria-label="Edit file">
+                                                    <svg class="inline-block h-6 w-6 text-gray-800 dark:text-white"
+                                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                        viewBox="0 0 24 24">
+                                                        <path fill-rule="evenodd"
+                                                            d="M8.586 2.586A2 2 0 0110 2h4a2 2 0 012 2v2h3a1 1 0 110 2v12a2 2 0 01-2 2H7a2 2 0 01-2-2V8a1 1 0 010-2h3V4a2 2 0 01.586-1.414ZM10 6h4V4h-4v2Zm1 4a1 1 0 10-2 0v8a1 1 0 102 0v-8Zm4 0a1 1 0 10-2 0v8a1 1 0 102 0v-8Z"
+                                                            clip-rule="evenodd" />
+                                                    </svg>
+                                                </a>
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
+                        {{-- Ini ntar buat yg ngirim cv trs ntar btn applynya disable --}}
+
+
+                        {{-- Only Alumni that post this job vacancy and the people that register can see this start --}}
+                        @if (Auth::check() &&
+                                (Auth::user()->id_users == $vacancy->id_users || $registrations->contains('user_id', Auth::user()->id_users)))
+                            <div class="mt-12 space-y-2">
+                                <p>Submission Inbox</p>
+                                <div class="rounded-lg border-4 border-cyan-100 bg-white p-4">
+                                    <table id="default-table" class="w-full">
+                                        <thead class="bg-lightblue text-left">
+                                            <tr>
+                                                <th class="px-1 text-center">No</th>
+                                                <th class="px-1">Name</th>
+                                                <th class="px-1 text-center">File Submitted</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-left">
+                                            @foreach ($registrations as $index => $registration)
+                                                <tr>
+                                                    <td class="px-1 text-center">{{ $index + 1 }}</td>
+                                                    <td class="px-1">{{ $registration->user->email }}</td>
+                                                    <td class="px-1 text-center">
+                                                        <a href="{{ asset('storage/cvs/' . $registration->cv) }}"
+                                                            target="_blank">
+                                                            <svg class="h-6 w-6 text-gray-800 dark:text-white"
+                                                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                                width="24" height="24" fill="none"
+                                                                viewBox="0 0 24 24">
+                                                                <path stroke="currentColor" stroke-linecap="round"
+                                                                    stroke-linejoin="round" stroke-width="2"
+                                                                    d="M12 13V4M7 14H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2m-1-5-4 5-4-5m9 8h.01" />
+                                                            </svg>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         @endif
                     </div>
                     {{-- Alumni that post this job vacancy can see this end --}}

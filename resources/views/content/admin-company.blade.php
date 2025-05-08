@@ -108,11 +108,11 @@
                                                 placeholder="Briefly describe the company and its mission" required>{{ old('company_description') }}</textarea>
                                         </div>
 
-                                        <div class="flex-col space-y-3">
+                                        <div class="w-full space-y-3">
                                             <label for="company_phone" class="mb-1 block text-2xl text-cyan">
                                                 File Upload<span class="text-4xl text-red-500">*</span>
                                             </label>
-                                            <span>You can add one or more photos of your new company</span>
+                                            <p>You can add one or more photos of your new company</p>
                                             <input type="file" name="" id=""
                                                 class="rounded-full border" required>
                                         </div>
