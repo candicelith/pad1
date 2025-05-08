@@ -7,10 +7,11 @@
                 <h2 class="flex justify-center text-4xl">Company Management</h2>
                 <div class="relative sm:mx-10">
                     <div class="top-0 z-20 flex justify-between bg-white pb-4">
+
                         {{-- Add Company Button --}}
                         <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
-                            class="rounded-xl bg-cyan p-2 shadow-md hover:bg-cyan-400 hover:text-cyan">
-                            <svg class="h-6 w-6 text-white hover:text-cyan" aria-hidden="true"
+                            class="group rounded-xl bg-cyan p-2 shadow-md hover:bg-cyan-400 group-hover:text-cyan">
+                            <svg class="h-6 w-6 text-white group-hover:text-cyan" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                 viewBox="0 0 24 24">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -22,15 +23,15 @@
                         <div id="crud-modal" tabindex="-1" aria-hidden="true"
                             class="fixed left-0 right-0 top-0 z-50 hidden h-[calc(100%-1rem)] max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0">
                             <div class="relative max-h-full w-full max-w-5xl p-4">
-                                <div class="relative rounded-lg bg-cyan-100 p-2 shadow">
+                                <div class="relative rounded-lg border-4 border-cyan-100 bg-white p-2 shadow">
                                     <div
-                                        class="flex items-center justify-between rounded-t border-b-2 border-white text-center md:p-5">
-                                        <h3 class="text-xl text-white sm:text-start">
+                                        class="flex items-center justify-between rounded-t border-b-4 border-cyan-100 text-center md:p-5">
+                                        <h3 class="text-xl text-cyan sm:text-start">
                                             Add New Company
                                         </h3>
                                         <button type="button" class="inline-flex items-center"
                                             data-modal-toggle="crud-modal">
-                                            <svg class="h-6 w-6 text-white" aria-hidden="true"
+                                            <svg class="h-6 w-6 text-cyan" aria-hidden="true"
                                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 fill="none" viewBox="0 0 24 24">
                                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -39,70 +40,85 @@
                                         </button>
                                     </div>
 
-                                    <form class="p-4 md:p-5" method="POST" action="{{ route('admin.company.store') }}"
-                                        enctype="multipart/form-data">
+                                    <form class="max-h-96 space-y-8 overflow-y-auto p-4 md:p-5" method="POST"
+                                        action="{{ route('admin.company.store') }}" enctype="multipart/form-data">
                                         @csrf
-                                        <div class="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
-                                            <div class="col-span-2 sm:col-span-1">
-                                                <label for="company_name" class="mb-2 block text-sm text-white sm:text-lg">
-                                                    Company Name
-                                                </label>
-                                                <input type="text" name="company_name" id="company_name"
-                                                    class="block h-1/2 w-full rounded-full border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400 sm:p-2.5"
-                                                    placeholder="Enter company name" required>
+                                        <div class="relative h-24 w-24 sm:h-32 sm:w-32">
+                                            <!-- Profile Picture -->
+                                            <div
+                                                class="h-full w-full overflow-hidden rounded-full border-4 border-cyan bg-gray-100">
+                                                <img id="preview-image" class="h-full w-full object-cover" src=""
+                                                    alt="Profile Picture">
                                             </div>
 
-                                            <div class="col-span-2 sm:col-span-1">
-                                                <label for="company_field" class="mb-2 block text-sm text-white sm:text-lg">
-                                                    Company Field
-                                                </label>
-                                                <input type="text" name="company_field" id="company_field"
-                                                    class="block h-1/2 w-full rounded-full border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400 sm:p-2.5"
-                                                    placeholder="Enter company field" required>
-                                            </div>
-
-                                            <div class="col-span-2">
-                                                <label for="company_description"
-                                                    class="mb-2 block text-sm text-white sm:text-lg">
-                                                    Company Description
-                                                </label>
-                                                <textarea name="company_description" id="company_description"
-                                                    class="block w-full rounded-lg border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400 sm:p-2.5"
-                                                    placeholder="Enter company description" rows="3"></textarea>
-                                            </div>
-
-                                            <div class="col-span-2 sm:col-span-1">
-                                                <label for="company_phone" class="mb-2 block text-sm text-white sm:text-lg">
-                                                    Company Phone
-                                                </label>
-                                                <input type="tel" name="company_phone" id="company_phone"
-                                                    class="block h-1/2 w-full rounded-full border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400 sm:p-2.5"
-                                                    placeholder="+62 8123456789">
-                                            </div>
-
-                                            <div class="col-span-2 sm:col-span-1">
-                                                <label for="company_picture"
-                                                    class="mb-2 block text-sm text-white sm:text-lg">
-                                                    Company Logo
-                                                </label>
-                                                <input type="file" name="company_picture" id="company_picture"
-                                                    class="block h-1/2 w-full rounded-full border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400 sm:p-2.5">
-                                            </div>
-
-                                            <div class="col-span-2">
-                                                <label for="company_address"
-                                                    class="mb-2 block text-sm text-white sm:text-lg">
-                                                    Company Address
-                                                </label>
-                                                <textarea name="company_address" id="company_address"
-                                                    class="block w-full rounded-lg border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400 sm:p-2.5"
-                                                    placeholder="Enter company address" rows="2"></textarea>
-                                            </div>
+                                            <!-- Camera Icon -->
+                                            <label for="profile_picture"
+                                                class="hover:bg-cyan-600 absolute bottom-0 right-0 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-cyan text-white shadow-md transition-all sm:h-10 sm:w-10">
+                                                <svg class="h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true"
+                                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                    <path stroke="currentColor" stroke-linecap="round"
+                                                        stroke-linejoin="round" stroke-width="2"
+                                                        d="M3 9a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z" />
+                                                    <path stroke="currentColor" stroke-linecap="round"
+                                                        stroke-linejoin="round" stroke-width="2"
+                                                        d="M12 17a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                                                    <path stroke="currentColor" stroke-linecap="round"
+                                                        stroke-linejoin="round" stroke-width="2" d="M9 5h6l-1 4" />
+                                                </svg>
+                                            </label>
+                                        </div>
+                                        <div>
+                                            <label for="company_name" class="mb-1 block text-2xl text-cyan">
+                                                Name<span class="text-4xl text-red-500">*</span>
+                                            </label>
+                                            <input type="text" name="company_name" id="company_name"
+                                                class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
+                                                value="{{ old('company_name') }}"
+                                                placeholder="Enter the company name (e.g., ABC Tech Solutions)" required>
                                         </div>
 
-                                        <div class="flex justify-end">
+                                        <div>
+                                            <label for="company_field" class="mb-1 block text-2xl text-cyan">
+                                                Industry Type<span class="text-4xl text-red-500">*</span>
+                                            </label>
+                                            <input type="text" name="company_field" id="company_field"
+                                                class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
+                                                value="{{ old('company_field') }}"
+                                                placeholder="Enter the industry type (e.g., IT, Finance, Healthcare)"
+                                                required>
+                                        </div>
+
+                                        <div>
+                                            <label for="company_address" class="mb-1 block text-2xl text-cyan">
+                                                Location<span class="text-4xl text-red-500">*</span>
+                                            </label>
+                                            <input type="text" name="company_address" id="company_address"
+                                                class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
+                                                value="{{ old('company_address') }}"
+                                                placeholder="Enter city and country (e.g., Jakarta, Indonesia)" required>
+                                        </div>
+
+                                        <div>
+                                            <label for="company_description" class="mb-1 block text-2xl text-cyan">
+                                                Description<span class="text-4xl text-red-500">*</span>
+                                            </label>
+                                            <textarea name="company_description" id="company_description" rows="4"
+                                                class="w-full rounded-md border border-gray-300 bg-gray-200 px-3 py-2 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
+                                                placeholder="Briefly describe the company and its mission" required>{{ old('company_description') }}</textarea>
+                                        </div>
+
+                                        <div class="flex-col space-y-3">
+                                            <label for="company_phone" class="mb-1 block text-2xl text-cyan">
+                                                File Upload<span class="text-4xl text-red-500">*</span>
+                                            </label>
+                                            <span>You can add one or more photos of your new company</span>
+                                            <input type="file" name="" id=""
+                                                class="rounded-full border" required>
+                                        </div>
+
+                                        <div class="flex justify-end space-x-3 pt-4">
                                             <button type="submit"
-                                                class="inline-flex items-center rounded-full bg-white px-5 py-1.5 text-center text-sm text-cyan shadow-lg hover:bg-cyan hover:text-white focus:outline-none focus:ring-4 focus:ring-cyan sm:py-2.5 sm:text-base">
+                                                class="bg-btn-cyan rounded-md bg-cyan px-6 py-2 text-2xl text-white transition hover:bg-cyan-400 hover:text-cyan">
                                                 Create
                                             </button>
                                         </div>
