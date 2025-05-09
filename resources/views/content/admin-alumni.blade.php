@@ -10,8 +10,8 @@
 
                         {{-- Add Alumni Button --}}
                         <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
-                            class="rounded-xl bg-cyan p-2 shadow-md hover:bg-cyan-400 hover:text-cyan">
-                            <svg class="h-6 w-6 text-white hover:text-cyan" aria-hidden="true"
+                            class="group rounded-xl bg-cyan p-2 shadow-md hover:bg-cyan-400 hover:text-cyan">
+                            <svg class="h-6 w-6 text-white group-hover:text-cyan" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                 viewBox="0 0 24 24">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

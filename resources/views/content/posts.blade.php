@@ -43,11 +43,11 @@
                     {{-- New Post Button --}}
                     <div class="mx-auto mt-6 flex max-w-screen-xl justify-end px-4 sm:px-6">
                         {{-- <a href="{{ route('posts.create') }}"
-                            class="items-center rounded-xl bg-cyan px-6 py-3 text-sm text-white shadow-md hover:bg-cyan-400 hover:text-cyan sm:text-xl">
+                            class="items-center rounded-xl bg-cyan px-6 py-3 text-sm text-white shadow-md hover:bg-lightblue hover:text-cyan sm:text-xl">
                             New Post +
                         </a> --}}
                         <button data-modal-target="crud-modal-post" data-modal-toggle="crud-modal-post"
-                            class="bg-btn-cyan items-center rounded-xl bg-cyan px-6 py-3 text-sm text-white shadow-md hover:bg-cyan-400 hover:text-cyan sm:text-xl">
+                            class="bg-btn-cyan items-center rounded-xl bg-cyan px-6 py-3 text-sm text-white shadow-md hover:bg-lightblue hover:text-cyan sm:text-xl">
                             New Post +
                         </button>
                     </div>
@@ -100,10 +100,10 @@
         {{-- Modal New Post --}}
         <div id="crud-modal-post" tabindex="-1" aria-hidden="true"
             class="fixed left-0 right-0 top-0 z-50 hidden h-[calc(100%-1rem)] max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0">
-            <div class="relative max-h-full w-full max-w-5xl p-4">
-                <div class="relative rounded-lg border-4 border-cyan-400 bg-white p-2 shadow">
-                    <div class="flex items-center justify-between rounded-t border-b-4 border-cyan-400 text-center md:p-5">
-                        <h3 class="text-xl text-cyan sm:text-start">
+            <div class="relative mx-4 max-h-full w-full sm:max-w-4xl">
+                <div class="relative rounded-lg border-4 border-cyan-100 bg-white p-2 shadow">
+                    <div class="flex items-center justify-between rounded-t border-b-4 border-cyan-100 text-center md:p-5">
+                        <h3 class="text-3xl text-cyan sm:text-start">
                             Post a Job Opportunity!
                         </h3>
                         <button type="button" class="inline-flex items-center" data-modal-toggle="crud-modal-post">
@@ -115,72 +115,128 @@
                         </button>
                     </div>
 
-                    <form class="max-h-96 overflow-y-auto p-4 md:p-5" method="POST" action=""
-                        enctype="multipart/form-data">
+                    <form class="scrollbar-modal max-h-96 space-y-8 overflow-y-auto px-4 pb-4 pt-0 md:px-5 md:pb-5"
+                        method="POST" action="" enctype="multipart/form-data">
                         @csrf
-                        <div class="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                        <div class="mt-0 grid grid-cols-2 gap-8 sm:grid-cols-2">
                             <div class="col-span-2 sm:col-span-2">
-                                <label for="job_position" class="mb-2 block text-sm text-cyan sm:text-lg">
-                                    Position
+                                <label for="job_position" class="mb-1 block text-2xl text-cyan">
+                                    Position <span class="text-4xl text-red-500">*</span>
                                 </label>
                                 <select name="job_position" id="job_position"
-                                    class="block h-1/2 w-full rounded-full border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-cyan dark:placeholder-gray-400 sm:p-2.5">
+                                    class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan">
                                     <option value="">Select a job position</option>
                                     <option value="">UIUX</option>
                                     <option value="">UIUX</option>
                                 </select>
                             </div>
                             <div class="col-span-2 sm:col-span-2">
-                                <label for="company" class="mb-2 block text-sm text-cyan sm:text-lg">
-                                    Company
+                                <label for="company" class="mb-1 block text-2xl text-cyan">
+                                    Company <span class="text-4xl text-red-500">*</span>
                                 </label>
                                 <select name="company" id="company"
-                                    class="block h-1/2 w-full rounded-full border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-cyan dark:placeholder-gray-400 sm:p-2.5">
+                                    class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan">
                                     <option value="">Select a company name</option>
                                     <option value="">UIUX</option>
                                     <option value="">UIUX</option>
                                 </select>
                             </div>
                             <div class="col-span-2 sm:col-span-2">
-                                <label for="job_description" class="mb-2 block text-sm text-cyan sm:text-lg">
-                                    Description
+                                <label for="job_description" class="mb-1 block text-2xl text-cyan">
+                                    Description <span class="text-4xl text-red-500">*</span>
                                 </label>
                                 <textarea type="text" name="job_description" id="job_description"
-                                    class="block h-1/2 w-full rounded-xl border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-cyan dark:placeholder-gray-400 sm:p-2.5"
+                                    class="w-full rounded-xl border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
                                     placeholder="Enter content" required></textarea>
                             </div>
                             <div class="col-span-1 sm:col-span-1">
-                                <label for="start_date" class="mb-2 block text-sm text-cyan sm:text-lg">
-                                    Start Date
+                                <label for="start_date" class="mb-1 block text-2xl text-cyan">
+                                    Start Date <span class="text-4xl text-red-500">*</span>
                                 </label>
                                 <input type="date" name="start_date" id="start_date"
-                                    class="block h-1/2 w-full rounded-full border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-cyan dark:placeholder-gray-400 sm:p-2.5"
+                                    class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
                                     required>
                             </div>
                             <div class="col-span-1 sm:col-span-1">
-                                <label for="end_date" class="mb-2 block text-sm text-cyan sm:text-lg">
-                                    End Date
+                                <label for="end_date" class="mb-1 block text-2xl text-cyan">
+                                    End Date <span class="text-4xl text-red-500">*</span>
                                 </label>
                                 <input type="date" name="end_date" id="end_date"
-                                    class="block h-1/2 w-full rounded-full border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-cyan dark:placeholder-gray-400 sm:p-2.5"
+                                    class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
                                     required>
                             </div>
-                            <div class="col-span-2 sm:col-span-2">
-                                <label for="responsibility" class="mb-2 block text-sm text-cyan sm:text-lg">
-                                    Responsibility
-                                </label>
-                                <input type="text" name="responsibility" id="responsibility"
-                                    class="block h-1/2 w-full rounded-xl border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-cyan dark:placeholder-gray-400 sm:p-2.5"
-                                    placeholder="Enter content" required />
+                            <div class="col-span-2">
+                                <label for="responsibility" class="mb-1 block text-2xl text-cyan">Responsibility <span
+                                        class="text-4xl text-red-500">*</span></label>
+                                <div id="responsibility-container-create">
+                                    <div class="responsibility-item mb-2 flex items-center">
+                                        <input type="text" name="job_responsibility[]"
+                                            class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
+                                            placeholder="Enter responsibility" required />
+                                        <button type="button"
+                                            class="remove-responsibility ml-2 rounded-xl border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2"
+                                            style="display: none;">Remove</button>
+                                    </div>
+                                </div>
+                                <button type="button" id="add-responsibility"
+                                    class="bg-btn-cyan-100 mt-2 rounded-lg px-7 py-2 text-sm text-white hover:bg-lightblue hover:text-cyan sm:text-xl">
+                                    Add Responsibility
+                                </button>
+                                @error('job_responsibility')
+                                    <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                                @enderror
                             </div>
-
+                            <div class="col-span-2">
+                                <label for="qualification" class="mb-1 block text-2xl text-cyan">Qualification <span
+                                        class="text-4xl text-red-500">*</span></label>
+                                <div id="qualification-container">
+                                    <div class="qualification-item mb-2 flex items-center">
+                                        <input type="text" name="vacancy_qualification[]"
+                                            class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
+                                            placeholder="Enter qualification" required />
+                                        <button type="button"
+                                            class="remove-qualification ml-2 rounded-xl border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2"
+                                            style="display: none;">Remove</button>
+                                    </div>
+                                </div>
+                                <button type="button" id="add-qualification"
+                                    class="bg-btn-cyan-100 mt-2 rounded-lg px-7 py-2 text-sm text-white hover:bg-lightblue hover:text-cyan sm:text-xl">
+                                    Add Qualification
+                                </button>
+                                @error('vacancy_qualification')
+                                    <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                                @enderror
+                            </div>
+                            <div class="col-span-2">
+                                <label for="benefits" class="mb-1 block text-2xl text-cyan">Benefits <span
+                                        class="text-4xl text-red-500">*</span></label>
+                                <div id="benefits-container">
+                                    <div class="benefits-item mb-2 flex items-center">
+                                        <input type="text" name="vacancy_benefits[]"
+                                            class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
+                                            placeholder="Enter benefits" required />
+                                        <button type="button"
+                                            class="remove-benefits ml-2 rounded-xl border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2"
+                                            style="display: none;">Remove</button>
+                                    </div>
+                                </div>
+                                <button type="button" id="add-benefits"
+                                    class="bg-btn-cyan-100 mt-2 rounded-lg px-7 py-2 text-sm text-white hover:bg-lightblue hover:text-cyan sm:text-xl">
+                                    Add Benefits
+                                </button>
+                                @error('vacancy_benefits')
+                                    <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                                @enderror
+                            </div>
                         </div>
+
                         <div class="flex justify-end">
                             <button type="submit"
-                                class="bg-btn-cyan inline-flex items-center rounded-xl bg-cyan px-8 py-2 text-center text-sm text-white shadow-lg hover:bg-cyan-100 hover:text-white focus:outline-none focus:ring-4 focus:ring-cyan sm:py-2.5 sm:text-base">
-                                Create
+                                class="bg-btn-cyan inline-flex items-center rounded-xl bg-cyan px-8 py-2 text-center text-sm text-white shadow-lg hover:bg-cyan-100 hover:text-cyan focus:outline-none focus:ring-4 focus:ring-cyan sm:py-2.5 sm:text-2xl">
+                                Post
                             </button>
                         </div>
+
                     </form>
                 </div>
             </div>
@@ -270,5 +326,42 @@
 
             noResults.style.display = hasResults ? "none" : "flex";
         }
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const addDynamicInput = (containerId, buttonId, inputName, removeClass) => {
+                const container = document.getElementById(containerId);
+                const addButton = document.getElementById(buttonId);
+
+                addButton.addEventListener('click', () => {
+                    const newItem = document.createElement('div');
+                    newItem.classList.add(`${inputName}-item`, 'mb-2', 'flex', 'items-center');
+                    newItem.innerHTML = `
+                <input type="text" name="${inputName}[]"
+                       class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
+                       placeholder="Add More" />
+                <button type="button" class="ml-2 rounded-full border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2 ${removeClass}">Remove</button>
+            `;
+                    container.appendChild(newItem);
+
+                    newItem.querySelector(`.${removeClass}`).addEventListener('click', () => {
+                        newItem.remove();
+                    });
+                });
+
+                container.addEventListener('click', (e) => {
+                    if (e.target.classList.contains(removeClass)) {
+                        e.target.closest(`.${inputName}-item`).remove();
+                    }
+                });
+            };
+
+            addDynamicInput('responsibility-container-create', 'add-responsibility', 'job_responsibility',
+                'remove-responsibility');
+            addDynamicInput('qualification-container', 'add-qualification', 'vacancy_qualification',
+                'remove-qualification');
+            addDynamicInput('benefits-container', 'add-benefits', 'vacancy_benefits', 'remove-benefits');
+        });
     </script>
 @endsection
