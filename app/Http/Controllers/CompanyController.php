@@ -15,7 +15,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $company = Company::paginate(10);
+        $company = Company::paginate(50);
         return view('content.companies', compact('company'));
 
         if ($request->expectsJson()) {

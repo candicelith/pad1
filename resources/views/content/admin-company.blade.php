@@ -77,7 +77,7 @@
                                             </div>
 
                                             <!-- Camera Icon -->
-                                            <label for="profile_picture"
+                                            <label for="company_picture"
                                                 class="hover:bg-cyan-600 absolute bottom-0 right-0 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-cyan text-white shadow-md transition-all sm:h-10 sm:w-10">
                                                 <svg class="h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true"
                                                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -91,7 +91,12 @@
                                                         stroke-linejoin="round" stroke-width="2" d="M9 5h6l-1 4" />
                                                 </svg>
                                             </label>
+                                            {{-- Hidden Input for Company Picture --}}
+                                            <input id="company_picture" name="company_picture" type="file"
+                                                accept="image/*" class="hidden"
+                                                onchange="document.getElementById('preview-image').src = window.URL.createObjectURL(this.files[0])">
                                         </div>
+
                                         <div>
                                             <label for="company_name" class="mb-1 block text-2xl text-cyan">
                                                 Name<span class="text-4xl text-red-500">*</span>
@@ -132,14 +137,15 @@
                                                 placeholder="Briefly describe the company and its mission" required>{{ old('company_description') }}</textarea>
                                         </div>
 
-                                        <div class="flex-col space-y-3">
-                                            <label for="company_phone" class="mb-1 block text-2xl text-cyan">
+                                        {{-- Sementar Di Tutup Dulu Karena Belum Kebayang Logika Nya --}}
+                                        {{-- <div class="flex-col space-y-3">
+                                            <label for="company_gallery" class="mb-1 block text-2xl text-cyan">
                                                 File Upload<span class="text-4xl text-red-500">*</span>
                                             </label>
                                             <span>You can add one or more photos of your new company</span>
-                                            <input type="file" name="" id=""
-                                                class="rounded-full border" required>
-                                        </div>
+                                            <input type="file" name="company_gallery" id="company_gallery"
+                                                class="rounded-full border w-full" required>
+                                        </div> --}}
 
                                         <div class="flex justify-end space-x-3 pt-4">
                                             <button type="submit"
