@@ -6,7 +6,7 @@
             <div class="flex w-full justify-center px-6 py-10 sm:max-w-xl md:px-24 md:py-11 lg:max-w-5xl xl:max-w-6xl">
                 <div class="w-full max-w-lg rounded-lg border-4 border-cyan-100 bg-white px-6 py-7">
                     <h1 class="text-3xl text-cyan">Registration Form</h1>
-                    <h2 class="text-xl text-cyan">Please complete your profile</h2>
+                    {{-- <h2 class="text-xl text-cyan">Please complete your profile</h2> --}}
 
                     <form id="registration-form" action="{{ route('registration.submit') }}" method="POST">
                         @csrf
@@ -20,7 +20,7 @@
                                 </li>
                             </ol>
 
-                            <h2 class="text-xl text-cyan mb-4">Choose Your Role</h2>
+                            <h2 class="mb-4 text-xl text-cyan">Choose Your Role</h2>
                             <div class="my-10">
                                 <div class="space-y-4">
                                     <div class="flex items-center">
@@ -37,7 +37,7 @@
                                     </div>
                                 </div>
                                 @error('role')
-                                    <p class="text-red-500 text-sm mt-2">{{ $message }}</p>
+                                    <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
                                 @enderror
                             </div>
                             <div class="flex justify-between space-x-4">
@@ -63,46 +63,39 @@
                                 </li>
                             </ol>
 
-                            <h2 class="text-xl text-cyan mb-4">Enter your details</h2>
+                            <h2 class="mb-4 text-cyan">You're registered as a student. <br>
+                                Please review your account details below.</h2>
                             <div class="space-y-7">
                                 <div class="space-y-3">
-                                    <label class="text-xl font-medium text-cyan dark:text-gray-300">Name</label>
+                                    <label class="text-xl font-medium text-cyan dark:text-gray-300">Name <span
+                                            class="text-4xl text-red-500">*</span></label>
                                     <input type="text" name="name" readonly
                                         class="w-full rounded-full border-gray-300 bg-gray-100 px-4 text-sm"
                                         placeholder="Enter your full name (e.g., Budi Santoso)"
                                         value="{{ old('name', session('name')) }}">
                                     @error('name')
-                                        <p class="text-red-500 text-sm">{{ $message }}</p>
+                                        <p class="text-sm text-red-500">{{ $message }}</p>
                                     @enderror
                                 </div>
                                 <div class="space-y-3">
-                                    <label class="text-xl font-medium text-cyan dark:text-gray-300">NIM</label>
+                                    <label class="text-xl font-medium text-cyan dark:text-gray-300">NIM <span
+                                            class="text-4xl text-red-500">*</span></label>
                                     <input type="text" name="nim" required
                                         class="w-full rounded-full border-gray-300 bg-gray-100 px-4 text-sm"
                                         placeholder="Enter your student ID number" value="{{ old('nim') }}">
                                     @error('nim')
-                                        <p class="text-red-500 text-sm">{{ $message }}</p>
+                                        <p class="text-sm text-red-500">{{ $message }}</p>
                                     @enderror
                                 </div>
-
                                 <div class="space-y-3">
-                                    <label class="text-xl font-medium text-cyan dark:text-gray-300">Entry Year</label>
-                                    <input type="text" name="entry_year" required
-                                        class="w-full rounded-full border-gray-300 bg-gray-100 px-4 text-sm"
-                                        placeholder="Enter your entry year (e.g., 2023)" value="{{ old('entry_year') }}">
-                                    @error('entry_year')
-                                        <p class="text-red-500 text-sm">{{ $message }}</p>
-                                    @enderror
-                                </div>
-
-                                <div class="space-y-3">
-                                    <label class="text-xl font-medium text-cyan dark:text-gray-300">Graduate Year</label>
+                                    <label class="text-xl font-medium text-cyan dark:text-gray-300">Graduate Year <span
+                                            class="text-4xl text-red-500">*</span></label>
                                     <input type="text" name="graduate_year" required
                                         class="w-full rounded-full border-gray-300 bg-gray-100 px-4 text-sm"
                                         placeholder="Enter your graduation year (e.g., 2023)"
                                         value="{{ old('graduate_year') }}">
                                     @error('graduate_year')
-                                        <p class="text-red-500 text-sm">{{ $message }}</p>
+                                        <p class="text-sm text-red-500">{{ $message }}</p>
                                     @enderror
                                 </div>
                             </div>
@@ -128,50 +121,36 @@
 
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                const form = document.getElementById('registration-form');
                 const step1 = document.getElementById('step-1');
                 const step2 = document.getElementById('step-2');
                 const nextBtn = document.getElementById('next-btn');
                 const prevBtn = document.getElementById('prev-btn');
-                const graduateYearField = document.querySelector('div.space-y-3:has(input[name="graduate_year"])');
-                const entryYearInput = document.querySelector('input[name="entry_year"]');
-                const graduateYearInput = document.querySelector('input[name="graduate_year"]');
 
-                // Hide/show graduate year based on role selection
                 const roleStudent = document.getElementById('role-student');
                 const roleAlumni = document.getElementById('role-alumni');
 
+                const graduateYearInput = document.querySelector('input[name="graduate_year"]');
+                const graduateYearField = graduateYearInput.closest('.space-y-3');
+
                 function updateGraduateYearVisibility() {
-                    if (roleStudent.checked) {
-                        // For students: entry_year required, graduate_year not required
-                        graduateYearField.style.display = 'none';
-                        entryYearInput.setAttribute('required', 'required');
-                        graduateYearInput.removeAttribute('required');
-                        graduateYearInput.value = ''; // Clear the graduate year value
-                    } else if (roleAlumni.checked) {
-                        // For alumni: both entry_year and graduate_year required
-                        graduateYearField.style.display = 'block';
-                        entryYearInput.setAttribute('required', 'required');
+                    if (roleAlumni.checked) {
+                        graduateYearField.classList.remove('hidden');
                         graduateYearInput.setAttribute('required', 'required');
+                    } else {
+                        graduateYearField.classList.add('hidden');
+                        graduateYearInput.removeAttribute('required');
+                        graduateYearInput.value = '';
                     }
                 }
 
-                // Add event listeners to radio buttons
-                roleStudent.addEventListener('change', updateGraduateYearVisibility);
-                roleAlumni.addEventListener('change', updateGraduateYearVisibility);
-
-                // Run on first load when moving to step 2
                 nextBtn.addEventListener('click', function() {
-                    // Validate role selection
                     const roleSelected = document.querySelector('input[name="role"]:checked');
                     if (!roleSelected) {
                         alert('Please select a role before proceeding.');
                         return;
                     }
 
-                    // Update graduate year visibility before showing step 2
                     updateGraduateYearVisibility();
-
                     step1.classList.add('hidden');
                     step2.classList.remove('hidden');
                 });
@@ -181,21 +160,13 @@
                     step1.classList.remove('hidden');
                 });
 
-                @if (session('name'))
-                    document.querySelector('input[name="name"]').value = "{{ session('name') }}";
-                @endif
+                roleStudent.addEventListener('change', updateGraduateYearVisibility);
+                roleAlumni.addEventListener('change', updateGraduateYearVisibility);
 
-                // Add entry year change event to auto-calculate graduate year
-                entryYearInput.addEventListener('change', function() {
-                    if (this.value && !isNaN(this.value) && roleStudent.checked) {
-                        // Only auto-calculate for students (typical 4-year program)
-                        graduateYearInput.value = parseInt(this.value) + 4;
-                    }
-                });
-                if (roleStudent.checked || roleAlumni.checked) {
-                    updateGraduateYearVisibility();
-                }
+                // Run on load in case role was already selected
+                updateGraduateYearVisibility();
             });
         </script>
+
     </section>
 @endsection
