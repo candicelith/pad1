@@ -47,7 +47,7 @@
 
                     {{-- Post Details --}}
                     <div
-                        class="w-full rounded-tl-lg rounded-tr-lg border-b-2 border-cyan bg-lightblue p-5 sm:rounded-e-none sm:rounded-s-lg sm:rounded-tr-none sm:border-b-0 sm:border-e-2 sm:p-10 md:rounded-e-none md:rounded-s-lg md:rounded-tr-none md:border-b-0 md:border-e-2">
+                        class="w-full rounded-tl-lg rounded-tr-lg border-b-2 border-cyan bg-lightblue p-2 sm:rounded-e-none sm:rounded-s-lg sm:rounded-tr-none sm:border-b-0 sm:border-e-2 sm:px-5 md:rounded-e-none md:rounded-s-lg md:rounded-tr-none md:border-b-0 md:border-e-2">
                         <div class="flex flex-col lg:flex-row lg:space-x-8">
                             <div class="flex-shrink-0">
                                 <img class="h-28 w-28 rounded-full object-cover"
@@ -119,13 +119,13 @@
                             {{-- Main modal --}}
                             <div id="crud-modal" tabindex="-1" aria-hidden="true"
                                 class="fixed left-0 right-0 top-0 z-50 hidden h-1/2 max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0">
-                                <div class="relative max-h-full w-full max-w-2xl p-4">
+                                <div class="relative max-h-full w-full max-w-screen-sm p-2 sm:max-w-3xl sm:p-4">
                                     <!-- Modal content -->
-                                    <div class="relative rounded-lg border-4 border-cyan-100 bg-white p-2 shadow">
+                                    <div class="relative rounded-lg border-4 border-cyan-100 bg-white p-1 shadow sm:p-2">
                                         {{-- Modal header --}}
                                         <div
-                                            class="flex items-center justify-between rounded-t border-b-4 border-cyan-100 px-5 py-6 text-center">
-                                            <h3 class="text-3xl text-cyan sm:text-start">
+                                            class="flex items-center justify-between rounded-t border-b-4 border-cyan-100 px-3 py-4 text-center sm:px-5 sm:py-6">
+                                            <h3 class="text-start text-xl text-cyan sm:text-3xl">
                                                 Apply to {{ $vacancy->company_name }}
                                             </h3>
                                             <button type="button" class="inline-flex items-center"
@@ -141,7 +141,7 @@
                                         </div>
 
                                         {{-- Modal body --}}
-                                        <form class="max-h-96 overflow-y-auto px-9 pb-5 pt-7"
+                                        <form class="max-h-96 overflow-y-auto px-3 pb-3 pt-5 sm:px-9 sm:pb-5 sm:pt-7"
                                             action="{{ route('posts.detail.apply', ['vacancy' => $vacancy->id_vacancy, 'id' => $vacancy->id_vacancy]) }}"
                                             method="POST" enctype="multipart/form-data">
                                             @csrf
@@ -153,8 +153,9 @@
                                                         class="w-full rounded-full border-2 shadow-sm" required="">
                                                 </div>
                                             </div>
-                                            <div class="flex items-end justify-between text-sm text-gray-400">
-                                                <p>Only you and {{ $vacancy->name }} can view this</p>
+                                            <div class="items-end justify-between text-sm text-gray-400 sm:flex">
+                                                <p class="mb-2 text-sm sm:mb-0">Only you and {{ $vacancy->name }} can view
+                                                    this</p>
                                                 <button type="submit"
                                                     class="bg-btn-cyan rounded-lg px-7 py-2 text-center text-sm text-white hover:bg-cyan-100">
                                                     Submit

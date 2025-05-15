@@ -137,6 +137,7 @@
                                 <select name="company" id="company"
                                     class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan">
                                     <option value="">Select a company name</option>
+                                    <option value="">Select a company name</option>
                                     <option value="">UIUX</option>
                                     <option value="">UIUX</option>
                                 </select>
@@ -227,6 +228,13 @@
                                 @error('vacancy_benefits')
                                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                                 @enderror
+                            </div>
+                            <div class="col-span-1 sm:col-span-1">
+                                <label for="vacancy_poster" class="mb-1 block text-2xl text-cyan">
+                                    Updoad Poster <span class="text-4xl text-red-500">*</span>
+                                </label>
+                                <input type="file" name="vacancy_poster" id="vacancy_poster"
+                                    class="w-full rounded-full border border-gray-300 bg-gray-200" required>
                             </div>
                         </div>
 

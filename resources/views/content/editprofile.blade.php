@@ -232,8 +232,7 @@
                             </div>
                         </div>
                         <div class="-mt-8 mb-4 flex justify-start text-center sm:-mt-10 sm:text-start">
-                            <h4 class="text-lg text-cyan sm:text-xl">Experience <span
-                                    class="text-4xl text-red-500">*</span></h4>
+                            <h4 class="text-lg text-cyan sm:text-xl">Experience</h4>
                         </div>
                     </div>
 
