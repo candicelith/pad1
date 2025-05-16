@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\UserDetails;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
@@ -83,11 +84,18 @@ class AuthController extends Controller
 
     public function create(Request $request)
     {
+        // Get the authenticated user
+        $user = Auth::user();
+        $userDetails = UserDetails::where('id_users', $user->id_users)->first();
+
         // input validation
         $validationRules = ([
             'role' => 'required|in:student,alumni',
             'name' => 'required|string|max:255',
-            'nim' => 'required|string|max:20|unique:user_details,nim',
+            'nim' => [
+                    'required',
+                    Rule::unique('user_details')->ignore($userDetails->id_userDetails, 'id_userDetails')
+                ],
         ]);
 
         // Role Validation
@@ -102,8 +110,6 @@ class AuthController extends Controller
         // Validate the input with the appropriate rules
         $validated = $request->validate($validationRules);
 
-        // Get the authenticated user
-        $user = Auth::user();
 
         // Determine role ID based on the selected role
         $roleId = ($request->input('role') === 'alumni') ? 2 : 3;
@@ -136,17 +142,16 @@ class AuthController extends Controller
             }
         }
         // Create user details
-        UserDetails::updateOrCreate(
-            ['id_users' => $user->id_users],
-            [
-                'name' => $request->name,
-                'nim' => $request->nim,
-                'entry_year' => $request->entry_year,
-                'graduate_year' => $request->graduate_year,
-                'profile_photo' => $profilePhotoFilename,
-                'modifiedBy' => $request->name,
-            ]
-        );
+        $userDetails->update([
+            'id_users' => $user->id_users,
+            'name' => $request->name,
+            'nim' => $request->nim,
+            'entry_year' => $request->entry_year,
+            'graduate_year' => $request->graduate_year,
+            'profile_photo' => $profilePhotoFilename,
+            'status' => "approved"
+        ]);
+
 
         // Redirect based on role
         if ($roleId == 2) {

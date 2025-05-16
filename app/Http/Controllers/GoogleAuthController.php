@@ -38,11 +38,12 @@ class GoogleAuthController extends Controller
         Auth::login($user);
 
         // If user details don't exist, redirect to registration page
-        if (!$userDetails) {
+        if ($userDetails->status == 'pending') {
             session()->put('email', $googleUser->getEmail());
             session()->put('name', $googleUser->getName());
             session()->put('profile_photo', $googleUser->getAvatar());
 
+            session()->put('userDetails', $userDetails);
             return redirect()->route('registration');
         }
         return redirect()->intended('/');
