@@ -231,7 +231,7 @@
                             </div>
                             <div class="col-span-1 sm:col-span-1">
                                 <label for="vacancy_poster" class="mb-1 block text-2xl text-cyan">
-                                    Updoad Poster <span class="text-4xl text-red-500">*</span>
+                                    Upload Poster <span class="text-4xl text-red-500">*</span>
                                 </label>
                                 <input type="file" name="vacancy_poster" id="vacancy_poster"
                                     class="w-full rounded-full border border-gray-300 bg-gray-200" required>

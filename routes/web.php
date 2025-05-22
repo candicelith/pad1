@@ -50,6 +50,9 @@ Route::get('/loginform', function () {
 Route::get('/privacy-policy', function () {
     return view('content.privacy-policy');
 })->name('privacypolicy');
+Route::get('/login-admin', function () {
+    return view('content.login-admin');
+})->name('login-admin');
 
 // Index
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -79,7 +82,7 @@ Route::controller(CompanyController::class)->group(function () {
     Route::get('/companies', 'index')->name('companies');
     Route::get('/companies/detail/{id}', 'show')->name('companies.detail');
     Route::post('/companies/store', 'store')->name('companies.store');
-    Route::get('/companies/create','create')->name('companies.create');
+    Route::get('/companies/create', 'create')->name('companies.create');
 });
 
 
@@ -89,8 +92,8 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('/authenticate', 'authenticate')->name('authenticate');
     Route::post('/logout', 'logout')->name('logout');
     Route::get('/profile', 'profile')->name('profile');
-    Route::get('/registration','registration')->name('registration');
-    Route::post('/registration/form','create')->name('registration.submit');
+    Route::get('/registration', 'registration')->name('registration');
+    Route::post('/registration/form', 'create')->name('registration.submit');
 });
 
 // Mahasiswa

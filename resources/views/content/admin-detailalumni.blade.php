@@ -65,7 +65,8 @@
                                 <form method="POST" action="">
                                     @csrf
                                     <input type="hidden" name="action" value="approve">
-                                    <button class="rounded-full bg-green-800 hover:bg-green-600 px-5 text-white" type="submit">
+                                    <button class="rounded-full bg-green-800 px-5 py-1 text-white hover:bg-green-600"
+                                        type="submit">
                                         Accept
                                     </button>
                                 </form>
@@ -73,7 +74,8 @@
                                 <form method="POST" action="">
                                     @csrf
                                     <input type="hidden" name="action" value="reject">
-                                    <button class="rounded-full bg-red-900 px-5 text-white hover:bg-red-700" type="submit">
+                                    <button class="rounded-full bg-red-900 px-5 py-1 text-white hover:bg-red-700"
+                                        type="submit">
                                         Decline
                                     </button>
                                 </form>
