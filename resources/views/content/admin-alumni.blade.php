@@ -24,70 +24,58 @@
                             class="fixed left-0 right-0 top-0 z-50 hidden h-[calc(100%-1rem)] max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0">
                             <div class="relative max-h-full w-full max-w-5xl p-4">
                                 {{-- Modal content --}}
-                                <div class="relative rounded-2xl bg-cyan-400 px-9 py-8 shadow">
+                                <div class="relative rounded-lg border-4 border-cyan-100 bg-white p-2 shadow">
                                     {{-- Modal header --}}
-                                    <div class="flex items-center justify-between rounded-t text-center md:p-5">
+                                    <div
+                                        class="flex items-center justify-between rounded-t border-b-4 border-cyan-100 text-center md:p-5">
                                         <h3 class="text-3xl text-cyan sm:text-start">
                                             Create New Alumni’s Account
                                         </h3>
-                                        <button type="button" data-modal-toggle="crud-modal">
-                                            <svg class="h-6 w-6 text-white" aria-hidden="true"
+                                        <button type="button" class="inline-flex items-center"
+                                            data-modal-toggle="crud-modal">
+                                            <svg class="h-6 w-6 text-cyan" aria-hidden="true"
                                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 fill="none" viewBox="0 0 24 24">
                                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                    stroke-width="4" d="M6 18 17.94 6M18 18 6.06 6" />
+                                                    stroke-width="3" d="M6 18 17.94 6M18 18 6.06 6" />
                                             </svg>
                                         </button>
                                     </div>
-                                    <hr class="border-1 h-px bg-white">
+
                                     {{-- Modal body --}}
-                                    <form class="p-4 md:p-5" method="POST" action="{{ route('admin.store') }}">
+                                    <form class="scrollbar-modal max-h-96 overflow-y-auto p-4 md:p-5" method="POST"
+                                        action="{{ route('admin.store') }}">
                                         @csrf
-                                        <div class="mb-4 grid grid-cols-1 gap-8 sm:grid-cols-2">
+                                        <div class="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
                                             <div class="col-span-2">
-                                                <label for="name" class="mb-3 block text-sm text-cyan sm:text-2xl">Full
-                                                    Name</label>
+                                                <label for="name" class="mb-2 block text-sm text-cyan sm:text-2xl">Full
+                                                    Name <span
+                                                        class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
                                                 <input type="text" name="name" id="name"
-                                                    class="m:p-2.5 block h-11 w-full rounded-full border border-gray-300 bg-gray-50 px-4 py-2 text-sm text-gray-900"
-                                                    placeholder="Jane Doe" required="">
+                                                    class="block h-1/2 w-full rounded-full border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-cyan dark:placeholder-gray-400 sm:p-2.5"
+                                                    placeholder="Type the alumni’s name" required="">
                                             </div>
                                             <div class="col-span-2">
-                                                <label for="nim"
-                                                    class="mb-3 block text-sm text-cyan sm:text-lg">NIM</label>
+                                                <label for="nim" class="mb-2 block text-sm text-cyan sm:text-2xl">NIM
+                                                    <span
+                                                        class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
                                                 <input type="text" name="nim" id="nim"
                                                     class="block h-1/2 w-full rounded-full border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400 sm:p-2.5"
-                                                    placeholder="23/******/SV/*****" required="">
+                                                    placeholder="Type the alumni’s NIU" required="">
                                             </div>
                                             <div class="col-span-2">
-                                                <label for="email"
-                                                    class="mb-3 block text-sm text-cyan sm:text-lg">Email</label>
+                                                <label for="email" class="mb-2 block text-sm text-cyan sm:text-2xl">Email
+                                                    <span
+                                                        class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
                                                 <input type="text" name="email" id="email"
                                                     class="block h-1/2 w-full rounded-full border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400 sm:p-2.5"
-                                                    placeholder="trpl@mail.ugm.ac.id" required="">
+                                                    placeholder="Type a valid email address" required="">
                                             </div>
-                                            {{-- <div class="col-span-2">
-                                                <label for="phone" class="mb-2 block text-sm text-white sm:text-lg">Nomor Telepon</label>
-                                                <input type="tel" name="phone" id="phone"
-                                                    class="block h-1/2 w-full rounded-full border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400 sm:p-2.5"
-                                                    placeholder="+6281234567890" pattern="^\+62[0-9]{8,13}$" required>
-                                            </div> --}}
-                                            {{-- <div class="col-span-2">
-                                                <label for="graduate_year"
-                                                    class="mb-2 block text-sm text-white sm:text-lg">Graduate Year</label>
-                                                <select name="graduate_year" id="graduate_year"
-                                                    class="block h-1/2 w-full rounded-full border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400 sm:p-2.5"
-                                                    required>
-                                                    <option value="" disabled selected>Select Year</option>
-                                                    @for ($year = 2018; $year <= 2024; $year++)
-                                                        <option value="{{ $year }}">{{ $year }}</option>
-                                                    @endfor
-                                                </select>
-                                            </div> --}}
                                         </div>
 
-                                        <div class="flex justify-end">
+                                        <div class="flex justify-end space-x-3 pt-4">
                                             <button type="submit"
-                                                class="bg-btn-cyan inline-flex items-center rounded-xl bg-cyan px-8 py-2 text-center text-sm text-white shadow-lg hover:bg-cyan-100 hover:text-white focus:outline-none focus:ring-4 focus:ring-cyan sm:py-2.5 sm:text-base">
+                                                class="bg-btn-cyan rounded-md bg-cyan px-6 py-2 text-xl text-white transition hover:bg-cyan-400 hover:text-cyan">
                                                 Create
                                             </button>
                                         </div>

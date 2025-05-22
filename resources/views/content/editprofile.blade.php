@@ -57,8 +57,9 @@
                                             @csrf
                                             <div class="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
                                                 <div class="col-span-2">
-                                                    <label for="company" class="mb-2 block text-sm text-cyan sm:text-lg">
-                                                        Company <span class="text-4xl text-red-500">*</span>
+                                                    <label for="company" class="mb-2 block text-sm text-cyan sm:text-xl">
+                                                        Company <span
+                                                            class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
                                                     </label>
 
                                                     <div class="col-span-2" x-data="dropdown({ options: @js($companies->map(fn($c) => ['value' => $c->id_company, 'label' => $c->company_name])) })"
@@ -110,8 +111,8 @@
                                                     ]
                                                 })">
                                                     <label for="position"
-                                                        class="mb-2 block text-sm text-cyan sm:text-lg">Position <span
-                                                            class="text-4xl text-red-500">*</span></label>
+                                                        class="mb-2 block text-sm text-cyan sm:text-xl">Position <span
+                                                            class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
 
                                                     <div class="relative w-full">
                                                         <input x-model="search" @click="open = true" @input="filterOptions"
@@ -141,8 +142,9 @@
                                                     class="col-span-2 grid grid-cols-1 gap-4 sm:grid-cols-2">
                                                     <div class="col-span-1">
                                                         <label for="date_start"
-                                                            class="mb-2 block text-sm text-cyan sm:text-lg">Start
-                                                            Date <span class="text-4xl text-red-500">*</span></label>
+                                                            class="mb-2 block text-sm text-cyan sm:text-xl">Start
+                                                            Date <span
+                                                                class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
                                                         <div class="relative">
                                                             <div
                                                                 class="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3">
@@ -164,8 +166,9 @@
                                                     </div>
                                                     <div class="col-span-1">
                                                         <label for="date_end"
-                                                            class="mb-2 block text-sm text-cyan sm:text-lg">End
-                                                            Date</label>
+                                                            class="mb-2 block text-sm text-cyan sm:text-xl">End
+                                                            Date <span
+                                                                class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
                                                         <div class="space-y-2">
                                                             <div class="relative">
                                                                 <div
@@ -199,8 +202,9 @@
 
                                                 <div class="col-span-2">
                                                     <label for="responsibility"
-                                                        class="mb-2 block text-sm text-cyan sm:text-lg">Responsibility
-                                                        <span class="text-4xl text-red-500">*</span></label>
+                                                        class="mb-2 block text-sm text-cyan sm:text-xl">Responsibility
+                                                        <span
+                                                            class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
                                                     <div id="responsibility-container-create">
                                                         <div class="responsibility-item mb-2 flex items-center">
                                                             <input type="text" name="job_responsibility[]"
@@ -222,7 +226,7 @@
                                             </div>
                                             <div class="flex justify-end">
                                                 <button data-modal-hide="crud-modal" type="submit"
-                                                    class="bg-btn-cyan m-4 rounded-lg bg-cyan px-8 py-1 text-white shadow-lg hover:bg-cyan-400 hover:text-cyan sm:py-2.5">
+                                                    class="bg-btn-cyan m-4 rounded-lg bg-cyan px-6 py-2 text-white shadow-lg hover:bg-cyan-400 hover:text-cyan sm:py-2.5">
                                                     Submit
                                                 </button>
                                             </div>
@@ -334,7 +338,8 @@
                                                         })">
                                                             <label for="position"
                                                                 class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">Position
-                                                                <span class="text-4xl text-red-500">*</span></label>
+                                                                <span
+                                                                    class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
 
                                                             <div class="relative w-full">
                                                                 <input x-model="search" @click="open = true"
@@ -437,7 +442,8 @@
                                                             <div class="col-span-2">
                                                                 <label for="responsibility"
                                                                     class="mb-2 block text-sm text-gray-400">Responsibility
-                                                                    <span class="text-4xl text-red-500">*</span></label>
+                                                                    <span
+                                                                        class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
                                                                 <div
                                                                     id="responsibility-container-update-{{ $job->id_tracking }}">
                                                                     @foreach ($job->job_description as $responsibility)
@@ -471,7 +477,8 @@
                                                             <div class="col-span-2">
                                                                 <label for="responsibility"
                                                                     class="mb-2 block text-sm text-gray-400">Responsibility
-                                                                    <span class="text-4xl text-red-500">*</span></label>
+                                                                    <span
+                                                                        class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
                                                                 <div
                                                                     id="responsibility-container-update-{{ $job->id_tracking }}">
                                                                     <div
@@ -514,7 +521,7 @@
                                         <h3 class="text-lg text-cyan sm:text-xl">
                                             {{ $job->job_name }}
                                         </h3>
-                                        <h3 class="text-base text-cyan sm:text-lg">
+                                        <h3 class="text-base text-cyan sm:text-xl">
                                             {{ $job->company_name }}
                                         </h3>
                                         <p class="text-xs text-gray-400 sm:text-sm">

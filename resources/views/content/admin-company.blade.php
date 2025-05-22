@@ -70,7 +70,8 @@
                                         </div>
                                         <div>
                                             <label for="company_name" class="mb-1 block text-2xl text-cyan">
-                                                Name<span class="text-4xl text-red-500">*</span>
+                                                Name <span
+                                                    class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
                                             </label>
                                             <input type="text" name="company_name" id="company_name"
                                                 class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
@@ -80,7 +81,8 @@
 
                                         <div>
                                             <label for="company_field" class="mb-1 block text-2xl text-cyan">
-                                                Industry Type<span class="text-4xl text-red-500">*</span>
+                                                Industry Type <span
+                                                    class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
                                             </label>
                                             <input type="text" name="company_field" id="company_field"
                                                 class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
@@ -91,7 +93,8 @@
 
                                         <div>
                                             <label for="company_address" class="mb-1 block text-2xl text-cyan">
-                                                Location<span class="text-4xl text-red-500">*</span>
+                                                Location <span
+                                                    class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
                                             </label>
                                             <input type="text" name="company_address" id="company_address"
                                                 class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
@@ -101,7 +104,8 @@
 
                                         <div>
                                             <label for="company_description" class="mb-1 block text-2xl text-cyan">
-                                                Description<span class="text-4xl text-red-500">*</span>
+                                                Description <span
+                                                    class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
                                             </label>
                                             <textarea name="company_description" id="company_description" rows="4"
                                                 class="w-full rounded-md border border-gray-300 bg-gray-200 px-3 py-2 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
@@ -110,7 +114,8 @@
 
                                         <div class="w-full space-y-3">
                                             <label for="company_phone" class="mb-1 block text-2xl text-cyan">
-                                                File Upload<span class="text-4xl text-red-500">*</span>
+                                                File Upload <span
+                                                    class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
                                             </label>
                                             <p>You can add one or more photos of your new company</p>
                                             <input type="file" name="" id=""
@@ -119,7 +124,7 @@
 
                                         <div class="flex justify-end space-x-3 pt-4">
                                             <button type="submit"
-                                                class="bg-btn-cyan rounded-md bg-cyan px-6 py-2 text-2xl text-white transition hover:bg-cyan-400 hover:text-cyan">
+                                                class="bg-btn-cyan rounded-md bg-cyan px-6 py-2 text-xl text-white transition hover:bg-cyan-400 hover:text-cyan">
                                                 Create
                                             </button>
                                         </div>

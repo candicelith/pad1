@@ -51,11 +51,11 @@
 
                                         {{-- Drawer Content --}}
                                         <div id="job-drawer"
-                                            class="fixed right-0 top-28 z-20 w-2/5 translate-x-full overflow-y-auto rounded-lg bg-cyan-400 p-4 transition-transform"
+                                            class="fixed right-0 top-28 z-20 translate-x-full rounded-lg bg-cyan-400 p-4 transition-transform xl:w-2/5"
                                             tabindex="-1" aria-labelledby="drawer-right-label">
                                             <div
-                                                class="flex items-center justify-between rounded-t border-b border-white md:py-6">
-                                                <h3 class="text-3xl text-cyan">
+                                                class="flex items-center justify-between rounded-t border-b border-white md:py-4">
+                                                <h3 class="text-2xl text-cyan">
                                                     {{ $job->job_name }}
                                                 </h3>
                                                 <button type="button"
@@ -71,8 +71,8 @@
                                                     <span class="sr-only">Close</span>
                                                 </button>
                                             </div>
-                                            <div class="max-h-96 space-y-4">
-                                                <div class="grid gap-10 py-4 sm:grid-cols-1 md:grid-cols-2">
+                                            <div class="scrollbar-modal max-h-96 space-y-4 overflow-y-auto">
+                                                <div class="grid gap-4 py-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                                                     <a class="alumni-card w-full max-w-sm cursor-pointer rounded-lg border border-gray-200 bg-lightblue shadow-md"
                                                         href="">
                                                         <div {{-- data-aos="fade-up" --}}>

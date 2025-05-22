@@ -10,11 +10,11 @@
             </div>
         @endif
 
-        <div class="sticky top-20 z-20 w-full bg-white py-2 sm:pb-8 sm:pt-2">
+        <div class="sticky top-20 z-20 w-full bg-white py-4 sm:pb-8 sm:pt-3">
             {{-- Title --}}
-            <div class="mx-auto mb-8 max-w-screen-sm text-center lg:mb-9">
+            {{-- <div class="mx-auto mb-8 max-w-screen-sm text-center lg:mb-9">
                 <h2 class="mb-4 text-3xl text-cyan lg:text-4xl">Posts</h2>
-            </div>
+            </div> --}}
 
             {{-- New Post Button --}}
             @auth
@@ -34,7 +34,7 @@
             @endauth
 
             {{-- Filters and Search --}}
-            <div class="mx-auto mt-6 max-w-screen-xl items-center justify-between px-4 sm:flex sm:px-6">
+            <div class="mx-auto mt-8 max-w-screen-xl items-center justify-between px-4 sm:flex sm:px-6">
                 <div class="mb-2 flex justify-between sm:mb-0 sm:space-x-10">
                     <button
                         class="text-cyan-600 rounded-xl border border-gray-200 px-3 py-2 text-sm hover:bg-gray-200 focus:bg-cyan-100 focus:text-white sm:px-6 sm:py-4 sm:text-base">
@@ -121,7 +121,8 @@
                         <div class="mt-0 grid grid-cols-2 gap-8 sm:grid-cols-2">
                             <div class="col-span-2 sm:col-span-2">
                                 <label for="job_position" class="mb-1 block text-2xl text-cyan">
-                                    Position <span class="text-4xl text-red-500">*</span>
+                                    Position <span
+                                        class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
                                 </label>
                                 <select name="job_position" id="job_position"
                                     class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan">
@@ -132,7 +133,8 @@
                             </div>
                             <div class="col-span-2 sm:col-span-2">
                                 <label for="company" class="mb-1 block text-2xl text-cyan">
-                                    Company <span class="text-4xl text-red-500">*</span>
+                                    Company <span
+                                        class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
                                 </label>
                                 <select name="company" id="company"
                                     class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan">
@@ -144,7 +146,8 @@
                             </div>
                             <div class="col-span-2 sm:col-span-2">
                                 <label for="job_description" class="mb-1 block text-2xl text-cyan">
-                                    Description <span class="text-4xl text-red-500">*</span>
+                                    Description <span
+                                        class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
                                 </label>
                                 <textarea type="text" name="job_description" id="job_description"
                                     class="w-full rounded-xl border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
@@ -152,7 +155,8 @@
                             </div>
                             <div class="col-span-1 sm:col-span-1">
                                 <label for="start_date" class="mb-1 block text-2xl text-cyan">
-                                    Start Date <span class="text-4xl text-red-500">*</span>
+                                    Start Date <span
+                                        class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
                                 </label>
                                 <input type="date" name="start_date" id="start_date"
                                     class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
@@ -160,7 +164,8 @@
                             </div>
                             <div class="col-span-1 sm:col-span-1">
                                 <label for="end_date" class="mb-1 block text-2xl text-cyan">
-                                    End Date <span class="text-4xl text-red-500">*</span>
+                                    End Date <span
+                                        class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
                                 </label>
                                 <input type="date" name="end_date" id="end_date"
                                     class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
@@ -168,7 +173,7 @@
                             </div>
                             <div class="col-span-2">
                                 <label for="responsibility" class="mb-1 block text-2xl text-cyan">Responsibility <span
-                                        class="text-4xl text-red-500">*</span></label>
+                                        class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
                                 <div id="responsibility-container-create">
                                     <div class="responsibility-item mb-2 flex items-center">
                                         <input type="text" name="job_responsibility[]"
@@ -189,7 +194,7 @@
                             </div>
                             <div class="col-span-2">
                                 <label for="qualification" class="mb-1 block text-2xl text-cyan">Qualification <span
-                                        class="text-4xl text-red-500">*</span></label>
+                                        class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
                                 <div id="qualification-container">
                                     <div class="qualification-item mb-2 flex items-center">
                                         <input type="text" name="vacancy_qualification[]"
@@ -231,7 +236,8 @@
                             </div>
                             <div class="col-span-1 sm:col-span-1">
                                 <label for="vacancy_poster" class="mb-1 block text-2xl text-cyan">
-                                    Upload Poster <span class="text-4xl text-red-500">*</span>
+                                    Upload Poster <span
+                                        class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
                                 </label>
                                 <input type="file" name="vacancy_poster" id="vacancy_poster"
                                     class="w-full rounded-full border border-gray-300 bg-gray-200" required>
