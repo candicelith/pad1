@@ -16,27 +16,6 @@
                 <h2 class="mb-4 text-3xl text-cyan lg:text-4xl">Posts</h2>
             </div>
 
-            {{-- Search --}}
-            <div class="mx-auto mt-6 max-w-screen-xl px-4 sm:px-6">
-                <form id="search-form" class="mx-auto flex max-w-sm items-center">
-                    <label for="simple-search" class="sr-only">Search</label>
-                    <div class="relative w-full">
-                        <input type="text" id="simple-search" name="query"
-                            class="block w-full rounded-lg border border-gray-500 bg-gray-200 p-2.5 ps-10 text-sm text-gray-900 focus:border-cyan focus:ring-cyan"
-                            placeholder="Search post..." onkeyup="filterPosts()" />
-                    </div>
-                    <button type="submit"
-                        class="bg-btn-cyan ms-2 rounded-xl border border-cyan bg-cyan p-2.5 text-sm font-medium text-white hover:bg-cyan-100 focus:outline-none focus:ring-4 focus:ring-cyan">
-                        <svg class="h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            viewBox="0 0 20 20">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                        </svg>
-                        <span class="sr-only">Search</span>
-                    </button>
-                </form>
-            </div>
-
             {{-- New Post Button --}}
             @auth
                 @if (Auth::check() && Auth::user()->id_roles == '2')
@@ -54,8 +33,8 @@
                 @endif
             @endauth
 
-            {{-- Filters --}}
-            <div class="mx-auto mt-6 max-w-screen-xl justify-between px-4 sm:flex sm:px-6">
+            {{-- Filters and Search --}}
+            <div class="mx-auto mt-6 max-w-screen-xl items-center justify-between px-4 sm:flex sm:px-6">
                 <div class="mb-2 flex justify-between sm:mb-0 sm:space-x-10">
                     <button
                         class="text-cyan-600 rounded-xl border border-gray-200 px-3 py-2 text-sm hover:bg-gray-200 focus:bg-cyan-100 focus:text-white sm:px-6 sm:py-4 sm:text-base">
@@ -66,6 +45,27 @@
                         My Commented Post
                     </button>
                 </div>
+                {{-- Search --}}
+                <div class="mx-auto max-w-screen-xl px-4 sm:px-6">
+                    <form id="search-form" class="mx-auto flex max-w-sm items-center">
+                        <label for="simple-search" class="sr-only">Search</label>
+                        <div class="relative w-full">
+                            <input type="text" id="simple-search" name="query"
+                                class="block w-full rounded-lg border border-gray-500 bg-gray-200 p-2.5 ps-10 text-sm text-gray-900 focus:border-cyan focus:ring-cyan"
+                                placeholder="Search post..." onkeyup="filterPosts()" />
+                        </div>
+                        <button type="submit"
+                            class="bg-btn-cyan ms-2 rounded-xl border border-cyan bg-cyan p-2.5 text-sm font-medium text-white hover:bg-cyan-100 focus:outline-none focus:ring-4 focus:ring-cyan">
+                            <svg class="h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 20 20">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                            </svg>
+                            <span class="sr-only">Search</span>
+                        </button>
+                    </form>
+                </div>
+                {{-- Date Range --}}
                 <div id="date-range-picker" date-rangepicker datepicker datepicker-buttons datepicker-autoselect-today
                     class="flex items-center">
                     <div class="relative">

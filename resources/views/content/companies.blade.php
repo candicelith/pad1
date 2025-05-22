@@ -3,11 +3,11 @@
 @section('content')
     {{-- Title --}}
     <section class="mt-20 bg-white">
-        <div class="sticky top-20 z-20 w-full bg-white px-2 pb-8 pt-16 sm:px-16">
+        <div class="sticky top-20 z-20 w-full bg-white px-2 pb-2 pt-16 sm:px-16">
             {{-- Title --}}
-            <div class="mx-auto mb-8 max-w-screen-sm text-center lg:mb-16">
+            {{-- <div class="mx-auto mb-8 max-w-screen-sm text-center lg:mb-16">
                 <h2 class="mb-4 text-3xl text-cyan lg:text-4xl">Companies</h2>
-            </div>
+            </div> --}}
 
             {{-- Search --}}
             <div>
