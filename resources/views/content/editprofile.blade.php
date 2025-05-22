@@ -18,6 +18,7 @@
                         <div class="mb-2 flex justify-end sm:mb-0">
                             {{-- Add Button --}}
                             <button data-modal-target="crud-modal2" data-modal-toggle="crud-modal2"
+                                data-tooltip-target="tooltip-add-experience"
                                 class="z-10 rounded-full bg-gray-300 p-2 hover:bg-gray-400 sm:p-4">
                                 <svg class="h-6 w-6 text-gray-800 dark:text-white" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
@@ -26,6 +27,13 @@
                                         stroke-width="2" d="M5 12h14m-7 7V5" />
                                 </svg>
                             </button>
+
+                            {{-- Tooltip --}}
+                            <div id="tooltip-add-experience" role="tooltip"
+                                class="shadow-xs tooltip invisible absolute z-10 inline-block rounded-lg bg-cyan px-3 py-2 text-sm font-medium text-white opacity-0 transition-opacity duration-300 dark:bg-gray-700">
+                                Add Experience
+                                <div class="tooltip-arrow" data-popper-arrow></div>
+                            </div>
 
                             <!-- Main modal -->
                             <div id="crud-modal2" tabindex="-1" aria-hidden="true"
@@ -364,6 +372,7 @@
                                 <div class="mb-2 flex justify-end sm:mb-0">
                                     {{-- Edit Button --}}
                                     <button data-modal-target="crud-modal-{{ $job->id_tracking }}"
+                                        data-tooltip-target="tooltip-edit-experience"
                                         data-modal-toggle="crud-modal-{{ $job->id_tracking }}"
                                         class="z-10 rounded-full bg-gray-300 p-2 hover:bg-gray-400 sm:p-4">
                                         <svg class="h-6 w-6 text-gray-800 dark:text-white" aria-hidden="true"
@@ -374,6 +383,14 @@
                                                 d="M10.779 17.779 4.36 19.918 6.5 13.5m4.279 4.279 8.364-8.643a3.027 3.027 0 0 0-2.14-5.165 3.03 3.03 0 0 0-2.14.886L6.5 13.5m4.279 4.279L6.499 13.5m2.14 2.14 6.213-6.504M12.75 7.04 17 11.28" />
                                         </svg>
                                     </button>
+
+                                    {{-- Tooltip --}}
+                                    <div id="tooltip-edit-experience" role="tooltip"
+                                        class="shadow-xs tooltip invisible absolute z-10 inline-block rounded-lg bg-cyan px-3 py-2 text-sm font-medium text-white opacity-0 transition-opacity duration-300 dark:bg-gray-700">
+                                        Edit Experience
+                                        <div class="tooltip-arrow" data-popper-arrow></div>
+                                    </div>
+
                                     <!-- Main modal -->
                                     <div id="crud-modal-{{ $job->id_tracking }}" tabindex="-1" aria-hidden="true"
                                         class="fixed left-0 right-0 top-0 z-50 hidden h-[calc(100%-1rem)] max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0">
