@@ -21,12 +21,8 @@
                 @if (Auth::check() && Auth::user()->id_roles == '2')
                     {{-- New Post Button --}}
                     <div class="mx-auto mt-6 flex max-w-screen-xl justify-end px-4 sm:px-6">
-                        {{-- <a href="{{ route('posts.create') }}"
-                            class="items-center rounded-xl bg-cyan px-6 py-3 text-sm text-white shadow-md hover:bg-lightblue hover:text-cyan sm:text-xl">
-                            New Post +
-                        </a> --}}
                         <button data-modal-target="crud-modal-post" data-modal-toggle="crud-modal-post"
-                            class="bg-btn-cyan items-center rounded-xl bg-cyan px-6 py-3 text-sm text-white shadow-md hover:bg-lightblue hover:text-cyan sm:text-xl">
+                            class="bg-btn-cyan items-center rounded-xl bg-cyan px-6 py-3 text-sm text-white shadow-md hover:bg-lightblue hover:text-cyan sm:text-base">
                             New Post +
                         </button>
                     </div>
@@ -34,7 +30,7 @@
             @endauth
 
             {{-- Filters and Search --}}
-            <div class="mx-auto mt-8 max-w-screen-xl items-center justify-between px-4 sm:flex sm:px-6">
+            <div class="mx-auto mt-4 max-w-screen-xl items-center justify-between px-4 sm:flex sm:px-6">
                 <div class="mb-2 flex justify-between sm:mb-0 sm:space-x-10">
                     <button
                         class="text-cyan-600 rounded-xl border border-gray-200 px-3 py-2 text-sm hover:bg-gray-200 focus:bg-cyan-100 focus:text-white sm:px-6 sm:py-4 sm:text-base">
@@ -103,7 +99,7 @@
             <div class="relative mx-4 max-h-full w-full sm:max-w-4xl">
                 <div class="relative rounded-lg border-4 border-cyan-100 bg-white p-2 shadow">
                     <div class="flex items-center justify-between rounded-t border-b-4 border-cyan-100 text-center md:p-5">
-                        <h3 class="text-3xl text-cyan sm:text-start">
+                        <h3 class="text-2xl text-cyan sm:text-start">
                             Post a Job Opportunity!
                         </h3>
                         <button type="button" class="inline-flex items-center" data-modal-toggle="crud-modal-post">
@@ -185,7 +181,7 @@
                                     </div>
                                 </div>
                                 <button type="button" id="add-responsibility"
-                                    class="bg-btn-cyan-100 mt-2 rounded-lg px-7 py-2 text-sm text-white hover:bg-lightblue hover:text-cyan sm:text-xl">
+                                    class="bg-btn-cyan-100 mt-2 rounded-lg px-7 py-2 text-sm text-white hover:bg-lightblue hover:text-cyan sm:text-base">
                                     Add Responsibility
                                 </button>
                                 @error('job_responsibility')
@@ -206,7 +202,7 @@
                                     </div>
                                 </div>
                                 <button type="button" id="add-qualification"
-                                    class="bg-btn-cyan-100 mt-2 rounded-lg px-7 py-2 text-sm text-white hover:bg-lightblue hover:text-cyan sm:text-xl">
+                                    class="bg-btn-cyan-100 mt-2 rounded-lg px-7 py-2 text-sm text-white hover:bg-lightblue hover:text-cyan sm:text-base">
                                     Add Qualification
                                 </button>
                                 @error('vacancy_qualification')
@@ -227,7 +223,7 @@
                                     </div>
                                 </div>
                                 <button type="button" id="add-benefits"
-                                    class="bg-btn-cyan-100 mt-2 rounded-lg px-7 py-2 text-sm text-white hover:bg-lightblue hover:text-cyan sm:text-xl">
+                                    class="bg-btn-cyan-100 mt-2 rounded-lg px-7 py-2 text-sm text-white hover:bg-lightblue hover:text-cyan sm:text-base">
                                     Add Benefits
                                 </button>
                                 @error('vacancy_benefits')
@@ -246,7 +242,7 @@
 
                         <div class="flex justify-end">
                             <button type="submit"
-                                class="bg-btn-cyan inline-flex items-center rounded-xl bg-cyan px-8 py-2 text-center text-sm text-white shadow-lg hover:bg-cyan-100 hover:text-cyan focus:outline-none focus:ring-4 focus:ring-cyan sm:py-2.5 sm:text-2xl">
+                                class="bg-btn-cyan m-4 rounded-lg bg-cyan px-6 py-2 text-white shadow-lg hover:bg-cyan-400 hover:text-cyan sm:py-2.5">
                                 Post
                             </button>
                         </div>

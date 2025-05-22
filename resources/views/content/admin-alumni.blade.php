@@ -28,7 +28,7 @@
                                     {{-- Modal header --}}
                                     <div
                                         class="flex items-center justify-between rounded-t border-b-4 border-cyan-100 text-center md:p-5">
-                                        <h3 class="text-3xl text-cyan sm:text-start">
+                                        <h3 class="text-2xl text-cyan sm:text-start">
                                             Create New Alumni’s Account
                                         </h3>
                                         <button type="button" class="inline-flex items-center"

@@ -125,7 +125,7 @@
                                         {{-- Modal header --}}
                                         <div
                                             class="flex items-center justify-between rounded-t border-b-4 border-cyan-100 px-3 py-4 text-center sm:px-5 sm:py-6">
-                                            <h3 class="text-start text-xl text-cyan sm:text-3xl">
+                                            <h3 class="text-start text-xl text-cyan sm:text-2xl">
                                                 Apply to {{ $vacancy->company_name }}
                                             </h3>
                                             <button type="button" class="inline-flex items-center"

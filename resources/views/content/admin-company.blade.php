@@ -26,7 +26,7 @@
                                 <div class="relative rounded-lg border-4 border-cyan-100 bg-white p-2 shadow">
                                     <div
                                         class="flex items-center justify-between rounded-t border-b-4 border-cyan-100 text-center md:p-5">
-                                        <h3 class="text-3xl text-cyan sm:text-start">
+                                        <h3 class="text-2xl text-cyan sm:text-start">
                                             Add New Company
                                         </h3>
                                         <button type="button" class="inline-flex items-center"
