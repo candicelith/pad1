@@ -15,6 +15,7 @@ use App\Services\AdminService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
@@ -259,6 +260,7 @@ class AdminController extends Controller
     {
         $queryData = DB::table('user_details')
             ->selectRaw('graduate_year AS x, COUNT(*) AS y')
+            ->whereNotNull('graduate_year')  // exclude NULLs
             ->groupBy('graduate_year')
             ->orderBy('graduate_year')
             ->get();
@@ -317,9 +319,10 @@ class AdminController extends Controller
                     'message' => 'Data Anda berhasil diverifikasi. Perubahan telah diterapkan.',
                 ]);
             }
-
+            // Clear the cache so updated data is fetched fresh
+            Cache::forget('pending_requests');
             $pendingRequest->update(['approval_status' => 'approved']);
-            return back()->with('approved', 'Permintaaan pengubahan data disetujui.');
+            return redirect()->route('admin.home')->with('approved', 'Permintaaan pengubahan data disetujui.');
         }
 
         if ($request->action === 'reject') {
@@ -330,8 +333,9 @@ class AdminController extends Controller
                 'type' => 'rejected',
                 'message' => 'Verifikasi data tidak berhasil. Mohon periksa kembali informasi yang Anda berikan atau coba lagi nanti.',
             ]);
-
-            return back()->with('rejected', 'Permintaan pengubahan data ditolak.');
+            // Clear the cache so updated data is fetched fresh
+            Cache::forget('pending_requests');
+            return redirect()->route('admin.home')->with('rejected', 'Permintaan pengubahan data ditolak.');
         }
     }
 

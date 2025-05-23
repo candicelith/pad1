@@ -20,12 +20,12 @@
                 <div class="grid sm:mx-10 sm:grid-cols-2 sm:gap-10">
                     <div class="w-full rounded-lg bg-lightblue p-4 shadow md:p-6">
                         <h2 class="mb-4 text-base">User Growth Trend on Pokari Platform</h2>
-                        <div id="column-chart"></div>
+                        <div id="column-chart-1"></div>
                     </div>
 
                     <div class="w-full rounded-lg bg-lightblue p-4 shadow md:p-6">
                         <h2 class="mb-4 text-base">Number of TRPL UGM Alumni by Entry Year</h2>
-                        <div id="column-chart"></div>
+                        <div id="column-chart-2"></div>
                     </div>
 
                     <div class="w-full rounded-lg bg-lightblue p-4 shadow sm:mt-0 md:p-6">
@@ -97,6 +97,7 @@
                                             <h3 onclick="window.location.href='{{ route('admin.approval', ['id' => $request->id_request]) }}'"
                                                 class="text-sm text-white">{{ $request->userDetails->name }}</h3>
                                         </div>
+
                                         <div class="button-group flex items-center space-x-2">
                                             {{-- Approve Button --}}
                                             <form method="POST"
@@ -129,6 +130,7 @@
                                                 </button>
                                             </form>
                                         </div>
+
                                     </div>
                                 </div>
                             @endforeach
@@ -146,28 +148,30 @@
         fetch('/api/alumni-data')
             .then(response => response.json())
             .then(data => {
-                const options = {
-                    colors: ["#183D55"],
+                const categories = data.map(item => item.x);
+                const values = data.map(item => item.y);
+
+                const baseOptions = {
                     series: [{
                         name: "Jumlah Alumni",
-                        color: "#183D55",
-                        data: data, // Dynamically set data from the API
+                        data: values
                     }],
+                    xaxis: {
+                        categories: categories,
+                        labels: {
+                            show: true,
+                            style: {
+                                fontFamily: "Inter, sans-serif",
+                                cssClass: 'text-xs font-normal fill-gray-500 dark:fill-gray-400'
+                            }
+                        },
+                        axisBorder: { show: false },
+                        axisTicks: { show: false },
+                    },
                     chart: {
-                        type: "bar",
                         height: "320px",
                         fontFamily: "Gilgan, sans-serif",
-                        toolbar: {
-                            show: false,
-                        },
-                    },
-                    plotOptions: {
-                        bar: {
-                            horizontal: false,
-                            columnWidth: "70%",
-                            borderRadiusApplication: "end",
-                            borderRadius: 0,
-                        },
+                        toolbar: { show: false }
                     },
                     tooltip: {
                         shared: true,
@@ -176,62 +180,64 @@
                             fontFamily: "Gilgan, sans-serif",
                         },
                     },
-                    states: {
-                        hover: {
-                            filter: {
-                                type: "darken",
-                                value: 1,
-                            },
-                        },
-                    },
                     stroke: {
                         show: true,
-                        width: 0,
+                        width: 2,
                         colors: ["transparent"],
                     },
                     grid: {
                         show: false,
                         strokeDashArray: 4,
-                        padding: {
-                            left: 2,
-                            right: 2,
-                            top: -14
+                        padding: { left: 2, right: 2, top: -14 },
+                    },
+                    dataLabels: { enabled: false },
+                    legend: { show: false },
+                    yaxis: { show: true },
+                    fill: { opacity: 1 }
+                };
+
+                // Chart 1: Bar Chart
+                const options1 = {
+                    ...baseOptions,
+                    chart: { ...baseOptions.chart, type: "bar" },
+                    colors: ["#183D55"],
+                    plotOptions: {
+                        bar: {
+                            horizontal: false,
+                            columnWidth: "70%",
+                            borderRadiusApplication: "end",
+                            borderRadius: 0,
                         },
-                    },
-                    dataLabels: {
-                        enabled: false,
-                    },
-                    legend: {
-                        show: false,
-                    },
-                    xaxis: {
-                        floating: false,
-                        labels: {
-                            show: true,
-                            style: {
-                                fontFamily: "Inter, sans-serif",
-                                cssClass: 'text-xs font-normal fill-gray-500 dark:fill-gray-400'
-                            }
-                        },
-                        axisBorder: {
-                            show: false,
-                        },
-                        axisTicks: {
-                            show: false,
-                        },
-                    },
-                    yaxis: {
-                        show: true,
-                    },
-                    fill: {
-                        opacity: 1,
                     },
                 };
 
-                // Render chart only after options are defined
-                if (document.getElementById("column-chart") && typeof ApexCharts !== 'undefined') {
-                    const chart = new ApexCharts(document.getElementById("column-chart"), options);
-                    chart.render();
+                // Chart 2: Pie Chart
+                const options2 = {
+                    series: values, // Pie charts use an array of values directly
+                    labels: categories, // These are the labels for each slice
+                    chart: {
+                        type: "pie",
+                        height: "320px",
+                        fontFamily: "Gilgan, sans-serif",
+                    },
+                    colors: ["#FF5733", "#FFC300", "#36A2EB", "#4BC0C0", "#9966FF", "#FF9F40"], // Customize as needed
+                    tooltip: {
+                        style: {
+                            fontFamily: "Gilgan, sans-serif",
+                        },
+                    },
+                    legend: {
+                        position: "bottom",
+                        fontFamily: "Inter, sans-serif",
+                        labels: {
+                            colors: "#333",
+                        },
+                    },
+                };
+
+                if (typeof ApexCharts !== 'undefined') {
+                    new ApexCharts(document.getElementById("column-chart-1"), options1).render();
+                    new ApexCharts(document.getElementById("column-chart-2"), options2).render();
                 }
             })
             .catch(error => console.error('Error fetching data:', error));
@@ -239,25 +245,26 @@
 
 
 
+
     <script>
-        function approveAlumni(element) {
-            // Change background color to green for the specific element
-            element.classList.remove('bg-cyan-100');
-            element.classList.add('bg-lightgreen');
+        // function approveAlumni(element) {
+        //     // Change background color to green for the specific element
+        //     element.classList.remove('bg-cyan-100');
+        //     element.classList.add('bg-lightgreen');
 
-            // Replace buttons with "Approved" text for the specific button group
-            const buttonGroup = element.querySelector('.button-group');
-            buttonGroup.innerHTML = '<span class="text-green-800 text-sm sm:text-base">Approved</span>';
-        }
+        //     // Replace buttons with "Approved" text for the specific button group
+        //     const buttonGroup = element.querySelector('.button-group');
+        //     buttonGroup.innerHTML = '<span class="text-green-800 text-sm sm:text-base">Approved</span>';
+        // }
 
-        function declineAlumni(element) {
-            // Change background color to red for the specific element
-            element.classList.remove('bg-cyan-100');
-            element.classList.add('bg-red-300');
+        // function declineAlumni(element) {
+        //     // Change background color to red for the specific element
+        //     element.classList.remove('bg-cyan-100');
+        //     element.classList.add('bg-red-300');
 
-            // Replace buttons with "Declined" text for the specific button group
-            const buttonGroup = element.querySelector('.button-group');
-            buttonGroup.innerHTML = '<span class="text-red-800 text-sm sm:text-base">Declined</span>';
-        }
+        //     // Replace buttons with "Declined" text for the specific button group
+        //     const buttonGroup = element.querySelector('.button-group');
+        //     buttonGroup.innerHTML = '<span class="text-red-800 text-sm sm:text-base">Declined</span>';
+        // }
     </script>
 @endsection

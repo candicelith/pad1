@@ -141,13 +141,18 @@ class AdminService
      */
     public function getPendingRequests()
     {
-        return Cache::remember('pending_requests', now()->addMinutes(5), function() {
-            return PendingRequest::with('userDetails')
-                ->where('approval_status', 'pending')
-                ->latest()
-                ->take(10)
-                ->get();
-        });
+        // return Cache::remember('pending_requests', now()->addMinutes(5), function() {
+        //     return PendingRequest::with('userDetails')
+        //         ->where('approval_status', 'pending')
+        //         ->latest()
+        //         ->take(10)
+        //         ->get();
+        // });
+        return PendingRequest::with('userDetails')
+        ->where('approval_status', 'pending')
+        ->latest()
+        ->take(10)
+        ->get();
     }
 
     /**

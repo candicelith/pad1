@@ -62,7 +62,7 @@
                         <div class="flex justify-end">
                             <div class="button-group flex items-center space-x-2">
                                 {{-- Approve Button --}}
-                                <form method="POST" action="">
+                                <form method="POST" action="{{ route('admin.handleApproval', $pendingRequest->id_request) }}">
                                     @csrf
                                     <input type="hidden" name="action" value="approve">
                                     <button class="rounded-full bg-green-800 px-5 py-1 text-white hover:bg-green-600"
@@ -71,7 +71,7 @@
                                     </button>
                                 </form>
                                 {{-- Decline Button --}}
-                                <form method="POST" action="">
+                                <form method="POST" action="{{ route('admin.handleApproval', $pendingRequest->id_request) }}">
                                     @csrf
                                     <input type="hidden" name="action" value="reject">
                                     <button class="rounded-full bg-red-900 px-5 py-1 text-white hover:bg-red-700"
