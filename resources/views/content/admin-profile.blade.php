@@ -11,8 +11,7 @@
                         <div class="h-48 rounded-t-3xl bg-cyan-100"></div>
                         <div class="absolute top-1/2 mx-12 sm:ms-14">
                             <img class="h-48 w-48 rounded-full object-cover"
-                                src="{{ asset('storage/profile/' . $userDetails->profile_photo) }}"
-                                alt="Profile Picture" />
+                                src="{{ asset('storage/profile/' . $userDetails->profile_photo) }}" alt="Profile Picture" />
                         </div>
                     </div>
 
@@ -46,12 +45,13 @@
                     <div id="popup-modal" tabindex="-1"
                         class="fixed left-0 right-0 top-0 z-50 hidden h-full max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0">
                         <div class="relative max-h-full w-full max-w-md p-4">
-                            <div class="relative rounded-lg bg-cyan-100 shadow">
+                            <div class="relative rounded-lg bg-cyan-400 shadow">
                                 <div class="p-4 text-center md:p-5">
-                                    <h3 class="mb-5 text-lg font-normal text-white">Are you leaving?</h3>
-                                    <p class="mb-5 text-sm font-normal text-white">Are you sure you want to Log Out?</p>
+                                    <h3 class="mb-5 text-lg font-normal text-cyan">Are you leaving?</h3>
+                                    <p class="mb-5 text-sm font-normal text-cyan">Are you sure you want to Log Out?
+                                    </p>
                                     <button data-modal-hide="popup-modal" type="button"
-                                        class="ms-3 rounded-full border border-gray-900 bg-white px-5 py-2.5 text-sm font-medium text-cyan hover:bg-cyan hover:text-white focus:z-10 focus:outline-none focus:ring-4 focus:ring-cyan">
+                                        class="bg-btn-cyan ms-3 rounded-full border border-gray-900 px-5 py-2.5 text-sm font-medium text-white hover:bg-white hover:text-cyan focus:z-10 focus:outline-none focus:ring-4 focus:ring-cyan">
                                         Cancel
                                     </button>
                                     <button data-modal-hide="popup-modal" type="button" id="logout-button"
