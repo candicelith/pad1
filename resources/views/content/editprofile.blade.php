@@ -18,6 +18,7 @@
                         <div class="mb-2 flex justify-end sm:mb-0">
                             {{-- Add Button --}}
                             <button data-modal-target="crud-modal2" data-modal-toggle="crud-modal2"
+                                data-tooltip-target="tooltip-add-experience"
                                 class="z-10 rounded-full bg-gray-300 p-2 hover:bg-gray-400 sm:p-4">
                                 <svg class="h-6 w-6 text-gray-800 dark:text-white" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
@@ -26,6 +27,13 @@
                                         stroke-width="2" d="M5 12h14m-7 7V5" />
                                 </svg>
                             </button>
+
+                            {{-- Tooltip --}}
+                            <div id="tooltip-add-experience" role="tooltip"
+                                class="shadow-xs tooltip invisible absolute z-10 inline-block rounded-lg bg-cyan px-3 py-2 text-sm font-medium text-white opacity-0 transition-opacity duration-300 dark:bg-gray-700">
+                                Add Experience
+                                <div class="tooltip-arrow" data-popper-arrow></div>
+                            </div>
 
                             <!-- Main modal -->
                             <div id="crud-modal2" tabindex="-1" aria-hidden="true"
@@ -36,7 +44,7 @@
                                         <!-- Modal header -->
                                         <div
                                             class="flex items-center justify-between rounded-t border-b-4 border-cyan-100 text-center md:p-5">
-                                            <h3 class="text-3xl text-cyan sm:text-start">
+                                            <h3 class="text-2xl text-cyan sm:text-start">
                                                 Add Your New Experience!
                                             </h3>
                                             <button type="button" class="inline-flex items-center"
@@ -57,8 +65,9 @@
                                             @csrf
                                             <div class="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
                                                 <div class="col-span-2">
-                                                    <label for="company" class="mb-2 block text-sm text-cyan sm:text-lg">
-                                                        Company <span class="text-4xl text-red-500">*</span>
+                                                    <label for="company" class="mb-2 block text-sm text-cyan sm:text-xl">
+                                                        Company <span
+                                                            class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
                                                     </label>
 
                                                     <div class="col-span-2" x-data="dropdown({ options: @js($companies->map(fn($c) => ['value' => $c->id_company, 'label' => $c->company_name])) })"
@@ -89,6 +98,124 @@
                                                         </div>
                                                     </div>
 
+                                                    {{-- Company Input --}}
+                                                    <div
+                                                        class="mt-4 space-y-4 rounded-xl border border-gray-900 bg-gray-50 p-4">
+                                                        <form action="{{ route('companies.store') }}" method="POST"
+                                                            class="space-y-8 px-10">
+                                                            @csrf
+                                                            <div class="relative h-24 w-24 sm:h-32 sm:w-32">
+                                                                <!-- Profile Picture -->
+                                                                <div
+                                                                    class="h-full w-full overflow-hidden rounded-full border-4 border-cyan bg-gray-100">
+                                                                    <img id="preview-image"
+                                                                        class="h-full w-full object-cover" src=""
+                                                                        alt="Profile Picture">
+                                                                </div>
+
+                                                                <!-- Camera Icon -->
+                                                                <label for="profile_picture"
+                                                                    class="hover:bg-cyan-600 absolute bottom-0 right-0 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-cyan text-white shadow-md transition-all sm:h-10 sm:w-10">
+                                                                    <svg class="h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true"
+                                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                                        viewBox="0 0 24 24">
+                                                                        <path stroke="currentColor" stroke-linecap="round"
+                                                                            stroke-linejoin="round" stroke-width="2"
+                                                                            d="M3 9a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z" />
+                                                                        <path stroke="currentColor" stroke-linecap="round"
+                                                                            stroke-linejoin="round" stroke-width="2"
+                                                                            d="M12 17a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                                                                        <path stroke="currentColor" stroke-linecap="round"
+                                                                            stroke-linejoin="round" stroke-width="2"
+                                                                            d="M9 5h6l-1 4" />
+                                                                    </svg>
+                                                                </label>
+                                                            </div>
+                                                            <div>
+                                                                <label for="company_name"
+                                                                    class="mb-2 block text-sm text-cyan sm:text-xl">
+                                                                    Name<span class="text-4xl text-red-500">*</span>
+                                                                </label>
+                                                                <input type="text" name="company_name"
+                                                                    id="company_name"
+                                                                    class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
+                                                                    value="{{ old('company_name') }}"
+                                                                    placeholder="Enter the company name (e.g., ABC Tech Solutions)"
+                                                                    required>
+                                                            </div>
+
+                                                            <div>
+                                                                <label for="company_field"
+                                                                    class="mb-2 block text-sm text-cyan sm:text-xl">
+                                                                    Industry Type<span
+                                                                        class="text-4xl text-red-500">*</span>
+                                                                </label>
+                                                                <input type="text" name="company_field"
+                                                                    id="company_field"
+                                                                    class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
+                                                                    value="{{ old('company_field') }}"
+                                                                    placeholder="Enter the industry type (e.g., IT, Finance, Healthcare)"
+                                                                    required>
+                                                            </div>
+
+                                                            <div>
+                                                                <label for="company_address"
+                                                                    class="mb-2 block text-sm text-cyan sm:text-xl">
+                                                                    Location<span class="text-4xl text-red-500">*</span>
+                                                                </label>
+                                                                <input type="text" name="company_address"
+                                                                    id="company_address"
+                                                                    class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
+                                                                    value="{{ old('company_address') }}"
+                                                                    placeholder="Enter city and country (e.g., Jakarta, Indonesia)"
+                                                                    required>
+                                                            </div>
+
+                                                            <div>
+                                                                <label for="company_description"
+                                                                    class="mb-2 block text-sm text-cyan sm:text-xl">
+                                                                    Description<span class="text-4xl text-red-500">*</span>
+                                                                </label>
+                                                                <textarea name="company_description" id="company_description" rows="4"
+                                                                    class="w-full rounded-md border border-gray-300 bg-gray-200 px-3 py-2 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
+                                                                    placeholder="Briefly describe the company and its mission" required>{{ old('company_description') }}</textarea>
+                                                            </div>
+
+                                                            {{-- <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                                                                <div>
+                                                                    <label for="company_phone" class="mb-1 block text-sm  text-cyan">
+                                                                        Phone Number
+                                                                    </label>
+                                                                    <input type="text" name="company_phone" id="company_phone"
+                                                                        class="w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
+                                                                        value="{{ old('company_phone') }}">
+                                                                </div>
+                                                            </div> --}}
+
+                                                            <div class="space-y-3">
+                                                                <label for="company_phone"
+                                                                    class="mb-2 block text-sm text-cyan sm:text-xl">
+                                                                    File Upload<span class="text-4xl text-red-500">*</span>
+                                                                </label>
+                                                                <p>You can add one or more photos of your new
+                                                                    company</p>
+                                                                <input type="file" name="" id=""
+                                                                    class="rounded-full border" required>
+                                                            </div>
+
+                                                            <div class="flex justify-end space-x-3 pt-2">
+                                                                {{-- <a href="{{ url()->previous() }}"
+                                                                    class="rounded-md bg-gray-200 px-4 py-2 text-gray-700 transition hover:bg-gray-300">
+                                                                    Cancel
+                                                                </a> --}}
+                                                                <button type="submit"
+                                                                    class="bg-btn-cyan m-4 rounded-lg bg-cyan px-6 py-2 text-white shadow-lg hover:bg-cyan-400 hover:text-cyan sm:py-2.5">
+                                                                    Create
+                                                                </button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+
                                                     @error('company')
                                                         <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                                                     @enderror
@@ -110,12 +237,12 @@
                                                     ]
                                                 })">
                                                     <label for="position"
-                                                        class="mb-2 block text-sm text-cyan sm:text-lg">Position <span
-                                                            class="text-4xl text-red-500">*</span></label>
+                                                        class="mb-2 block text-sm text-cyan sm:text-xl">Position <span
+                                                            class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
 
                                                     <div class="relative w-full">
-                                                        <input x-model="search" @click="open = true" @input="filterOptions"
-                                                            @click.away="open = false"
+                                                        <input x-model="search" @click="open = true"
+                                                            @input="filterOptions" @click.away="open = false"
                                                             class="block w-full rounded-xl border border-gray-500 bg-gray-50 p-2.5 px-6 text-sm text-gray-900 shadow focus:outline-none"
                                                             placeholder="Search or select a position" />
 
@@ -141,8 +268,9 @@
                                                     class="col-span-2 grid grid-cols-1 gap-4 sm:grid-cols-2">
                                                     <div class="col-span-1">
                                                         <label for="date_start"
-                                                            class="mb-2 block text-sm text-cyan sm:text-lg">Start
-                                                            Date <span class="text-4xl text-red-500">*</span></label>
+                                                            class="mb-2 block text-sm text-cyan sm:text-xl">Start
+                                                            Date <span
+                                                                class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
                                                         <div class="relative">
                                                             <div
                                                                 class="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3">
@@ -164,8 +292,9 @@
                                                     </div>
                                                     <div class="col-span-1">
                                                         <label for="date_end"
-                                                            class="mb-2 block text-sm text-cyan sm:text-lg">End
-                                                            Date</label>
+                                                            class="mb-2 block text-sm text-cyan sm:text-xl">End
+                                                            Date <span
+                                                                class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
                                                         <div class="space-y-2">
                                                             <div class="relative">
                                                                 <div
@@ -199,8 +328,9 @@
 
                                                 <div class="col-span-2">
                                                     <label for="responsibility"
-                                                        class="mb-2 block text-sm text-cyan sm:text-lg">Responsibility
-                                                        <span class="text-4xl text-red-500">*</span></label>
+                                                        class="mb-2 block text-sm text-cyan sm:text-xl">Responsibility
+                                                        <span
+                                                            class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
                                                     <div id="responsibility-container-create">
                                                         <div class="responsibility-item mb-2 flex items-center">
                                                             <input type="text" name="job_responsibility[]"
@@ -222,7 +352,7 @@
                                             </div>
                                             <div class="flex justify-end">
                                                 <button data-modal-hide="crud-modal" type="submit"
-                                                    class="bg-btn-cyan m-4 rounded-lg bg-cyan px-8 py-1 text-white shadow-lg hover:bg-cyan-400 hover:text-cyan sm:py-2.5">
+                                                    class="bg-btn-cyan m-4 rounded-lg bg-cyan px-6 py-2 text-white shadow-lg hover:bg-cyan-400 hover:text-cyan sm:py-2.5">
                                                     Submit
                                                 </button>
                                             </div>
@@ -232,8 +362,7 @@
                             </div>
                         </div>
                         <div class="-mt-8 mb-4 flex justify-start text-center sm:-mt-10 sm:text-start">
-                            <h4 class="text-lg text-cyan sm:text-xl">Experience <span
-                                    class="text-4xl text-red-500">*</span></h4>
+                            <h4 class="text-lg text-cyan sm:text-xl">Experience</h4>
                         </div>
                     </div>
 
@@ -243,6 +372,7 @@
                                 <div class="mb-2 flex justify-end sm:mb-0">
                                     {{-- Edit Button --}}
                                     <button data-modal-target="crud-modal-{{ $job->id_tracking }}"
+                                        data-tooltip-target="tooltip-edit-experience"
                                         data-modal-toggle="crud-modal-{{ $job->id_tracking }}"
                                         class="z-10 rounded-full bg-gray-300 p-2 hover:bg-gray-400 sm:p-4">
                                         <svg class="h-6 w-6 text-gray-800 dark:text-white" aria-hidden="true"
@@ -253,6 +383,14 @@
                                                 d="M10.779 17.779 4.36 19.918 6.5 13.5m4.279 4.279 8.364-8.643a3.027 3.027 0 0 0-2.14-5.165 3.03 3.03 0 0 0-2.14.886L6.5 13.5m4.279 4.279L6.499 13.5m2.14 2.14 6.213-6.504M12.75 7.04 17 11.28" />
                                         </svg>
                                     </button>
+
+                                    {{-- Tooltip --}}
+                                    <div id="tooltip-edit-experience" role="tooltip"
+                                        class="shadow-xs tooltip invisible absolute z-10 inline-block rounded-lg bg-cyan px-3 py-2 text-sm font-medium text-white opacity-0 transition-opacity duration-300 dark:bg-gray-700">
+                                        Edit Experience
+                                        <div class="tooltip-arrow" data-popper-arrow></div>
+                                    </div>
+
                                     <!-- Main modal -->
                                     <div id="crud-modal-{{ $job->id_tracking }}" tabindex="-1" aria-hidden="true"
                                         class="fixed left-0 right-0 top-0 z-50 hidden h-[calc(100%-1rem)] max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0">
@@ -335,7 +473,8 @@
                                                         })">
                                                             <label for="position"
                                                                 class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">Position
-                                                                <span class="text-4xl text-red-500">*</span></label>
+                                                                <span
+                                                                    class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
 
                                                             <div class="relative w-full">
                                                                 <input x-model="search" @click="open = true"
@@ -438,7 +577,8 @@
                                                             <div class="col-span-2">
                                                                 <label for="responsibility"
                                                                     class="mb-2 block text-sm text-gray-400">Responsibility
-                                                                    <span class="text-4xl text-red-500">*</span></label>
+                                                                    <span
+                                                                        class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
                                                                 <div
                                                                     id="responsibility-container-update-{{ $job->id_tracking }}">
                                                                     @foreach ($job->job_description as $responsibility)
@@ -472,7 +612,8 @@
                                                             <div class="col-span-2">
                                                                 <label for="responsibility"
                                                                     class="mb-2 block text-sm text-gray-400">Responsibility
-                                                                    <span class="text-4xl text-red-500">*</span></label>
+                                                                    <span
+                                                                        class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
                                                                 <div
                                                                     id="responsibility-container-update-{{ $job->id_tracking }}">
                                                                     <div
@@ -515,7 +656,7 @@
                                         <h3 class="text-lg text-cyan sm:text-xl">
                                             {{ $job->job_name }}
                                         </h3>
-                                        <h3 class="text-base text-cyan sm:text-lg">
+                                        <h3 class="text-base text-cyan sm:text-xl">
                                             {{ $job->company_name }}
                                         </h3>
                                         <p class="text-xs text-gray-400 sm:text-sm">

@@ -10,52 +10,27 @@
             </div>
         @endif
 
-        <div class="sticky top-20 z-20 w-full bg-white py-2 sm:pb-8 sm:pt-2">
+        <div class="sticky top-20 z-20 w-full bg-white py-4 sm:pb-8 sm:pt-3">
             {{-- Title --}}
-            <div class="mx-auto mb-8 max-w-screen-sm text-center lg:mb-9">
+            {{-- <div class="mx-auto mb-8 max-w-screen-sm text-center lg:mb-9">
                 <h2 class="mb-4 text-3xl text-cyan lg:text-4xl">Posts</h2>
-            </div>
-
-            {{-- Search --}}
-            <div class="mx-auto mt-6 max-w-screen-xl px-4 sm:px-6">
-                <form id="search-form" class="mx-auto flex max-w-sm items-center">
-                    <label for="simple-search" class="sr-only">Search</label>
-                    <div class="relative w-full">
-                        <input type="text" id="simple-search" name="query"
-                            class="block w-full rounded-lg border border-gray-500 bg-gray-200 p-2.5 ps-10 text-sm text-gray-900 focus:border-cyan focus:ring-cyan"
-                            placeholder="Search post..." onkeyup="filterPosts()" />
-                    </div>
-                    <button type="submit"
-                        class="bg-btn-cyan ms-2 rounded-xl border border-cyan bg-cyan p-2.5 text-sm font-medium text-white hover:bg-cyan-100 focus:outline-none focus:ring-4 focus:ring-cyan">
-                        <svg class="h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            viewBox="0 0 20 20">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                        </svg>
-                        <span class="sr-only">Search</span>
-                    </button>
-                </form>
-            </div>
+            </div> --}}
 
             {{-- New Post Button --}}
             @auth
                 @if (Auth::check() && Auth::user()->id_roles == '2')
                     {{-- New Post Button --}}
                     <div class="mx-auto mt-6 flex max-w-screen-xl justify-end px-4 sm:px-6">
-                        {{-- <a href="{{ route('posts.create') }}"
-                            class="items-center rounded-xl bg-cyan px-6 py-3 text-sm text-white shadow-md hover:bg-lightblue hover:text-cyan sm:text-xl">
-                            New Post +
-                        </a> --}}
                         <button data-modal-target="crud-modal-post" data-modal-toggle="crud-modal-post"
-                            class="bg-btn-cyan items-center rounded-xl bg-cyan px-6 py-3 text-sm text-white shadow-md hover:bg-lightblue hover:text-cyan sm:text-xl">
+                            class="bg-btn-cyan items-center rounded-xl bg-cyan px-6 py-3 text-sm text-white shadow-md hover:bg-lightblue hover:text-cyan sm:text-base">
                             New Post +
                         </button>
                     </div>
                 @endif
             @endauth
 
-            {{-- Filters --}}
-            <div class="mx-auto mt-6 max-w-screen-xl justify-between px-4 sm:flex sm:px-6">
+            {{-- Filters and Search --}}
+            <div class="mx-auto mt-4 max-w-screen-xl items-center justify-between px-4 sm:flex sm:px-6">
                 <div class="mb-2 flex justify-between sm:mb-0 sm:space-x-10">
                     <button
                         class="text-cyan-600 rounded-xl border border-gray-200 px-3 py-2 text-sm hover:bg-gray-200 focus:bg-cyan-100 focus:text-white sm:px-6 sm:py-4 sm:text-base">
@@ -66,6 +41,27 @@
                         My Commented Post
                     </button>
                 </div>
+                {{-- Search --}}
+                <div class="mx-auto max-w-screen-xl px-4 sm:px-6">
+                    <form id="search-form" class="mx-auto flex max-w-sm items-center">
+                        <label for="simple-search" class="sr-only">Search</label>
+                        <div class="relative w-full">
+                            <input type="text" id="simple-search" name="query"
+                                class="block w-full rounded-lg border border-gray-500 bg-gray-200 p-2.5 ps-10 text-sm text-gray-900 focus:border-cyan focus:ring-cyan"
+                                placeholder="Search post..." onkeyup="filterPosts()" />
+                        </div>
+                        <button type="submit"
+                            class="bg-btn-cyan ms-2 rounded-xl border border-cyan bg-cyan p-2.5 text-sm font-medium text-white hover:bg-cyan-100 focus:outline-none focus:ring-4 focus:ring-cyan">
+                            <svg class="h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 20 20">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                            </svg>
+                            <span class="sr-only">Search</span>
+                        </button>
+                    </form>
+                </div>
+                {{-- Date Range --}}
                 <div id="date-range-picker" date-rangepicker datepicker datepicker-buttons datepicker-autoselect-today
                     class="flex items-center">
                     <div class="relative">
@@ -103,7 +99,7 @@
             <div class="relative mx-4 max-h-full w-full sm:max-w-4xl">
                 <div class="relative rounded-lg border-4 border-cyan-100 bg-white p-2 shadow">
                     <div class="flex items-center justify-between rounded-t border-b-4 border-cyan-100 text-center md:p-5">
-                        <h3 class="text-3xl text-cyan sm:text-start">
+                        <h3 class="text-2xl text-cyan sm:text-start">
                             Post a Job Opportunity!
                         </h3>
                         <button type="button" class="inline-flex items-center" data-modal-toggle="crud-modal-post">
@@ -121,7 +117,8 @@
                         <div class="mt-0 grid grid-cols-2 gap-8 sm:grid-cols-2">
                             <div class="col-span-2 sm:col-span-2">
                                 <label for="job_position" class="mb-1 block text-2xl text-cyan">
-                                    Position <span class="text-4xl text-red-500">*</span>
+                                    Position <span
+                                        class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
                                 </label>
                                 <select name="job_position" id="job_position"
                                     class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan">
@@ -132,10 +129,12 @@
                             </div>
                             <div class="col-span-2 sm:col-span-2">
                                 <label for="company" class="mb-1 block text-2xl text-cyan">
-                                    Company <span class="text-4xl text-red-500">*</span>
+                                    Company <span
+                                        class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
                                 </label>
                                 <select name="company" id="company"
                                     class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan">
+                                    <option value="">Select a company name</option>
                                     <option value="">Select a company name</option>
                                     <option value="">UIUX</option>
                                     <option value="">UIUX</option>
@@ -143,7 +142,8 @@
                             </div>
                             <div class="col-span-2 sm:col-span-2">
                                 <label for="job_description" class="mb-1 block text-2xl text-cyan">
-                                    Description <span class="text-4xl text-red-500">*</span>
+                                    Description <span
+                                        class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
                                 </label>
                                 <textarea type="text" name="job_description" id="job_description"
                                     class="w-full rounded-xl border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
@@ -151,7 +151,8 @@
                             </div>
                             <div class="col-span-1 sm:col-span-1">
                                 <label for="start_date" class="mb-1 block text-2xl text-cyan">
-                                    Start Date <span class="text-4xl text-red-500">*</span>
+                                    Start Date <span
+                                        class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
                                 </label>
                                 <input type="date" name="start_date" id="start_date"
                                     class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
@@ -159,7 +160,8 @@
                             </div>
                             <div class="col-span-1 sm:col-span-1">
                                 <label for="end_date" class="mb-1 block text-2xl text-cyan">
-                                    End Date <span class="text-4xl text-red-500">*</span>
+                                    End Date <span
+                                        class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
                                 </label>
                                 <input type="date" name="end_date" id="end_date"
                                     class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
@@ -167,7 +169,7 @@
                             </div>
                             <div class="col-span-2">
                                 <label for="responsibility" class="mb-1 block text-2xl text-cyan">Responsibility <span
-                                        class="text-4xl text-red-500">*</span></label>
+                                        class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
                                 <div id="responsibility-container-create">
                                     <div class="responsibility-item mb-2 flex items-center">
                                         <input type="text" name="job_responsibility[]"
@@ -179,7 +181,7 @@
                                     </div>
                                 </div>
                                 <button type="button" id="add-responsibility"
-                                    class="bg-btn-cyan-100 mt-2 rounded-lg px-7 py-2 text-sm text-white hover:bg-lightblue hover:text-cyan sm:text-xl">
+                                    class="bg-btn-cyan-100 mt-2 rounded-lg px-7 py-2 text-sm text-white hover:bg-lightblue hover:text-cyan sm:text-base">
                                     Add Responsibility
                                 </button>
                                 @error('job_responsibility')
@@ -188,7 +190,7 @@
                             </div>
                             <div class="col-span-2">
                                 <label for="qualification" class="mb-1 block text-2xl text-cyan">Qualification <span
-                                        class="text-4xl text-red-500">*</span></label>
+                                        class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
                                 <div id="qualification-container">
                                     <div class="qualification-item mb-2 flex items-center">
                                         <input type="text" name="vacancy_qualification[]"
@@ -200,7 +202,7 @@
                                     </div>
                                 </div>
                                 <button type="button" id="add-qualification"
-                                    class="bg-btn-cyan-100 mt-2 rounded-lg px-7 py-2 text-sm text-white hover:bg-lightblue hover:text-cyan sm:text-xl">
+                                    class="bg-btn-cyan-100 mt-2 rounded-lg px-7 py-2 text-sm text-white hover:bg-lightblue hover:text-cyan sm:text-base">
                                     Add Qualification
                                 </button>
                                 @error('vacancy_qualification')
@@ -221,18 +223,26 @@
                                     </div>
                                 </div>
                                 <button type="button" id="add-benefits"
-                                    class="bg-btn-cyan-100 mt-2 rounded-lg px-7 py-2 text-sm text-white hover:bg-lightblue hover:text-cyan sm:text-xl">
+                                    class="bg-btn-cyan-100 mt-2 rounded-lg px-7 py-2 text-sm text-white hover:bg-lightblue hover:text-cyan sm:text-base">
                                     Add Benefits
                                 </button>
                                 @error('vacancy_benefits')
                                     <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                                 @enderror
                             </div>
+                            <div class="col-span-1 sm:col-span-1">
+                                <label for="vacancy_poster" class="mb-1 block text-2xl text-cyan">
+                                    Upload Poster <span
+                                        class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
+                                </label>
+                                <input type="file" name="vacancy_poster" id="vacancy_poster"
+                                    class="w-full rounded-full border border-gray-300 bg-gray-200" required>
+                            </div>
                         </div>
 
                         <div class="flex justify-end">
                             <button type="submit"
-                                class="bg-btn-cyan inline-flex items-center rounded-xl bg-cyan px-8 py-2 text-center text-sm text-white shadow-lg hover:bg-cyan-100 hover:text-cyan focus:outline-none focus:ring-4 focus:ring-cyan sm:py-2.5 sm:text-2xl">
+                                class="bg-btn-cyan m-4 rounded-lg bg-cyan px-6 py-2 text-white shadow-lg hover:bg-cyan-400 hover:text-cyan sm:py-2.5">
                                 Post
                             </button>
                         </div>

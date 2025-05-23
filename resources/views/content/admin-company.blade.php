@@ -50,7 +50,7 @@
                                 <div class="relative rounded-lg border-4 border-cyan-100 bg-white p-2 shadow">
                                     <div
                                         class="flex items-center justify-between rounded-t border-b-4 border-cyan-100 text-center md:p-5">
-                                        <h3 class="text-3xl text-cyan sm:text-start">
+                                        <h3 class="text-2xl text-cyan sm:text-start">
                                             Add New Company
                                         </h3>
                                         <button type="button" class="inline-flex items-center"
@@ -99,7 +99,8 @@
 
                                         <div>
                                             <label for="company_name" class="mb-1 block text-2xl text-cyan">
-                                                Name<span class="text-4xl text-red-500">*</span>
+                                                Name <span
+                                                    class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
                                             </label>
                                             <input type="text" name="company_name" id="company_name"
                                                 class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
@@ -109,7 +110,8 @@
 
                                         <div>
                                             <label for="company_field" class="mb-1 block text-2xl text-cyan">
-                                                Industry Type<span class="text-4xl text-red-500">*</span>
+                                                Industry Type <span
+                                                    class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
                                             </label>
                                             <input type="text" name="company_field" id="company_field"
                                                 class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
@@ -120,7 +122,8 @@
 
                                         <div>
                                             <label for="company_address" class="mb-1 block text-2xl text-cyan">
-                                                Location<span class="text-4xl text-red-500">*</span>
+                                                Location <span
+                                                    class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
                                             </label>
                                             <input type="text" name="company_address" id="company_address"
                                                 class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
@@ -130,26 +133,27 @@
 
                                         <div>
                                             <label for="company_description" class="mb-1 block text-2xl text-cyan">
-                                                Description<span class="text-4xl text-red-500">*</span>
+                                                Description <span
+                                                    class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
                                             </label>
                                             <textarea name="company_description" id="company_description" rows="4"
                                                 class="w-full rounded-md border border-gray-300 bg-gray-200 px-3 py-2 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
                                                 placeholder="Briefly describe the company and its mission" required>{{ old('company_description') }}</textarea>
                                         </div>
 
-                                        {{-- Sementar Di Tutup Dulu Karena Belum Kebayang Logika Nya --}}
-                                        {{-- <div class="flex-col space-y-3">
-                                            <label for="company_gallery" class="mb-1 block text-2xl text-cyan">
-                                                File Upload<span class="text-4xl text-red-500">*</span>
+                                        <div class="w-full space-y-3">
+                                            <label for="company_phone" class="mb-1 block text-2xl text-cyan">
+                                                File Upload <span
+                                                    class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
                                             </label>
-                                            <span>You can add one or more photos of your new company</span>
-                                            <input type="file" name="company_gallery" id="company_gallery"
-                                                class="rounded-full border w-full" required>
-                                        </div> --}}
+                                            <p>You can add one or more photos of your new company</p>
+                                            <input type="file" name="" id=""
+                                                class="rounded-full border" required>
+                                        </div>
 
                                         <div class="flex justify-end space-x-3 pt-4">
                                             <button type="submit"
-                                                class="bg-btn-cyan rounded-md bg-cyan px-6 py-2 text-2xl text-white transition hover:bg-cyan-400 hover:text-cyan">
+                                                class="bg-btn-cyan rounded-md bg-cyan px-6 py-2 text-xl text-white transition hover:bg-cyan-400 hover:text-cyan">
                                                 Create
                                             </button>
                                         </div>

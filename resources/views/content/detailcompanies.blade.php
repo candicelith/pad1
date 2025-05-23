@@ -66,6 +66,7 @@
                                         stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4" />
                                 </svg>
                             </div> --}}
+
                             @if ($workers->isNotEmpty())
                                 <h4 class="sticky top-0 z-10 pb-6 text-lg text-cyan sm:text-xl">
                                     Career Journeys

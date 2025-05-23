@@ -22,25 +22,34 @@
                 {{-- Logout Button --}}
                 <div class="flex justify-end p-6 sm:p-0">
                     <button data-modal-target="popup-modal" data-modal-toggle="popup-modal"
-                        class="rounded-full bg-red-600 p-3 text-white shadow-lg hover:bg-red-400">
-                        <svg class="h-10 w-10 sm:h-14 sm:w-14" fill="none" stroke="currentColor" stroke-width="2"
-                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        data-tooltip-target="tooltip-logout"
+                        class="mt-4 rounded-full bg-red-600 p-2 text-white shadow-lg hover:bg-red-400 sm:p-4">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h5a3 3 0 0 1 3 3v1" />
                         </svg>
                     </button>
                 </div>
 
+                {{-- Tooltip --}}
+                <div id="tooltip-logout" role="tooltip"
+                    class="shadow-xs tooltip invisible absolute z-10 inline-block rounded-lg bg-red-600 px-3 py-2 text-sm font-medium text-white opacity-0 transition-opacity duration-300 dark:bg-gray-700">
+                    Log Out
+                    <div class="tooltip-arrow" data-popper-arrow></div>
+                </div>
+
                 {{-- Modal --}}
                 <div id="popup-modal" tabindex="-1"
                     class="fixed left-0 right-0 top-0 z-50 hidden h-full max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0">
                     <div class="relative max-h-full w-full max-w-md p-4">
-                        <div class="relative rounded-lg bg-cyan-100 shadow">
+                        <div class="relative rounded-lg bg-cyan-400 shadow">
                             <div class="p-4 text-center md:p-5">
-                                <h3 class="mb-5 text-lg font-normal text-white">Are you leaving?</h3>
-                                <p class="mb-5 text-sm font-normal text-white">Are you sure you want to Log Out?</p>
+                                <h3 class="mb-5 text-lg font-normal text-cyan">Are you leaving?</h3>
+                                <p class="mb-5 text-sm font-normal text-cyan">Are you sure you want to Log Out?
+                                </p>
                                 <button data-modal-hide="popup-modal" type="button"
-                                    class="ms-3 rounded-full border border-gray-900 bg-white px-5 py-2.5 text-sm font-medium text-cyan hover:bg-cyan hover:text-white focus:z-10 focus:outline-none focus:ring-4 focus:ring-cyan">
+                                    class="bg-btn-cyan ms-3 rounded-full border border-gray-900 px-5 py-2.5 text-sm font-medium text-white hover:bg-white hover:text-cyan focus:z-10 focus:outline-none focus:ring-4 focus:ring-cyan">
                                     Cancel
                                 </button>
                                 <button data-modal-hide="popup-modal" type="button" id="logout-button"

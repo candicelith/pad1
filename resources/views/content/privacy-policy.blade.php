@@ -78,49 +78,6 @@
                         discontinue use of the platform.</p>
                     <p>For further questions, contact us at pokari@gmail.com.</p>
                 </div>
-                {{-- <div class="p-6 sm:p-8 lg:p-10">
-                    <div class="lg:mx-14">
-                        <div class="flex flex-col lg:flex-row lg:space-x-8">
-                            <img class="h-24 w-24 rounded-full object-cover sm:h-28 sm:w-28"
-                                src="{{ asset('storage/profile/' . $userDetails->profile_photo) }}" alt="" />
-                            <div class="mt-4">
-                                <h2 class="text-xl text-cyan sm:text-2xl">{{ $userDetails->name }}</h2>
-                                <h3 class="text-md text-cyan sm:text-lg">{{ $userDetails->current_job }},
-                                    {{ $userDetails->current_company }}</h3>
-                            </div>
-                        </div>
-
-                        <div class="mt-8 space-y-4">
-                            <h4 class="text-lg text-cyan sm:text-xl">About</h4>
-                            <p class="sm:text-md text-sm text-cyan sm:text-justify">
-                                {{ $userDetails->user_description }}
-                            </p>
-                        </div>
-
-                        <div class="flex flex-col space-y-4 pt-5">
-                            <h4 class="text-lg text-cyan sm:text-xl">Experience</h4>
-                            <ol class="relative ms-4 border-s border-gray-900">
-                                @foreach ($jobDetails as $job)
-                                    <li class="mb-10 ms-4">
-                                        <div
-                                            class="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full border border-gray-900 bg-gray-900">
-                                        </div>
-                                        <h3 class="text-lg text-cyan sm:text-xl">{{ $job->job_name }}</h3>
-                                        <h3 class="text-base text-cyan sm:text-lg">{{ $job->company_name }}</h3>
-                                        <p class="text-xs text-gray-400 sm:text-sm">{{ $job->date_start }} -
-                                            {{ $job->date_end }}</p>
-                                        <ol class="ms-4 list-outside list-disc text-sm sm:text-base">
-                                            @if (is_array($job->job_description))
-                                                @foreach ($job->job_description as $description)
-                                                    <li>{{ $description }}</li>
-                                                @endforeach
-                                            @endif
-                                        </ol>
-                                    </li>
-                                @endforeach
-                            </ol>
-                        </div>
-                    </div> --}}
             </div>
         </div>
         </div>

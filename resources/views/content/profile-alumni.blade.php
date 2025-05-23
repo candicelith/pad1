@@ -68,6 +68,7 @@
 
                             {{-- Edit Button --}}
                             <button data-modal-target="crud-modal1" data-modal-toggle="crud-modal1"
+                                data-tooltip-target="tooltip-edit"
                                 class="z-10 rounded-full bg-gray-300 p-2 hover:bg-gray-400 sm:p-4">
                                 <svg class="h-6 w-6 text-gray-800 dark:text-white" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
@@ -86,12 +87,12 @@
                                     <div class="relative rounded-lg border-4 border-cyan-100 bg-white p-2 shadow">
                                         <!-- Modal header -->
                                         <div
-                                            class="flex items-center justify-between rounded-t border-b-4 border-cyan-100 text-center md:p-5">
-                                            <h3 class="text-3xl text-cyan sm:text-start">
+                                            class="flex items-center justify-between rounded-t border-b-4 border-cyan-100 p-2 text-center md:p-5">
+                                            <h3 class="text-2xl text-cyan sm:text-start">
                                                 Edit Profile
                                             </h3>
                                             <button type="button" class="inline-flex items-center"
-                                                data-modal-toggle="crud-modal">
+                                                data-modal-hide="crud-modal1">
                                                 <svg class="h-6 w-6 text-cyan" aria-hidden="true"
                                                     xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                     fill="none" viewBox="0 0 24 24">
@@ -175,7 +176,7 @@
                                             </div>
                                             <div class="flex justify-end space-x-3 pt-4">
                                                 <button data-modal-hide="crud-modal" type="submit"
-                                                    class="bg-btn-cyan rounded-md bg-cyan px-6 py-2 text-2xl text-white transition hover:bg-cyan-400 hover:text-cyan">
+                                                    class="bg-btn-cyan m-4 rounded-lg bg-cyan px-6 py-2 text-white shadow-lg hover:bg-cyan-400 hover:text-cyan sm:py-2.5">
                                                     Save Changes
                                                 </button>
                                             </div>
@@ -183,6 +184,14 @@
                                     </div>
                                 </div>
                             </div>
+
+                            {{-- Tooltip --}}
+                            <div id="tooltip-edit" role="tooltip"
+                                class="shadow-xs tooltip invisible absolute z-10 inline-block rounded-lg bg-cyan px-3 py-2 text-sm font-medium text-white opacity-0 transition-opacity duration-300 dark:bg-gray-700">
+                                Edit Profile
+                                <div class="tooltip-arrow" data-popper-arrow></div>
+                            </div>
+
                         </div>
                         <div class="text-center sm:-mt-8 sm:text-start">
                             <h2 class="text-xl text-cyan sm:text-start sm:text-2xl">{{ $userDetails->name }}</h2>
@@ -200,6 +209,7 @@
                     <div class="flex justify-end">
                         {{-- Logout Button --}}
                         <button data-modal-target="popup-modal" data-modal-toggle="popup-modal"
+                            data-tooltip-target="tooltip-logout"
                             class="mt-4 rounded-full bg-red-600 p-2 text-white shadow-lg hover:bg-red-400 sm:p-4">
                             <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2"
                                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -208,17 +218,24 @@
                             </svg>
                         </button>
 
+                        {{-- Tooltip --}}
+                        <div id="tooltip-logout" role="tooltip"
+                            class="shadow-xs tooltip invisible absolute z-10 inline-block rounded-lg bg-red-600 px-3 py-2 text-sm font-medium text-white opacity-0 transition-opacity duration-300 dark:bg-gray-700">
+                            Log Out
+                            <div class="tooltip-arrow" data-popper-arrow></div>
+                        </div>
+
                         {{-- Modal --}}
                         <div id="popup-modal" tabindex="-1"
                             class="fixed left-0 right-0 top-0 z-50 hidden h-full max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0">
                             <div class="relative max-h-full w-full max-w-md p-4">
-                                <div class="relative rounded-lg bg-cyan-100 shadow">
+                                <div class="relative rounded-lg bg-cyan-400 shadow">
                                     <div class="p-4 text-center md:p-5">
-                                        <h3 class="mb-5 text-lg font-normal text-white">Are you leaving?</h3>
-                                        <p class="mb-5 text-sm font-normal text-white">Are you sure you want to Log Out?
+                                        <h3 class="mb-5 text-lg font-normal text-cyan">Are you leaving?</h3>
+                                        <p class="mb-5 text-sm font-normal text-cyan">Are you sure you want to Log Out?
                                         </p>
                                         <button data-modal-hide="popup-modal" type="button"
-                                            class="ms-3 rounded-full border border-gray-900 bg-white px-5 py-2.5 text-sm font-medium text-cyan hover:bg-cyan hover:text-white focus:z-10 focus:outline-none focus:ring-4 focus:ring-cyan">
+                                            class="bg-btn-cyan ms-3 rounded-full border border-gray-900 px-5 py-2.5 text-sm font-medium text-white hover:bg-white hover:text-cyan focus:z-10 focus:outline-none focus:ring-4 focus:ring-cyan">
                                             Cancel
                                         </button>
                                         <button data-modal-hide="popup-modal" type="button" id="logout-button"
@@ -241,7 +258,7 @@
                         <div class="mb-2 flex justify-end sm:mb-0">
 
                             {{-- Edit Button --}}
-                            <a href="{{ route('alumni.show-profile') }}"
+                            <a href="{{ route('alumni.show-profile') }}" data-tooltip-target="tooltip-edit-experience"
                                 class="z-10 rounded-full bg-gray-300 p-2 hover:bg-gray-400 sm:p-4">
                                 <svg class="h-6 w-6 text-gray-800 dark:text-white" aria-hidden="true"
                                     xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
@@ -251,6 +268,13 @@
                                         d="M10.779 17.779 4.36 19.918 6.5 13.5m4.279 4.279 8.364-8.643a3.027 3.027 0 0 0-2.14-5.165 3.03 3.03 0 0 0-2.14.886L6.5 13.5m4.279 4.279L6.499 13.5m2.14 2.14 6.213-6.504M12.75 7.04 17 11.28" />
                                 </svg>
                             </a>
+
+                            {{-- Tooltip --}}
+                            <div id="tooltip-edit-experience" role="tooltip"
+                                class="shadow-xs tooltip invisible absolute z-10 inline-block rounded-lg bg-cyan px-3 py-2 text-sm font-medium text-white opacity-0 transition-opacity duration-300 dark:bg-gray-700">
+                                Edit Experience
+                                <div class="tooltip-arrow" data-popper-arrow></div>
+                            </div>
 
                         </div>
                         <div class="-mt-8 mb-4 flex justify-start text-center sm:-mt-10 sm:text-start">
@@ -292,7 +316,6 @@
                     document.getElementById('logout-form').submit();
                 });
             </script>
-        </div>
         </div>
     </section>
 

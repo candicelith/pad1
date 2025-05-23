@@ -58,8 +58,8 @@
                                             class="fixed right-0 top-28 z-20 w-2/5 translate-x-full overflow-y-auto rounded-lg bg-cyan-400 p-4 transition-transform"
                                             tabindex="-1" aria-labelledby="drawer-right-label">
                                             <div
-                                                class="flex items-center justify-between rounded-t border-b border-white md:py-6">
-                                                <h3 class="text-3xl text-cyan">
+                                                class="flex items-center justify-between rounded-t border-b border-white md:py-4">
+                                                <h3 class="text-2xl text-cyan">
                                                     {{ $job->job_name }}
                                                 </h3>
                                                 <button type="button"
