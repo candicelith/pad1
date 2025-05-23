@@ -20,12 +20,12 @@
                 <div class="grid sm:mx-10 sm:grid-cols-2 sm:gap-10">
                     <div class="w-full rounded-lg bg-lightblue p-4 shadow md:p-6">
                         <h2 class="mb-4 text-base">User Growth Trend on Pokari Platform</h2>
-                        <div id="column-chart"></div>
+                        <div id="column-chart-1"></div>
                     </div>
 
                     <div class="w-full rounded-lg bg-lightblue p-4 shadow md:p-6">
                         <h2 class="mb-4 text-base">Number of TRPL UGM Alumni by Entry Year</h2>
-                        <div id="column-chart"></div>
+                        <div id="column-chart-2"></div>
                     </div>
 
                     <div class="w-full rounded-lg bg-lightblue p-4 shadow sm:mt-0 md:p-6">
