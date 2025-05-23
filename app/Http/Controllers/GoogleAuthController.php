@@ -20,16 +20,21 @@ class GoogleAuthController extends Controller
     {
         $googleUser = Socialite::driver("google")->user();
 
-        // Update or create the user
-        $user = User::updateOrCreate(
+        $user = User::firstOrCreate(
             ['email' => $googleUser->getEmail()],
             [
                 'google_id' => $googleUser->getId(),
-                'id_roles' => 3, // Default to student role
+                'id_roles' => 3, // only used if user is new
                 'password' => Str::password(8),
                 'email_verified_at' => now(),
             ]
         );
+
+        // If the user exists, you might want to update google_id or email_verified_at, but not the role
+        if (!$user->google_id) {
+            $user->google_id = $googleUser->getId();
+            $user->save();
+        }
 
         // Check if user details exist
         $userDetails = UserDetails::where('id_users', $user->id_users)->first();
@@ -38,11 +43,12 @@ class GoogleAuthController extends Controller
         Auth::login($user);
 
         // If user details don't exist, redirect to registration page
-        if (!$userDetails) {
+        if ($userDetails->status == 'pending') {
             session()->put('email', $googleUser->getEmail());
             session()->put('name', $googleUser->getName());
             session()->put('profile_photo', $googleUser->getAvatar());
 
+            session()->put('userDetails', $userDetails);
             return redirect()->route('registration');
         }
         return redirect()->intended('/');

@@ -6,7 +6,7 @@
             <div class="flex w-full justify-center px-6 py-10 sm:max-w-xl md:px-24 md:py-11 lg:max-w-5xl xl:max-w-6xl">
                 <div class="w-full max-w-lg rounded-lg border-4 border-cyan-100 bg-white px-6 py-7">
                     <h1 class="text-3xl text-cyan">Registration Form</h1>
-                    {{-- <h2 class="text-xl text-cyan">Please complete your profile</h2> --}}
+                    <h2 class="text-xl text-cyan">Please verify your profile</h2>
 
                     <form id="registration-form" action="{{ route('registration.submit') }}" method="POST">
                         @csrf
@@ -72,7 +72,7 @@
                                     <input type="text" name="name" readonly
                                         class="w-full rounded-full border-gray-300 bg-gray-100 px-4 text-sm"
                                         placeholder="Enter your full name (e.g., Budi Santoso)"
-                                        value="{{ old('name', session('name')) }}">
+                                        value="{{ session('userDetails.name') ?? old('name') }}">
                                     @error('name')
                                         <p class="text-sm text-red-500">{{ $message }}</p>
                                     @enderror
@@ -82,7 +82,7 @@
                                             class="text-4xl text-red-500">*</span></label>
                                     <input type="text" name="nim" required
                                         class="w-full rounded-full border-gray-300 bg-gray-100 px-4 text-sm"
-                                        placeholder="Enter your student ID number" value="{{ old('nim') }}">
+                                        placeholder="Enter your student ID number" value="{{ session('userDetails.nim') ?? old('nim') }}">
                                     @error('nim')
                                         <p class="text-sm text-red-500">{{ $message }}</p>
                                     @enderror
@@ -90,10 +90,21 @@
                                 <div class="space-y-3">
                                     <label class="text-xl font-medium text-cyan dark:text-gray-300">Graduate Year <span
                                             class="text-4xl text-red-500">*</span></label>
+                                    <label class="text-xl font-medium text-cyan dark:text-gray-300">Entry Year</label>
+                                    <input type="text" name="entry_year" required
+                                        class="w-full rounded-full border-gray-300 bg-gray-100 px-4 text-sm"
+                                        placeholder="Enter your entry year (e.g., 2023)" value="{{ session('userDetails.entry_year') ?? old('entry_year') }}">
+                                    @error('entry_year')
+                                        <p class="text-red-500 text-sm">{{ $message }}</p>
+                                    @enderror
+                                </div>
+
+                                <div class="space-y-3">
+                                    <label class="text-xl font-medium text-cyan dark:text-gray-300">Graduate Year</label>
                                     <input type="text" name="graduate_year" required
                                         class="w-full rounded-full border-gray-300 bg-gray-100 px-4 text-sm"
                                         placeholder="Enter your graduation year (e.g., 2023)"
-                                        value="{{ old('graduate_year') }}">
+                                        value="{{ session('userDetails.entry_year') ?? old('graduate_year') }}">
                                     @error('graduate_year')
                                         <p class="text-sm text-red-500">{{ $message }}</p>
                                     @enderror

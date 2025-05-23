@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Company;
 use App\Models\Vacancy;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use PhpParser\Node\Expr\PostDec;
 use App\Models\PostRegistration;
+use PhpParser\Node\Expr\PostDec;
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use PhpParser\Node\Expr\Cast\String_;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -199,6 +201,25 @@ class PostController extends Controller
         ]);
 
         return redirect()->route('posts.detail', $id)->with('success', 'Berhasil mengirim lamaran');
+    }
+
+    public function deleteApply(string $id)
+    {
+        $post = PostRegistration::findOrFail($id);
+
+        // Security check: only allow owner or authorized user to delete
+        if ($post->user_id !== Auth::id()) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        // Delete CV file from storage if exists
+        if ($post->cv && Storage::disk('public')->exists('cvs/' . $post->cv)) {
+            Storage::disk('public')->delete('cvs/' . $post->cv);
+        }
+
+        $post->delete();
+
+        return redirect()->back()->with('success', 'Lamaran berhasil dihapus.');
     }
 
 }

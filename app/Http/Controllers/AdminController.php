@@ -357,20 +357,18 @@ class AdminController extends Controller
 
     public function storeCompany(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'company_name' => 'required|string|max:255',
             'company_field' => 'required|string|max:255',
             'company_description' => 'required|string|max:255',
-            'company_phone' => 'required|string|max:255',
-            'company_address' => 'required|string|max:255',
-            'company_picture' => 'required|image|mimes:jpeg,png,jpg,gif|max:4096',
+            'company_address' => 'string|max:255',
+            'company_picture' => 'image|mimes:jpeg,png,jpg,gif|max:4096',
         ]);
 
         $company = Company::create([
             'company_name' => $request->company_name,
             'company_field' => $request->company_field,
             'company_description' => $request->company_description,
-            'company_phone' => $request->company_phone,
             'company_address' => $request->company_address,
             'company_picture' => $request->company_picture,
         ]);
@@ -386,7 +384,7 @@ class AdminController extends Controller
             $company->save();
         }
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Company created successfully.');
     }
 
     public function updateCompany(Request $request, string $id)

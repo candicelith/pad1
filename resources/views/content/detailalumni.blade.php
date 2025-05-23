@@ -22,8 +22,10 @@
                                 src="{{ asset('storage/profile/' . $userDetails->profile_photo) }}" alt="" />
                             <div class="mt-4">
                                 <h2 class="text-xl text-cyan sm:text-2xl">{{ $userDetails->name }}</h2>
-                                <h3 class="text-md text-cyan sm:text-lg">{{ $userDetails->current_job }},
-                                    {{ $userDetails->current_company }}</h3>
+                                <h3 class="text-md text-cyan sm:text-lg">
+                                    {{ $userDetails->current_job }},
+                                    {{ $userDetails->current_company }}
+                                </h3>
                             </div>
                         </div>
 
@@ -44,14 +46,16 @@
                                         </div>
 
                                         {{-- Job Drawer Toggle --}}
-                                        <button data-drawer-target="job-drawer" data-drawer-show="job-drawer"
+                                        <button data-drawer-target="job-drawer-{{ $job->id_tracking }}" data-drawer-show="job-drawer-{{ $job->id_tracking }}"
                                             data-drawer-body-scrolling="true" data-drawer-backdrop="false"
-                                            data-drawer-placement="right" aria-controls="job-drawer"
-                                            class="text-lg text-cyan hover:underline sm:text-xl">{{ $job->job_name }}</button>
+                                            data-drawer-placement="right" aria-controls="job-drawer-{{ $job->id_tracking }}"
+                                            class="text-lg text-cyan hover:underline sm:text-xl">
+                                            {{ $job->job_name }}
+                                        </button>
 
                                         {{-- Drawer Content --}}
-                                        <div id="job-drawer"
-                                            class="fixed right-0 top-28 z-20 translate-x-full rounded-lg bg-cyan-400 p-4 transition-transform xl:w-2/5"
+                                        <div id="job-drawer-{{ $job->id_tracking }}"
+                                            class="fixed right-0 top-28 z-20 w-2/5 translate-x-full overflow-y-auto rounded-lg bg-cyan-400 p-4 transition-transform"
                                             tabindex="-1" aria-labelledby="drawer-right-label">
                                             <div
                                                 class="flex items-center justify-between rounded-t border-b border-white md:py-4">
@@ -60,7 +64,7 @@
                                                 </h3>
                                                 <button type="button"
                                                     class="ms-auto inline-flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-white"
-                                                    data-drawer-hide="job-drawer" aria-controls="job-drawer">
+                                                    data-drawer-hide="job-drawer-{{ $job->id_tracking }}" aria-controls="job-drawer-{{ $job->id_tracking }}">
                                                     <svg class="h-6 w-6" aria-hidden="true"
                                                         xmlns="http://www.w3.org/2000/svg" fill="none"
                                                         viewBox="0 0 14 14">
@@ -71,106 +75,42 @@
                                                     <span class="sr-only">Close</span>
                                                 </button>
                                             </div>
-                                            <div class="scrollbar-modal max-h-96 space-y-4 overflow-y-auto">
-                                                <div class="grid gap-4 py-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                                                    <a class="alumni-card w-full max-w-sm cursor-pointer rounded-lg border border-gray-200 bg-lightblue shadow-md"
-                                                        href="">
-                                                        <div {{-- data-aos="fade-up" --}}>
-                                                            <div class="flex flex-col items-center p-2 text-center">
-                                                                <div
-                                                                    class="mb-5 flex w-full justify-end px-6 text-gray-400">
-                                                                    <span class="text-sm">
-                                                                        2019
-                                                                    </span>
-                                                                </div>
-                                                                <img class="mb-3 h-24 w-24 rounded-full shadow-lg"
-                                                                    src="" alt=" image" />
-                                                                <h2 class="mb-1 text-2xl text-cyan">
-                                                                    SUpri
-                                                                </h2>
-                                                                <h3 class="text-base text-cyan">
-                                                                    Software engineer
-                                                                </h3>
-                                                                <h4 class="text-sm text-gray-500">
-                                                                    Tokped
-                                                                </h4>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                    <a class="alumni-card w-full max-w-sm cursor-pointer rounded-lg border border-gray-200 bg-lightblue shadow-md"
-                                                        href="">
-                                                        <div {{-- data-aos="fade-up" --}}>
-                                                            <div class="flex flex-col items-center p-2 text-center">
-                                                                <div
-                                                                    class="mb-5 flex w-full justify-end px-6 text-gray-400">
-                                                                    <span class="text-sm">
-                                                                        2019
-                                                                    </span>
-                                                                </div>
-                                                                <img class="mb-3 h-24 w-24 rounded-full shadow-lg"
-                                                                    src="" alt=" image" />
-                                                                <h2 class="mb-1 text-2xl text-cyan">
-                                                                    SUpri
-                                                                </h2>
-                                                                <h3 class="text-base text-cyan">
-                                                                    Software engineer
-                                                                </h3>
-                                                                <h4 class="text-sm text-gray-500">
-                                                                    Tokped
-                                                                </h4>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                    <a class="alumni-card w-full max-w-sm cursor-pointer rounded-lg border border-gray-200 bg-lightblue shadow-md"
-                                                        href="">
-                                                        <div {{-- data-aos="fade-up" --}}>
-                                                            <div class="flex flex-col items-center p-2 text-center">
-                                                                <div
-                                                                    class="mb-5 flex w-full justify-end px-6 text-gray-400">
-                                                                    <span class="text-sm">
-                                                                        2019
-                                                                    </span>
-                                                                </div>
-                                                                <img class="mb-3 h-24 w-24 rounded-full shadow-lg"
-                                                                    src="" alt=" image" />
-                                                                <h2 class="mb-1 text-2xl text-cyan">
-                                                                    SUpri
-                                                                </h2>
-                                                                <h3 class="text-base text-cyan">
-                                                                    Software engineer
-                                                                </h3>
-                                                                <h4 class="text-sm text-gray-500">
-                                                                    Tokped
-                                                                </h4>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                    <a class="alumni-card w-full max-w-sm cursor-pointer rounded-lg border border-gray-200 bg-lightblue shadow-md"
-                                                        href="">
-                                                        <div {{-- data-aos="fade-up" --}}>
-                                                            <div class="flex flex-col items-center p-2 text-center">
-                                                                <div
-                                                                    class="mb-5 flex w-full justify-end px-6 text-gray-400">
-                                                                    <span class="text-sm">
-                                                                        2019
-                                                                    </span>
-                                                                </div>
-                                                                <img class="mb-3 h-24 w-24 rounded-full shadow-lg"
-                                                                    src="" alt=" image" />
-                                                                <h2 class="mb-1 text-2xl text-cyan">
-                                                                    SUpri
-                                                                </h2>
-                                                                <h3 class="text-base text-cyan">
-                                                                    Software engineer
-                                                                </h3>
-                                                                <h4 class="text-sm text-gray-500">
-                                                                    Tokped
-                                                                </h4>
-                                                            </div>
-                                                        </div>
-                                                    </a>
+                                            <div class="max-h-96 space-y-4">
+                                                <h4 class="mt-4 text-lg text-white">Alumni with the same experience:</h4>
 
-                                                </div>
+                                                @if(isset($jobsWithAlumni[$job->id_tracking]) && count($jobsWithAlumni[$job->id_tracking]) > 0)
+                                                    <div class="grid gap-6 py-4 sm:grid-cols-1 md:grid-cols-2">
+                                                        @foreach($jobsWithAlumni[$job->id_tracking] as $alumni)
+                                                            <a class="alumni-card w-full max-w-sm cursor-pointer rounded-lg border border-gray-200 bg-lightblue shadow-md hover:shadow-lg transition-shadow duration-300"
+                                                                href="{{ route('alumni.detail', $alumni->id_userDetails) }}">
+                                                                <div>
+                                                                    <div class="flex flex-col items-center p-4 text-center">
+                                                                        <div class="mb-3 flex w-full justify-end px-2 text-gray-400">
+                                                                            <span class="text-sm">
+                                                                                {{ $alumni->entry_year }}
+                                                                            </span>
+                                                                        </div>
+                                                                        <img class="mb-3 h-20 w-20 rounded-full object-cover shadow-lg"
+                                                                            src="{{ asset('storage/profile/' . $alumni->profile_photo) }}" alt="{{ $alumni->name }}" />
+                                                                        <h2 class="mb-1 text-xl font-semibold text-cyan">
+                                                                            {{ $alumni->name }}
+                                                                        </h2>
+                                                                        <h3 class="text-sm text-cyan">
+                                                                            {{ $alumni->current_job }}
+                                                                        </h3>
+                                                                        <h4 class="text-xs text-gray-500">
+                                                                            {{ $alumni->current_company }}
+                                                                        </h4>
+                                                                    </div>
+                                                                </div>
+                                                            </a>
+                                                        @endforeach
+                                                    </div>
+                                                @else
+                                                    <div class="text-center py-6">
+                                                        <p class="text-white">No other alumni found with this job experience.</p>
+                                                    </div>
+                                                @endif
                                             </div>
                                         </div>
 

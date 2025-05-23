@@ -23,7 +23,6 @@ return new class extends Migration
             $table->string('current_company')->nullable();
             $table->year('entry_year');
             $table->year('graduate_year')->nullable();
-            $table->string('modifiedBy');
             $table->timestamp('modifiedDate')->useCurrent();
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->timestamps();

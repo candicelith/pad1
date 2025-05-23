@@ -69,6 +69,7 @@ Route::controller(PostController::class)->group(function () {
     Route::get('/posts/create', 'create')->name('posts.create');
     Route::post('/posts/store', 'store')->name('posts.store');
     Route::post('/posts/detail/{vacancy}/apply', 'apply')->name('posts.detail.apply');
+    Route::delete('/posts/detail/{vacancy}/delete','deleteApply')->name('posts.detail.delete-apply');
 });
 
 // Comment Controller
@@ -114,6 +115,7 @@ Route::controller(AlumniController::class)->group(function () {
     Route::post('/alumni/update/{id}', 'update')->name('alumni.update');
     Route::post('/alumni/create/experiences', 'addExperiences')->name('alumni.create-experiences');
     Route::post('/alumni/update/experiences/{id}', 'updateExperiences')->name('alumni.update-experiences');
+    Route::get('/alumni/by-position/{position}', 'getAlumniByPosition')->name('alumni.by-position');
 });
 
 
@@ -139,7 +141,7 @@ Route::controller(AdminController::class)->group(function () {
     // Company
     Route::post('/admin/company_store', 'storeCompany')->name('admin.company.store');
     Route::post('/admin/company_update/{id}', 'updateCompany')->name('admin.company.update');
-    Route::post('/admin/company_delete/{id}', 'deleteCompany')->name('admin.company.delete');
+    Route::delete('/admin/company_delete/{id}', 'deleteCompany')->name('admin.company.delete');
     Route::get('/admin/company/detail/{id}', 'detailCompany')->name('admin.company.detail');
     // Route::get('/admin/company/edit/{id}', 'editCompany')->name('admin.company.edit');
 
