@@ -19,12 +19,12 @@
 
                 <div class="grid sm:mx-10 sm:grid-cols-2 sm:gap-10">
                     <div class="w-full rounded-lg bg-lightblue p-4 shadow md:p-6">
-                        <h2 class="mb-4 text-base">Data Alumni TRPL</h2>
+                        <h2 class="mb-4 text-base">User Growth Trend on Pokari Platform</h2>
                         <div id="column-chart"></div>
                     </div>
 
                     <div class="w-full rounded-lg bg-lightblue p-4 shadow md:p-6">
-                        <h2 class="mb-4 text-base">Data Alumni TRPL</h2>
+                        <h2 class="mb-4 text-base">Number of TRPL UGM Alumni by Entry Year</h2>
                         <div id="column-chart"></div>
                     </div>
 
@@ -43,9 +43,9 @@
                                             <h3 onclick="window.location.href='{{ route('admin.approval', ['id' => $request->id_request]) }}'"
                                                 class="text-sm text-white">{{ $request->userDetails->name }}</h3>
                                         </div>
-                                        {{-- <div class="button-group flex items-center space-x-2"> --}}
-                                        {{-- Approve Button --}}
-                                        {{-- <form method="POST"
+                                        <div class="button-group flex items-center space-x-2">
+                                            {{-- Approve Button --}}
+                                            <form method="POST"
                                                 action="{{ route('admin.handleApproval', $request->id_request) }}">
                                                 @csrf
                                                 <input type="hidden" name="action" value="approve">
@@ -58,9 +58,9 @@
                                                             d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                                     </svg>
                                                 </button>
-                                            </form> --}}
-                                        {{-- Decline Button --}}
-                                        {{-- <form method="POST"
+                                            </form>
+                                            {{-- Decline Button --}}
+                                            <form method="POST"
                                                 action="{{ route('admin.handleApproval', $request->id_request) }}">
                                                 @csrf
                                                 <input type="hidden" name="action" value="reject">
@@ -73,8 +73,8 @@
                                                             d="m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                                     </svg>
                                                 </button>
-                                            </form> --}}
-                                        {{-- </div> --}}
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             @endforeach
@@ -97,9 +97,9 @@
                                             <h3 onclick="window.location.href='{{ route('admin.approval', ['id' => $request->id_request]) }}'"
                                                 class="text-sm text-white">{{ $request->userDetails->name }}</h3>
                                         </div>
-                                        {{-- <div class="button-group flex items-center space-x-2"> --}}
-                                        {{-- Approve Button --}}
-                                        {{-- <form method="POST"
+                                        <div class="button-group flex items-center space-x-2">
+                                            {{-- Approve Button --}}
+                                            <form method="POST"
                                                 action="{{ route('admin.handleApproval', $request->id_request) }}">
                                                 @csrf
                                                 <input type="hidden" name="action" value="approve">
@@ -112,9 +112,9 @@
                                                             d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                                     </svg>
                                                 </button>
-                                            </form> --}}
-                                        {{-- Decline Button --}}
-                                        {{-- <form method="POST"
+                                            </form>
+                                            {{-- Decline Button --}}
+                                            <form method="POST"
                                                 action="{{ route('admin.handleApproval', $request->id_request) }}">
                                                 @csrf
                                                 <input type="hidden" name="action" value="reject">
@@ -127,8 +127,8 @@
                                                             d="m15 9-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                                     </svg>
                                                 </button>
-                                            </form> --}}
-                                        {{-- </div> --}}
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             @endforeach
