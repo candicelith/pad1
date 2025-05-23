@@ -25,13 +25,21 @@
                     {{-- Logout Button --}}
                     <div class="flex justify-end p-6 sm:p-0">
                         <button data-modal-target="popup-modal" data-modal-toggle="popup-modal"
-                            class="rounded-full bg-red-600 p-3 text-white shadow-lg hover:bg-red-400">
-                            <svg class="h-10 w-10 sm:h-14 sm:w-14" fill="none" stroke="currentColor" stroke-width="2"
-                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            data-tooltip-target="tooltip-logout"
+                            class="mt-4 rounded-full bg-red-600 p-2 text-white shadow-lg hover:bg-red-400 sm:p-4">
+                            <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                     d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h5a3 3 0 0 1 3 3v1" />
                             </svg>
                         </button>
+                    </div>
+
+                    {{-- Tooltip --}}
+                    <div id="tooltip-logout" role="tooltip"
+                        class="shadow-xs tooltip invisible absolute z-10 inline-block rounded-lg bg-red-600 px-3 py-2 text-sm font-medium text-white opacity-0 transition-opacity duration-300 dark:bg-gray-700">
+                        Log Out
+                        <div class="tooltip-arrow" data-popper-arrow></div>
                     </div>
 
                     {{-- Modal --}}

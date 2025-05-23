@@ -69,6 +69,7 @@ Route::controller(PostController::class)->group(function () {
     Route::get('/posts/create', 'create')->name('posts.create');
     Route::post('/posts/store', 'store')->name('posts.store');
     Route::post('/posts/detail/{vacancy}/apply', 'apply')->name('posts.detail.apply');
+    Route::delete('/posts/detail/{vacancy}/delete','deleteApply')->name('posts.detail.delete-apply');
 });
 
 // Comment Controller
