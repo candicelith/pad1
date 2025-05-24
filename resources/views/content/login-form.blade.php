@@ -88,9 +88,8 @@
                                     @enderror
                                 </div>
                                 <div class="space-y-3">
-                                    <label class="text-xl font-medium text-cyan dark:text-gray-300">Graduate Year <span
+                                    <label class="text-xl font-medium text-cyan dark:text-gray-300">Entry Year <span
                                             class="text-4xl text-red-500">*</span></label>
-                                    <label class="text-xl font-medium text-cyan dark:text-gray-300">Entry Year</label>
                                     <input type="text" name="entry_year" required
                                         class="w-full rounded-full border-gray-300 bg-gray-100 px-4 text-sm"
                                         placeholder="Enter your entry year (e.g., 2023)" value="{{ session('userDetails.entry_year') ?? old('entry_year') }}">

@@ -19,6 +19,9 @@ return new class extends Migration
             $table->string('company_phone')->nullable();
             $table->string('company_address')->nullable();
             $table->string('company_picture')->nullable(); //url or image PATH
+            $table->string('company_gallery')->nullable();
+            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
+            $table->string('rejection_reason')->nullable();
             $table->timestamps();
         });
     }

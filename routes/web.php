@@ -144,6 +144,10 @@ Route::controller(AdminController::class)->group(function () {
     Route::delete('/admin/company_delete/{id}', 'deleteCompany')->name('admin.company.delete');
     Route::get('/admin/company/detail/{id}', 'detailCompany')->name('admin.company.detail');
     // Route::get('/admin/company/edit/{id}', 'editCompany')->name('admin.company.edit');
+    Route::get('/admin/company/approval/{id}', [CompanyController::class,'detailApproval'])->name('admin.company.approval');
+    Route::post('/admin/company/approval/{id}/approve',[CompanyController::class,'approveCompany'])->name('admin.company.approve');
+    Route::post('/admin/company/approval/{id}/reject',[CompanyController::class,'rejectCompany'])->name('admin.company.reject');
+
 
     // News
     Route::post('/admin/news_store', 'storeNews')->name('admin.news.store');

@@ -20,6 +20,8 @@ class Company extends Model
         'company_address',
         'company_description',
         'company_picture',
+        'status',
+        'rejection_reason'
     ];
 
     public function jobs()
