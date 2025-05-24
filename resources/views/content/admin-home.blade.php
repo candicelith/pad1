@@ -20,12 +20,12 @@
                 <div class="grid sm:mx-10 sm:grid-cols-2 sm:gap-10">
                     <div class="w-full rounded-lg bg-lightblue p-4 shadow md:p-6">
                         <h2 class="mb-4 text-base">User Growth Trend on Pokari Platform</h2>
-                        <div id="column-chart-1"></div>
+                        <div id="line-chart"></div>
                     </div>
 
                     <div class="w-full rounded-lg bg-lightblue p-4 shadow md:p-6">
                         <h2 class="mb-4 text-base">Number of TRPL UGM Alumni by Entry Year</h2>
-                        <div id="column-chart-2"></div>
+                        <div id="column-chart"></div>
                     </div>
 
                     <div class="w-full rounded-lg bg-lightblue p-4 shadow sm:mt-0 md:p-6">
@@ -101,7 +101,7 @@
                                         <div class="button-group flex items-center space-x-2">
                                             {{-- Approve Button --}}
                                             <form method="POST"
-                                                action="{{ route('admin.handleApproval', $request->id_request) }}">
+                                                action="{{ route('admin.company.approve', $companies->id_company) }}">
                                                 @csrf
                                                 <input type="hidden" name="action" value="approve">
                                                 <button type="submit">
@@ -116,7 +116,7 @@
                                             </form>
                                             {{-- Decline Button --}}
                                             <form method="POST"
-                                                action="{{ route('admin.handleApproval', $request->id_request) }}">
+                                                action="{{ route('admin.company.reject', $companies->id_company) }}">
                                                 @csrf
                                                 <input type="hidden" name="action" value="reject">
                                                 <button type="submit">
