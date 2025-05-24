@@ -46,16 +46,14 @@
                                         </div>
 
                                         {{-- Job Drawer Toggle --}}
-                                        <button data-drawer-target="job-drawer-{{ $job->id_tracking }}" data-drawer-show="job-drawer-{{ $job->id_tracking }}"
-                                            data-drawer-body-scrolling="true" data-drawer-backdrop="false"
-                                            data-drawer-placement="right" aria-controls="job-drawer-{{ $job->id_tracking }}"
+                                        <button onclick="toggleDrawer('job-drawer-{{ $job->id_tracking }}')"
                                             class="text-lg text-cyan hover:underline sm:text-xl">
                                             {{ $job->job_name }}
                                         </button>
 
                                         {{-- Drawer Content --}}
                                         <div id="job-drawer-{{ $job->id_tracking }}"
-                                            class="fixed right-0 top-28 z-20 w-2/5 translate-x-full overflow-y-auto rounded-lg bg-cyan-400 p-4 transition-transform"
+                                            class="fixed right-0 top-28 z-20 w-2/5 translate-x-full overflow-y-auto rounded-lg bg-cyan-400 p-4 transition-transform duration-300"
                                             tabindex="-1" aria-labelledby="drawer-right-label">
                                             <div
                                                 class="flex items-center justify-between rounded-t border-b border-white md:py-4">
@@ -64,7 +62,7 @@
                                                 </h3>
                                                 <button type="button"
                                                     class="ms-auto inline-flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-white"
-                                                    data-drawer-hide="job-drawer-{{ $job->id_tracking }}" aria-controls="job-drawer-{{ $job->id_tracking }}">
+                                                    onclick="closeDrawer('job-drawer-{{ $job->id_tracking }}')">
                                                     <svg class="h-6 w-6" aria-hidden="true"
                                                         xmlns="http://www.w3.org/2000/svg" fill="none"
                                                         viewBox="0 0 14 14">
@@ -78,20 +76,22 @@
                                             <div class="max-h-96 space-y-4">
                                                 <h4 class="mt-4 text-lg text-white">Alumni with the same experience:</h4>
 
-                                                @if(isset($jobsWithAlumni[$job->id_tracking]) && count($jobsWithAlumni[$job->id_tracking]) > 0)
+                                                @if (isset($jobsWithAlumni[$job->id_tracking]) && count($jobsWithAlumni[$job->id_tracking]) > 0)
                                                     <div class="grid gap-6 py-4 sm:grid-cols-1 md:grid-cols-2">
-                                                        @foreach($jobsWithAlumni[$job->id_tracking] as $alumni)
-                                                            <a class="alumni-card w-full max-w-sm cursor-pointer rounded-lg border border-gray-200 bg-lightblue shadow-md hover:shadow-lg transition-shadow duration-300"
+                                                        @foreach ($jobsWithAlumni[$job->id_tracking] as $alumni)
+                                                            <a class="alumni-card w-full max-w-sm cursor-pointer rounded-lg border border-gray-200 bg-lightblue shadow-md transition-shadow duration-300 hover:shadow-lg"
                                                                 href="{{ route('alumni.detail', $alumni->id_userDetails) }}">
                                                                 <div>
                                                                     <div class="flex flex-col items-center p-4 text-center">
-                                                                        <div class="mb-3 flex w-full justify-end px-2 text-gray-400">
+                                                                        <div
+                                                                            class="mb-3 flex w-full justify-end px-2 text-gray-400">
                                                                             <span class="text-sm">
                                                                                 {{ $alumni->entry_year }}
                                                                             </span>
                                                                         </div>
                                                                         <img class="mb-3 h-20 w-20 rounded-full object-cover shadow-lg"
-                                                                            src="{{ asset('storage/profile/' . $alumni->profile_photo) }}" alt="{{ $alumni->name }}" />
+                                                                            src="{{ asset('storage/profile/' . $alumni->profile_photo) }}"
+                                                                            alt="{{ $alumni->name }}" />
                                                                         <h2 class="mb-1 text-xl font-semibold text-cyan">
                                                                             {{ $alumni->name }}
                                                                         </h2>
@@ -107,8 +107,9 @@
                                                         @endforeach
                                                     </div>
                                                 @else
-                                                    <div class="text-center py-6">
-                                                        <p class="text-white">No other alumni found with this job experience.</p>
+                                                    <div class="py-6 text-center">
+                                                        <p class="text-white">No other alumni found with this job
+                                                            experience.</p>
                                                     </div>
                                                 @endif
                                             </div>
@@ -134,4 +135,43 @@
             </div>
         </div>
     </section>
+
+    <script>
+        let currentOpenDrawer = null;
+
+        function toggleDrawer(drawerId) {
+            const drawer = document.getElementById(drawerId);
+
+            // If clicking the same drawer that's already open, close it
+            if (currentOpenDrawer === drawerId) {
+                closeDrawer(drawerId);
+                return;
+            }
+
+            // Close any currently open drawer
+            if (currentOpenDrawer) {
+                closeDrawer(currentOpenDrawer);
+            }
+
+            // Open the new drawer
+            drawer.classList.remove('translate-x-full');
+            drawer.classList.add('translate-x-0');
+            currentOpenDrawer = drawerId;
+        }
+
+        function closeDrawer(drawerId) {
+            const drawer = document.getElementById(drawerId);
+            drawer.classList.remove('translate-x-0');
+            drawer.classList.add('translate-x-full');
+            currentOpenDrawer = null;
+        }
+
+        // Close drawer when clicking outside
+        document.addEventListener('click', function(event) {
+            if (currentOpenDrawer && !event.target.closest(`#${currentOpenDrawer}`) &&
+                !event.target.hasAttribute('onclick') && !event.target.closest('[onclick]')) {
+                closeDrawer(currentOpenDrawer);
+            }
+        });
+    </script>
 @endsection
