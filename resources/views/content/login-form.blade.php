@@ -42,12 +42,12 @@
                             </div>
                             <div class="flex justify-between space-x-4">
                                 <button type="button"
-                                    class="bg-btn-cyan-100 w-1/2 rounded-lg border border-gray-400 bg-gray-300 px-14 py-2 text-center text-xl font-medium text-gray-500"
+                                    class="bg-btn-lightblue w-1/2 rounded-lg border border-gray-400 px-14 py-2 text-center text-xl font-medium text-gray-400"
                                     disabled>
                                     Previous
                                 </button>
                                 <button type="button" id="next-btn"
-                                    class="bg-btn-cyan w-1/2 rounded-lg bg-cyan px-20 py-2 text-center text-xl font-medium text-white hover:bg-cyan-400">
+                                    class="bg-btn-cyan w-1/2 rounded-lg bg-cyan px-20 py-2 text-center text-xl font-medium text-white hover:bg-cyan-400 hover:text-cyan">
                                     Next
                                 </button>
                             </div>
@@ -68,39 +68,41 @@
                             <div class="space-y-7">
                                 <div class="space-y-3">
                                     <label class="text-xl font-medium text-cyan dark:text-gray-300">Name <span
-                                            class="text-4xl text-red-500">*</span></label>
-                                    <input type="text" name="name" readonly
-                                        class="w-full rounded-full border-gray-300 bg-gray-100 px-4 text-sm"
-                                        placeholder="Enter your full name (e.g., Budi Santoso)"
-                                        value="{{ session('userDetails.name') ?? old('name') }}">
-                                    @error('name')
-                                        <p class="text-sm text-red-500">{{ $message }}</p>
-                                    @enderror
+                                            class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
+                                        <input type="text" name="name" readonly
+                                            class="w-full rounded-full border-gray-300 bg-gray-100 px-4 text-sm"
+                                            placeholder="Enter your full name (e.g., Budi Santoso)"
+                                            value="{{ session('userDetails.name') ?? old('name') }}">
+                                        @error('name')
+                                            <p class="text-sm text-red-500">{{ $message }}</p>
+                                        @enderror
                                 </div>
                                 <div class="space-y-3">
                                     <label class="text-xl font-medium text-cyan dark:text-gray-300">NIM <span
-                                            class="text-4xl text-red-500">*</span></label>
-                                    <input type="text" name="nim" required
-                                        class="w-full rounded-full border-gray-300 bg-gray-100 px-4 text-sm"
-                                        placeholder="Enter your student ID number" value="{{ session('userDetails.nim') ?? old('nim') }}">
-                                    @error('nim')
-                                        <p class="text-sm text-red-500">{{ $message }}</p>
-                                    @enderror
+                                            class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
+                                        <input type="text" name="nim" required
+                                            class="w-full rounded-full border-gray-300 bg-gray-100 px-4 text-sm"
+                                            placeholder="Enter your student ID number"
+                                            value="{{ session('userDetails.nim') ?? old('nim') }}">
+                                        @error('nim')
+                                            <p class="text-sm text-red-500">{{ $message }}</p>
+                                        @enderror
                                 </div>
                                 <div class="space-y-3">
-                                    <label class="text-xl font-medium text-cyan dark:text-gray-300">Graduate Year <span
-                                            class="text-4xl text-red-500">*</span></label>
-                                    <label class="text-xl font-medium text-cyan dark:text-gray-300">Entry Year</label>
+                                    <label class="text-xl font-medium text-cyan dark:text-gray-300">Entry Year <span
+                                            class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
                                     <input type="text" name="entry_year" required
                                         class="w-full rounded-full border-gray-300 bg-gray-100 px-4 text-sm"
-                                        placeholder="Enter your entry year (e.g., 2023)" value="{{ session('userDetails.entry_year') ?? old('entry_year') }}">
+                                        placeholder="Enter your entry year (e.g., 2023)"
+                                        value="{{ session('userDetails.entry_year') ?? old('entry_year') }}">
                                     @error('entry_year')
-                                        <p class="text-red-500 text-sm">{{ $message }}</p>
+                                        <p class="text-sm text-red-500">{{ $message }}</p>
                                     @enderror
                                 </div>
 
                                 <div class="space-y-3">
-                                    <label class="text-xl font-medium text-cyan dark:text-gray-300">Graduate Year</label>
+                                    <label class="text-xl font-medium text-cyan dark:text-gray-300">Graduate Year <span
+                                            class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
                                     <input type="text" name="graduate_year" required
                                         class="w-full rounded-full border-gray-300 bg-gray-100 px-4 text-sm"
                                         placeholder="Enter your graduation year (e.g., 2023)"
@@ -116,11 +118,11 @@
                             </p>
                             <div class="flex justify-between space-x-4">
                                 <button type="button" id="prev-btn"
-                                    class="bg-btn-cyan-100 w-1/2 rounded-lg border border-gray-400 bg-gray-300 px-14 py-2 text-center text-xl font-medium text-gray-500">
+                                    class="bg-btn-lightblue w-1/2 rounded-lg border border-gray-400 px-14 py-2 text-center text-xl font-medium text-gray-400 hover:bg-cyan hover:text-white">
                                     Previous
                                 </button>
                                 <button type="submit"
-                                    class="bg-btn-cyan w-1/2 rounded-lg bg-cyan px-20 py-2 text-center text-xl font-medium text-white hover:bg-cyan-400">
+                                    class="bg-btn-cyan w-1/2 rounded-lg bg-cyan px-20 py-2 text-center text-xl font-medium text-white hover:bg-cyan-400 hover:text-cyan">
                                     Submit
                                 </button>
                             </div>

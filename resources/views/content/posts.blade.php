@@ -30,20 +30,31 @@
             @endauth
 
             {{-- Filters and Search --}}
-            <div class="mx-auto mt-4 max-w-screen-xl items-center justify-between px-4 sm:flex sm:px-6">
-                <div class="mb-2 flex justify-between sm:mb-0 sm:space-x-10">
-                    <button
-                        class="text-cyan-600 rounded-xl border border-gray-200 px-3 py-2 text-sm hover:bg-gray-200 focus:bg-cyan-100 focus:text-white sm:px-6 sm:py-4 sm:text-base">
-                        My Post
-                    </button>
-                    <button
-                        class="text-cyan-600 rounded-xl border border-gray-200 px-3 py-2 text-sm hover:bg-gray-200 focus:bg-cyan-100 focus:text-white sm:px-6 sm:py-4 sm:text-base">
-                        My Commented Post
-                    </button>
-                </div>
-                {{-- Search --}}
-                <div class="mx-auto max-w-screen-xl px-4 sm:px-6">
-                    <form id="search-form" class="mx-auto flex max-w-sm items-center">
+            <div
+                class="mx-auto mt-4 max-w-screen-xl space-y-4 px-4 sm:flex sm:flex-wrap sm:items-center sm:justify-between sm:space-y-0 sm:px-6">
+
+                {{-- Left Section: Buttons for logged-in users --}}
+                @auth
+                    <div class="flex flex-wrap gap-2 sm:gap-4">
+                        @if (Auth::user()->id_roles == '2')
+                            <button
+                                class="text-cyan-600 rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm hover:bg-gray-100 focus:bg-cyan-100 focus:text-white sm:text-base">
+                                My Post
+                                </abutton>
+                        @endif
+
+                        @if (in_array(Auth::user()->id_roles, ['2', '3']))
+                            <button
+                                class="text-cyan-600 rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm hover:bg-gray-100 focus:bg-cyan-100 focus:text-white sm:text-base">
+                                My Commented Post
+                            </button>
+                        @endif
+                    </div>
+                @endauth
+
+                {{-- Middle Section: Search Bar --}}
+                <div class="w-full sm:max-w-md">
+                    <form id="search-form" class="flex items-center">
                         <label for="simple-search" class="sr-only">Search</label>
                         <div class="relative w-full">
                             <input type="text" id="simple-search" name="query"
@@ -61,7 +72,8 @@
                         </button>
                     </form>
                 </div>
-                {{-- Date Range --}}
+
+                {{-- Right Section: Date Range Picker --}}
                 <div id="date-range-picker" date-rangepicker datepicker datepicker-buttons datepicker-autoselect-today
                     class="flex items-center">
                     <div class="relative">
@@ -91,6 +103,9 @@
                     </div>
                 </div>
             </div>
+
+            {{-- Filters and Search End --}}
+
         </div>
 
         {{-- Modal New Post --}}
