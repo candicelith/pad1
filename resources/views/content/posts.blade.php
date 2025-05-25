@@ -111,8 +111,9 @@
                         </button>
                     </div>
 
+                    {{-- Modal Create Posts --}}
                     <form class="scrollbar-modal max-h-96 space-y-8 overflow-y-auto px-4 pb-4 pt-0 md:px-5 md:pb-5"
-                        method="POST" action="" enctype="multipart/form-data">
+                        method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="mt-0 grid grid-cols-2 gap-8 sm:grid-cols-2">
                             <div class="col-span-2 sm:col-span-2">
@@ -134,10 +135,14 @@
                                 </label>
                                 <select name="company" id="company"
                                     class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan">
-                                    <option value="">Select a company name</option>
-                                    <option value="">Select a company name</option>
-                                    <option value="">UIUX</option>
-                                    <option value="">UIUX</option>
+                                    <option value="" disabled {{ old('company') ? '' : 'selected' }}>Select a company</option>
+                                    @foreach ($companies as $company)
+                                    <option value="{{ $company->id_company }}"
+                                        {{ old('company') == $company->id_company ? 'selected' : '' }}>
+                                        {{ $company->company_name }}
+                                    </option>
+                                @endforeach
+
                                 </select>
                             </div>
                             <div class="col-span-2 sm:col-span-2">

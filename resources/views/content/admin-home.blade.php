@@ -93,7 +93,7 @@
                                         <div class="flex items-center space-x-4">
                                             <img onclick="window.location.href='{{ route('admin.company.approval', ['id' => $companies->id_company]) }}'"
                                                 class="h-10 w-10 rounded-full"
-                                                src="{{ asset('storage/company/' . $companies->company_picture) }}" alt="profile_picture">
+                                                src="{{ $companies->company_picture ? asset('storage/company/' . $companies->company_picture) : asset('images/default_profile.png') }}" alt="profile_picture">
                                             <h3 onclick="window.location.href='{{ route('admin.company.approval', ['id' => $companies->id_company]) }}'"
                                                 class="text-sm text-white">{{ $companies->company_name }}</h3>
                                         </div>

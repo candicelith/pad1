@@ -22,7 +22,10 @@ return new class extends Migration
             $table->string('company_gallery')->nullable();
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->string('rejection_reason')->nullable();
+            $table->unsignedBigInteger('creator')->nullable();
             $table->timestamps();
+
+            $table->foreign('creator')->references('id_users')->on('users');
         });
     }
 

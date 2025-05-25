@@ -65,7 +65,7 @@ class CompanyController extends Controller
             'company_phone' => $request->company_phone,
             'company_address' => $request->company_address,
             'company_picture' => $request->company_picture ?? 'https://picsum.photos/id/870/200/300?grayscale&blur=2',
-            'status' => 'pending'
+            'creator' => Auth::user()->id_users
         ]);
 
         if ($request->hasFile('company_picture')) {
@@ -155,6 +155,7 @@ class CompanyController extends Controller
             'company_phone' => $request->company_phone,
             'company_address' => $request->company_address,
             'company_picture' => $request->company_picture ?? 'https://picsum.photos/id/870/200/300?grayscale&blur=2',
+            'creator' => Auth::user()->id_users
         ]);
 
         if ($request->hasFile('company_picture')) {
@@ -202,8 +203,18 @@ class CompanyController extends Controller
         if ($company->status === 'pending') {
             $company->status = 'approved';
             $company->rejection_reason = null;
-
             $company->save();
+
+            if (!$company->creator) {
+                return redirect()->route('admin.home')->with('success', "Company '{$company->company_name}' approved.");
+            }
+
+            Notification::create([
+                'id_users' => $company->creator,
+                'type' => 'approved',
+                'message' => 'Company Anda berhasil diverifikasi. Data telah ditambahkan!.',
+            ]);
+
             return redirect()->route('admin.home')->with('success', "Company '{$company->company_name}' approved.");
         }
         return redirect()->route('admin.home')->with('error', "Company '{$company->company_name}' is not pending approval.");
@@ -218,9 +229,16 @@ class CompanyController extends Controller
 
         if ($company->status === 'pending') {
             $company->status = 'rejected';
-            $company->rejection_reason = $request->rejection_reason;
+            $company->rejection_reason = $request->rejection_reason ?? '"Company Data Not Credibles"';
 
-            $company->save();
+
+            Notification::create([
+                'id_users' => $company->creator,
+                'type' => 'rejected',
+                'message' => "Data Anda Tidak Berhasil diverifikasi, Alasan: $company->rejection_reason.",
+            ]);
+
+            $company->delete();
             return redirect()->route('admin.home')->with('success', "Company '{$company->company_name}' rejected.");
         }
         return redirect()->route('admin.home')->with('error', "Company '{$company->company_name}' is not pending approval.");

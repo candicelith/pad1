@@ -38,7 +38,7 @@ class UserDetails extends Model
     // Job Tracking Accessor
     public function jobTrackings()
     {
-        return $this->hasOne(JobTracking::class, 'id_users', 'id_users');
+        return $this->hasOne(JobTracking::class, 'id_userDetails', 'id_userDetails');
     }
 
     public function getProfilePictureAttribute()

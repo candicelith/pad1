@@ -51,8 +51,21 @@ class PostController extends Controller
             }
         }
 
-        // Mengembalikan View Content.Posts dengan Compact 'Vacancys'
-        return view('content.posts', compact('vacancys'));
+        // Get All Companies Associated With User
+        $userDetail = Auth::user()->userDetails;
+        $jobTracking = optional($userDetail)->jobTrackings; // singular
+
+        $job = optional($jobTracking)->job; // job adalah object tunggal
+
+        // buat collection dari satu company supaya aman di blade
+        $companies = collect();
+
+        if ($job && $job->company) {
+            $companies = collect([$job->company]);
+        }
+
+        // Mengembalikan View Content.Posts dengan Compact 'Vacancys, Companies'
+        return view('content.posts', compact('vacancys','companies'));
     }
 
     /**
