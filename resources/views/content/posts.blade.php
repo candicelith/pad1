@@ -127,6 +127,8 @@
                     </div>
 
                     {{-- Modal Create Posts --}}
+                    @auth
+                    @if (Auth::check() && Auth::user()->id_roles == '2')
                     <form class="scrollbar-modal max-h-96 space-y-8 overflow-y-auto px-4 pb-4 pt-0 md:px-5 md:pb-5"
                     method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data">
                     @csrf
@@ -347,6 +349,8 @@
                         </button>
                     </div>
                     </form>
+                    @endif
+                    @endauth
                 </div>
             </div>
         </div>

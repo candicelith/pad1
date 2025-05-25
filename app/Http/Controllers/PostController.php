@@ -51,6 +51,10 @@ class PostController extends Controller
             }
         }
 
+        if (!Auth::user()) {
+            return view('content.posts', compact('vacancys'));
+        }
+
         // Get All Companies Associated With User
         $userDetail = Auth::user()->userDetails;
         $jobTracking = optional($userDetail)->jobTrackings; // singular
