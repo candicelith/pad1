@@ -109,68 +109,69 @@
                             </div>
                         </div>
                         @if (Auth::check() && !$registrations->contains('user_id', Auth::user()->id_users))
-                        <div class="mt-10">
-                            <!-- Modal toggle -->
-                            <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
-                                class="bg-btn-cyan block rounded-lg px-7 py-2 text-center text-sm font-medium text-white hover:bg-cyan-100"
-                                type="button">
-                                Apply
-                            </button>
+                            <div class="mt-10">
+                                <!-- Modal toggle -->
+                                <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
+                                    class="bg-btn-cyan block rounded-lg px-7 py-2 text-center text-sm font-medium text-white hover:bg-cyan-100"
+                                    type="button">
+                                    Apply
+                                </button>
 
-                            {{-- Main modal --}}
-                            <div id="crud-modal" tabindex="-1" aria-hidden="true"
-                                class="fixed left-0 right-0 top-0 z-50 hidden h-1/2 max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0">
-                                <div class="relative max-h-full w-full max-w-screen-sm p-2 sm:max-w-3xl sm:p-4">
-                                    <!-- Modal content -->
-                                    <div class="relative rounded-lg border-4 border-cyan-100 bg-white p-1 shadow sm:p-2">
-                                        {{-- Modal header --}}
+                                {{-- Main modal --}}
+                                <div id="crud-modal" tabindex="-1" aria-hidden="true"
+                                    class="fixed left-0 right-0 top-0 z-50 hidden h-1/2 max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0">
+                                    <div class="relative max-h-full w-full max-w-screen-sm p-2 sm:max-w-3xl sm:p-4">
+                                        <!-- Modal content -->
                                         <div
-                                            class="flex items-center justify-between rounded-t border-b-4 border-cyan-100 px-3 py-4 text-center sm:px-5 sm:py-6">
-                                            <h3 class="text-start text-xl text-cyan sm:text-2xl">
-                                                Apply to {{ $vacancy->company_name }}
-                                            </h3>
-                                            <button type="button" class="inline-flex items-center"
-                                                data-modal-toggle="crud-modal">
-                                                <svg class="h-6 w-6 text-cyan" aria-hidden="true"
-                                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                    fill="none" viewBox="0 0 24 24">
-                                                    <path stroke="currentColor" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="3"
-                                                        d="M6 18 17.94 6M18 18 6.06 6" />
-                                                </svg>
-                                            </button>
-                                        </div>
-
-                                        {{-- Modal body --}}
-                                        <form class="max-h-96 overflow-y-auto px-3 pb-3 pt-5 sm:px-9 sm:pb-5 sm:pt-7"
-                                            action="{{ route('posts.detail.apply', ['vacancy' => $vacancy->id_vacancy, 'id' => $vacancy->id_vacancy]) }}"
-                                            method="POST" enctype="multipart/form-data">
-                                            @csrf
-                                            <div class="mb-9 space-y-3">
-                                                <h2 class="text-2xl text-cyan">Resume</h2>
-                                                <p class="text-sm text-gray-400">Be sure to include your updated resume</p>
-                                                <div class="col-span-2 sm:col-span-1">
-                                                    <input type="file" name="cv" id="cv"
-                                                        class="w-full rounded-full border-2 shadow-sm" required="">
-                                                </div>
-                                            </div>
-                                            <div class="items-end justify-between text-sm text-gray-400 sm:flex">
-                                                <p class="mb-2 text-sm sm:mb-0">Only you and {{ $vacancy->name }} can view
-                                                    this</p>
-                                                <button type="submit"
-                                                    class="bg-btn-cyan rounded-lg px-7 py-2 text-center text-sm text-white hover:bg-cyan-100">
-                                                    Submit
+                                            class="relative rounded-lg border-4 border-cyan-100 bg-white p-1 shadow sm:p-2">
+                                            {{-- Modal header --}}
+                                            <div
+                                                class="flex items-center justify-between rounded-t border-b-4 border-cyan-100 px-3 py-4 text-center sm:px-5 sm:py-6">
+                                                <h3 class="text-start text-xl text-cyan sm:text-2xl">
+                                                    Apply to {{ $vacancy->company_name }}
+                                                </h3>
+                                                <button type="button" class="inline-flex items-center"
+                                                    data-modal-toggle="crud-modal">
+                                                    <svg class="h-6 w-6 text-cyan" aria-hidden="true"
+                                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        fill="none" viewBox="0 0 24 24">
+                                                        <path stroke="currentColor" stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="3"
+                                                            d="M6 18 17.94 6M18 18 6.06 6" />
+                                                    </svg>
                                                 </button>
                                             </div>
-                                        </form>
+
+                                            {{-- Modal body --}}
+                                            <form class="max-h-96 overflow-y-auto px-3 pb-3 pt-5 sm:px-9 sm:pb-5 sm:pt-7"
+                                                action="{{ route('posts.detail.apply', ['vacancy' => $vacancy->id_vacancy, 'id' => $vacancy->id_vacancy]) }}"
+                                                method="POST" enctype="multipart/form-data">
+                                                @csrf
+                                                <div class="mb-9 space-y-3">
+                                                    <h2 class="text-2xl text-cyan">Resume</h2>
+                                                    <p class="text-sm text-gray-400">Be sure to include your updated resume
+                                                    </p>
+                                                    <div class="col-span-2 sm:col-span-1">
+                                                        <input type="file" name="cv" id="cv"
+                                                            class="w-full rounded-full border-2 shadow-sm" required="">
+                                                    </div>
+                                                </div>
+                                                <div class="items-end justify-between text-sm text-gray-400 sm:flex">
+                                                    <p class="mb-2 text-sm sm:mb-0">Only you and {{ $vacancy->name }} can
+                                                        view
+                                                        this</p>
+                                                    <button type="submit"
+                                                        class="bg-btn-cyan rounded-lg px-7 py-2 text-center text-sm text-white hover:bg-cyan-100">
+                                                        Submit
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         @endif
 
-
-                        {{-- Ini ntar buat yg ngirim cv trs ntar btn applynya disable --}}
                         @if (Auth::check() &&
                                 (Auth::user()->id_users == $vacancy->id_users || $registrations->contains('user_id', Auth::user()->id_users)))
                             <div class="mt-12 space-y-2">
@@ -179,33 +180,45 @@
                                     <table id="default-table" class="w-full">
                                         <thead class="bg-lightblue text-left">
                                             <tr>
-                                                <th class="px-1 text-center">No</th>
-                                                <th class="px-1">Name</th>
-                                                <th class="px-1 text-center">File Submitted</th>
-                                                <th class="px-1 text-center">Edit</th>
+                                                <th class="px-1 text-center text-sm">No</th>
+                                                <th class="px-1 text-sm">Name</th>
+                                                <th class="px-1 text-center text-sm">File Submitted</th>
+                                                <th class="px-1 text-center text-sm">Edit</th>
                                             </tr>
                                         </thead>
                                         <tbody class="text-left">
                                             @foreach ($registrations as $index => $registration)
                                                 <tr>
                                                     <td class="px-1 text-center">{{ $index + 1 }}</td>
-                                                    <td class="px-1">{{ $registration->user->email }}</td>
+                                                    <td
+                                                        class="sm:truncate-0 max-w-16 truncate px-1 text-sm sm:max-w-32 sm:whitespace-normal">
+                                                        {{ $registration->user->email }}</td>
                                                     <td class="px-1 text-center">
-                                                        <a href="{{ asset('storage/cvs/' . $registration->cv) }}" target="_blank" aria-label="Download file">
-                                                            <svg class="h-6 w-6 text-gray-800 dark:text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                        <a href="{{ asset('storage/cvs/' . $registration->cv) }}"
+                                                            target="_blank" aria-label="Download file"
+                                                            class="flex items-center justify-center">
+                                                            <svg class="h-6 w-6 text-gray-800 dark:text-white"
+                                                                xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                                viewBox="0 0 24 24" stroke="currentColor"
+                                                                stroke-width="2">
                                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                                     d="M12 13V4M7 14H5a1 1 0 00-1 1v4a1 1 0 001 1h14a1 1 0 001-1v-4a1 1 0 00-1-1h-2m-1-5l-4 5-4-5m9 8h.01" />
                                                             </svg>
                                                         </a>
                                                     </td>
                                                     <td class="px-1 text-center">
-                                                        <form action="{{ route('posts.detail.delete-apply', $registration->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this?')">
+                                                        <form
+                                                            action="{{ route('posts.detail.delete-apply', $registration->id) }}"
+                                                            method="POST"
+                                                            onsubmit="return confirm('Are you sure you want to delete this?')">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="submit" class="inline p-0 m-0 bg-transparent border-0" aria-label="Delete file">
-                                                                <svg class="h-6 w-6 text-gray-800 dark:text-white" xmlns="http://www.w3.org/2000/svg"
-                                                                    fill="currentColor" viewBox="0 0 24 24">
+                                                            <button type="submit"
+                                                                class="m-0 inline border-0 bg-transparent p-0 text-center"
+                                                                aria-label="Delete file">
+                                                                <svg class="h-6 w-6 text-gray-800 dark:text-white"
+                                                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                                    viewBox="0 0 24 24">
                                                                     <path fill-rule="evenodd"
                                                                         d="M8.586 2.586A2 2 0 0110 2h4a2 2 0 012 2v2h3a1 1 0 110 2v12a2 2 0 01-2 2H7a2 2 0 01-2-2V8a1 1 0 010-2h3V4a2 2 0 01.586-1.414ZM10 6h4V4h-4v2Zm1 4a1 1 0 10-2 0v8a1 1 0 102 0v-8Zm4 0a1 1 0 10-2 0v8a1 1 0 102 0v-8Z"
                                                                         clip-rule="evenodd" />
@@ -221,8 +234,6 @@
                             </div>
                         @endif
                     </div>
-
-
 
                     {{-- Comment Section --}}
                     <div
