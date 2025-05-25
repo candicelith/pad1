@@ -79,6 +79,7 @@ class AlumniController extends Controller
                         'job_tracking.*',
                         'jobs.job_name',
                         'company.company_name',
+                        'company.status',
                         DB::raw('COALESCE(YEAR(job_tracking.date_end), "Now") as date_end'),
                         DB::raw('COALESCE(YEAR(job_tracking.date_start), "Now") as date_start')
                     )
@@ -103,7 +104,6 @@ class AlumniController extends Controller
                     ->update(['is_read' => true]);
 
                 $companies = Company::where('status','!=','pending')->get();
-
                 return view('content.profile-alumni', compact('user', 'userDetails', 'jobDetails', 'companies', 'latestNotification'));
             }
         }
@@ -166,6 +166,7 @@ class AlumniController extends Controller
                 'job_tracking.*',
                 'jobs.job_name',
                 'company.company_name',
+                'company.status',
                 DB::raw('COALESCE(YEAR(job_tracking.date_end), "Now") as date_end'),
                 DB::raw('COALESCE(YEAR(job_tracking.date_start), "Now") as date_start')
             )
