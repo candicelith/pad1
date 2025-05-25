@@ -20,19 +20,19 @@
                     <div class="p-6 sm:p-8 lg:p-10">
                         <div class="lg:mx-14">
                             <div class="flex flex-col lg:flex-row lg:space-x-8">
-                                <img class="h-24 w-24 rounded-full object-cover sm:h-28 sm:w-28" src=""
+                                <img class="h-24 w-24 rounded-full object-cover sm:h-28 sm:w-28" src="{{ asset('storage/company/' . $company->company_picture) }}"
                                     alt="" />
                                 <div class="mt-4">
-                                    <h2 class="text-xl text-cyan sm:text-2xl">Traveloka</h2>
-                                    <h3 class="text-md text-cyan sm:text-lg">Travel</h3>
-                                    <h4 class="text-sm text-gray-500 sm:text-base">Jakarta</h4>
+                                    <h2 class="text-xl text-cyan sm:text-2xl">{{ $company->company_name }}</h2>
+                                    <h3 class="text-md text-cyan sm:text-lg">{{ $company->company_field }}</h3>
+                                    <h4 class="text-sm text-gray-500 sm:text-base">{{ $company->company_address }}</h4>
                                 </div>
                             </div>
 
                             <div class="mt-8 space-y-4">
                                 <h4 class="text-lg text-cyan sm:text-xl">About</h4>
                                 <p class="sm:text-md text-justify text-sm text-cyan">
-                                    Buat beli tiket
+                                    {{ $company->company_description }}
                                 </p>
                             </div>
 
@@ -56,7 +56,7 @@
                         <div class="mt-6 flex justify-end">
                             <div class="button-group flex items-center space-x-2">
                                 {{-- Approve Button --}}
-                                <form method="POST" action="">
+                                <form method="POST" action="{{ route('admin.company.approve', $company->id_company) }}">
                                     @csrf
                                     <input type="hidden" name="action" value="approve">
                                     <button class="rounded-full bg-green-800 px-5 py-1 text-white hover:bg-green-600"
@@ -65,7 +65,7 @@
                                     </button>
                                 </form>
                                 {{-- Decline Button --}}
-                                <form method="POST" action="">
+                                <form method="POST" action="{{ route('admin.company.reject', $company->id_company) }}">
                                     @csrf
                                     <input type="hidden" name="action" value="reject">
                                     <button class="rounded-full bg-red-900 px-5 py-1 text-white hover:bg-red-700"

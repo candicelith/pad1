@@ -20,12 +20,12 @@
                 <div class="grid sm:mx-10 sm:grid-cols-2 sm:gap-10">
                     <div class="w-full rounded-lg bg-lightblue p-4 shadow md:p-6">
                         <h2 class="mb-4 text-base">User Growth Trend on Pokari Platform</h2>
-                        <div id="column-chart-1"></div>
+                        <div id="line-chart"></div>
                     </div>
 
                     <div class="w-full rounded-lg bg-lightblue p-4 shadow md:p-6">
                         <h2 class="mb-4 text-base">Number of TRPL UGM Alumni by Entry Year</h2>
-                        <div id="column-chart-2"></div>
+                        <div id="column-chart"></div>
                     </div>
 
                     <div class="w-full rounded-lg bg-lightblue p-4 shadow sm:mt-0 md:p-6">
@@ -87,21 +87,21 @@
                         <div class="scrollbar-companies grid max-h-[300px] space-y-4 overflow-y-auto pe-2 lg:grid-cols-1">
 
                             {{-- Req Start --}}
-                            @foreach ($pendingRequest as $request)
+                            @foreach ($pendingCompanies as $companies)
                                 <div class="request-card cursor-pointer rounded-lg bg-cyan-100">
                                     <div class="flex items-center justify-between px-5 py-2">
                                         <div class="flex items-center space-x-4">
-                                            <img onclick="window.location.href='{{ route('admin.approval', ['id' => $request->id_request]) }}'"
+                                            <img onclick="window.location.href='{{ route('admin.company.approval', ['id' => $companies->id_company]) }}'"
                                                 class="h-10 w-10 rounded-full"
-                                                src="{{ asset('storage/profile/default_profile.png') }}" alt="">
-                                            <h3 onclick="window.location.href='{{ route('admin.approval', ['id' => $request->id_request]) }}'"
-                                                class="text-sm text-white">{{ $request->userDetails->name }}</h3>
+                                                src="{{ $companies->company_picture ? asset('storage/company/' . $companies->company_picture) : asset('images/default_profile.png') }}" alt="profile_picture">
+                                            <h3 onclick="window.location.href='{{ route('admin.company.approval', ['id' => $companies->id_company]) }}'"
+                                                class="text-sm text-white">{{ $companies->company_name }}</h3>
                                         </div>
 
                                         <div class="button-group flex items-center space-x-2">
                                             {{-- Approve Button --}}
                                             <form method="POST"
-                                                action="{{ route('admin.handleApproval', $request->id_request) }}">
+                                                action="{{ route('admin.company.approve', $companies->id_company) }}">
                                                 @csrf
                                                 <input type="hidden" name="action" value="approve">
                                                 <button type="submit">
@@ -116,7 +116,7 @@
                                             </form>
                                             {{-- Decline Button --}}
                                             <form method="POST"
-                                                action="{{ route('admin.handleApproval', $request->id_request) }}">
+                                                action="{{ route('admin.company.reject', $companies->id_company) }}">
                                                 @csrf
                                                 <input type="hidden" name="action" value="reject">
                                                 <button type="submit">
@@ -211,33 +211,60 @@
                     },
                 };
 
-                // Chart 2: Pie Chart
+                // Chart 2: Line Chart
                 const options2 = {
-                    series: values, // Pie charts use an array of values directly
-                    labels: categories, // These are the labels for each slice
+                    series: [{
+                        name: "Jumlah Alumni",
+                        data: values, // y-axis values
+                    }],
                     chart: {
-                        type: "pie",
+                        type: "line",
                         height: "320px",
                         fontFamily: "Gilgan, sans-serif",
+                        toolbar: {
+                            show: false,
+                        },
                     },
-                    colors: ["#FF5733", "#FFC300", "#36A2EB", "#4BC0C0", "#9966FF", "#FF9F40"], // Customize as needed
+                    colors: ["#FF5733"], // Line color
+                    stroke: {
+                        curve: 'smooth',
+                        width: 2,
+                    },
+                    xaxis: {
+                        categories: categories, // x-axis values
+                        labels: {
+                            style: {
+                                fontFamily: "Inter, sans-serif",
+                                cssClass: 'text-xs font-normal fill-gray-500 dark:fill-gray-400'
+                            }
+                        },
+                        axisBorder: {
+                            show: false,
+                        },
+                        axisTicks: {
+                            show: false,
+                        },
+                    },
+                    yaxis: {
+                        show: true,
+                    },
                     tooltip: {
                         style: {
                             fontFamily: "Gilgan, sans-serif",
                         },
                     },
                     legend: {
-                        position: "bottom",
-                        fontFamily: "Inter, sans-serif",
-                        labels: {
-                            colors: "#333",
-                        },
+                        show: false,
+                    },
+                    grid: {
+                        show: false,
                     },
                 };
 
+
                 if (typeof ApexCharts !== 'undefined') {
-                    new ApexCharts(document.getElementById("column-chart-1"), options1).render();
-                    new ApexCharts(document.getElementById("column-chart-2"), options2).render();
+                    new ApexCharts(document.getElementById("column-chart"), options1).render();
+                    new ApexCharts(document.getElementById("line-chart"), options2).render();
                 }
             })
             .catch(error => console.error('Error fetching data:', error));

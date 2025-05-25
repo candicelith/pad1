@@ -181,17 +181,6 @@
                                                                     placeholder="Briefly describe the company and its mission" required>{{ old('company_description') }}</textarea>
                                                             </div>
 
-                                                            {{-- <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                                                                <div>
-                                                                    <label for="company_phone" class="mb-1 block text-sm  text-cyan">
-                                                                        Phone Number
-                                                                    </label>
-                                                                    <input type="text" name="company_phone" id="company_phone"
-                                                                        class="w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
-                                                                        value="{{ old('company_phone') }}">
-                                                                </div>
-                                                            </div> --}}
-
                                                             <div class="space-y-3">
                                                                 <label for="company_phone"
                                                                     class="mb-2 block text-sm text-cyan sm:text-xl">

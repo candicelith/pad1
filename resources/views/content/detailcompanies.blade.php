@@ -20,7 +20,7 @@
                     <div class="lg:mx-14">
                         <div class="flex flex-col lg:flex-row lg:space-x-8">
                             <img class="h-24 w-24 rounded-full object-cover sm:h-28 sm:w-28"
-                                src="{{ $company->company_picture }}" alt="" />
+                                src="{{ $company->company_picture ? asset('storage/company/' . $company->company_picture) : asset('images/default_profile.png') }}" alt="" />
                             <div class="mt-4">
                                 <h2 class="text-xl text-cyan sm:text-2xl">{{ $company->company_name }}</h2>
                                 <h3 class="text-md text-cyan sm:text-lg">{{ $company->company_field }}</h3>

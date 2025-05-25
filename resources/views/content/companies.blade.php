@@ -95,8 +95,8 @@
                         data-name="{{ strtolower($com->company_name) }}">
                         <div {{-- data-aos="fade-up" --}}>
                             <div class="flex flex-col items-center px-8 py-8 text-center">
-                                <img class="mb-3 h-24 w-24 rounded-full shadow-lg" src="{{ $com->company_picture }}"
-                                    alt="Bonnie image" />
+                                <img class="mb-3 h-24 w-24 rounded-full shadow-lg" src="{{ $com->company_picture ? asset('storage/company/' . $com->company_picture) : asset('images/default_profile.png') }}"
+                                    alt="Company" />
                                 <h2 class="mb-1 text-2xl text-cyan">
                                     {{ $com->company_name }}
                                 </h2>

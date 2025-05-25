@@ -3,20 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\CompanyResource;
+use Illuminate\Support\Facades\Storage;
 
 class CompanyController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $company = Company::paginate(50);
-        return view('content.companies', compact('company'));
+        $company = Company::where('status','!=','pending')->paginate(50);
 
         if ($request->expectsJson()) {
             return response()->json([
@@ -24,6 +26,8 @@ class CompanyController extends Controller
                 "company" => CompanyResource::collection($company)
             ], 200);
         }
+        return view('content.companies', compact('company'));
+
     }
 
     /**
@@ -43,9 +47,15 @@ class CompanyController extends Controller
             'company_name' => 'required|string|max:255',
             'company_field' => 'required|string|max:255',
             'company_description' => 'required|string|max:255',
-            'company_phone' => ['required', 'regex:/^(?:\+62|62|0)8[1-9][0-9]{6,11}$/', 'max:255'],
+            'company_phone' => ['/^(?:\+62|62|0)8[1-9][0-9]{6,11}$/', 'max:255'],
             'company_address' => 'nullable|string|max:255',
-            'company_picture' => 'nullable|string|max:255'
+            'company_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4096',
+        ]);
+
+        Notification::create([
+            'id_users' => Auth::user()->id_users, // ID of the user being notified
+            'type' => 'pending_approval',
+            'message' => 'Penambahan Data Companies Sedang di Verifikasi oleh Admin. Mohon tunggu konfirmasi lebih lanjut.',
         ]);
 
         $company = Company::create([
@@ -54,8 +64,20 @@ class CompanyController extends Controller
             'company_description' => $request->company_description,
             'company_phone' => $request->company_phone,
             'company_address' => $request->company_address,
-            'company_picture' => $request->company_picture,
+            'company_picture' => $request->company_picture ?? 'https://picsum.photos/id/870/200/300?grayscale&blur=2',
+            'creator' => Auth::user()->id_users
         ]);
+
+        if ($request->hasFile('company_picture')) {
+            $file = $request->file('company_picture');
+            $filenameWithExt = $file->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('company_picture')->getClientOriginalExtension();
+            $filenameSimpan = $filename . '_' . time() . '.' . $extension;
+            $file->storeAs('public/company', $filenameSimpan);
+            $company->company_picture = $filenameSimpan;
+            $company->save();
+        }
 
         if ($request->expectsJson()) {
             return response()->json([
@@ -64,8 +86,7 @@ class CompanyController extends Controller
             ], 201);
         }
 
-        return redirect()->back()
-            ->with('success', 'Company successfully created!');
+        return redirect()->route('alumni.profile')->with('success', 'Company successfully created and is awaiting approval.!');
     }
 
 
@@ -116,8 +137,14 @@ class CompanyController extends Controller
             'company_field' => 'required|string|max:255',
             'company_description' => 'required|string|max:255',
             'company_phone' => ['/^(?:\+62|62|0)8[1-9][0-9]{6,11}$/', 'max:255'],
-            'company_address' => 'string|max:255',
-            'company_picture' => 'string|max:255'
+            'company_address' => 'nullable|string|max:255',
+            'company_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4096',
+        ]);
+
+        Notification::create([
+            'id_users' => Auth::user()->id_users, // ID of the user being notified
+            'type' => 'pending_approval',
+            'message' => 'Perubahan Data Companies Sedang di Verifikasi oleh Admin. Mohon tunggu konfirmasi lebih lanjut.',
         ]);
 
         $company = Company::findOrFail($id);
@@ -127,8 +154,21 @@ class CompanyController extends Controller
             'company_description' => $request->company_description,
             'company_phone' => $request->company_phone,
             'company_address' => $request->company_address,
-            'company_picture' => $request->company_picture,
+            'company_picture' => $request->company_picture ?? 'https://picsum.photos/id/870/200/300?grayscale&blur=2',
+            'creator' => Auth::user()->id_users
         ]);
+
+        if ($request->hasFile('company_picture')) {
+            // Delete old image if it exists
+            if ($company->company_picture) {
+                Storage::delete('public/company/' . $company->company_picture);
+            }
+
+            $image = $request->file('company_picture');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->storeAs('public/company', $imageName);
+            $company->company_picture = $imageName;
+        }
 
         return response()->json([
             "message" => "Succesfully Updated The Company!",
@@ -149,4 +189,59 @@ class CompanyController extends Controller
             'message' => 'Successfully deleted the company!',
         ], 200);
     }
+
+    public function detailApproval(String $id)
+    {
+        $company = Company::findOrFail($id);
+        return view('content.admin-detail-company',compact('company'));
+    }
+
+    // Method to approve a company
+    public function approveCompany(String $id) // Using route model binding
+    {
+        $company = Company::findOrFail($id);
+        if ($company->status === 'pending') {
+            $company->status = 'approved';
+            $company->rejection_reason = null;
+            $company->save();
+
+            if (!$company->creator) {
+                return redirect()->route('admin.home')->with('success', "Company '{$company->company_name}' approved.");
+            }
+
+            Notification::create([
+                'id_users' => $company->creator,
+                'type' => 'approved',
+                'message' => 'Company Anda berhasil diverifikasi. Data telah ditambahkan!.',
+            ]);
+
+            return redirect()->route('admin.home')->with('success', "Company '{$company->company_name}' approved.");
+        }
+        return redirect()->route('admin.home')->with('error', "Company '{$company->company_name}' is not pending approval.");
+    }
+
+    // Method to reject a company
+    public function rejectCompany(Request $request, String $id) // Using route model binding
+    {
+        $request->validate(['rejection_reason' => 'nullable|string|min:5|max:500']);
+
+        $company = Company::findOrFail($id);
+
+        if ($company->status === 'pending') {
+            $company->status = 'rejected';
+            $company->rejection_reason = $request->rejection_reason ?? '"Company Data Not Credibles"';
+
+
+            Notification::create([
+                'id_users' => $company->creator,
+                'type' => 'rejected',
+                'message' => "Data Anda Tidak Berhasil diverifikasi, Alasan: $company->rejection_reason.",
+            ]);
+
+            $company->delete();
+            return redirect()->route('admin.home')->with('success', "Company '{$company->company_name}' rejected.");
+        }
+        return redirect()->route('admin.home')->with('error', "Company '{$company->company_name}' is not pending approval.");
+    }
+
 }

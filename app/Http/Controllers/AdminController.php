@@ -38,7 +38,10 @@ class AdminController extends Controller
     {
         $admin = Auth::user();
         $pendingRequest = $this->adminService->getPendingRequests();
-        return view('content.admin-home', compact('admin', 'pendingRequest'));
+        $pendingCompanies = Company::where('status', 'pending')
+        ->orderBy('created_at', 'desc')
+        ->get();
+        return view('content.admin-home', compact('admin', 'pendingRequest','pendingCompanies'));
     }
 
     public function show()
@@ -259,10 +262,10 @@ class AdminController extends Controller
     public function getChartData()
     {
         $queryData = DB::table('user_details')
-            ->selectRaw('graduate_year AS x, COUNT(*) AS y')
-            ->whereNotNull('graduate_year')  // exclude NULLs
-            ->groupBy('graduate_year')
-            ->orderBy('graduate_year')
+            ->selectRaw('entry_year AS x, COUNT(*) AS y')
+            ->whereNotNull('entry_year')
+            ->groupBy('entry_year')
+            ->orderBy('entry_year')
             ->get();
 
         return response()->json($queryData); // Return data as JSON for frontend
@@ -366,7 +369,7 @@ class AdminController extends Controller
             'company_field' => 'required|string|max:255',
             'company_description' => 'required|string|max:255',
             'company_address' => 'string|max:255',
-            'company_picture' => 'image|mimes:jpeg,png,jpg,gif|max:4096',
+            'company_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4096',
         ]);
 
         $company = Company::create([
@@ -401,7 +404,7 @@ class AdminController extends Controller
             'company_website' => 'required|url|max:255',
             'company_address' => 'required|string|max:255',
             'company_description' => 'required|string',
-            'company_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'company_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4096',
         ]);
 
         $company = Company::findOrFail($id);
@@ -444,7 +447,6 @@ class AdminController extends Controller
 
         return redirect()->back();
     }
-
 
     public function getNews()
     {

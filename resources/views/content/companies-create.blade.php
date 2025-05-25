@@ -5,7 +5,7 @@
         <div class="mx-auto max-w-screen-xl px-4 py-8 lg:px-6 lg:py-16">
             <div class="flex items-start justify-center space-x-6">
                 {{-- Back Button --}}
-                <a class="sm:mb-4" href="{{ url()->previous() }}">
+                <a class="sm:mb-4" href="{{ route('alumni.profile') }}">
                     <svg class="h-8 w-8 text-gray-800 sm:h-16 sm:w-16" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                         width="24" height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -37,7 +37,7 @@
                             </div>
                         @endif
 
-                        <form action="{{ route('companies.store') }}" method="POST" class="space-y-8 px-10 pb-8">
+                        <form action="{{ route('companies.store') }}" method="POST" class="space-y-8 px-10 pb-8" enctype="multipart/form-data">
                             @csrf
                             <div class="relative h-24 w-24 sm:h-32 sm:w-32">
                                 <!-- Profile Picture -->
@@ -47,7 +47,7 @@
                                 </div>
 
                                 <!-- Camera Icon -->
-                                <label for="profile_picture"
+                                <label for="company_picture"
                                     class="hover:bg-cyan-600 absolute bottom-0 right-0 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-cyan text-white shadow-md transition-all sm:h-10 sm:w-10">
                                     <svg class="h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                         fill="none" viewBox="0 0 24 24">
@@ -60,6 +60,10 @@
                                             stroke-width="2" d="M9 5h6l-1 4" />
                                     </svg>
                                 </label>
+                                {{-- Hidden Input for Company Picture --}}
+                                <input id="company_picture" name="company_picture" type="file"
+                                accept="image/*" class="hidden"
+                                onchange="document.getElementById('preview-image').src = window.URL.createObjectURL(this.files[0])">
                             </div>
                             <div>
                                 <label for="company_name" class="mb-1 block text-2xl text-cyan">
@@ -70,6 +74,7 @@
                                     value="{{ old('company_name') }}"
                                     placeholder="Enter the company name (e.g., ABC Tech Solutions)" required>
                             </div>
+
 
                             <div>
                                 <label for="company_field" class="mb-1 block text-2xl text-cyan">

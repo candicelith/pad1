@@ -102,7 +102,7 @@ class AlumniController extends Controller
                     ->where('id', '!=', $latestNotification->id ?? null)
                     ->update(['is_read' => true]);
 
-                $companies = Company::all();
+                $companies = Company::where('status','!=','pending')->get();
 
                 return view('content.profile-alumni', compact('user', 'userDetails', 'jobDetails', 'companies', 'latestNotification'));
             }
