@@ -33,7 +33,7 @@
             <div class="max-w-screen-xl sm:mx-auto sm:px-4 lg:px-6">
                 {{-- Filter --}}
                 <div class="mt-9 flex flex-wrap items-center gap-2">
-                    <div class="flex w-full gap-1 overflow-x-auto">
+                    <div class="flex w-full justify-around gap-1 overflow-x-auto">
                         <button
                             class="rounded-full bg-cyan px-4 py-1 text-center text-sm text-white hover:bg-cyan-100 hover:text-white focus:bg-cyan-100 focus:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100"
                             value="" onclick="filterAlumni(event)">
@@ -47,16 +47,6 @@
                             </button>
                         @endforeach
                     </div>
-
-                    {{-- Paginated alphabet filter for mobile view --}}
-                    {{-- <div id="alphabet-filter" class="flex w-full flex-row gap-1 sm:hidden">
-                        <button
-                            class="rounded-full bg-cyan px-4 py-1 text-center text-sm text-white hover:bg-cyan-100 hover:text-white focus:bg-cyan-100 focus:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100"
-                            value="" onclick="filterAlumni(event)">
-                            All
-                        </button>
-                    </div> --}}
-
                     {{-- Dropdown for years --}}
                     <div class="ml-0">
                         <form class="max-w-sm">
@@ -70,6 +60,16 @@
                             </select>
                         </form>
                     </div>
+
+                    {{-- Paginated alphabet filter for mobile view --}}
+                    {{-- <div id="alphabet-filter" class="flex w-full flex-row gap-1 sm:hidden">
+                        <button
+                            class="rounded-full bg-cyan px-4 py-1 text-center text-sm text-white hover:bg-cyan-100 hover:text-white focus:bg-cyan-100 focus:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100"
+                            value="" onclick="filterAlumni(event)">
+                            All
+                        </button>
+                    </div> --}}
+
                 </div>
             </div>
 
