@@ -147,84 +147,113 @@
 
         </div>
 
-        {{-- Modal New Post --}}
-        <div id="crud-modal-post" tabindex="-1" aria-hidden="true"
-            class="fixed left-0 right-0 top-0 z-50 hidden h-[calc(100%-1rem)] max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0">
-            <div class="relative mx-4 max-h-full w-full sm:max-w-4xl">
-                <div class="relative rounded-lg border-4 border-cyan-100 bg-white p-2 shadow">
-                    <div class="flex items-center justify-between rounded-t border-b-4 border-cyan-100 text-center md:p-5">
-                        <h3 class="text-2xl text-cyan sm:text-start">
-                            Post a Job Opportunity!
-                        </h3>
-                        <button type="button" class="inline-flex items-center" data-modal-toggle="crud-modal-post">
-                            <svg class="h-6 w-6 text-cyan" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="3" d="M6 18 17.94 6M18 18 6.06 6" />
-                            </svg>
-                        </button>
-                    </div>
+        {{-- Modal Create Posts --}}
+        @auth
+            @if (Auth::check() && Auth::user()->id_roles == '2')
+                <form class="scrollbar-modal max-h-96 space-y-8 overflow-y-auto px-4 pb-4 pt-0 md:px-5 md:pb-5" method="POST"
+                    action="{{ route('posts.store') }}" enctype="multipart/form-data">
+                    @csrf
 
-                    <form class="scrollbar-modal max-h-96 space-y-8 overflow-y-auto px-4 pb-4 pt-0 md:px-5 md:pb-5"
-                        method="POST" action="" enctype="multipart/form-data">
-                        @csrf
-                        <div class="mt-0 grid grid-cols-2 gap-8 sm:grid-cols-2">
-                            <div class="col-span-2 sm:col-span-2">
-                                <label for="job_position" class="mb-1 block text-2xl text-cyan">
-                                    Position <span
-                                        class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
-                                </label>
-                                <select name="job_position" id="job_position"
-                                    class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan">
-                                    <option value="">Select a job position</option>
-                                    <option value="">UIUX</option>
-                                    <option value="">UIUX</option>
-                                </select>
-                            </div>
-                            <div class="col-span-2 sm:col-span-2">
-                                <label for="company" class="mb-1 block text-2xl text-cyan">
-                                    Company <span
-                                        class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
-                                </label>
-                                <select name="company" id="company"
-                                    class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan">
-                                    <option value="">Select a company name</option>
-                                    <option value="">Select a company name</option>
-                                    <option value="">UIUX</option>
-                                    <option value="">UIUX</option>
-                                </select>
-                            </div>
-                            <div class="col-span-2 sm:col-span-2">
-                                <label for="job_description" class="mb-1 block text-2xl text-cyan">
-                                    Description <span
-                                        class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
-                                </label>
-                                <textarea type="text" name="job_description" id="job_description"
-                                    class="w-full rounded-xl border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
-                                    placeholder="Enter content" required></textarea>
-                            </div>
-                            <div class="col-span-1 sm:col-span-1">
-                                <label for="start_date" class="mb-1 block text-2xl text-cyan">
-                                    Start Date <span
-                                        class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
-                                </label>
-                                <input type="date" name="start_date" id="start_date"
-                                    class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
-                                    required>
-                            </div>
-                            <div class="col-span-1 sm:col-span-1">
-                                <label for="end_date" class="mb-1 block text-2xl text-cyan">
-                                    End Date <span
-                                        class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
-                                </label>
-                                <input type="date" name="end_date" id="end_date"
-                                    class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
-                                    required>
-                            </div>
-                            <div class="col-span-2">
-                                <label for="responsibility" class="mb-1 block text-2xl text-cyan">Responsibility <span
-                                        class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
-                                <div id="responsibility-container-create">
+                    {{-- Display all errors at the top (optional) --}}
+                    @if ($errors->any())
+                        <div class="col-span-2 mb-4 rounded-md bg-red-100 p-4 text-sm text-red-700">
+                            <strong class="font-bold">Oops! Something went wrong.</strong>
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    <div class="mt-0 grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2">
+                        <div class="col-span-2 sm:col-span-2">
+                            <label for="position" class="mb-1 block text-2xl text-cyan">
+                                Position <span
+                                    class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
+                            </label>
+                            <select name="position" id="position"
+                                class="@error('position') border-red-500 @else border-gray-300 @enderror w-full rounded-full border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan">
+                                <option value="">Select a job position</option>
+                                {{-- Note: These values should likely be distinct or dynamic --}}
+                                <option value="UIUX Designer" {{ old('position') == 'UIUX Designer' ? 'selected' : '' }}>UIUX
+                                    Designer</option>
+                                <option value="Frontend Developer"
+                                    {{ old('position') == 'Frontend Developer' ? 'selected' : '' }}>Frontend Developer</option>
+                                <option value="Backend Developer"
+                                    {{ old('position') == 'Backend Developer' ? 'selected' : '' }}>Backend Developer</option>
+                                {{-- Add other positions as needed --}}
+                            </select>
+                            @error('position')
+                                <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="col-span-2 sm:col-span-2">
+                            <label for="company" class="mb-1 block text-2xl text-cyan">
+                                Company <span
+                                    class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
+                            </label>
+                            <select name="company" id="company"
+                                class="@error('company') border-red-500 @else border-gray-300 @enderror w-full rounded-full border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan">
+                                <option value="" disabled {{ old('company') ? '' : 'selected' }}>Select a company
+                                </option>
+                                @foreach ($companies as $company)
+                                    <option value="{{ $company->id_company }}"
+                                        {{ old('company') == $company->id_company ? 'selected' : '' }}>
+                                        {{ $company->company_name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('company')
+                                <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="col-span-2 sm:col-span-2">
+                            <label for="vacancy_description" class="mb-1 block text-2xl text-cyan">
+                                Description <span
+                                    class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
+                            </label>
+                            <textarea name="vacancy_description" id="vacancy_description"
+                                class="@error('vacancy_description') border-red-500 @else border-gray-300 @enderror w-full rounded-xl border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
+                                placeholder="Enter content">{{ old('vacancy_description') }}</textarea>
+                            @error('vacancy_description')
+                                <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="col-span-1 sm:col-span-1">
+                            <label for="start_date" class="mb-1 block text-2xl text-cyan">
+                                Start Date <span
+                                    class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
+                            </label>
+                            <input type="date" name="start_date" id="start_date" value="{{ old('start_date') }}"
+                                class="@error('start_date') border-red-500 @else border-gray-300 @enderror w-full rounded-full border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan">
+                            @error('start_date')
+                                <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="col-span-1 sm:col-span-1">
+                            <label for="end_date" class="mb-1 block text-2xl text-cyan">
+                                End Date <span
+                                    class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
+                            </label>
+                            <input type="date" name="end_date" id="end_date" value="{{ old('end_date') }}"
+                                class="@error('end_date') border-red-500 @else border-gray-300 @enderror w-full rounded-full border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan">
+                            @error('end_date')
+                                <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        {{-- Responsibility --}}
+                        <div class="col-span-2">
+                            <label for="responsibility" class="mb-1 block text-2xl text-cyan">Responsibility <span
+                                    class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
+                            <div id="responsibility-container-create">
+                                {{-- Handle existing old input or provide at least one empty field --}}
+                                @forelse (old('vacancy_responsibility', ['']) as $index => $responsibility)
                                     <div class="responsibility-item mb-2 flex items-center">
                                         <input type="text" name="job_responsibility[]"
                                             class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
@@ -233,199 +262,199 @@
                                             class="remove-responsibility ml-2 rounded-xl border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2"
                                             style="display: none;">Remove</button>
                                     </div>
-                                </div>
-                                <button type="button" id="add-responsibility"
-                                    class="bg-btn-cyan-100 mt-2 rounded-lg px-7 py-2 text-sm text-white hover:bg-lightblue hover:text-cyan sm:text-base">
-                                    Add Responsibility
-                                </button>
-                                @error('job_responsibility')
-                                    <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                                @enderror
                             </div>
-                            <div class="col-span-2">
-                                <label for="qualification" class="mb-1 block text-2xl text-cyan">Qualification <span
-                                        class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
-                                <div id="qualification-container">
-                                    <div class="qualification-item mb-2 flex items-center">
-                                        <input type="text" name="vacancy_qualification[]"
-                                            class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
-                                            placeholder="Enter qualification" required />
-                                        <button type="button"
-                                            class="remove-qualification ml-2 rounded-xl border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2"
-                                            style="display: none;">Remove</button>
-                                    </div>
-                                </div>
-                                <button type="button" id="add-qualification"
-                                    class="bg-btn-cyan-100 mt-2 rounded-lg px-7 py-2 text-sm text-white hover:bg-lightblue hover:text-cyan sm:text-base">
-                                    Add Qualification
-                                </button>
-                                @error('vacancy_qualification')
-                                    <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                                @enderror
-                            </div>
-                            <div class="col-span-2">
-                                <label for="benefits" class="mb-1 block text-2xl text-cyan">Benefits <span
-                                        class="text-4xl text-red-500">*</span></label>
-                                <div id="benefits-container">
-                                    <div class="benefits-item mb-2 flex items-center">
-                                        <input type="text" name="vacancy_benefits[]"
-                                            class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
-                                            placeholder="Enter benefits" required />
-                                        <button type="button"
-                                            class="remove-benefits ml-2 rounded-xl border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2"
-                                            style="display: none;">Remove</button>
-                                    </div>
-                                </div>
-                                <button type="button" id="add-benefits"
-                                    class="bg-btn-cyan-100 mt-2 rounded-lg px-7 py-2 text-sm text-white hover:bg-lightblue hover:text-cyan sm:text-base">
-                                    Add Benefits
-                                </button>
-                                @error('vacancy_benefits')
-                                    <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                                @enderror
-                            </div>
-                            <div class="col-span-1 sm:col-span-1">
-                                <label for="vacancy_poster" class="mb-1 block text-2xl text-cyan">
-                                    Upload Poster <span
-                                        class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
-                                </label>
-                                <input type="file" name="vacancy_poster" id="vacancy_poster"
-                                    class="w-full rounded-full border border-gray-300 bg-gray-200" required>
-                            </div>
-                        </div>
-
-                        <div class="flex justify-end">
-                            <button type="submit"
-                                class="bg-btn-cyan m-4 rounded-lg bg-cyan px-6 py-2 text-white shadow-lg hover:bg-cyan-400 hover:text-cyan sm:py-2.5">
-                                Post
+                            <button type="button" id="add-responsibility"
+                                class="bg-btn-cyan-100 mt-2 rounded-lg px-7 py-2 text-sm text-white hover:bg-lightblue hover:text-cyan sm:text-base">
+                                Add Responsibility
                             </button>
+                            @error('job_responsibility')
+                                <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                            @enderror
                         </div>
+                        <div class="col-span-2">
+                            <label for="qualification" class="mb-1 block text-2xl text-cyan">Qualification <span
+                                    class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
+                            <div id="qualification-container">
+                                <div class="qualification-item mb-2 flex items-center">
+                                    <input type="text" name="vacancy_qualification[]"
+                                        class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
+                                        placeholder="Enter qualification" required />
+                                    <button type="button"
+                                        class="remove-qualification ml-2 rounded-xl border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2"
+                                        style="display: none;">Remove</button>
+                                </div>
+                            </div>
+                            <button type="button" id="add-qualification"
+                                class="bg-btn-cyan-100 mt-2 rounded-lg px-7 py-2 text-sm text-white hover:bg-lightblue hover:text-cyan sm:text-base">
+                                Add Qualification
+                            </button>
+                            @error('vacancy_qualification')
+                                <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="col-span-2">
+                            <label for="benefits" class="mb-1 block text-2xl text-cyan">Benefits <span
+                                    class="text-4xl text-red-500">*</span></label>
+                            <div id="benefits-container">
+                                <div class="benefits-item mb-2 flex items-center">
+                                    <input type="text" name="vacancy_benefits[]"
+                                        class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
+                                        placeholder="Enter benefits" required />
+                                    <button type="button"
+                                        class="remove-benefits ml-2 rounded-xl border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2"
+                                        style="display: none;">Remove</button>
+                                </div>
+                            </div>
+                            <button type="button" id="add-benefits"
+                                class="bg-btn-cyan-100 mt-2 rounded-lg px-7 py-2 text-sm text-white hover:bg-lightblue hover:text-cyan sm:text-base">
+                                Add Benefits
+                            </button>
+                            @error('vacancy_benefits')
+                                <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="col-span-1 sm:col-span-1">
+                            <label for="vacancy_poster" class="mb-1 block text-2xl text-cyan">
+                                Upload Poster <span
+                                    class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
+                            </label>
+                            <input type="file" name="vacancy_poster" id="vacancy_poster"
+                                class="w-full rounded-full border border-gray-300 bg-gray-200" required>
+                        </div>
+                    </div>
 
-                    </form>
+                    <div class="flex justify-end">
+                        <button type="submit"
+                            class="bg-btn-cyan m-4 rounded-lg bg-cyan px-6 py-2 text-white shadow-lg hover:bg-cyan-400 hover:text-cyan sm:py-2.5">
+                            Post
+                        </button>
+                    </div>
+
+                </form>
                 </div>
-            </div>
-        </div>
+                </div>
+                </div>
 
-        {{-- No Result Found --}}
-        <div id="no-results" class="hidden h-40 items-center justify-center">
-            <div class="flex flex-col items-center justify-center space-y-2">
-                <svg class="h-10 w-10 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                    fill="none" viewBox="0 0 20 20">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                </svg>
-                <p class="text-center text-gray-900">No Result Found</p>
-            </div>
-        </div>
+                {{-- No Result Found --}}
+                <div id="no-results" class="hidden h-40 items-center justify-center">
+                    <div class="flex flex-col items-center justify-center space-y-2">
+                        <svg class="h-10 w-10 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                        </svg>
+                        <p class="text-center text-gray-900">No Result Found</p>
+                    </div>
+                </div>
 
-        <div class="mx-auto max-w-screen-xl px-4 py-3 sm:px-0">
-            {{-- Post Card Start --}}
-            <div id="post-container">
-                @foreach ($vacancys as $vc)
-                    <a href="{{ route('posts.detail', ['id' => (string) $vc->id_vacancy]) }}" class="post-card">
-                        <div data-aos="fade-up" class="mt-3 grid space-y-4 lg:grid-cols-1">
-                            <article
-                                class="cursor-pointer rounded-lg border border-gray-200 bg-lightblue p-6 shadow-[0px_2px_3px_0px_rgba(0,0,0,0.30)]"
-                                onclick="navigateToDetailPost()">
-                                <div class="mb-5 flex items-center justify-between text-gray-400">
-                                    <span class="ml-auto text-xs sm:text-sm">
-                                        {{ $vc->date_difference }}
-                                    </span>
+                <div class="mx-auto max-w-screen-xl px-4 py-3 sm:px-0">
+                    {{-- Post Card Start --}}
+                    <div id="post-container">
+                        @foreach ($vacancys as $vc)
+                            <a href="{{ route('posts.detail', ['id' => (string) $vc->id_vacancy]) }}" class="post-card">
+                                <div data-aos="fade-up" class="mt-3 grid space-y-4 lg:grid-cols-1">
+                                    <article
+                                        class="cursor-pointer rounded-lg border border-gray-200 bg-lightblue p-6 shadow-[0px_2px_3px_0px_rgba(0,0,0,0.30)]"
+                                        onclick="navigateToDetailPost()">
+                                        <div class="mb-5 flex items-center justify-between text-gray-400">
+                                            <span class="ml-auto text-xs sm:text-sm">
+                                                {{ $vc->date_difference }}
+                                            </span>
+                                        </div>
+                                        <div class="flex flex-col lg:flex-row lg:space-x-8">
+                                            <div class="flex-shrink-0">
+                                                <img class="h-20 w-20 rounded-full object-cover"
+                                                    src="{{ asset('storage/profile/' . $vc->profile_photo) }}"
+                                                    alt="{{ $vc->name }}" />
+                                            </div>
+                                            <div class="mt-4 lg:mt-0">
+                                                {{-- Position --}}
+                                                <h2 class="post-title mb-2 text-xl tracking-tight text-cyan sm:text-2xl">
+                                                    {{ $vc->position }}
+                                                </h2>
+                                                {{-- Company Name --}}
+                                                <h2 class="post-company mb-2 text-base tracking-tight text-cyan sm:text-xl">
+                                                    {{ $vc->company_name }}
+                                                </h2>
+                                                {{-- Posted By "Name" --}}
+                                                <p class="post-author text-sm text-gray-400 sm:text-lg">Posted by
+                                                    {{ $vc->name }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </article>
                                 </div>
-                                <div class="flex flex-col lg:flex-row lg:space-x-8">
-                                    <div class="flex-shrink-0">
-                                        <img class="h-20 w-20 rounded-full object-cover"
-                                            src="{{ asset('storage/profile/' . $vc->profile_photo) }}"
-                                            alt="{{ $vc->name }}" />
-                                    </div>
-                                    <div class="mt-4 lg:mt-0">
-                                        {{-- Position --}}
-                                        <h2 class="post-title mb-2 text-xl tracking-tight text-cyan sm:text-2xl">
-                                            {{ $vc->position }}
-                                        </h2>
-                                        {{-- Company Name --}}
-                                        <h2 class="post-company mb-2 text-base tracking-tight text-cyan sm:text-xl">
-                                            {{ $vc->company_name }}
-                                        </h2>
-                                        {{-- Posted By "Name" --}}
-                                        <p class="post-author text-sm text-gray-400 sm:text-lg">Posted by
-                                            {{ $vc->name }}
-                                        </p>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                    </a>
-                @endforeach
-            </div>
+                            </a>
+                        @endforeach
+                    </div>
 
-            {{-- Post Card End --}}
+                    {{-- Post Card End --}}
 
-            {{-- Pagination --}}
-            <div class="mt-6 flex justify-center">
-                {{ $vacancys->links('vendor.pagination.custom-pagination') }}
-            </div>
-        </div>
-    </section>
+                    {{-- Pagination --}}
+                    <div class="mt-6 flex justify-center">
+                        {{ $vacancys->links('vendor.pagination.custom-pagination') }}
+                    </div>
+                </div>
+        </section>
 
-    <script>
-        function filterPosts() {
-            let input = document.getElementById('simple-search').value.toLowerCase();
-            let posts = document.querySelectorAll('.post-card');
-            let noResults = document.getElementById('no-results');
-            let hasResults = false;
+        <script>
+            function filterPosts() {
+                let input = document.getElementById('simple-search').value.toLowerCase();
+                let posts = document.querySelectorAll('.post-card');
+                let noResults = document.getElementById('no-results');
+                let hasResults = false;
 
-            posts.forEach(post => {
-                let title = post.querySelector('.post-title').textContent.toLowerCase();
-                let company = post.querySelector('.post-company').textContent.toLowerCase();
-                let author = post.querySelector('.post-author').textContent.toLowerCase();
+                posts.forEach(post => {
+                    let title = post.querySelector('.post-title').textContent.toLowerCase();
+                    let company = post.querySelector('.post-company').textContent.toLowerCase();
+                    let author = post.querySelector('.post-author').textContent.toLowerCase();
 
-                if (title.includes(input) || company.includes(input) || author.includes(input)) {
-                    post.style.display = "block";
-                    hasResults = true;
-                } else {
-                    post.style.display = "none";
-                }
-            });
+                    if (title.includes(input) || company.includes(input) || author.includes(input)) {
+                        post.style.display = "block";
+                        hasResults = true;
+                    } else {
+                        post.style.display = "none";
+                    }
+                });
 
-            noResults.style.display = hasResults ? "none" : "flex";
-        }
-    </script>
+                noResults.style.display = hasResults ? "none" : "flex";
+            }
+        </script>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const addDynamicInput = (containerId, buttonId, inputName, removeClass) => {
-                const container = document.getElementById(containerId);
-                const addButton = document.getElementById(buttonId);
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const addDynamicInput = (containerId, buttonId, inputName, removeClass) => {
+                    const container = document.getElementById(containerId);
+                    const addButton = document.getElementById(buttonId);
 
-                addButton.addEventListener('click', () => {
-                    const newItem = document.createElement('div');
-                    newItem.classList.add(`${inputName}-item`, 'mb-2', 'flex', 'items-center');
-                    newItem.innerHTML = `
+                    addButton.addEventListener('click', () => {
+                        const newItem = document.createElement('div');
+                        newItem.classList.add(`${inputName}-item`, 'mb-2', 'flex', 'items-center');
+                        newItem.innerHTML = `
                 <input type="text" name="${inputName}[]"
                        class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
                        placeholder="Add More" />
                 <button type="button" class="ml-2 rounded-full border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2 ${removeClass}">Remove</button>
             `;
-                    container.appendChild(newItem);
+                        container.appendChild(newItem);
 
-                    newItem.querySelector(`.${removeClass}`).addEventListener('click', () => {
-                        newItem.remove();
+                        newItem.querySelector(`.${removeClass}`).addEventListener('click', () => {
+                            newItem.remove();
+                        });
                     });
-                });
 
-                container.addEventListener('click', (e) => {
-                    if (e.target.classList.contains(removeClass)) {
-                        e.target.closest(`.${inputName}-item`).remove();
-                    }
-                });
-            };
+                    container.addEventListener('click', (e) => {
+                        if (e.target.classList.contains(removeClass)) {
+                            e.target.closest(`.${inputName}-item`).remove();
+                        }
+                    });
+                };
 
-            addDynamicInput('responsibility-container-create', 'add-responsibility', 'job_responsibility',
-                'remove-responsibility');
-            addDynamicInput('qualification-container', 'add-qualification', 'vacancy_qualification',
-                'remove-qualification');
-            addDynamicInput('benefits-container', 'add-benefits', 'vacancy_benefits', 'remove-benefits');
-        });
-    </script>
-@endsection
+                addDynamicInput('responsibility-container-create', 'add-responsibility', 'job_responsibility',
+                    'remove-responsibility');
+                addDynamicInput('qualification-container', 'add-qualification', 'vacancy_qualification',
+                    'remove-qualification');
+                addDynamicInput('benefits-container', 'add-benefits', 'vacancy_benefits', 'remove-benefits');
+            });
+        </script>
+    @endsection
