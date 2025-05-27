@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use Illuminate\Support\Str;
 use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -10,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\CompanyResource;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class CompanyController extends Controller
 {
@@ -87,6 +89,51 @@ class CompanyController extends Controller
         }
 
         return redirect()->route('alumni.profile')->with('success', 'Company successfully created and is awaiting approval.!');
+    }
+    public function storeAjax(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'company_name' => 'required|string|max:255|unique:company,company_name',
+            'company_field' => 'required|string|max:255',
+            'company_address' => 'nullable|string|max:255',
+            'company_description' => 'required|string',
+            'company_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        try {
+            $companyData = $validator->validated(); // Get validated data
+            $companyData['status'] = 'pending'; // Auto-approve for AJAX creation via experience form
+            $companyData['creator'] = Auth::id();
+
+            if ($request->hasFile('company_picture')) {
+                $file = $request->file('company_picture');
+                // Ensure a unique filename
+                $filenameSimpan = time() . '_' . Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $file->getClientOriginalExtension();
+                $file->storeAs('public/company', $filenameSimpan);
+                $companyData['company_picture'] = $filenameSimpan;
+            } else {
+                 // If you have a default image, set it here. Otherwise, null.
+                $companyData['company_picture'] = 'default_company.png'; // Example default
+            }
+            $company = Company::create($companyData);
+
+            return response()->json([
+                'success' => true, // Added for clarity on frontend
+                'message' => 'Company created successfully and selected!',
+                'company' => [
+                    'id_company' => $company->id_company, // Or $company->id if your primary key is just 'id' but model maps to id_company
+                    'company_name' => $company->company_name,
+                ]
+            ], 201);
+
+        } catch (\Exception $e) {
+            // Log::error('Company AJAX store error: ' . $e->getMessage());
+            return response()->json(['message' => 'Failed to create company: ' . $e->getMessage()], 500);
+        }
     }
 
 
