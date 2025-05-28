@@ -30,50 +30,90 @@
             @endauth
 
             {{-- Filters and Search --}}
-            <div
-                class="mx-auto mt-4 max-w-screen-xl space-y-4 px-4 sm:flex sm:flex-wrap sm:items-center sm:justify-between sm:space-y-0 sm:px-6">
-
-                {{-- Left Section: Buttons for logged-in users --}}
+            <div class="mx-auto mt-4 max-w-screen-xl items-center justify-between px-4 sm:flex sm:px-6">
                 @auth
-                    <div class="flex flex-wrap gap-2 sm:gap-4">
-                        @if (Auth::user()->id_roles == '2')
+                    @if (Auth::check() && Auth::user()->id_roles == '2')
+                        <div class="mb-2 flex justify-between sm:mb-0 sm:space-x-4 xl:space-x-10">
                             <button
-                                class="text-cyan-600 rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm hover:bg-gray-100 focus:bg-cyan-100 focus:text-white sm:text-base">
+                                class="text-cyan-600 rounded-xl border border-gray-200 px-3 py-2 text-sm hover:bg-gray-200 focus:bg-cyan-100 focus:text-white sm:px-6 sm:py-4 xl:text-base">
                                 My Post
-                                </abutton>
-                        @endif
-
-                        @if (in_array(Auth::user()->id_roles, ['2', '3']))
+                            </button>
                             <button
-                                class="text-cyan-600 rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm hover:bg-gray-100 focus:bg-cyan-100 focus:text-white sm:text-base">
+                                class="text-cyan-600 rounded-xl border border-gray-200 px-3 py-2 text-sm hover:bg-gray-200 focus:bg-cyan-100 focus:text-white sm:px-6 sm:py-4 xl:text-base">
                                 My Commented Post
                             </button>
-                        @endif
-                    </div>
-                @endauth
-
-                {{-- Middle Section: Search Bar --}}
-                <div class="w-full sm:max-w-md">
-                    <form id="search-form" class="flex items-center">
-                        <label for="simple-search" class="sr-only">Search</label>
-                        <div class="relative w-full">
-                            <input type="text" id="simple-search" name="query"
-                                class="block w-full rounded-lg border border-gray-500 bg-gray-200 p-2.5 ps-10 text-sm text-gray-900 focus:border-cyan focus:ring-cyan"
-                                placeholder="Search post..." onkeyup="filterPosts()" />
                         </div>
-                        <button type="submit"
-                            class="bg-btn-cyan ms-2 rounded-xl border border-cyan bg-cyan p-2.5 text-sm font-medium text-white hover:bg-cyan-100 focus:outline-none focus:ring-4 focus:ring-cyan">
-                            <svg class="h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                viewBox="0 0 20 20">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                            </svg>
-                            <span class="sr-only">Search</span>
-                        </button>
-                    </form>
-                </div>
-
-                {{-- Right Section: Date Range Picker --}}
+                        {{-- Search --}}
+                        <div class="mx-auto mb-2 max-w-screen-xl px-4 sm:mb-0 sm:px-6">
+                            <form id="search-form" class="mx-auto flex max-w-sm items-center">
+                                <label for="simple-search" class="sr-only">Search</label>
+                                <div class="relative w-full">
+                                    <input type="text" id="simple-search" name="query"
+                                        class="block w-full rounded-lg border border-gray-500 bg-gray-200 p-2.5 ps-10 text-sm text-gray-900 focus:border-cyan focus:ring-cyan"
+                                        placeholder="Search post..." onkeyup="filterPosts()" />
+                                </div>
+                                <button type="submit"
+                                    class="bg-btn-cyan ms-2 rounded-xl border border-cyan bg-cyan p-2.5 text-sm font-medium text-white hover:bg-cyan-100 focus:outline-none focus:ring-4 focus:ring-cyan">
+                                    <svg class="h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 20 20">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                                    </svg>
+                                    <span class="sr-only">Search</span>
+                                </button>
+                            </form>
+                        </div>
+                    @elseif (Auth::check() && Auth::user()->id_roles == '3')
+                        <div class="mb-2 flex justify-center sm:mb-0 sm:space-x-4 xl:space-x-10">
+                            <button
+                                class="text-cyan-600 w-full rounded-xl border border-gray-200 px-3 py-2 text-sm hover:bg-gray-200 focus:bg-cyan-100 focus:text-white sm:px-6 sm:py-4 xl:text-base">
+                                My Commented Post
+                            </button>
+                        </div>
+                        {{-- Search --}}
+                        <div class="mx-auto mb-2 max-w-screen-xl px-4 sm:mb-0 sm:px-6">
+                            <form id="search-form" class="mx-auto flex max-w-sm items-center">
+                                <label for="simple-search" class="sr-only">Search</label>
+                                <div class="relative w-full">
+                                    <input type="text" id="simple-search" name="query"
+                                        class="block w-full rounded-lg border border-gray-500 bg-gray-200 p-2.5 ps-10 text-sm text-gray-900 focus:border-cyan focus:ring-cyan"
+                                        placeholder="Search post..." onkeyup="filterPosts()" />
+                                </div>
+                                <button type="submit"
+                                    class="bg-btn-cyan ms-2 rounded-xl border border-cyan bg-cyan p-2.5 text-sm font-medium text-white hover:bg-cyan-100 focus:outline-none focus:ring-4 focus:ring-cyan">
+                                    <svg class="h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 20 20">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                                    </svg>
+                                    <span class="sr-only">Search</span>
+                                </button>
+                            </form>
+                        </div>
+                    @else
+                        {{-- Search --}}
+                        <div class="mb-2 max-w-screen-xl sm:mb-0">
+                            <form id="search-form" class="flex max-w-sm items-center">
+                                <label for="simple-search" class="sr-only">Search</label>
+                                <div class="relative w-full">
+                                    <input type="text" id="simple-search" name="query"
+                                        class="block w-full rounded-lg border border-gray-500 bg-gray-200 p-2.5 ps-10 text-sm text-gray-900 focus:border-cyan focus:ring-cyan"
+                                        placeholder="Search post..." onkeyup="filterPosts()" />
+                                </div>
+                                <button type="submit"
+                                    class="bg-btn-cyan ms-2 rounded-xl border border-cyan bg-cyan p-2.5 text-sm font-medium text-white hover:bg-cyan-100 focus:outline-none focus:ring-4 focus:ring-cyan">
+                                    <svg class="h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 20 20">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                                    </svg>
+                                    <span class="sr-only">Search</span>
+                                </button>
+                            </form>
+                        </div>
+                    @endif
+                @endauth
+                {{-- Date Range --}}
                 <div id="date-range-picker" date-rangepicker datepicker datepicker-buttons datepicker-autoselect-today
                     class="flex items-center">
                     <div class="relative">
@@ -103,7 +143,6 @@
                     </div>
                 </div>
             </div>
-
             {{-- Filters and Search End --}}
 
         </div>
@@ -120,8 +159,8 @@
                         <button type="button" class="inline-flex items-center" data-modal-toggle="crud-modal-post">
                             <svg class="h-6 w-6 text-cyan" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                 width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
-                                    d="M6 18 17.94 6M18 18 6.06 6" />
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="3" d="M6 18 17.94 6M18 18 6.06 6" />
                             </svg>
                         </button>
                     </div>

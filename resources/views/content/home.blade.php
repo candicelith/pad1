@@ -145,7 +145,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <p class="my-3 text-xs sm:text-base">
+                                    <p class="my-3 max-w-lg truncate text-xs sm:text-base">
                                         {{ $ps->vacancy_description }}
                                     </p>
                                     <img class="h-36 w-full rounded-tl-md rounded-tr-md object-cover md:h-40"
@@ -170,7 +170,7 @@
                 <div class="flex flex-grow flex-col">
                     @foreach ($company as $com)
                         <a href="{{ route('companies.detail', ['id' => $com->id_company]) }}">
-                            <div class="mb-6 flex-grow-0">
+                            <div class="mb-5 flex-grow-0">
                                 <article data-aos="fade-up"
                                     class="cursor-pointer rounded-lg border border-gray-500 bg-lightblue p-4 py-5 shadow-lg">
                                     <div class="flex flex-col sm:flex-row sm:space-x-4">

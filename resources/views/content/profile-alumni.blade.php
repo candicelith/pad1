@@ -84,7 +84,8 @@
                                 class="fixed left-0 right-0 top-0 z-50 hidden h-[calc(100%-1rem)] max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0">
                                 <div class="relative mx-4 max-h-full w-full sm:max-w-4xl">
                                     <!-- Modal content -->
-                                    <div class="relative rounded-lg border-4 border-cyan-100 bg-white p-2 shadow">
+                                    <div
+                                        class="relative overflow-y-auto rounded-lg bg-white pb-5 shadow">
                                         <!-- Modal header -->
                                         <div
                                             class="flex items-center justify-between rounded-t border-b-4 border-cyan-100 p-2 text-center md:p-5">

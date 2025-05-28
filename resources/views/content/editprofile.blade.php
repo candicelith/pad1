@@ -378,63 +378,188 @@
                                         class="fixed left-0 right-0 top-0 z-50 hidden h-[calc(100%-1rem)] max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0">
                                         <div class="relative mx-4 max-h-full w-full sm:max-w-4xl">
                                             <!-- Modal content -->
-                                            <div
-                                                class="scrollbar-modal relative my-14 max-h-96 overflow-y-auto rounded-lg border border-gray-900 bg-lightblue p-4 shadow dark:bg-gray-700 sm:mx-10 md:p-5">
+                                            <div class="relative rounded-lg border-4 border-cyan-100 bg-white p-2 shadow">
                                                 <!-- Modal header -->
-                                                <div class="mb-4 flex items-center justify-between border-b pb-4">
-                                                    <h3 class="text-lg font-semibold text-cyan">
+                                                <div
+                                                    class="flex items-center justify-between rounded-t border-b-4 border-cyan-100 text-center md:p-5">
+                                                    <h3 class="text-2xl text-cyan sm:text-start">
                                                         Edit Experience
                                                     </h3>
                                                     <button data-modal-hide="crud-modal-{{ $job->id_tracking }}"
-                                                        class="z-10 p-2 pe-0">
-                                                        <svg class="h-6 w-6 text-gray-900 dark:text-white"
-                                                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                                            width="24" height="24" fill="none"
-                                                            viewBox="0 0 24 24">
+                                                        class="inline-flex items-center">
+                                                        <svg class="h-6 w-6 text-cyan" aria-hidden="true"
+                                                            xmlns="http://www.w3.org/2000/svg" width="24"
+                                                            height="24" fill="none" viewBox="0 0 24 24">
                                                             <path stroke="currentColor" stroke-linecap="round"
                                                                 stroke-linejoin="round" stroke-width="2"
                                                                 d="M6 18 17.94 6M18 18 6.06 6" />
                                                         </svg>
                                                     </button>
                                                 </div>
-                                                <form
+                                                <form class="scrollbar-modal max-h-96 overflow-y-auto p-4 md:p-5"
                                                     action="{{ route('alumni.update-experiences', ['id' => $job->id_tracking]) }}"
                                                     method="POST">
                                                     @csrf
-                                                    <div
-                                                        class="mb-4 grid grid-cols-2 gap-4 rounded-lg bg-gray-300 px-4 py-5">
-                                                        <div class="col-span-2" x-data="dropdown({
-                                                            options: @js($companies->map(fn($c) => ['value' => $c->id_company, 'label' => $c->company_name])),
-                                                            selected: { value: '{{ $job->id_company }}', label: '{{ $job->company_name }}' }
-                                                        })"
-                                                            class="flex w-full items-center">
+                                                    <div class="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                                                        <div class="col-span-2">
+                                                            <label for="company"
+                                                                class="mb-2 block text-sm text-cyan sm:text-xl">
+                                                                Company <span
+                                                                    class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
+                                                            </label>
 
-                                                            <div class="relative w-full">
-                                                                <input x-model="search" @click="open = true"
-                                                                    @input="filterOptions" @click.away="open = false"
-                                                                    class="block w-full rounded-full border border-gray-900 bg-gray-50 px-6 py-2 text-sm text-gray-900 focus:outline-none"
-                                                                    placeholder="Search or select a company" />
+                                                            <div class="col-span-2" x-data="dropdown({
+                                                                options: @js($companies->map(fn($c) => ['value' => $c->id_company, 'label' => $c->company_name])),
+                                                                selected: { value: '{{ $job->id_company }}', label: '{{ $job->company_name }}' }
+                                                            })"
+                                                                class="flex w-full items-center">
 
-                                                                <ul x-show="open"
-                                                                    class="absolute z-10 mt-1 max-h-60 w-full overflow-y-auto rounded-md border border-gray-200 bg-white shadow">
-                                                                    <template x-for="item in filteredOptions"
-                                                                        :key="item.value">
-                                                                        <li @click="selectOption(item)"
-                                                                            class="cursor-pointer px-4 py-2 text-sm hover:bg-gray-200"
-                                                                            x-text="item.label"></li>
-                                                                    </template>
-                                                                    <li @click="open = false; window.location.href='{{ route('companies.create') }}'"
-                                                                        class="text-cyan-600 cursor-pointer border-t px-4 py-2 text-sm hover:bg-gray-100">
-                                                                        + Add a new company
-                                                                    </li>
-                                                                </ul>
+                                                                <div class="relative w-full">
+                                                                    <input x-model="search" @click="open = true"
+                                                                        @input="filterOptions" @click.away="open = false"
+                                                                        class="block w-full rounded-full border border-gray-900 bg-gray-50 px-6 py-2 text-sm text-gray-900 focus:outline-none"
+                                                                        placeholder="Search or select a company" />
 
-                                                                <input type="hidden" name="company"
-                                                                    :value="selected?.value" required>
+                                                                    <ul x-show="open"
+                                                                        class="absolute z-10 mt-1 max-h-60 w-full overflow-y-auto rounded-md border border-gray-200 bg-white shadow">
+                                                                        <template x-for="item in filteredOptions"
+                                                                            :key="item.value">
+                                                                            <li @click="selectOption(item)"
+                                                                                class="cursor-pointer px-4 py-2 text-sm hover:bg-gray-200"
+                                                                                x-text="item.label"></li>
+                                                                        </template>
+                                                                        <li @click="open = false; window.location.href='{{ route('companies.create') }}'"
+                                                                            class="text-cyan-600 cursor-pointer border-t px-4 py-2 text-sm hover:bg-gray-100">
+                                                                            + Add a new company
+                                                                        </li>
+                                                                    </ul>
+
+                                                                    <input type="hidden" name="company"
+                                                                        :value="selected?.value" required>
+                                                                </div>
+                                                            </div>
+
+                                                            {{-- Company Input --}}
+                                                            <div
+                                                                class="mt-4 space-y-4 rounded-xl border border-gray-900 bg-gray-50 p-4">
+                                                                <form action="{{ route('companies.store') }}"
+                                                                    method="POST" class="space-y-8 px-10">
+                                                                    @csrf
+                                                                    <div class="relative h-24 w-24 sm:h-32 sm:w-32">
+                                                                        <!-- Profile Picture -->
+                                                                        <div
+                                                                            class="h-full w-full overflow-hidden rounded-full border-4 border-cyan bg-gray-100">
+                                                                            <img id="preview-image"
+                                                                                class="h-full w-full object-cover"
+                                                                                src="" alt="Profile Picture">
+                                                                        </div>
+
+                                                                        <!-- Camera Icon -->
+                                                                        <label for="profile_picture"
+                                                                            class="hover:bg-cyan-600 absolute bottom-0 right-0 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-cyan text-white shadow-md transition-all sm:h-10 sm:w-10">
+                                                                            <svg class="h-4 w-4 sm:h-5 sm:w-5"
+                                                                                aria-hidden="true"
+                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                                fill="none" viewBox="0 0 24 24">
+                                                                                <path stroke="currentColor"
+                                                                                    stroke-linecap="round"
+                                                                                    stroke-linejoin="round"
+                                                                                    stroke-width="2"
+                                                                                    d="M3 9a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z" />
+                                                                                <path stroke="currentColor"
+                                                                                    stroke-linecap="round"
+                                                                                    stroke-linejoin="round"
+                                                                                    stroke-width="2"
+                                                                                    d="M12 17a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                                                                                <path stroke="currentColor"
+                                                                                    stroke-linecap="round"
+                                                                                    stroke-linejoin="round"
+                                                                                    stroke-width="2" d="M9 5h6l-1 4" />
+                                                                            </svg>
+                                                                        </label>
+                                                                    </div>
+                                                                    <div>
+                                                                        <label for="company_name"
+                                                                            class="mb-2 block text-sm text-cyan sm:text-xl">
+                                                                            Name<span
+                                                                                class="text-4xl text-red-500">*</span>
+                                                                        </label>
+                                                                        <input type="text" name="company_name"
+                                                                            id="company_name"
+                                                                            class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
+                                                                            value="{{ old('company_name') }}"
+                                                                            placeholder="Enter the company name (e.g., ABC Tech Solutions)"
+                                                                            required>
+                                                                    </div>
+
+                                                                    <div>
+                                                                        <label for="company_field"
+                                                                            class="mb-2 block text-sm text-cyan sm:text-xl">
+                                                                            Industry Type<span
+                                                                                class="text-4xl text-red-500">*</span>
+                                                                        </label>
+                                                                        <input type="text" name="company_field"
+                                                                            id="company_field"
+                                                                            class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
+                                                                            value="{{ old('company_field') }}"
+                                                                            placeholder="Enter the industry type (e.g., IT, Finance, Healthcare)"
+                                                                            required>
+                                                                    </div>
+
+                                                                    <div>
+                                                                        <label for="company_address"
+                                                                            class="mb-2 block text-sm text-cyan sm:text-xl">
+                                                                            Location<span
+                                                                                class="text-4xl text-red-500">*</span>
+                                                                        </label>
+                                                                        <input type="text" name="company_address"
+                                                                            id="company_address"
+                                                                            class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
+                                                                            value="{{ old('company_address') }}"
+                                                                            placeholder="Enter city and country (e.g., Jakarta, Indonesia)"
+                                                                            required>
+                                                                    </div>
+
+                                                                    <div>
+                                                                        <label for="company_description"
+                                                                            class="mb-2 block text-sm text-cyan sm:text-xl">
+                                                                            Description<span
+                                                                                class="text-4xl text-red-500">*</span>
+                                                                        </label>
+                                                                        <textarea name="company_description" id="company_description" rows="4"
+                                                                            class="w-full rounded-md border border-gray-300 bg-gray-200 px-3 py-2 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
+                                                                            placeholder="Briefly describe the company and its mission" required>{{ old('company_description') }}</textarea>
+                                                                    </div>
+
+                                                                    <div class="space-y-3">
+                                                                        <label for="company_phone"
+                                                                            class="mb-2 block text-sm text-cyan sm:text-xl">
+                                                                            File Upload<span
+                                                                                class="text-4xl text-red-500">*</span>
+                                                                        </label>
+                                                                        <p>You can add one or more photos of your new
+                                                                            company</p>
+                                                                        <input type="file" name=""
+                                                                            id="" class="rounded-full border"
+                                                                            required>
+                                                                    </div>
+
+                                                                    <div class="flex justify-end space-x-3 pt-2">
+                                                                        {{-- <a href="{{ url()->previous() }}"
+                                                                class="rounded-md bg-gray-200 px-4 py-2 text-gray-700 transition hover:bg-gray-300">
+                                                                Cancel
+                                                            </a> --}}
+                                                                        <button type="submit"
+                                                                            class="bg-btn-cyan m-4 rounded-lg bg-cyan px-6 py-2 text-white shadow-lg hover:bg-cyan-400 hover:text-cyan sm:py-2.5">
+                                                                            Create
+                                                                        </button>
+                                                                    </div>
+                                                                </form>
                                                             </div>
 
                                                             @error('company')
-                                                                <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                                                                <p class="mt-1 text-sm text-red-500">{{ $message }}
+                                                                </p>
                                                             @enderror
                                                         </div>
 
@@ -454,7 +579,7 @@
                                                             selected: { value: '{{ $job->job_name }}', label: '{{ $job->job_name }}' }
                                                         })">
                                                             <label for="position"
-                                                                class="mb-2 block text-sm font-medium text-gray-400 dark:text-white">Position
+                                                                class="mb-2 block text-sm text-cyan sm:text-xl">Position
                                                                 <span
                                                                     class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
 
@@ -479,7 +604,8 @@
                                                             </div>
 
                                                             @error('position')
-                                                                <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                                                                <p class="mt-1 text-sm text-red-500">{{ $message }}
+                                                                </p>
                                                             @enderror
                                                         </div>
 
@@ -488,9 +614,9 @@
                                                             datepicker-autoselect-today>
                                                             <div class="col-span-1">
                                                                 <label for="date_start"
-                                                                    class="mb-2 block text-sm font-medium text-gray-700 dark:text-white">Start
+                                                                    class="mb-2 block text-sm text-cyan sm:text-xl">Start
                                                                     Date <span
-                                                                        class="text-4xl text-red-500">*</span></label>
+                                                                        class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
                                                                 <div class="relative">
                                                                     <div
                                                                         class="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3">
@@ -506,18 +632,20 @@
                                                                         id="datepicker-range-start-{{ $job->id_tracking }}"
                                                                         name="date_start" type="text"
                                                                         value="{{ $job->date_start }}"
-                                                                        class="block w-full rounded-full border border-gray-500 bg-gray-50 p-2.5 ps-10 text-sm text-gray-900 shadow focus:border-cyan focus:ring-cyan"
+                                                                        class="block w-full rounded-xl border border-gray-500 bg-gray-50 p-2.5 ps-10 text-sm text-gray-900 shadow focus:border-cyan focus:ring-cyan"
                                                                         placeholder="Select start date" required>
                                                                 </div>
                                                                 @error('date_start')
-                                                                    <p class="mt-1 text-sm text-red-500">{{ $message }}
+                                                                    <p class="mt-1 text-sm text-red-500">
+                                                                        {{ $message }}
                                                                     </p>
                                                                 @enderror
                                                             </div>
                                                             <div class="col-span-1">
                                                                 <label for="date_end"
-                                                                    class="mb-2 block text-sm font-medium text-gray-700 dark:text-white">End
-                                                                    Date</label>
+                                                                    class="mb-2 block text-sm text-cyan sm:text-xl">End
+                                                                    Date <span
+                                                                        class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
                                                                 <div class="space-y-2">
                                                                     <div class="relative">
                                                                         <div
@@ -534,7 +662,7 @@
                                                                             id="datepicker-range-end-{{ $job->id_tracking }}"
                                                                             name="date_end" type="text"
                                                                             value="{{ $job->date_end }}"
-                                                                            class="date-end-input block w-full rounded-full border border-gray-500 bg-gray-50 p-2.5 ps-10 text-sm text-gray-900 shadow focus:border-cyan focus:ring-cyan"
+                                                                            class="date-end-input block w-full rounded-xl border border-gray-500 bg-gray-50 p-2.5 ps-10 text-sm text-gray-900 shadow focus:border-cyan focus:ring-cyan"
                                                                             placeholder="Select end date">
                                                                     </div>
                                                                     <div class="flex items-center">
@@ -550,7 +678,8 @@
                                                                     </div>
                                                                 </div>
                                                                 @error('date_end')
-                                                                    <p class="mt-1 text-sm text-red-500">{{ $message }}
+                                                                    <p class="mt-1 text-sm text-red-500">
+                                                                        {{ $message }}
                                                                     </p>
                                                                 @enderror
                                                             </div>
@@ -558,7 +687,7 @@
                                                         @if (is_array($job->job_description) && !empty($job->job_description))
                                                             <div class="col-span-2">
                                                                 <label for="responsibility"
-                                                                    class="mb-2 block text-sm text-gray-400">Responsibility
+                                                                    class="mb-2 block text-sm text-cyan sm:text-xl">Responsibility
                                                                     <span
                                                                         class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
                                                                 <div
@@ -581,19 +710,20 @@
                                                                 </div>
                                                                 <button type="button"
                                                                     id="add-responsibility-update-{{ $job->id_tracking }}"
-                                                                    class="bg-btn-cyan mt-2 rounded-full px-4 py-2 text-sm text-white hover:bg-cyan-300 sm:text-base">
+                                                                    class="bg-btn-cyan-100 mt-2 rounded-lg px-4 py-2 text-sm text-white hover:bg-cyan-400 hover:text-cyan sm:text-base">
                                                                     Add Responsibility
                                                                 </button>
 
                                                                 @error('job_responsibility')
-                                                                    <p class="mt-1 text-sm text-red-500">{{ $message }}
+                                                                    <p class="mt-1 text-sm text-red-500">
+                                                                        {{ $message }}
                                                                     </p>
                                                                 @enderror
                                                             </div>
                                                         @else
                                                             <div class="col-span-2">
                                                                 <label for="responsibility"
-                                                                    class="mb-2 block text-sm text-gray-400">Responsibility
+                                                                    class="mb-2 block text-sm text-cyan sm:text-xl">Responsibility
                                                                     <span
                                                                         class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
                                                                 <div
@@ -612,22 +742,25 @@
                                                                 </div>
                                                                 <button type="button"
                                                                     id="add-responsibility-update-{{ $job->id_tracking }}"
-                                                                    class="bg-btn-cyan mt-2 rounded-full px-4 py-2 text-sm text-white hover:bg-cyan-300 sm:text-base">
+                                                                    class="bg-btn-cyan-100 mt-2 rounded-lg px-4 py-2 text-sm text-white hover:bg-cyan-400 hover:text-cyan sm:text-base">
                                                                     Add Responsibility
                                                                 </button>
 
                                                                 @error('job_responsibility')
-                                                                    <p class="mt-1 text-sm text-red-500">{{ $message }}
+                                                                    <p class="mt-1 text-sm text-red-500">
+                                                                        {{ $message }}
                                                                     </p>
                                                                 @enderror
                                                             </div>
                                                         @endif
                                                     </div>
-                                                    <button data-modal-hide="crud-modal-{{ $job->id_tracking }}"
-                                                        type="submit"
-                                                        class="bg-btn-cyan m-4 rounded-full bg-cyan px-5 py-2.5 text-white shadow-lg hover:bg-white hover:text-cyan">
-                                                        Save Changes
-                                                    </button>
+                                                    <div class="flex justify-end">
+                                                        <button data-modal-hide="crud-modal-{{ $job->id_tracking }}"
+                                                            type="submit"
+                                                            class="bg-btn-cyan m-4 rounded-lg bg-cyan px-6 py-2 text-white shadow-lg hover:bg-cyan-400 hover:text-cyan sm:py-2.5">
+                                                            Save Changes
+                                                        </button>
+                                                    </div>
                                                 </form>
                                             </div>
                                         </div>
