@@ -1,15 +1,24 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-use function Laravel\Prompts\error;
 
-class UserController extends Controller
+class UserControllerAPI extends Controller
 {
-    /**
+    public function __construct()
+    {
+        $this->middleware('admin')->except([
+            'profile',
+            'index',
+            'detail'
+        ]);
+    }
+
+    /**w
      * Display a listing of the resource.
      */
     public function index()
@@ -21,17 +30,6 @@ class UserController extends Controller
             "data" => $user
         ],200);
     }
-
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-
-    }
-
-
     /**
      * Store a newly created resource in storage.
      */
@@ -83,8 +81,6 @@ class UserController extends Controller
             ]
         ], 201);
     }
-
-
     /**
      * Display the specified resource.
      */
@@ -104,15 +100,6 @@ class UserController extends Controller
             "data" => $user
         ], 200);
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Request $request,string $id)
-    {
-
-    }
-
     /**
      * Update the specified resource in storage.
      */
@@ -176,8 +163,6 @@ class UserController extends Controller
             'data' => $user
         ], 200);
     }
-
-
     /**
      * Remove the specified resource from storage.
      */
@@ -201,5 +186,23 @@ class UserController extends Controller
         return response()->json([
             'message' => "Successfully deleted user with ID $id."
         ], 200);
+    }
+    public function listAlumni()
+    {
+        $user = User::with('userDetails')->where('id_roles','2')->get();
+
+        return response()->json([
+            "message" => "Succesfully Fetched All Alumni Data!",
+            "data" => $user
+        ]);
+    }
+    public function listMahasiswa()
+    {
+        $user = User::with('userDetails')->where('id_roles','3')->get();
+
+        return response()->json([
+            "message" => "Succesfully Fetched All Mahasiswa Data!",
+            "data" => $user
+        ]);
     }
 }

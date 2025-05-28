@@ -29,12 +29,6 @@ class JobTracking extends Model
         'date_end' => 'datetime'
     ];
 
-
-    public function jobs()
-    {
-        return $this->belongsToMany(Job::class, 'job_tracking_jobs', 'job_tracking_id', 'job_id');
-    }
-
     public function userDetails()
     {
         return $this->belongsTo(UserDetails::class, 'id_userDetails', 'id_userDetails');
