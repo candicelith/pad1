@@ -59,10 +59,16 @@ class Vacancy extends Model
 public function getVacancyPictureAttribute($value)
 {
     if ($value) {
+        // If $value already starts with 'vacancies/', don't prepend 'profile/' again
+        if (str_starts_with($value, 'vacancies/')) {
+            return asset('storage/' . $value);
+        }
+
+        // If your stored path is just a filename, prepend 'profile/'
         return asset('storage/profile/' . $value);
     }
 
-    return asset('assets/default-vacancy.jpg'); // Ensure you use forward slashes for consistency in URLs
+    return asset('assets/default-vacancy.jpg');
 }
 
 }

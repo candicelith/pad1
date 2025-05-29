@@ -7,7 +7,7 @@ use App\Http\Resources\NewsResource;
 use App\Models\News;
 use Illuminate\Http\Request;
 
-class NewsController extends Controller
+class NewsControllerAPI extends Controller
 {
     public function index()
     {
