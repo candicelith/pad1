@@ -59,7 +59,7 @@ Route::get('/admin-detail-company', function () {
 
 // Index
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/companies', [CompanyController::class, 'index'])->name('companies');
+// Route::get('/companies', [CompanyController::class, 'index'])->name('companies');
 
 // Login
 Route::controller(AuthController::class)->group(function () {
