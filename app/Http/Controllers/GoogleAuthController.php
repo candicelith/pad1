@@ -39,6 +39,19 @@ class GoogleAuthController extends Controller
         // Check if user details exist
         $userDetails = UserDetails::where('id_users', $user->id_users)->first();
 
+        // NEW: Create token instead of just using Auth::login()
+        $token = $user->createToken('web-session')->plainTextToken;
+
+        // Store token in secure cookie
+        cookie()->queue(
+            'auth_token',
+            $token,
+            60 * 24, // 24 hours
+            '/',
+            null,
+            true, // secure
+            false  // httpOnly
+         );
         // Log in the user
         Auth::login($user);
 
