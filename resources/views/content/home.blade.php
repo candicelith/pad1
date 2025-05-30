@@ -119,7 +119,7 @@
             {{-- Posts Section Start --}}
             <div class="w-full rounded-lg bg-cyan-100 p-6">
                 <h1 class="mb-3 text-xl text-white sm:text-2xl">Posts</h1>
-                @foreach ($posts as $ps)
+                {{-- @foreach ($posts as $ps)
                     <a href="{{ route('posts.detail', ['id' => $ps->id_vacancy]) }}">
                         <div data-aos="fade-up" class="mb-4 cursor-pointer">
                             <article class="rounded-lg border border-gray-500 bg-lightblue px-6 pb-0 pt-2 shadow-lg">
@@ -155,7 +155,11 @@
                             </article>
                         </div>
                     </a>
-                @endforeach
+                @endforeach --}}
+
+                <div id="posts-container">
+
+                </div>
 
                 <a href="{{ route('posts') }}"
                     class="mt-2 inline-flex items-center justify-center rounded-lg bg-white px-6 py-2 text-base text-cyan hover:bg-cyan hover:text-white sm:px-12 sm:py-3 sm:text-lg">
@@ -212,4 +216,88 @@
     {{-- Content End --}}
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            axios.get('http://localhost:8000/api/posts', {
+                    withCredentials: true
+                })
+                .then(response => {
+                    const postsContainer = document.getElementById('posts-container');
+                    const posts = response.data.data; // Access the data array from the response
+
+                    if (posts.length === 0) {
+                        postsContainer.innerHTML = '<p>No posts available</p>';
+                        return;
+                    }
+
+                    let postsHTML = '';
+                    posts.forEach(post => {
+                        // Format the date difference if needed (you might need to calculate this)
+                        const dateDifference = post.date_open ? calculateDateDifference(post
+                            .date_open) : 'Recently';
+
+                        postsHTML += `
+                            <a href="/posts/detail/${post.id_vacancy}">
+                                <div data-aos="fade-up" class="mb-4 cursor-pointer">
+                                    <article class="rounded-lg border border-gray-500 bg-lightblue px-6 pb-0 pt-2 shadow-lg">
+                                        <div class="mb-2.5 flex items-center justify-between text-gray-400">
+                                            <span class="ml-auto text-sm">
+                                                ${dateDifference}
+                                            </span>
+                                        </div>
+                                        <div class="mb-2 flex flex-col sm:flex-row sm:space-x-4">
+                                            <div class="h-16 w-16">
+                                                <img class="h-full w-full rounded-full object-cover"
+                                                    src="/storage/profile/${post.profile_photo || 'default_profile.png'}"
+                                                    alt="Profile Photo" />
+                                            </div>
+                                            <div class="mt-2">
+                                                <h2 class="text-md text-cyan sm:text-lg lg:text-xl">
+                                                    ${post.name}
+                                                </h2>
+                                                <h2 class="sm:text-md text-xs text-cyan">
+                                                    <span class="text-gray-400">Searching for:</span>
+                                                    ${post.position}
+                                                </h2>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <p class="my-3 max-w-lg truncate text-xs sm:text-base">
+                                                ${post.vacancy_description}
+                                            </p>
+                                            ${post.vacancy_picture ? `
+                                                        <img class="h-36 w-full rounded-tl-md rounded-tr-md object-cover md:h-40"
+                                                            src="/storage/vacancies/${post.vacancy_picture}"
+                                                            alt="Vacancy Picture" />
+                                                        ` : ''}
+                                        </div>
+                                    </article>
+                                </div>
+                            </a>
+                        `;
+                    });
+
+                    postsContainer.innerHTML = postsHTML;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('posts-container').innerHTML =
+                        '<p>Error loading posts. Please try again later.</p>';
+                });
+
+            function calculateDateDifference(dateString) {
+                // Implement your date difference calculation here
+                // Example: return "3 days ago", "1 week ago", etc.
+                const postDate = new Date(dateString);
+                const now = new Date();
+                const diffInDays = Math.floor((now - postDate) / (1000 * 60 * 60 * 24));
+
+                if (diffInDays === 0) return 'Today';
+                if (diffInDays === 1) return 'Yesterday';
+                if (diffInDays < 7) return `${diffInDays} days ago`;
+                if (diffInDays < 30) return `${Math.floor(diffInDays / 7)} weeks ago`;
+                return `${Math.floor(diffInDays / 30)} months ago`;
+            }
+        });
+    </script>
 @endsection
