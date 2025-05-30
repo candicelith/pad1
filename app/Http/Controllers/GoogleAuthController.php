@@ -24,17 +24,19 @@ class GoogleAuthController extends Controller
             ['email' => $googleUser->getEmail()],
             [
                 'google_id' => $googleUser->getId(),
-                'id_roles' => 3,
+                'id_roles' => 3, // only used if user is new
                 'password' => Str::password(8),
                 'email_verified_at' => now(),
             ]
         );
 
+        // If the user exists, you might want to update google_id or email_verified_at, but not the role
         if (!$user->google_id) {
             $user->google_id = $googleUser->getId();
             $user->save();
         }
 
+        // Check if user details exist
         $userDetails = UserDetails::where('id_users', $user->id_users)->first();
 
         // NEW: Create token instead of just using Auth::login()
@@ -48,18 +50,20 @@ class GoogleAuthController extends Controller
             '/',
             null,
             true, // secure
-            true  // httpOnly
-        );
+            false  // httpOnly
+         );
+        // Log in the user
+        Auth::login($user);
 
-        // Keep your existing logic
+        // If user details don't exist, redirect to registration page
         if ($userDetails->status == 'pending') {
             session()->put('email', $googleUser->getEmail());
             session()->put('name', $googleUser->getName());
             session()->put('profile_photo', $googleUser->getAvatar());
+
             session()->put('userDetails', $userDetails);
             return redirect()->route('registration');
         }
-
         return redirect()->intended('/');
     }
 }
