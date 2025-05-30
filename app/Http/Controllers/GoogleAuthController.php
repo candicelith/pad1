@@ -24,33 +24,42 @@ class GoogleAuthController extends Controller
             ['email' => $googleUser->getEmail()],
             [
                 'google_id' => $googleUser->getId(),
-                'id_roles' => 3, // only used if user is new
+                'id_roles' => 3,
                 'password' => Str::password(8),
                 'email_verified_at' => now(),
             ]
         );
 
-        // If the user exists, you might want to update google_id or email_verified_at, but not the role
         if (!$user->google_id) {
             $user->google_id = $googleUser->getId();
             $user->save();
         }
 
-        // Check if user details exist
         $userDetails = UserDetails::where('id_users', $user->id_users)->first();
 
-        // Log in the user
-        Auth::login($user);
+        // NEW: Create token instead of just using Auth::login()
+        $token = $user->createToken('web-session')->plainTextToken;
 
-        // If user details don't exist, redirect to registration page
+        // Store token in secure cookie
+        cookie()->queue(
+            'auth_token',
+            $token,
+            60 * 24, // 24 hours
+            '/',
+            null,
+            true, // secure
+            true  // httpOnly
+        );
+
+        // Keep your existing logic
         if ($userDetails->status == 'pending') {
             session()->put('email', $googleUser->getEmail());
             session()->put('name', $googleUser->getName());
             session()->put('profile_photo', $googleUser->getAvatar());
-
             session()->put('userDetails', $userDetails);
             return redirect()->route('registration');
         }
+
         return redirect()->intended('/');
     }
 }

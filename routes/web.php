@@ -57,13 +57,35 @@ Route::get('/admin-detail-company', function () {
     return view('content.admin-detail-company');
 })->name('admin-detail-company');
 
+// Public Route
 // Index
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/companies', [CompanyController::class, 'index'])->name('companies');
+Route::get('/alumni', [AlumniController::class,'index'])->name('alumni');
 
 
+// Login
+Route::controller(AuthController::class)->group(function () {
+    Route::get('/login', 'login')->name('login');
+    Route::post('/authenticate', 'authenticate')->name('authenticate');
+    Route::post('/logout', 'logout')->name('logout');
+    Route::get('/profile', 'profile')->name('profile');
+    Route::get('/registration', 'registration')->name('registration');
+    Route::post('/registration/form', 'create')->name('registration.submit');
+});
+Route::get('/auth/google/redirect', [GoogleAuthController::class, 'redirect']);
+Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback']);
+
+// Mahasiswa
+Route::controller(MahasiswaController::class)->group(function () {
+    Route::get('/profile/mahasiswa', 'profile')->name('mahasiswa.profile');
+});
+
+
+// Authenticated Routes
 // Posts Controller
-Route::controller(PostController::class)->group(function () {
+Route::middleware(['cookie.token', 'auth:sanctum'])->group(function () {
+    Route::controller(PostController::class)->group(function () {
     Route::get('/posts', 'index')->name('posts');
     Route::get('/posts/detail/{id}', 'show')->name('posts.detail');
     Route::get('/posts/create', 'create')->name('posts.create');
@@ -83,31 +105,14 @@ Route::controller(CommentController::class)->group(function () {
 
 // Company Controller
 Route::controller(CompanyController::class)->group(function () {
-    Route::get('/companies', 'index')->name('companies');
     Route::get('/companies/detail/{id}', 'show')->name('companies.detail');
     Route::post('/companies/store', 'store')->name('companies.store');
     Route::get('/companies/create', 'create')->name('companies.create');
 });
 
 
-// Login
-Route::controller(AuthController::class)->group(function () {
-    Route::get('/login', 'login')->name('login');
-    Route::post('/authenticate', 'authenticate')->name('authenticate');
-    Route::post('/logout', 'logout')->name('logout');
-    Route::get('/profile', 'profile')->name('profile');
-    Route::get('/registration', 'registration')->name('registration');
-    Route::post('/registration/form', 'create')->name('registration.submit');
-});
-
-// Mahasiswa
-Route::controller(MahasiswaController::class)->group(function () {
-    Route::get('/profile/mahasiswa', 'profile')->name('mahasiswa.profile');
-});
-
 // Alumni
 Route::controller(AlumniController::class)->group(function () {
-    Route::get('/alumni', 'index')->name('alumni');
     Route::get('/profile/alumni', 'profile')->name('alumni.profile');
     Route::get('/profile/show', 'show')->name('alumni.show-profile');
     Route::get('/alumni/detail/{id}', 'detail')->name('alumni.detail');
@@ -157,11 +162,8 @@ Route::controller(AdminController::class)->group(function () {
 
 // Notifications Logic
 Route::post('/notifications/read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
+});
 
-
-// Google Auth
-Route::get('/auth/google/redirect', [GoogleAuthController::class, 'redirect']);
-Route::get('/auth/google/callback', [GoogleAuthController::class, 'callback']);
 
 
 
