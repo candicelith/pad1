@@ -173,8 +173,8 @@ class   AuthControllerAPI extends Controller
     public function logout(Request $request)
     {
         $token = $request->bearerToken();
-        if ($token && str_starts_with($token, 'api_')) {
-            cache()->forget('api_token_' . $token);
+        if ($token) {
+            cache()->forget( $token);
             return response()->json(['message' => 'API token revoked successfully']);
         }
 

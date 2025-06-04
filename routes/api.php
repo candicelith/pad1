@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\UserControllerAPI;
 use App\Http\Controllers\Api\CompanyControllerAPI;
 use App\Http\Controllers\Api\UserExperiencesControllerAPI;
 use App\Http\Controllers\Api\PostRegistrationControllerAPI;
+use App\Http\Controllers\CompanyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,21 +28,21 @@ use App\Http\Controllers\Api\PostRegistrationControllerAPI;
 Route::get('/alumni-data', [AdminController::class, 'getChartData']);
 
 // Rute Publik
+Route::get('/home/top-company',[CompanyControllerAPI::class,'getTopCompany']);
+
 Route::get('/news', [NewsControllerAPI::class, 'index']);
 Route::get('/news/{news}', [NewsControllerAPI::class, 'show']);
 
 Route::get('/companies', [CompanyControllerAPI::class, 'index']);
 Route::get('/companies/{company}', [CompanyControllerAPI::class, 'show']);
 
-Route::get('/users/alumni', [UserControllerAPI::class, 'listAlumni']); // Daftar alumni (approved)
-Route::get('/users/mahasiswa', [UserControllerAPI::class, 'listMahasiswa']); // Daftar mahasiswa (approved)
-Route::get('/users/{user}', [UserControllerAPI::class, 'show']); // Detail user (dengan logic otorisasi siapa boleh lihat siapa)
-
 // Rute Otentikasi
 // Option 1: Email/Password Login (untuk Postman)
 Route::post('/auth/login', [AuthControllerAPI::class, 'apiLogin']);
 Route::post('/auth/register', [AuthControllerAPI::class, 'apiRegister']); // Set password
 Route::post('/auth/check-email', [AuthControllerAPI::class, 'checkEmail']);
+
+
 
 // Rute yang Memerlukan Otentikasi (Sanctum)
 Route::middleware('auth:sanctum')->group(function () {
@@ -57,18 +58,16 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/users', [UserControllerAPI::class, 'index']); // Daftar semua user (hanya admin)
     Route::put('/users/{user}', [UserControllerAPI::class, 'update']); // Update profil sendiri
 
+    Route::get('/users/alumni', [UserControllerAPI::class, 'listAlumni']); // Daftar alumni (approved)
+    Route::get('/users/mahasiswa', [UserControllerAPI::class, 'listMahasiswa']); // Daftar mahasiswa (approved)
+    Route::get('/users/{user}', [UserControllerAPI::class, 'show']); // Detail user (dengan logic otorisasi siapa boleh lihat siapa)
+
     // User Experiences (Alumni)
     Route::get('/users/{user}/experiences', [UserExperiencesControllerAPI::class, 'index']);
     Route::post('/users/{user}/experiences', [UserExperiencesControllerAPI::class, 'store']);
     Route::put('/experiences/{experience}', [UserExperiencesControllerAPI::class, 'update']);
     Route::delete('/experiences/{experience}', [UserExperiencesControllerAPI::class, 'destroy']);
 
-    // Posts (Lowongan)
-    Route::get('/posts', [PostControllerAPI::class, 'index']);         // Daftar semua lowongan (approved)
-    Route::get('/posts/{post}', [PostControllerAPI::class, 'show']);     // Detail lowongan
-    Route::post('/posts', [PostControllerAPI::class, 'store']);
-    Route::put('/posts/{post}', [PostControllerAPI::class, 'update']);
-    Route::delete('/posts/{post}', [PostControllerAPI::class, 'destroy']);
 
     // Comments
     Route::get('/posts/{post}/comments', [CommentControllerAPI::class, 'index']); // Komentar untuk lowongan
