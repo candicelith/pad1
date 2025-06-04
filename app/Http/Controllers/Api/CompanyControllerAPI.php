@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\CompanyResource;
 use App\Models\Company;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\CompanyResource;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 
 class CompanyControllerAPI extends Controller
 {
@@ -127,4 +128,27 @@ class CompanyControllerAPI extends Controller
 
         return response()->json(['message' => 'Company successfully deleted.'], 200);
     }
+    public function getTopCompany(){
+
+        // Get top companies
+        $companies = DB::table('company')
+            ->join('jobs', 'company.id_company', '=', 'jobs.id_company')
+            ->join('job_tracking', 'jobs.id_jobs', '=', 'job_tracking.id_jobs')
+            ->join('user_details', 'job_tracking.id_userDetails', '=', 'user_details.id_userDetails')
+            ->select(
+                'company.id_company',
+                'company.company_name',
+                DB::raw("COALESCE(company.company_picture, 'https://picsum.photos/id/870/200/300?grayscale&blur=2') as company_picture"),
+                DB::raw('count(distinct user_details.id_userDetails) as employee_count')
+            )
+            ->groupBy('company.id_company', 'company.company_name', 'company.company_picture')
+            ->orderBy('employee_count', 'desc')
+            ->paginate(5);
+
+        return response()->json([
+            'message' => 'Successfully fetched posts and companies',
+            'data' => $companies
+        ]);
+    }
 }
+

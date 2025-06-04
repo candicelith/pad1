@@ -14,7 +14,9 @@ class UserControllerAPI extends Controller
         $this->middleware('admin')->except([
             'profile',
             'index',
-            'detail'
+            'detail',
+            'listAlumni',
+            'listMahasiswa'
         ]);
     }
 
