@@ -172,7 +172,7 @@
             <div class="mt-6 flex w-full flex-col justify-between rounded-lg bg-cyan-100 p-6 lg:mt-0 lg:w-1/4">
                 <h1 class="mb-4 text-xl text-white">Top 5 Companies Alumni Work For</h1>
                 <div class="flex flex-grow flex-col">
-                    @foreach ($company as $com)
+                    {{-- @foreach ($company as $com)
                         <a href="{{ route('companies.detail', ['id' => $com->id_company]) }}">
                             <div class="mb-5 flex-grow-0">
                                 <article data-aos="fade-up"
@@ -206,7 +206,12 @@
                                 </article>
                             </div>
                         </a>
-                    @endforeach
+                    @endforeach --}}
+
+                    <div id="companies-container">
+
+                    </div>
+
                 </div>
             </div>
             {{-- End Top Companies Section --}}
@@ -216,14 +221,17 @@
     {{-- Content End --}}
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    {{-- Posts API --}}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            axios.get('http://localhost:8000/api/posts', {
+            axios.get('http://127.0.0.1:8000/api/posts', {
                     withCredentials: true
                 })
                 .then(response => {
                     const postsContainer = document.getElementById('posts-container');
-                    const posts = response.data.data; // Access the data array from the response
+                    const allPosts = response.data.data; // Access the data array from the response
+                    const posts = allPosts.slice(0, 2); // Only take the first 2 posts
 
                     if (posts.length === 0) {
                         postsContainer.innerHTML = '<p>No posts available</p>';
@@ -232,49 +240,46 @@
 
                     let postsHTML = '';
                     posts.forEach(post => {
-                        // Format the date difference if needed (you might need to calculate this)
                         const dateDifference = post.date_open ? calculateDateDifference(post
                             .date_open) : 'Recently';
 
                         postsHTML += `
-                            <a href="/posts/detail/${post.id_vacancy}">
-                                <div data-aos="fade-up" class="mb-4 cursor-pointer">
-                                    <article class="rounded-lg border border-gray-500 bg-lightblue px-6 pb-0 pt-2 shadow-lg">
-                                        <div class="mb-2.5 flex items-center justify-between text-gray-400">
-                                            <span class="ml-auto text-sm">
-                                                ${dateDifference}
-                                            </span>
-                                        </div>
-                                        <div class="mb-2 flex flex-col sm:flex-row sm:space-x-4">
-                                            <div class="h-16 w-16">
-                                                <img class="h-full w-full rounded-full object-cover"
-                                                    src="/storage/profile/${post.profile_photo || 'default_profile.png'}"
-                                                    alt="Profile Photo" />
-                                            </div>
-                                            <div class="mt-2">
-                                                <h2 class="text-md text-cyan sm:text-lg lg:text-xl">
-                                                    ${post.name}
-                                                </h2>
-                                                <h2 class="sm:text-md text-xs text-cyan">
-                                                    <span class="text-gray-400">Searching for:</span>
-                                                    ${post.position}
-                                                </h2>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <p class="my-3 max-w-lg truncate text-xs sm:text-base">
-                                                ${post.vacancy_description}
-                                            </p>
-                                            ${post.vacancy_picture ? `
-                                                        <img class="h-36 w-full rounded-tl-md rounded-tr-md object-cover md:h-40"
-                                                            src="/storage/vacancies/${post.vacancy_picture}"
-                                                            alt="Vacancy Picture" />
-                                                        ` : ''}
-                                        </div>
-                                    </article>
+                    <a href="/posts/detail/${post.id_vacancy}">
+                        <div class="mb-4 cursor-pointer">
+                            <article class="rounded-lg border border-gray-500 bg-lightblue px-6 pb-0 pt-2 shadow-lg">
+                                <div class="mb-2.5 flex items-center justify-between text-gray-400">
+                                    <span class="ml-auto text-sm">
+                                        ${dateDifference}
+                                    </span>
                                 </div>
-                            </a>
-                        `;
+                                <div class="mb-2 flex flex-col sm:flex-row sm:space-x-4">
+                                    <div class="h-16 w-16">
+                                        <img class="h-full w-full rounded-full object-cover"
+                                            src="/storage/profile/${post.profile_photo || 'default_profile.png'}"
+                                            alt="Profile Photo" />
+                                    </div>
+                                    <div class="mt-2">
+                                        <h2 class="text-md text-cyan sm:text-lg lg:text-xl">
+                                            ${post.name}
+                                        </h2>
+                                        <h2 class="sm:text-md text-xs text-cyan">
+                                            <span class="text-gray-400">Searching for:</span>
+                                            ${post.position}
+                                        </h2>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="my-3 max-w-lg truncate text-xs sm:text-base">
+                                        ${post.vacancy_description}
+                                    </p>
+                                        <img class="h-36 w-full rounded-tl-md rounded-tr-md object-cover md:h-40"
+                                            src="/storage/vacancies/${post.vacancy_picture || 'default-vacancy.jpg'}"
+                                            alt="Vacancy Picture" />
+                                </div>
+                            </article>
+                        </div>
+                    </a>
+                `;
                     });
 
                     postsContainer.innerHTML = postsHTML;
@@ -286,8 +291,6 @@
                 });
 
             function calculateDateDifference(dateString) {
-                // Implement your date difference calculation here
-                // Example: return "3 days ago", "1 week ago", etc.
                 const postDate = new Date(dateString);
                 const now = new Date();
                 const diffInDays = Math.floor((now - postDate) / (1000 * 60 * 60 * 24));
@@ -298,6 +301,84 @@
                 if (diffInDays < 30) return `${Math.floor(diffInDays / 7)} weeks ago`;
                 return `${Math.floor(diffInDays / 30)} months ago`;
             }
+        });
+    </script>
+
+    {{-- Companies API --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get the companies container
+            const companiesContainer = document.getElementById('companies-container');
+
+            // Make API request to get approved companies
+            axios.get('http://127.0.0.1:8000/api/companies')
+                .then(response => {
+                    // Get first 5 companies (sorted by employee_count descending)
+                    const topCompanies = response.data.data
+                        .sort((a, b) => b.employee_count - a.employee_count)
+                        .slice(0, 5);
+
+                    if (topCompanies.length === 0) {
+                        companiesContainer.innerHTML = '<p class="text-white">No companies available</p>';
+                        return;
+                    }
+
+                    // Generate HTML for each company
+                    let companiesHTML = '';
+                    topCompanies.forEach(company => {
+                        // Calculate number of alumni icons to show (max 7)
+                        const numIcons = Math.min(Math.ceil(company.employee_count / 2), 7);
+                        let iconsHTML = '';
+
+                        // Generate alumni icons
+                        for (let i = 0; i < numIcons; i++) {
+                            iconsHTML += `<img src="{{ asset('assets/lulusan.svg') }}"
+                                          alt="Alumni Icon"
+                                          class="h-6 w-6 sm:h-8 sm:w-8" />`;
+                        }
+
+                        // Company card HTML
+                        companiesHTML += `
+                        <a href="/companies/detail/${company.id_company}">
+                            <div class="mb-5 flex-grow-0">
+                                <article
+                                    class="cursor-pointer rounded-lg border border-gray-500 bg-lightblue p-4 py-5 shadow-lg">
+                                    <div class="flex flex-col sm:flex-row sm:space-x-4">
+                                        <div>
+                                            <img class="h-16 w-16 rounded-full object-cover"
+                                                src="/storage/company/${company.company_picture || 'default_company.png'}"
+                                                alt="Company Picture"
+                                                onerror="this.src='/storage/company/default_company.png'"/>
+                                        </div>
+                                        <div class="mt-2 sm:mt-0">
+                                            <h2 class="text-md text-cyan sm:text-lg lg:text-xl">
+                                                ${company.company_name}
+                                            </h2>
+                                            <div class="mt-2 flex items-center space-x-0.5 sm:space-x-1">
+                                                <span class="text-sm sm:text-lg">
+                                                    ${company.employee_count}
+                                                </span>
+                                                <div class="flex items-center space-x-1 sm:space-x-0">
+                                                    ${iconsHTML}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                        </a>
+                    `;
+                    });
+
+                    // Insert HTML into container
+                    companiesContainer.innerHTML = companiesHTML;
+                })
+                .catch(error => {
+                    console.error('Error loading companies:', error);
+                    companiesContainer.innerHTML = `
+                    <p class="text-red-500">Error loading companies. Please try again later.</p>
+                `;
+                });
         });
     </script>
 @endsection

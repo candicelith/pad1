@@ -43,6 +43,13 @@ Route::post('/auth/login', [AuthControllerAPI::class, 'apiLogin']);
 Route::post('/auth/register', [AuthControllerAPI::class, 'apiRegister']); // Set password
 Route::post('/auth/check-email', [AuthControllerAPI::class, 'checkEmail']);
 
+// Posts (Lowongan)
+Route::get('/posts', [PostControllerAPI::class, 'index']);         // Daftar semua lowongan (approved)
+Route::get('/posts/{post}', [PostControllerAPI::class, 'show']);     // Detail lowongan
+Route::post('/posts', [PostControllerAPI::class, 'store']);
+Route::put('/posts/{post}', [PostControllerAPI::class, 'update']);
+Route::delete('/posts/{post}', [PostControllerAPI::class, 'destroy']);
+
 // Rute yang Memerlukan Otentikasi (Sanctum)
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/auth/logout', [AuthControllerAPI::class, 'logout']);
@@ -51,7 +58,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // Company (jika create, update, delete butuh login)
     Route::post('/companies', [CompanyControllerAPI::class, 'store']);
     Route::put('/companies/{company}', [CompanyControllerAPI::class, 'update']);
-    Route::delete('/companies/{company}',[CompanyControllerAPI::class, 'destroy']);
+    Route::delete('/companies/{company}', [CompanyControllerAPI::class, 'destroy']);
 
     // User
     Route::get('/users', [UserControllerAPI::class, 'index']); // Daftar semua user (hanya admin)
@@ -63,12 +70,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/experiences/{experience}', [UserExperiencesControllerAPI::class, 'update']);
     Route::delete('/experiences/{experience}', [UserExperiencesControllerAPI::class, 'destroy']);
 
-    // Posts (Lowongan)
-    Route::get('/posts', [PostControllerAPI::class, 'index']);         // Daftar semua lowongan (approved)
-    Route::get('/posts/{post}', [PostControllerAPI::class, 'show']);     // Detail lowongan
-    Route::post('/posts', [PostControllerAPI::class, 'store']);
-    Route::put('/posts/{post}', [PostControllerAPI::class, 'update']);
-    Route::delete('/posts/{post}', [PostControllerAPI::class, 'destroy']);
+
 
     // Comments
     Route::get('/posts/{post}/comments', [CommentControllerAPI::class, 'index']); // Komentar untuk lowongan

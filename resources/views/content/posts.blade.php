@@ -427,7 +427,7 @@
         <div class="mx-auto max-w-screen-xl px-4 py-3 sm:px-0">
             {{-- Post Card Start --}}
             <div id="post-container">
-                @foreach ($vacancys as $vc)
+                {{-- @foreach ($vacancys as $vc)
                     <a href="{{ route('posts.detail', ['id' => (string) $vc->id_vacancy]) }}" class="post-card">
                         <div data-aos="fade-up" class="mt-3 grid space-y-4 lg:grid-cols-1">
                             <article
@@ -444,17 +444,17 @@
                                             src="{{ asset('storage/profile/' . $vc->profile_photo) }}"
                                             alt="{{ $vc->name }}" />
                                     </div>
-                                    <div class="mt-4 lg:mt-0">
-                                        {{-- Position --}}
-                                        <h2 class="post-title mb-2 text-xl tracking-tight text-cyan sm:text-2xl">
+                                    <div class="mt-4 lg:mt-0"> --}}
+                {{-- Position --}}
+                {{-- <h2 class="post-title mb-2 text-xl tracking-tight text-cyan sm:text-2xl">
                                             {{ $vc->position }}
-                                        </h2>
-                                        {{-- Company Name --}}
-                                        <h2 class="post-company mb-2 text-base tracking-tight text-cyan sm:text-xl">
+                                        </h2> --}}
+                {{-- Company Name --}}
+                {{-- <h2 class="post-company mb-2 text-base tracking-tight text-cyan sm:text-xl">
                                             {{ $vc->company_name }}
-                                        </h2>
-                                        {{-- Posted By "Name" --}}
-                                        <p class="post-author text-sm text-gray-400 sm:text-lg">Posted by
+                                        </h2> --}}
+                {{-- Posted By "Name" --}}
+                {{-- <p class="post-author text-sm text-gray-400 sm:text-lg">Posted by
                                             {{ $vc->name }}
                                         </p>
                                     </div>
@@ -462,7 +462,7 @@
                             </article>
                         </div>
                     </a>
-                @endforeach
+                @endforeach --}}
             </div>
 
             {{-- Post Card End --}}
@@ -474,6 +474,9 @@
         </div>
     </section>
 
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    {{-- Search Post --}}
     <script>
         function filterPosts() {
             let input = document.getElementById('simple-search').value.toLowerCase();
@@ -498,6 +501,7 @@
         }
     </script>
 
+    {{-- Create Post Modal --}}
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const addDynamicInput = (containerId, buttonId, inputName, removeClass) => {
@@ -532,6 +536,99 @@
             addDynamicInput('qualification-container', 'add-qualification', 'vacancy_qualification',
                 'remove-qualification');
             addDynamicInput('benefits-container', 'add-benefits', 'vacancy_benefits', 'remove-benefits');
+        });
+    </script>
+
+    {{-- Post API --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Function to fetch and display posts
+            async function fetchAndDisplayPosts() {
+                try {
+                    const response = await axios.get('http://127.0.0.1:8000/api/posts', {
+                        withCredentials: true
+                    });
+
+                    const postsContainer = document.getElementById('post-container');
+                    const allPosts = response.data.data; // Access the data array from the response
+
+                    if (allPosts.length === 0) {
+                        postsContainer.innerHTML = '<p class="text-center py-4">No vacancies available</p>';
+                        return;
+                    }
+
+                    let postsHTML = '';
+                    allPosts.forEach(post => {
+                        const dateDifference = post.date_open ? calculateDateDifference(post
+                            .date_open) : 'Recently';
+
+                        postsHTML += `
+                        <a href="/posts/detail/${post.id_vacancy}" class="post-card">
+                            <div class="mt-3 grid space-y-4 lg:grid-cols-1">
+                                <article class="cursor-pointer rounded-lg border border-gray-200 bg-lightblue p-6 shadow-[0px_2px_3px_0px_rgba(0,0,0,0.30)]">
+                                    <div class="mb-5 flex items-center justify-between text-gray-400">
+                                        <span class="ml-auto text-xs sm:text-sm">
+                                            ${dateDifference}
+                                        </span>
+                                    </div>
+                                    <div class="flex flex-col lg:flex-row lg:space-x-8">
+                                        <div class="flex-shrink-0">
+                                            <img class="h-20 w-20 rounded-full object-cover"
+                                                src="/storage/profile/${post.profile_photo || 'default_profile.png'}"
+                                                alt="${post.name}" />
+                                        </div>
+                                        <div class="mt-4 lg:mt-0">
+                                            <h2 class="post-title mb-2 text-xl tracking-tight text-cyan sm:text-2xl">
+                                                ${post.position}
+                                            </h2>
+                                            <h2 class="post-company mb-2 text-base tracking-tight text-cyan sm:text-xl">
+                                                ${post.company_name}
+                                            </h2>
+                                            <p class="post-author text-sm text-gray-400 sm:text-lg">Posted by
+                                                ${post.name}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                        </a>
+                    `;
+                    });
+
+                    postsContainer.innerHTML = postsHTML;
+                } catch (error) {
+                    console.error('Error:', error);
+                    document.getElementById('post-container').innerHTML =
+                        '<p class="text-center py-4 text-red-500">Error loading vacancies. Please try again later.</p>';
+                }
+            }
+
+            // Date difference calculation function
+            function calculateDateDifference(dateString) {
+                const postDate = new Date(dateString);
+                const now = new Date();
+                const diffInDays = Math.floor((now - postDate) / (1000 * 60 * 60 * 24));
+
+                if (diffInDays === 0) return 'Today';
+                if (diffInDays === 1) return 'Yesterday';
+                if (diffInDays < 7) return `${diffInDays} days ago`;
+                if (diffInDays < 30) return `${Math.floor(diffInDays / 7)} weeks ago`;
+                return `${Math.floor(diffInDays / 30)} months ago`;
+            }
+
+            // Initial fetch
+            fetchAndDisplayPosts();
+
+            // You can add pagination handling here if needed
+            // For example:
+            document.querySelectorAll('.pagination a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const url = new URL(this.href);
+                    const page = url.searchParams.get('page');
+                    fetchAndDisplayPosts(page);
+                });
+            });
         });
     </script>
 @endsection
