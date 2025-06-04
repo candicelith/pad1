@@ -107,10 +107,10 @@
                                                     {{-- Inline New Company Form (Initially Hidden) --}}
                                                     <div x-show="showCompanyForm" x-transition
                                                         class="col-span-2 mt-4 space-y-4 rounded-xl border border-gray-400 bg-gray-100 p-4">
-                                                        <h4 class="text-lg text-cyan font-semibold mb-3">Create New Company
+                                                        <h4 class="mb-3 text-lg font-semibold text-cyan">Create New Company
                                                         </h4>
                                                         <div id="new_company_ajax_errors_modal_editprofile"
-                                                            class="text-red-500 text-sm mb-3"></div> {{-- Unique ID --}}
+                                                            class="mb-3 text-sm text-red-500"></div> {{-- Unique ID --}}
 
                                                         <div class="relative h-24 w-24 sm:h-32 sm:w-32">
                                                             <div
@@ -142,38 +142,39 @@
                                                         <div>
                                                             <label for="new_company_name_modal_editprofile"
                                                                 class="mb-1 block text-sm text-gray-700">Name <span
-                                                                    class="text-red-500">*</span></label>
+                                                                    class="relative top-1 -ms-1 align-baseline text-red-500">*</span></label>
                                                             <input type="text" id="new_company_name_modal_editprofile"
-                                                                class="w-full rounded-full border-gray-300 bg-gray-50 py-2 px-4 shadow-sm">
+                                                                class="w-full rounded-full border-gray-300 bg-gray-50 px-4 py-2 shadow-sm">
                                                         </div>
                                                         <div>
                                                             <label for="new_company_field_modal_editprofile"
                                                                 class="mb-1 block text-sm text-gray-700">Industry Type
-                                                                <span class="text-red-500">*</span></label>
+                                                                <span
+                                                                    class="relative top-1 -ms-1 align-baseline text-red-500">*</span></label>
                                                             <input type="text" id="new_company_field_modal_editprofile"
-                                                                class="w-full rounded-full border-gray-300 bg-gray-50 py-2 px-4 shadow-sm">
+                                                                class="w-full rounded-full border-gray-300 bg-gray-50 px-4 py-2 shadow-sm">
                                                         </div>
                                                         <div>
                                                             <label for="new_company_address_modal_editprofile"
                                                                 class="mb-1 block text-sm text-gray-700">Location</label>
                                                             <input type="text"
                                                                 id="new_company_address_modal_editprofile"
-                                                                class="w-full rounded-full border-gray-300 bg-gray-50 py-2 px-4 shadow-sm">
+                                                                class="w-full rounded-full border-gray-300 bg-gray-50 px-4 py-2 shadow-sm">
                                                         </div>
                                                         <div>
                                                             <label for="new_company_description_modal_editprofile"
                                                                 class="mb-1 block text-sm text-gray-700">Description <span
-                                                                    class="text-red-500">*</span></label>
+                                                                    class="relative top-1 -ms-1 align-baseline text-red-500">*</span></label>
                                                             <textarea id="new_company_description_modal_editprofile" rows="3"
-                                                                class="w-full rounded-md border-gray-300 bg-gray-50 py-2 px-3 shadow-sm"></textarea>
+                                                                class="w-full rounded-md border-gray-300 bg-gray-50 px-3 py-2 shadow-sm"></textarea>
                                                         </div>
                                                         <div class="flex space-x-2">
                                                             <button type="button" @click="saveNewCompanyViaAjax()"
-                                                                class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 text-sm">
+                                                                class="bg-btn-cyan rounded-lg bg-cyan px-4 py-2 text-sm text-white hover:bg-cyan-400 hover:text-cyan">
                                                                 Save & Select Company
                                                             </button>
                                                             <button type="button" @click="toggleNewCompanyForm()"
-                                                                class="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400 text-sm">
+                                                                class="rounded-lg bg-gray-300 px-4 py-2 text-sm text-gray-700 hover:bg-gray-400">
                                                                 Cancel
                                                             </button>
                                                         </div>
@@ -256,7 +257,7 @@
                                                         <label for="datepicker-range-end"
                                                             class="mb-2 block text-sm text-cyan sm:text-xl">End Date <span
                                                                 x-show="!isCurrentPosition"
-                                                                class="text-red-500 align-baseline text-4xl leading-none relative top-1 -ms-2">*</span></label>
+                                                                class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
                                                         <div class="space-y-2" x-data="{ isCurrentPosition: {{ old('is_current_position') ? 'true' : 'false' }} }">
                                                             <div class="relative">
                                                                 <div
@@ -309,7 +310,7 @@
                                                                     style="{{ $loop->first && !old('job_responsibility') ? 'display: none;' : 'display: inline-flex;' }}">Remove</button>
                                                             </div>
                                                             @error('job_responsibility.' . $index)
-                                                                <p class="text-sm text-red-500 -mt-2 mb-2">{{ $message }}
+                                                                <p class="-mt-2 mb-2 text-sm text-red-500">{{ $message }}
                                                                 </p>
                                                             @enderror
                                                         @empty
@@ -1089,7 +1090,7 @@
 
                     const formData = new FormData();
                     formData.append('_token',
-                    '{{ csrf_token() }}'); // Make sure CSRF is available in your Blade layout
+                        '{{ csrf_token() }}'); // Make sure CSRF is available in your Blade layout
 
                     const companyName = document.getElementById('new_company_name_modal_editprofile')?.value;
                     const companyField = document.getElementById('new_company_field_modal_editprofile')?.value;
@@ -1126,13 +1127,13 @@
 
                     try {
                         const response = await fetch(
-                        '{{ route('companies.store.ajax') }}', { // Ensure this route is defined
-                            method: 'POST',
-                            body: formData,
-                            headers: {
-                                'Accept': 'application/json'
-                            }
-                        });
+                            '{{ route('companies.store.ajax') }}', { // Ensure this route is defined
+                                method: 'POST',
+                                body: formData,
+                                headers: {
+                                    'Accept': 'application/json'
+                                }
+                            });
                         const data = await response.json();
 
                         if (!response.ok) {
@@ -1163,7 +1164,7 @@
                         }
                         this.filterOptions(); // Re-filter (important if search was active)
                         this.selectOption(
-                        newCompanyForAlpine); // This will set this.selectedOption and update this.search
+                            newCompanyForAlpine); // This will set this.selectedOption and update this.search
                         this.showCompanyForm = false; // Hide the new company form
                         this.clearNewCompanyFormFields();
 
@@ -1249,12 +1250,13 @@
                 const addField = (container, inputName) => {
                     if (container.children.length >= maxResponsibilities) {
                         alert(
-                            `Maximum ${maxResponsibilities} ${inputName.replace('job_', '').replace('[]', '')} items allowed.`);
+                            `Maximum ${maxResponsibilities} ${inputName.replace('job_', '').replace('[]', '')} items allowed.`
+                        );
                         return;
                     }
                     const newItemDiv = document.createElement('div');
                     newItemDiv.classList.add('responsibility-item', 'mb-2', 'flex',
-                    'items-center'); // Use a generic class if needed or keep as 'responsibility-item'
+                        'items-center'); // Use a generic class if needed or keep as 'responsibility-item'
                     newItemDiv.innerHTML = `
                 <input type="text" name="${inputName}"
                     class="block w-full rounded-xl border border-gray-900 bg-gray-50 px-2 py-2 text-sm text-gray-900"

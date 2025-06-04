@@ -218,16 +218,19 @@
                                         <td class="hidden-mobile px-6 py-4 text-sm text-black sm:text-base">
                                             <img src="{{ asset('storage/company/' . $company->company_picture) }}"
                                                 alt="Company Logo" class="h-10 w-10 rounded-full">
-                                        <td class="px-6 py-4">
+                                        <td class="flex space-x-2 px-6 py-4">
                                             <a href="{{ route('admin.company.detail', ['id' => $company->id_company]) }}"
                                                 class="rounded-lg bg-cyan px-4 py-2 text-center text-sm text-white shadow-md hover:bg-cyan-400 hover:text-cyan sm:px-7 sm:text-base">
                                                 Detail
                                             </a>
-                                            <form action="{{ route('admin.company.delete', ['id' =>$company->id_company]) }}" method="POST" onsubmit="return confirm('Are you sure?');" class="inline">
+                                            <form
+                                                action="{{ route('admin.company.delete', ['id' => $company->id_company]) }}"
+                                                method="POST" onsubmit="return confirm('Are you sure?');"
+                                                class="inline">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit"
-                                                class="rounded-lg bg-red px-4 py-2 text-center text-sm text-black shadow-md hover:bg-red-400 hover:text-cyan sm:px-7 sm:text-base">
+                                                    class="bg-red rounded-lg px-4 py-2 text-center text-sm text-black shadow-md hover:bg-red-400 hover:text-cyan sm:px-7 sm:text-base">
                                                     Delete
                                                 </button>
                                             </form>

@@ -42,8 +42,6 @@ Route::post('/auth/login', [AuthControllerAPI::class, 'apiLogin']);
 Route::post('/auth/register', [AuthControllerAPI::class, 'apiRegister']); // Set password
 Route::post('/auth/check-email', [AuthControllerAPI::class, 'checkEmail']);
 
-
-
 // Rute yang Memerlukan Otentikasi (Sanctum)
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/auth/logout', [AuthControllerAPI::class, 'logout']);
@@ -52,7 +50,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // Company (jika create, update, delete butuh login)
     Route::post('/companies', [CompanyControllerAPI::class, 'store']);
     Route::put('/companies/{company}', [CompanyControllerAPI::class, 'update']);
-    Route::delete('/companies/{company}',[CompanyControllerAPI::class, 'destroy']);
+    Route::delete('/companies/{company}', [CompanyControllerAPI::class, 'destroy']);
 
     // User
     Route::get('/users', [UserControllerAPI::class, 'index']); // Daftar semua user (hanya admin)

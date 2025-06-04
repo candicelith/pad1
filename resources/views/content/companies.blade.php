@@ -88,14 +88,15 @@
 
         <div class="mx-auto max-w-screen-xl px-4 py-8 lg:px-6 lg:py-16">
             {{-- Companies Cards Start --}}
-            <div id="companies-card" class="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            <div id="companies-card" class="grid justify-items-center gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                 @foreach ($company as $com)
                     <a href="{{ route('companies.detail', ['id' => $com->id_company]) }}"
                         class="company-card w-full max-w-sm cursor-pointer rounded-lg border border-gray-200 bg-lightblue shadow-md"
                         data-name="{{ strtolower($com->company_name) }}">
                         <div {{-- data-aos="fade-up" --}}>
                             <div class="flex flex-col items-center px-8 py-8 text-center">
-                                <img class="mb-3 h-24 w-24 rounded-full shadow-lg" src="{{ $com->company_picture ? asset('storage/company/' . $com->company_picture) : asset('images/default_profile.png') }}"
+                                <img class="mb-3 h-24 w-24 rounded-full shadow-lg"
+                                    src="{{ $com->company_picture ? asset('storage/company/' . $com->company_picture) : asset('images/default_profile.png') }}"
                                     alt="Company" />
                                 <h2 class="mb-1 text-2xl text-cyan">
                                     {{ $com->company_name }}
@@ -115,6 +116,7 @@
         </div>
     </section>
 
+    {{-- Filter Companies --}}
     <script>
         const companyLetters = [...Array(26)].map((_, i) => String.fromCharCode(i + 65).toLowerCase());
         const companyItemsPerPage = 6; // Show 6 letters per page on mobile
