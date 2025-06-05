@@ -164,26 +164,24 @@
                                 href="/alumni/detail/${userDetails.id_userDetails || ''}"
                                 data-name="${userDetails.name || 'No name'}"
                                 data-year="${userDetails.entry_year || ''}">
-                                <div>
-                                    <div class="flex flex-col items-center px-8 py-8 text-center">
-                                        <div class="mb-5 flex w-full justify-end px-6 text-gray-400">
-                                            <span class="text-sm">
-                                                ${userDetails.graduate_year || 'Not graduated'}
-                                            </span>
-                                        </div>
-                                        <img class="mb-3 h-24 w-24 rounded-full shadow-lg"
-                                            src="/storage/profile/${userDetails.profile_photo || 'default_profile.png'}"
-                                            alt="${userDetails.name || 'Alumni'} image" />
-                                        <h2 class="mb-1 text-2xl text-cyan">
-                                            ${userDetails.name || 'Anonymous Alumni'}
-                                        </h2>
-                                        <h3 class="text-base text-cyan">
-                                            ${userDetails.current_job || 'Job not specified'}
-                                        </h3>
-                                        <h4 class="text-sm text-gray-500">
-                                            ${userDetails.current_company || 'Company not specified'}
-                                        </h4>
+                                <div class="flex flex-col items-center px-8 py-8 text-center">
+                                    <div class="mb-5 flex w-full justify-end px-6 text-gray-400">
+                                        <span class="text-sm">
+                                            ${userDetails.graduate_year || 'Graduated'}
+                                        </span>
                                     </div>
+                                    <img class="mb-3 h-24 w-24 rounded-full shadow-lg"
+                                        src="/storage/profile/${userDetails.profile_photo || 'default_profile.png'}"
+                                        alt="${userDetails.name || 'Alumni'} image" />
+                                    <h2 class="mb-1 text-2xl text-cyan">
+                                        ${userDetails.name || 'Anonymous Alumni'}
+                                    </h2>
+                                    <h3 class="text-base text-cyan">
+                                        ${userDetails.current_job || 'Job not specified'}
+                                    </h3>
+                                    <h4 class="text-sm text-gray-500">
+                                        ${userDetails.current_company || 'Company not specified'}
+                                    </h4>
                                 </div>
                             </a>
                         `;

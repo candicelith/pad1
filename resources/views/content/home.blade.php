@@ -311,14 +311,12 @@
             const companiesContainer = document.getElementById('companies-container');
 
             // Make API request to get approved companies
-            axios.get('http://127.0.0.1:8000/api/companies')
+            axios.get('http://127.0.0.1:8000/api/home/top-company')
                 .then(response => {
-                    // Get first 5 companies (sorted by employee_count descending)
-                    const topCompanies = response.data.data
-                        .sort((a, b) => b.employee_count - a.employee_count)
-                        .slice(0, 5);
+                    // Get companies array from the data property of the response
+                    const topCompanies = response.data.data.data; // Access the nested data array
 
-                    if (topCompanies.length === 0) {
+                    if (!topCompanies || topCompanies.length === 0) {
                         companiesContainer.innerHTML = '<p class="text-white">No companies available</p>';
                         return;
                     }
@@ -333,40 +331,50 @@
                         // Generate alumni icons
                         for (let i = 0; i < numIcons; i++) {
                             iconsHTML += `<img src="{{ asset('assets/lulusan.svg') }}"
-                                          alt="Alumni Icon"
-                                          class="h-6 w-6 sm:h-8 sm:w-8" />`;
+                                      alt="Alumni Icon"
+                                      class="h-6 w-6 sm:h-8 sm:w-8" />`;
+                        }
+
+                        // Handle company picture URL
+                        let companyPicture = company.company_picture;
+                        if (companyPicture ===
+                            'https://picsum.photos/id/870/200/300?grayscale&blur=2') {
+                            companyPicture = '/storage/company/default_company.png';
+                        } else if (!companyPicture.startsWith('http')) {
+                            companyPicture =
+                                `/storage/company/${companyPicture || 'default_company.png'}`;
                         }
 
                         // Company card HTML
                         companiesHTML += `
-                        <a href="/companies/detail/${company.id_company}">
-                            <div class="mb-5 flex-grow-0">
-                                <article
-                                    class="cursor-pointer rounded-lg border border-gray-500 bg-lightblue p-4 py-5 shadow-lg">
-                                    <div class="flex flex-col sm:flex-row sm:space-x-4">
-                                        <div>
-                                            <img class="h-16 w-16 rounded-full object-cover"
-                                                src="/storage/company/${company.company_picture || 'default_company.png'}"
-                                                alt="Company Picture"
-                                                onerror="this.src='/storage/company/default_company.png'"/>
-                                        </div>
-                                        <div class="mt-2 sm:mt-0">
-                                            <h2 class="text-md text-cyan sm:text-lg lg:text-xl">
-                                                ${company.company_name}
-                                            </h2>
-                                            <div class="mt-2 flex items-center space-x-0.5 sm:space-x-1">
-                                                <span class="text-sm sm:text-lg">
-                                                    ${company.employee_count}
-                                                </span>
-                                                <div class="flex items-center space-x-1 sm:space-x-0">
-                                                    ${iconsHTML}
-                                                </div>
+                    <a href="/companies/detail/${company.id_company}">
+                        <div class="mb-5 flex-grow-0">
+                            <article
+                                class="cursor-pointer rounded-lg border border-gray-500 bg-lightblue p-4 py-5 shadow-lg">
+                                <div class="flex flex-col sm:flex-row sm:space-x-4">
+                                    <div>
+                                        <img class="h-16 w-16 rounded-full object-cover"
+                                            src="${companyPicture}"
+                                            alt="Company Picture"
+                                            onerror="this.src='/storage/company/default_company.png'"/>
+                                    </div>
+                                    <div class="mt-2 sm:mt-0">
+                                        <h2 class="text-md text-cyan sm:text-lg lg:text-xl">
+                                            ${company.company_name}
+                                        </h2>
+                                        <div class="mt-2 flex items-center space-x-0.5 sm:space-x-1">
+                                            <span class="text-sm sm:text-lg">
+                                                ${company.employee_count}
+                                            </span>
+                                            <div class="flex items-center space-x-1 sm:space-x-0">
+                                                ${iconsHTML}
                                             </div>
                                         </div>
                                     </div>
-                                </article>
-                            </div>
-                        </a>
+                                </div>
+                            </article>
+                        </div>
+                    </a>
                     `;
                     });
 
@@ -376,7 +384,7 @@
                 .catch(error => {
                     console.error('Error loading companies:', error);
                     companiesContainer.innerHTML = `
-                    <p class="text-red-500">Error loading companies. Please try again later.</p>
+                <p class="text-red-500">Error loading companies. Please try again later.</p>
                 `;
                 });
         });

@@ -28,7 +28,7 @@ use App\Http\Controllers\CompanyController;
 Route::get('/alumni-data', [AdminController::class, 'getChartData']);
 
 // Rute Publik
-Route::get('/home/top-company',[CompanyControllerAPI::class,'getTopCompany']);
+Route::get('/home/top-company', [CompanyControllerAPI::class, 'getTopCompany']);
 
 Route::get('/news', [NewsControllerAPI::class, 'index']);
 Route::get('/news/{news}', [NewsControllerAPI::class, 'show']);
@@ -41,6 +41,16 @@ Route::get('/companies/{company}', [CompanyControllerAPI::class, 'show']);
 Route::post('/auth/login', [AuthControllerAPI::class, 'apiLogin']);
 Route::post('/auth/register', [AuthControllerAPI::class, 'apiRegister']); // Set password
 Route::post('/auth/check-email', [AuthControllerAPI::class, 'checkEmail']);
+
+// Posts (Lowongan)
+Route::get('/posts', [PostControllerAPI::class, 'index']);         // Daftar semua lowongan (approved)
+Route::get('/posts/{post}', [PostControllerAPI::class, 'show']);     // Detail lowongan
+Route::post('/posts', [PostControllerAPI::class, 'store']);
+Route::put('/posts/{post}', [PostControllerAPI::class, 'update']);
+Route::delete('/posts/{post}', [PostControllerAPI::class, 'destroy']);
+
+Route::get('/users/alumni', [UserControllerAPI::class, 'listAlumni']); // Daftar alumni (approved)
+Route::get('/users/mahasiswa', [UserControllerAPI::class, 'listMahasiswa']); // Daftar mahasiswa (approved)
 
 // Rute yang Memerlukan Otentikasi (Sanctum)
 Route::middleware('auth:sanctum')->group(function () {
@@ -56,8 +66,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/users', [UserControllerAPI::class, 'index']); // Daftar semua user (hanya admin)
     Route::put('/users/{user}', [UserControllerAPI::class, 'update']); // Update profil sendiri
 
-    Route::get('/users/alumni', [UserControllerAPI::class, 'listAlumni']); // Daftar alumni (approved)
-    Route::get('/users/mahasiswa', [UserControllerAPI::class, 'listMahasiswa']); // Daftar mahasiswa (approved)
     Route::get('/users/{user}', [UserControllerAPI::class, 'show']); // Detail user (dengan logic otorisasi siapa boleh lihat siapa)
 
     // User Experiences (Alumni)
