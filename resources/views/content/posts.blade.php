@@ -169,228 +169,246 @@
 
                     {{-- Modal Create Posts --}}
                     @auth
-                    @if (Auth::check() && Auth::user()->id_roles == '2')
-                    <form class="scrollbar-modal max-h-96 space-y-8 overflow-y-auto px-4 pb-4 pt-0 md:px-5 md:pb-5"
-                    method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data">
-                    @csrf
+                        @if (Auth::check() && Auth::user()->id_roles == '2')
+                            <form class="scrollbar-modal max-h-96 space-y-8 overflow-y-auto px-4 pb-4 pt-0 md:px-5 md:pb-5"
+                                method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data">
+                                @csrf
 
-                    {{-- Display all errors at the top (optional) --}}
-                    @if ($errors->any())
-                        <div class="col-span-2 mb-4 rounded-md bg-red-100 p-4 text-sm text-red-700">
-                            <strong class="font-bold">Oops! Something went wrong.</strong>
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
-
-                    <div class="mt-0 grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2">
-                        <div class="col-span-2 sm:col-span-2">
-                            <label for="position" class="mb-1 block text-2xl text-cyan">
-                                Position <span class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
-                            </label>
-                            <select name="position" id="position"
-                                class="w-full rounded-full border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan @error('position') border-red-500 @else border-gray-300 @enderror">
-                                <option value="">Select a job position</option>
-                                {{-- Note: These values should likely be distinct or dynamic --}}
-                                <option value="UIUX Designer" {{ old('position') == 'UIUX Designer' ? 'selected' : '' }}>UIUX Designer</option>
-                                <option value="Frontend Developer" {{ old('position') == 'Frontend Developer' ? 'selected' : '' }}>Frontend Developer</option>
-                                <option value="Backend Developer" {{ old('position') == 'Backend Developer' ? 'selected' : '' }}>Backend Developer</option>
-                                {{-- Add other positions as needed --}}
-                            </select>
-                            @error('position')
-                                <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div class="col-span-2 sm:col-span-2">
-                            <label for="company" class="mb-1 block text-2xl text-cyan">
-                                Company <span class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
-                            </label>
-                            <select name="company" id="company"
-                                class="w-full rounded-full border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan @error('company') border-red-500 @else border-gray-300 @enderror">
-                                <option value="" disabled {{ old('company') ? '' : 'selected' }}>Select a company</option>
-                                @foreach ($companies as $company)
-                                    <option value="{{ $company->id_company }}"
-                                        {{ old('company') == $company->id_company ? 'selected' : '' }}>
-                                        {{ $company->company_name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('company')
-                                <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div class="col-span-2 sm:col-span-2">
-                            <label for="vacancy_description" class="mb-1 block text-2xl text-cyan">
-                                Description <span class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
-                            </label>
-                            <textarea name="vacancy_description" id="vacancy_description"
-                                class="w-full rounded-xl border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan @error('vacancy_description') border-red-500 @else border-gray-300 @enderror"
-                                placeholder="Enter content">{{ old('vacancy_description') }}</textarea>
-                            @error('vacancy_description')
-                                <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div class="col-span-1 sm:col-span-1">
-                            <label for="start_date" class="mb-1 block text-2xl text-cyan">
-                                Start Date <span class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
-                            </label>
-                            <input type="date" name="start_date" id="start_date" value="{{ old('start_date') }}"
-                                class="w-full rounded-full border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan @error('start_date') border-red-500 @else border-gray-300 @enderror">
-                            @error('start_date')
-                                <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        <div class="col-span-1 sm:col-span-1">
-                            <label for="end_date" class="mb-1 block text-2xl text-cyan">
-                                End Date <span class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
-                            </label>
-                            <input type="date" name="end_date" id="end_date" value="{{ old('end_date') }}"
-                                class="w-full rounded-full border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan @error('end_date') border-red-500 @else border-gray-300 @enderror">
-                            @error('end_date')
-                                <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                            @enderror
-                        </div>
-
-                        {{-- Responsibility --}}
-                        <div class="col-span-2">
-                            <label for="responsibility" class="mb-1 block text-2xl text-cyan">Responsibility <span
-                                    class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
-                            <div id="responsibility-container-create">
-                                {{-- Handle existing old input or provide at least one empty field --}}
-                                @forelse (old('vacancy_responsibility', ['']) as $index => $responsibility)
-                                    <div class="responsibility-item mb-2 flex items-center">
-                                        <input type="text" name="vacancy_responsibility[]" value="{{ $responsibility }}"
-                                            class="w-full rounded-full border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan @error('vacancy_responsibility.'.$index) border-red-500 @else border-gray-300 @enderror"
-                                            placeholder="Enter responsibility" />
-                                        <button type="button"
-                                            class="remove-responsibility ml-2 rounded-xl border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2"
-                                            style="{{ $loop->first && !old('vacancy_responsibility') ? 'display: none;' : '' }}">Remove</button>
+                                {{-- Display all errors at the top (optional) --}}
+                                @if ($errors->any())
+                                    <div class="col-span-2 mb-4 rounded-md bg-red-100 p-4 text-sm text-red-700">
+                                        <strong class="font-bold">Oops! Something went wrong.</strong>
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
                                     </div>
-                                    @error('vacancy_responsibility.'.$index)
-                                        <p class="mb-2 text-sm text-red-500">{{ $message }}</p>
-                                    @enderror
-                                @empty
-                                    {{-- This case should ideally not be hit if default [''] is used for old() --}}
-                                    <div class="responsibility-item mb-2 flex items-center">
-                                        <input type="text" name="vacancy_responsibility[]"
-                                            class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
-                                            placeholder="Enter responsibility" />
-                                        <button type="button"
-                                            class="remove-responsibility ml-2 rounded-xl border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2"
-                                            style="display: none;">Remove</button>
-                                    </div>
-                                @endforelse
-                            </div>
-                            <button type="button" id="add-responsibility"
-                                class="bg-btn-cyan-100 mt-2 rounded-lg px-7 py-2 text-sm text-white hover:bg-lightblue hover:text-cyan sm:text-base">
-                                Add Responsibility
-                            </button>
-                            @error('vacancy_responsibility') {{-- Error for the array as a whole (e.g., min:1) --}}
-                                <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                            @enderror
-                        </div>
+                                @endif
 
-                        {{-- Qualification --}}
-                        <div class="col-span-2">
-                            <label for="qualification" class="mb-1 block text-2xl text-cyan">Qualification <span
-                                    class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
-                            <div id="qualification-container">
-                                @forelse (old('vacancy_qualification', ['']) as $index => $qualification)
-                                    <div class="qualification-item mb-2 flex items-center">
-                                        <input type="text" name="vacancy_qualification[]" value="{{ $qualification }}"
-                                            class="w-full rounded-full border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan @error('vacancy_qualification.'.$index) border-red-500 @else border-gray-300 @enderror"
-                                            placeholder="Enter qualification" />
-                                        <button type="button"
-                                            class="remove-qualification ml-2 rounded-xl border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2"
-                                            style="{{ $loop->first && !old('vacancy_qualification') ? 'display: none;' : '' }}">Remove</button>
+                                <div class="mt-0 grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2">
+                                    <div class="col-span-2 sm:col-span-2">
+                                        <label for="position" class="mb-1 block text-2xl text-cyan">
+                                            Position <span
+                                                class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
+                                        </label>
+                                        <select name="position" id="position"
+                                            class="@error('position') border-red-500 @else border-gray-300 @enderror w-full rounded-full border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan">
+                                            <option value="">Select a job position</option>
+                                            {{-- Note: These values should likely be distinct or dynamic --}}
+                                            <option value="UIUX Designer"
+                                                {{ old('position') == 'UIUX Designer' ? 'selected' : '' }}>UIUX Designer
+                                            </option>
+                                            <option value="Frontend Developer"
+                                                {{ old('position') == 'Frontend Developer' ? 'selected' : '' }}>Frontend
+                                                Developer</option>
+                                            <option value="Backend Developer"
+                                                {{ old('position') == 'Backend Developer' ? 'selected' : '' }}>Backend Developer
+                                            </option>
+                                            {{-- Add other positions as needed --}}
+                                        </select>
+                                        @error('position')
+                                            <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                                        @enderror
                                     </div>
-                                    @error('vacancy_qualification.'.$index)
-                                        <p class="mb-2 text-sm text-red-500">{{ $message }}</p>
-                                    @enderror
-                                @empty
-                                    <div class="qualification-item mb-2 flex items-center">
-                                        <input type="text" name="vacancy_qualification[]"
-                                            class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
-                                            placeholder="Enter qualification" />
-                                        <button type="button"
-                                            class="remove-qualification ml-2 rounded-xl border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2"
-                                            style="display: none;">Remove</button>
-                                    </div>
-                                @endforelse
-                            </div>
-                            <button type="button" id="add-qualification"
-                                class="bg-btn-cyan-100 mt-2 rounded-lg px-7 py-2 text-sm text-white hover:bg-lightblue hover:text-cyan sm:text-base">
-                                Add Qualification
-                            </button>
-                            @error('vacancy_qualification')
-                                <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                            @enderror
-                        </div>
 
-                        {{-- Benefits --}}
-                        <div class="col-span-2">
-                            <label for="benefits" class="mb-1 block text-2xl text-cyan">Benefits <span
-                                    class="text-4xl text-red-500">*</span></label>
-                            <div id="benefits-container">
-                                @forelse (old('vacancy_benefits', ['']) as $index => $benefit)
-                                    <div class="benefits-item mb-2 flex items-center">
-                                        <input type="text" name="vacancy_benefits[]" value="{{ $benefit }}"
-                                            class="w-full rounded-full border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan @error('vacancy_benefits.'.$index) border-red-500 @else border-gray-300 @enderror"
-                                            placeholder="Enter benefits" />
-                                        <button type="button"
-                                            class="remove-benefits ml-2 rounded-xl border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2"
-                                            style="{{ $loop->first && !old('vacancy_benefits') ? 'display: none;' : '' }}">Remove</button>
+                                    <div class="col-span-2 sm:col-span-2">
+                                        <label for="company" class="mb-1 block text-2xl text-cyan">
+                                            Company <span
+                                                class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
+                                        </label>
+                                        <select name="company" id="company"
+                                            class="@error('company') border-red-500 @else border-gray-300 @enderror w-full rounded-full border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan">
+                                            <option value="" disabled {{ old('company') ? '' : 'selected' }}>Select a
+                                                company</option>
+                                            @foreach ($companies as $company)
+                                                <option value="{{ $company->id_company }}"
+                                                    {{ old('company') == $company->id_company ? 'selected' : '' }}>
+                                                    {{ $company->company_name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('company')
+                                            <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                                        @enderror
                                     </div>
-                                    @error('vacancy_benefits.'.$index)
-                                        <p class="mb-2 text-sm text-red-500">{{ $message }}</p>
-                                    @enderror
-                                @empty
-                                    <div class="benefits-item mb-2 flex items-center">
-                                        <input type="text" name="vacancy_benefits[]"
-                                            class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
-                                            placeholder="Enter benefits" />
-                                        <button type="button"
-                                            class="remove-benefits ml-2 rounded-xl border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2"
-                                            style="display: none;">Remove</button>
+
+                                    <div class="col-span-2 sm:col-span-2">
+                                        <label for="vacancy_description" class="mb-1 block text-2xl text-cyan">
+                                            Description <span
+                                                class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
+                                        </label>
+                                        <textarea name="vacancy_description" id="vacancy_description"
+                                            class="@error('vacancy_description') border-red-500 @else border-gray-300 @enderror w-full rounded-xl border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
+                                            placeholder="Enter content">{{ old('vacancy_description') }}</textarea>
+                                        @error('vacancy_description')
+                                            <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                                        @enderror
                                     </div>
-                                @endforelse
-                            </div>
-                            <button type="button" id="add-benefits"
-                                class="bg-btn-cyan-100 mt-2 rounded-lg px-7 py-2 text-sm text-white hover:bg-lightblue hover:text-cyan sm:text-base">
-                                Add Benefits
-                            </button>
-                            @error('vacancy_benefits')
-                                <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                            @enderror
-                        </div>
 
-                        <div class="col-span-2 sm:col-span-2"> {{-- Changed col-span-1 to col-span-2 for full width --}}
-                            <label for="vacancy_picture" class="mb-1 block text-2xl text-cyan">
-                                Upload Poster <span class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
-                            </label>
-                            <input type="file" name="vacancy_picture" id="vacancy_picture"
-                                class="w-full rounded-full border bg-gray-200 file:mr-4 file:rounded-full file:border-0 file:bg-gray-300 file:px-4 file:py-2 file:text-gray-700 hover:file:bg-gray-400 @error('vacancy_picture') border-red-500 @else border-gray-300 @enderror">
-                            @error('vacancy_picture')
-                                <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
-                            @enderror
-                        </div>
-                    </div>
+                                    <div class="col-span-1 sm:col-span-1">
+                                        <label for="start_date" class="mb-1 block text-2xl text-cyan">
+                                            Start Date <span
+                                                class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
+                                        </label>
+                                        <input type="date" name="start_date" id="start_date"
+                                            value="{{ old('start_date') }}"
+                                            class="@error('start_date') border-red-500 @else border-gray-300 @enderror w-full rounded-full border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan">
+                                        @error('start_date')
+                                            <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                                        @enderror
+                                    </div>
 
-                    <div class="flex justify-end">
-                        <button type="submit"
-                            class="bg-btn-cyan m-4 rounded-lg bg-cyan px-6 py-2 text-white shadow-lg hover:bg-cyan-400 hover:text-cyan sm:py-2.5">
-                            Post
-                        </button>
-                    </div>
-                    </form>
-                    @endif
+                                    <div class="col-span-1 sm:col-span-1">
+                                        <label for="end_date" class="mb-1 block text-2xl text-cyan">
+                                            End Date <span
+                                                class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
+                                        </label>
+                                        <input type="date" name="end_date" id="end_date" value="{{ old('end_date') }}"
+                                            class="@error('end_date') border-red-500 @else border-gray-300 @enderror w-full rounded-full border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan">
+                                        @error('end_date')
+                                            <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+
+                                    {{-- Responsibility --}}
+                                    <div class="col-span-2">
+                                        <label for="responsibility" class="mb-1 block text-2xl text-cyan">Responsibility <span
+                                                class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
+                                        <div id="responsibility-container-create">
+                                            {{-- Handle existing old input or provide at least one empty field --}}
+                                            @forelse (old('vacancy_responsibility', ['']) as $index => $responsibility)
+                                                <div class="responsibility-item mb-2 flex items-center">
+                                                    <input type="text" name="vacancy_responsibility[]"
+                                                        value="{{ $responsibility }}"
+                                                        class="@error('vacancy_responsibility.' . $index) border-red-500 @else border-gray-300 @enderror w-full rounded-full border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
+                                                        placeholder="Enter responsibility" />
+                                                    <button type="button"
+                                                        class="remove-responsibility ml-2 rounded-xl border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2"
+                                                        style="{{ $loop->first && !old('vacancy_responsibility') ? 'display: none;' : '' }}">Remove</button>
+                                                </div>
+                                                @error('vacancy_responsibility.' . $index)
+                                                    <p class="mb-2 text-sm text-red-500">{{ $message }}</p>
+                                                @enderror
+                                            @empty
+                                                {{-- This case should ideally not be hit if default [''] is used for old() --}}
+                                                <div class="responsibility-item mb-2 flex items-center">
+                                                    <input type="text" name="vacancy_responsibility[]"
+                                                        class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
+                                                        placeholder="Enter responsibility" />
+                                                    <button type="button"
+                                                        class="remove-responsibility ml-2 rounded-xl border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2"
+                                                        style="display: none;">Remove</button>
+                                                </div>
+                                            @endforelse
+                                        </div>
+                                        <button type="button" id="add-responsibility"
+                                            class="bg-btn-cyan-100 mt-2 rounded-lg px-7 py-2 text-sm text-white hover:bg-lightblue hover:text-cyan sm:text-base">
+                                            Add Responsibility
+                                        </button>
+                                        @error('vacancy_responsibility')
+                                            {{-- Error for the array as a whole (e.g., min:1) --}}
+                                            <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+
+                                    {{-- Qualification --}}
+                                    <div class="col-span-2">
+                                        <label for="qualification" class="mb-1 block text-2xl text-cyan">Qualification <span
+                                                class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
+                                        <div id="qualification-container">
+                                            @forelse (old('vacancy_qualification', ['']) as $index => $qualification)
+                                                <div class="qualification-item mb-2 flex items-center">
+                                                    <input type="text" name="vacancy_qualification[]"
+                                                        value="{{ $qualification }}"
+                                                        class="@error('vacancy_qualification.' . $index) border-red-500 @else border-gray-300 @enderror w-full rounded-full border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
+                                                        placeholder="Enter qualification" />
+                                                    <button type="button"
+                                                        class="remove-qualification ml-2 rounded-xl border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2"
+                                                        style="{{ $loop->first && !old('vacancy_qualification') ? 'display: none;' : '' }}">Remove</button>
+                                                </div>
+                                                @error('vacancy_qualification.' . $index)
+                                                    <p class="mb-2 text-sm text-red-500">{{ $message }}</p>
+                                                @enderror
+                                            @empty
+                                                <div class="qualification-item mb-2 flex items-center">
+                                                    <input type="text" name="vacancy_qualification[]"
+                                                        class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
+                                                        placeholder="Enter qualification" />
+                                                    <button type="button"
+                                                        class="remove-qualification ml-2 rounded-xl border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2"
+                                                        style="display: none;">Remove</button>
+                                                </div>
+                                            @endforelse
+                                        </div>
+                                        <button type="button" id="add-qualification"
+                                            class="bg-btn-cyan-100 mt-2 rounded-lg px-7 py-2 text-sm text-white hover:bg-lightblue hover:text-cyan sm:text-base">
+                                            Add Qualification
+                                        </button>
+                                        @error('vacancy_qualification')
+                                            <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+
+                                    {{-- Benefits --}}
+                                    <div class="col-span-2">
+                                        <label for="benefits" class="mb-1 block text-2xl text-cyan">Benefits <span
+                                                class="text-4xl text-red-500">*</span></label>
+                                        <div id="benefits-container">
+                                            @forelse (old('vacancy_benefits', ['']) as $index => $benefit)
+                                                <div class="benefits-item mb-2 flex items-center">
+                                                    <input type="text" name="vacancy_benefits[]"
+                                                        value="{{ $benefit }}"
+                                                        class="@error('vacancy_benefits.' . $index) border-red-500 @else border-gray-300 @enderror w-full rounded-full border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
+                                                        placeholder="Enter benefits" />
+                                                    <button type="button"
+                                                        class="remove-benefits ml-2 rounded-xl border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2"
+                                                        style="{{ $loop->first && !old('vacancy_benefits') ? 'display: none;' : '' }}">Remove</button>
+                                                </div>
+                                                @error('vacancy_benefits.' . $index)
+                                                    <p class="mb-2 text-sm text-red-500">{{ $message }}</p>
+                                                @enderror
+                                            @empty
+                                                <div class="benefits-item mb-2 flex items-center">
+                                                    <input type="text" name="vacancy_benefits[]"
+                                                        class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
+                                                        placeholder="Enter benefits" />
+                                                    <button type="button"
+                                                        class="remove-benefits ml-2 rounded-xl border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2"
+                                                        style="display: none;">Remove</button>
+                                                </div>
+                                            @endforelse
+                                        </div>
+                                        <button type="button" id="add-benefits"
+                                            class="bg-btn-cyan-100 mt-2 rounded-lg px-7 py-2 text-sm text-white hover:bg-lightblue hover:text-cyan sm:text-base">
+                                            Add Benefits
+                                        </button>
+                                        @error('vacancy_benefits')
+                                            <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+
+                                    <div class="col-span-2 sm:col-span-2"> {{-- Changed col-span-1 to col-span-2 for full width --}}
+                                        <label for="vacancy_picture" class="mb-1 block text-2xl text-cyan">
+                                            Upload Poster <span
+                                                class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
+                                        </label>
+                                        <input type="file" name="vacancy_picture" id="vacancy_picture"
+                                            class="@error('vacancy_picture') border-red-500 @else border-gray-300 @enderror w-full rounded-full border bg-gray-200 file:mr-4 file:rounded-full file:border-0 file:bg-gray-300 file:px-4 file:py-2 file:text-gray-700 hover:file:bg-gray-400">
+                                        @error('vacancy_picture')
+                                            <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="flex justify-end">
+                                    <button type="submit"
+                                        class="bg-btn-cyan m-4 rounded-lg bg-cyan px-6 py-2 text-white shadow-lg hover:bg-cyan-400 hover:text-cyan sm:py-2.5">
+                                        Post
+                                    </button>
+                                </div>
+                            </form>
+                        @endif
                     @endauth
                 </div>
             </div>
@@ -411,7 +429,7 @@
         <div class="mx-auto max-w-screen-xl px-4 py-3 sm:px-0">
             {{-- Post Card Start --}}
             <div id="post-container">
-                @foreach ($vacancys as $vc)
+                {{-- @foreach ($vacancys as $vc)
                     <a href="{{ route('posts.detail', ['id' => (string) $vc->id_vacancy]) }}" class="post-card">
                         <div data-aos="fade-up" class="mt-3 grid space-y-4 lg:grid-cols-1">
                             <article
@@ -428,17 +446,17 @@
                                             src="{{ asset('storage/profile/' . $vc->profile_photo) }}"
                                             alt="{{ $vc->name }}" />
                                     </div>
-                                    <div class="mt-4 lg:mt-0">
-                                        {{-- Position --}}
-                                        <h2 class="post-title mb-2 text-xl tracking-tight text-cyan sm:text-2xl">
+                                    <div class="mt-4 lg:mt-0"> --}}
+                {{-- Position --}}
+                {{-- <h2 class="post-title mb-2 text-xl tracking-tight text-cyan sm:text-2xl">
                                             {{ $vc->position }}
-                                        </h2>
-                                        {{-- Company Name --}}
-                                        <h2 class="post-company mb-2 text-base tracking-tight text-cyan sm:text-xl">
+                                        </h2> --}}
+                {{-- Company Name --}}
+                {{-- <h2 class="post-company mb-2 text-base tracking-tight text-cyan sm:text-xl">
                                             {{ $vc->company_name }}
-                                        </h2>
-                                        {{-- Posted By "Name" --}}
-                                        <p class="post-author text-sm text-gray-400 sm:text-lg">Posted by
+                                        </h2> --}}
+                {{-- Posted By "Name" --}}
+                {{-- <p class="post-author text-sm text-gray-400 sm:text-lg">Posted by
                                             {{ $vc->name }}
                                         </p>
                                     </div>
@@ -446,7 +464,7 @@
                             </article>
                         </div>
                     </a>
-                @endforeach
+                @endforeach --}}
             </div>
 
             {{-- Post Card End --}}
@@ -458,6 +476,9 @@
         </div>
     </section>
 
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    {{-- Search Post --}}
     <script>
         function filterPosts() {
             let input = document.getElementById('simple-search').value.toLowerCase();
@@ -482,6 +503,7 @@
         }
     </script>
 
+    {{-- Create Post Modal --}}
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const addDynamicInput = (containerId, buttonId, inputName, removeClass) => {
@@ -516,6 +538,99 @@
             addDynamicInput('qualification-container', 'add-qualification', 'vacancy_qualification',
                 'remove-qualification');
             addDynamicInput('benefits-container', 'add-benefits', 'vacancy_benefits', 'remove-benefits');
+        });
+    </script>
+
+    {{-- Post API --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Function to fetch and display posts
+            async function fetchAndDisplayPosts() {
+                try {
+                    const response = await axios.get('http://127.0.0.1:8000/api/posts', {
+                        withCredentials: true
+                    });
+
+                    const postsContainer = document.getElementById('post-container');
+                    const allPosts = response.data.data; // Access the data array from the response
+
+                    if (allPosts.length === 0) {
+                        postsContainer.innerHTML = '<p class="text-center py-4">No vacancies available</p>';
+                        return;
+                    }
+
+                    let postsHTML = '';
+                    allPosts.forEach(post => {
+                        const dateDifference = post.date_open ? calculateDateDifference(post
+                            .date_open) : 'Recently';
+
+                        postsHTML += `
+                        <a href="/posts/detail/${post.id_vacancy}" class="post-card">
+                            <div class="mt-3 grid space-y-4 lg:grid-cols-1">
+                                <article class="cursor-pointer rounded-lg border border-gray-200 bg-lightblue p-6 shadow-[0px_2px_3px_0px_rgba(0,0,0,0.30)]">
+                                    <div class="mb-5 flex items-center justify-between text-gray-400">
+                                        <span class="ml-auto text-xs sm:text-sm">
+                                            ${dateDifference}
+                                        </span>
+                                    </div>
+                                    <div class="flex flex-col lg:flex-row lg:space-x-8">
+                                        <div class="flex-shrink-0">
+                                            <img class="h-20 w-20 rounded-full object-cover"
+                                                src="/storage/profile/${post.profile_photo || 'default_profile.png'}"
+                                                alt="${post.name}" />
+                                        </div>
+                                        <div class="mt-4 lg:mt-0">
+                                            <h2 class="post-title mb-2 text-xl tracking-tight text-cyan sm:text-2xl">
+                                                ${post.position}
+                                            </h2>
+                                            <h2 class="post-company mb-2 text-base tracking-tight text-cyan sm:text-xl">
+                                                ${post.company_name}
+                                            </h2>
+                                            <p class="post-author text-sm text-gray-400 sm:text-lg">Posted by
+                                                ${post.name}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                        </a>
+                    `;
+                    });
+
+                    postsContainer.innerHTML = postsHTML;
+                } catch (error) {
+                    console.error('Error:', error);
+                    document.getElementById('post-container').innerHTML =
+                        '<p class="text-center py-4 text-red-500">Error loading vacancies. Please try again later.</p>';
+                }
+            }
+
+            // Date difference calculation function
+            function calculateDateDifference(dateString) {
+                const postDate = new Date(dateString);
+                const now = new Date();
+                const diffInDays = Math.floor((now - postDate) / (1000 * 60 * 60 * 24));
+
+                if (diffInDays === 0) return 'Today';
+                if (diffInDays === 1) return 'Yesterday';
+                if (diffInDays < 7) return `${diffInDays} days ago`;
+                if (diffInDays < 30) return `${Math.floor(diffInDays / 7)} weeks ago`;
+                return `${Math.floor(diffInDays / 30)} months ago`;
+            }
+
+            // Initial fetch
+            fetchAndDisplayPosts();
+
+            // You can add pagination handling here if needed
+            // For example:
+            document.querySelectorAll('.pagination a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const url = new URL(this.href);
+                    const page = url.searchParams.get('page');
+                    fetchAndDisplayPosts(page);
+                });
+            });
         });
     </script>
 @endsection

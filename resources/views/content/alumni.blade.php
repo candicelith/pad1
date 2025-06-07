@@ -100,43 +100,109 @@
             </div>
         </div>
 
-        <div class="mx-auto max-w-screen-xl px-4 py-8 lg:px-6 lg:py-16">
+        <div class="mx-auto max-w-screen-xl px-4 py-4 lg:px-6 lg:py-8">
             {{-- Alumni Cards Start --}}
-            <div id="alumni-cards" class="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                @foreach ($alumnis as $al)
+            <div id="alumni-cards" class="grid justify-items-center gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                {{-- @foreach ($alumnis as $al)
                     <a class="alumni-card w-full max-w-sm cursor-pointer rounded-lg border border-gray-200 bg-lightblue shadow-md"
                         href="{{ route('alumni.detail', ['id' => $al->id_userDetails]) }}" data-name="{{ $al->name }}"
                         data-year="{{ $al->entry_year }}">
-                        <div {{-- data-aos="fade-up" --}}>
-                            <div class="flex flex-col items-center px-8 py-8 text-center">
-                                <div class="mb-5 flex w-full justify-end px-6 text-gray-400">
-                                    <span class="text-sm">
-                                        {{ $al->graduate_year }}
-                                    </span>
-                                </div>
-                                <img class="mb-3 h-24 w-24 rounded-full shadow-lg"
-                                    src="{{ asset('storage/profile/' . $al->profile_photo) }}"
-                                    alt="{{ $al->name }} image" />
-                                <h2 class="mb-1 text-2xl text-cyan">
-                                    {{ $al->name }}
-                                </h2>
-                                <h3 class="text-base text-cyan">
-                                    {{ $al->job_name }}
-                                </h3>
-                                <h4 class="text-sm text-gray-500">
-                                    {{ $al->company_name }}
-                                </h4>
+                        <div class="flex flex-col items-center px-8 py-8 text-center">
+                            <div class="mb-5 flex w-full justify-end px-6 text-gray-400">
+                                <span class="text-sm">
+                                    {{ $al->graduate_year }}
+                                </span>
                             </div>
+                            <img class="mb-3 h-24 w-24 rounded-full shadow-lg"
+                                src="{{ asset('storage/profile/' . $al->profile_photo) }}"
+                                alt="{{ $al->name }} image" />
+                            <h2 class="mb-1 text-2xl text-cyan">
+                                {{ $al->name }}
+                            </h2>
+                            <h3 class="text-base text-cyan">
+                                {{ $al->job_name }}
+                            </h3>
+                            <h4 class="text-sm text-gray-500">
+                                {{ $al->company_name }}
+                            </h4>
                         </div>
                     </a>
-                @endforeach
+                @endforeach --}}
             </div>
             {{-- Alumni Cards End --}}
         </div>
-
         </div>
     </section>
 
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    {{-- Alumni API --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Function to fetch and display all alumni (including those without complete details)
+            async function fetchAndDisplayAlumni() {
+                try {
+                    const response = await axios.get('http://127.0.0.1:8000/api/users/alumni', {
+                        withCredentials: true
+                    });
+
+                    const alumniContainer = document.getElementById('alumni-cards');
+                    const allAlumni = response.data.data;
+
+                    if (!allAlumni || allAlumni.length === 0) {
+                        alumniContainer.innerHTML = '<p class="text-center py-4">No alumni available</p>';
+                        return;
+                    }
+
+                    let alumniHTML = '';
+                    allAlumni.forEach(alumni => {
+                        // Safely access nested properties with fallbacks
+                        const userDetails = alumni.user_details || {};
+
+                        alumniHTML += `
+                            <a class="alumni-card w-full max-w-sm cursor-pointer rounded-lg border border-gray-200 bg-lightblue shadow-md"
+                                href="/alumni/detail/${userDetails.id_userDetails || ''}"
+                                data-name="${userDetails.name || 'No name'}"
+                                data-year="${userDetails.entry_year || ''}">
+                                <div>
+                                    <div class="flex flex-col items-center px-8 py-8 text-center">
+                                        <div class="mb-5 flex w-full justify-end px-6 text-gray-400">
+                                            <span class="text-sm">
+                                                ${userDetails.graduate_year || 'Not graduated'}
+                                            </span>
+                                        </div>
+                                        <img class="mb-3 h-24 w-24 rounded-full shadow-lg"
+                                            src="/storage/profile/${userDetails.profile_photo || 'default_profile.png'}"
+                                            alt="${userDetails.name || 'Alumni'} image" />
+                                        <h2 class="mb-1 text-2xl text-cyan">
+                                            ${userDetails.name || 'Anonymous Alumni'}
+                                        </h2>
+                                        <h3 class="text-base text-cyan">
+                                            ${userDetails.current_job || 'Job not specified'}
+                                        </h3>
+                                        <h4 class="text-sm text-gray-500">
+                                            ${userDetails.current_company || 'Company not specified'}
+                                        </h4>
+                                    </div>
+                                </div>
+                            </a>
+                        `;
+                    });
+
+                    alumniContainer.innerHTML = alumniHTML;
+                } catch (error) {
+                    console.error('Error:', error);
+                    document.getElementById('alumni-cards').innerHTML =
+                        '<p class="text-center py-4 text-red-500">Error loading alumni. Please try again later.</p>';
+                }
+            }
+
+            // Initial fetch
+            fetchAndDisplayAlumni();
+        });
+    </script>
+
+    {{-- Filter Alumni --}}
     <script>
         let selectedLetter = ''; // Variable to store selected letter
 

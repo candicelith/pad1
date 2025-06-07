@@ -54,7 +54,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // Company (jika create, update, delete butuh login)
     Route::post('/companies', [CompanyControllerAPI::class, 'store']);
     Route::put('/companies/{company}', [CompanyControllerAPI::class, 'update']);
-    Route::delete('/companies/{company}',[CompanyControllerAPI::class, 'destroy']);
+    Route::delete('/companies/{company}', [CompanyControllerAPI::class, 'destroy']);
 
     // User
     Route::get('/users', [UserControllerAPI::class, 'index']); // Daftar semua user (hanya admin)

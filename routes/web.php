@@ -63,12 +63,12 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Login
 Route::controller(AuthController::class)->group(function () {
-Route::get('/login', 'login')->name('login');
-Route::post('/authenticate', 'authenticate')->name('authenticate');
-Route::post('/logout', 'logout')->name('logout');
-Route::get('/profile', 'profile')->name('profile');
-Route::get('/registration', 'registration')->name('registration');
-Route::post('/registration/form', 'create')->name('registration.submit');
+    Route::get('/login', 'login')->name('login');
+    Route::post('/authenticate', 'authenticate')->name('authenticate');
+    Route::post('/logout', 'logout')->name('logout');
+    Route::get('/profile', 'profile')->name('profile');
+    Route::get('/registration', 'registration')->name('registration');
+    Route::post('/registration/form', 'create')->name('registration.submit');
 });
 // Google Auth
 Route::get('/auth/google/redirect', [GoogleAuthController::class, 'redirect']);
@@ -83,7 +83,7 @@ Route::middleware(['cookie.token'])->group(function () {
         Route::get('/posts/create', 'create')->name('posts.create');
         Route::post('/posts/store', 'store')->name('posts.store');
         Route::post('/posts/detail/{vacancy}/apply', 'apply')->name('posts.detail.apply');
-        Route::delete('/posts/detail/{vacancy}/delete','deleteApply')->name('posts.detail.delete-apply');
+        Route::delete('/posts/detail/{vacancy}/delete', 'deleteApply')->name('posts.detail.delete-apply');
     });
 
     // Comment Controller
@@ -150,9 +150,9 @@ Route::middleware(['cookie.token'])->group(function () {
         Route::delete('/admin/company_delete/{id}', 'deleteCompany')->name('admin.company.delete');
         Route::get('/admin/company/detail/{id}', 'detailCompany')->name('admin.company.detail');
         // Route::get('/admin/company/edit/{id}', 'editCompany')->name('admin.company.edit');
-        Route::get('/admin/company/approval/{id}', [CompanyController::class,'detailApproval'])->name('admin.company.approval');
-        Route::post('/admin/company/approval/{id}/approve',[CompanyController::class,'approveCompany'])->name('admin.company.approve');
-        Route::post('/admin/company/approval/{id}/reject',[CompanyController::class,'rejectCompany'])->name('admin.company.reject');
+        Route::get('/admin/company/approval/{id}', [CompanyController::class, 'detailApproval'])->name('admin.company.approval');
+        Route::post('/admin/company/approval/{id}/approve', [CompanyController::class, 'approveCompany'])->name('admin.company.approve');
+        Route::post('/admin/company/approval/{id}/reject', [CompanyController::class, 'rejectCompany'])->name('admin.company.reject');
 
 
         // News
@@ -164,7 +164,3 @@ Route::middleware(['cookie.token'])->group(function () {
     Route::post('/notifications/read', [NotificationController::class, 'markAsRead'])->name('notifications.markAsRead');
 
 });
-
-
-
-

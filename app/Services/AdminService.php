@@ -70,7 +70,7 @@ class AdminService
                 return $jobTracking;
             });
 
-        $companies = Cache::remember('all_companies', now()->addHours(1), function() {
+        $companies = Cache::remember('all_companies', now()->addHours(1), function () {
             return Company::all();
         });
 
@@ -89,7 +89,7 @@ class AdminService
      */
     public function getCompanyDetails(string $id)
     {
-        $company = Cache::remember('company_'.$id, now()->addMinutes(30), function() use ($id) {
+        $company = Cache::remember('company_' . $id, now()->addMinutes(30), function () use ($id) {
             return Company::findOrFail($id);
         });
 
@@ -117,7 +117,7 @@ class AdminService
      */
     public function getAllCompanies()
     {
-        return Cache::remember('all_companies', now()->addHours(1), function() {
+        return Cache::remember('all_companies', now()->addHours(1), function () {
             return Company::all();
         });
     }
@@ -129,7 +129,7 @@ class AdminService
      */
     public function getAllNews()
     {
-        return Cache::remember('all_news', now()->addMinutes(30), function() {
+        return Cache::remember('all_news', now()->addMinutes(30), function () {
             return News::latest()->paginate(15);
         });
     }
@@ -141,19 +141,19 @@ class AdminService
      */
     public function getPendingRequests()
     {
-        return Cache::remember('pending_requests', now()->addMinutes(5), function() {
-            return PendingRequest::with('userDetails')
-                ->where('approval_status', 'pending')
-                ->latest()
-                ->take(10)
-                ->get();
-        });
+        // return Cache::remember('pending_requests', now()->addMinutes(5), function() {
+        //     return PendingRequest::with('userDetails')
+        //         ->where('approval_status', 'pending')
+        //         ->latest()
+        //         ->take(10)
+        //         ->get();
+        // });
         // Instant :
-        // return PendingRequest::with('userDetails')
-        // ->where('approval_status', 'pending')
-        // ->latest()
-        // ->take(10)
-        // ->get();
+        return PendingRequest::with('userDetails')
+            ->where('approval_status', 'pending')
+            ->latest()
+            ->take(10)
+            ->get();
     }
 
     /**
