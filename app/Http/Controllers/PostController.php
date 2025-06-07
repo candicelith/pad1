@@ -19,10 +19,10 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         // Mengambil Data Table Vacancy Join Users Join User_Details Join Company
-        $vacancys = DB::table('vacancy')
+        $vacancysQuery  = DB::table('vacancy')
             ->join('users', 'vacancy.id_users', '=', 'users.id_users')
             ->join('user_details', 'users.id_users', '=', 'user_details.id_users')
             ->join('company', 'vacancy.id_company', '=', 'company.id_company')
@@ -32,10 +32,20 @@ class PostController extends Controller
                 'user_details.*',
                 'company.*',
                 DB::raw("COALESCE(user_details.profile_photo, 'default_profile.png') as profile_photo"),
-            )
-            ->orderBy('id_vacancy','desc')
-            ->paginate(10);
+            );
 
+        if ($request->input('filter' )  == 'my_posts') {
+            $vacancysQuery->where('vacancy.id_users', Auth::id());
+        }elseif ($request->input('filter') == 'my_commented_posts') {
+            // Jika filter adalah 'my_commented_posts', cari post yang pernah dikomentari user
+            $vacancysQuery->whereIn('vacancy.id_vacancy', function ($query) {
+                $query->select('id_vacancy')
+                    ->from('comment')
+                    ->where('id_users', Auth::id());
+            });
+        }
+
+        $vacancys = $vacancysQuery->orderBy('id_vacancy', 'desc')->paginate(10);
 
         // Membuat Variabel Tanggal Menjadi Lebih Dinamis dengan Tanggal Saat ini
         foreach ($vacancys as $vc) {

@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
@@ -29,19 +30,66 @@ class AdminController extends Controller
     {
         $this->middleware('admin')->except([
             'getChartData',
-            'handleApproval'
+            'handleApproval',
+            'login'
         ]);
 
         $this->adminService = $adminService;
     }
+
+    public function login(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors(['error' => 'Invalid Input']);
+        }
+
+        // Cek apakah user ada di database
+        $user = User::where('email', $request->email)->first();
+
+        // Debugging Purpose :
+        // if (!$user) {
+        //     dd('No user found');
+        // }
+        // if (!Hash::check($request->password, $user->password)) {
+        //     dd('Password does not match');
+        // }
+        // if ($user->id_roles !== 1) {
+        //     dd('Not an admin');
+        // }
+
+        // NEW: Create token instead of just using Auth::login()
+        $token = $user->createToken('web-session')->plainTextToken;
+
+        // Store token in secure cookie
+        cookie()->queue(
+            'auth_token',
+            $token,
+            60 * 24, // 24 hours
+            '/',
+            null,
+            true, // secure
+            false  // httpOnly
+         );
+
+        // Generate API token
+        Auth::login($user);
+        $request->session()->regenerate();
+        return redirect()->route('admin.home');
+    }
+
     public function index()
     {
         $admin = Auth::user();
         $pendingRequest = $this->adminService->getPendingRequests();
         $pendingCompanies = Company::where('status', 'pending')
-        ->orderBy('created_at', 'desc')
-        ->get();
-        return view('content.admin-home', compact('admin', 'pendingRequest','pendingCompanies'));
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('content.admin-home', compact('admin', 'pendingRequest', 'pendingCompanies'));
     }
 
     public function show()

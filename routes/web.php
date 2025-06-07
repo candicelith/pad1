@@ -126,6 +126,7 @@ Route::middleware(['cookie.token'])->group(function () {
 
     //Admin
     Route::controller(AdminController::class)->group(function () {
+        Route::post('/admin/login','login')->name('admin.login');
         Route::get('/admin', 'index')->name('admin.home');
         Route::get('/admin/profile', 'show')->name('admin.profile');
         Route::get('/admin/alumni', 'getAlumni')->name('admin.alumni');
