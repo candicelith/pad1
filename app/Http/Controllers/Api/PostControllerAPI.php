@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Vacancy;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -14,28 +15,64 @@ class PostControllerAPI extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         try {
-            $vacancys = DB::table('vacancy')
+            // 1. Tambahkan pengecekan autentikasi untuk filter khusus
+            $filter = $request->input('filter');
+            if (($filter == 'my_posts' || $filter == 'my_commented_posts') && !Auth::check()) {
+                return response()->json([
+                    "success" => false,
+                    "message" => "Unauthorized. You need to be logged in to use this filter.",
+                ], 401);
+            }
+
+            // Memulai query builder
+            $vacancysQuery = DB::table('vacancy')
                 ->join('users', 'vacancy.id_users', '=', 'users.id_users')
                 ->join('user_details', 'users.id_users', '=', 'user_details.id_users')
                 ->join('company', 'vacancy.id_company', '=', 'company.id_company')
                 ->select(
                     'vacancy.*',
-                    'user_details.id_userDetails',
-                    DB::raw("COALESCE(user_details.profile_photo, 'default_profile.png') as profile_photo"),
-                    'user_details.name',
+                    'user_details.name', // Lebih baik sebutkan kolom spesifik untuk menghindari tumpang tindih
+                    'user_details.profile_photo',
                     'company.company_name',
-                )
-                ->orderBy('id_vacancy', 'desc')
-                ->get();
+                    DB::raw("COALESCE(user_details.profile_photo, 'default_profile.png') as profile_photo"),
+                );
+
+            if ($filter == 'my_posts') {
+                $vacancysQuery->where('vacancy.id_users', Auth::id());
+
+            } elseif ($filter == 'my_commented_posts') {
+                $vacancysQuery->whereIn('vacancy.id_vacancy', function ($query) {
+                    $query->select('id_vacancy')
+                          ->from('comments') // 2. Koreksi nama tabel menjadi 'comments'
+                          ->where('id_users', Auth::id());
+                });
+            }
+
+            $vacancys = $vacancysQuery->orderBy('id_vacancy', 'desc')->paginate(10);
+
+            // Membuat Variabel Tanggal Menjadi Lebih Dinamis dengan Tanggal Saat ini
+            foreach ($vacancys as $vc) {
+
+                $dateOpen = Carbon::parse($vc->date_open);
+                $now = Carbon::now();
+                $daysDifference = $dateOpen->diffInDays($now);
+
+                if ($daysDifference < 1) {
+                    $vc->date_difference = 'Today';
+                } else {
+                    $vc->date_difference = $daysDifference . ' days ago';
+                }
+            }
 
             return response()->json([
                 "success" => true,
                 "message" => "Successfully Fetched All Job Vacancies/Post",
                 "data" => $vacancys
             ], 200);
+
         } catch (\Throwable $th) {
             return response()->json([
                 "success" => false,
@@ -106,37 +143,37 @@ class PostControllerAPI extends Controller
     public function show(string $id)
     {
         try {
-            $vacancys = DB::table('vacancy')
-                ->join('users', 'vacancy.id_users', '=', 'users.id_users')
-                ->join('user_details', 'users.id_users', '=', 'user_details.id_users')
-                ->join('company', 'vacancy.id_company', '=', 'company.id_company')
-                ->select(
-                    'vacancy.*',
-                    'user_details.id_userDetails',
-                    DB::raw("COALESCE(user_details.profile_photo, 'default_profile.png') as profile_photo"),
-                    'user_details.name',
-                    'company.company_name',
-                )
-                ->where('id_vacancy', $id)
-                ->first();
+            // 2. Gunakan Eloquent dengan eager loading untuk mengambil semua data terkait
+            $vacancy = Vacancy::with([
+                'user.userDetails', // Memuat user dan detail user yang membuat post
+                'company',          // Memuat data perusahaan
+                'comments' => function ($query) { // Memuat komentar
+                    $query->whereNull('parent_id') // Hanya komentar utama (bukan balasan)
+                          ->with('user.userDetails') // Beserta data pembuat komentar
+                          ->orderBy('created_at', 'desc');
+                },
+                'registrations.user' // Memuat data pendaftar
+            ])->find($id); // Mencari vacancy berdasarkan ID
 
-            if (!$vacancys) {
+            // 3. Cek jika data tidak ditemukan
+            if (!$vacancy) {
                 return response()->json([
                     "success" => false,
                     "message" => "Vacancy/Post not found",
-                    "data" => null
                 ], 404);
             }
 
+            // 4. Kembalikan respons JSON yang sukses
             return response()->json([
                 "success" => true,
-                "message" => "Successfully Fetched All Job Vacancies/Post",
-                "data" => $vacancys
+                "message" => "Successfully fetched job vacancy details",
+                "data" => $vacancy
             ], 200);
+
         } catch (\Throwable $th) {
             return response()->json([
                 "success" => false,
-                "message" => "Failed to fetch Job Vacancies/Post",
+                "message" => "Failed to fetch job vacancy details",
                 "error" => $th->getMessage()
             ], 500);
         }

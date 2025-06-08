@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\User;
+use App\Models\UserDetails;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 
 class UserControllerAPI extends Controller
@@ -207,4 +210,106 @@ class UserControllerAPI extends Controller
             "data" => $user
         ]);
     }
+
+    // public function showDetail(string $id)
+    // {
+    //     try {
+    //         // 1. Fetch User Details
+    //         $userDetails = UserDetails::with('user')
+    //             ->select(
+    //                 'user_details.*',
+    //                 DB::raw('COALESCE(user_details.current_job, "Jobless") as job_name'),
+    //                 DB::raw('COALESCE(user_details.current_company, "-") as company_name'),
+    //                 DB::raw("COALESCE(user_details.profile_photo, 'default_profile.png') as profile_photo"),
+    //                 DB::raw("COALESCE(user_details.graduate_year, '-') as graduate_year")
+    //             )
+    //             ->where('id_userDetails', $id)
+    //             ->firstOrFail();
+
+    //         // 2. Fetch Job History
+    //         $jobHistory = DB::table('job_tracking')
+    //             ->join('jobs', 'job_tracking.id_jobs', '=', 'jobs.id_jobs')
+    //             ->leftJoin('company', 'jobs.id_company', '=', 'company.id_company')
+    //             ->where('job_tracking.id_userDetails', $userDetails->id_userDetails)
+    //             ->select(
+    //                 'job_tracking.id_tracking',
+    //                 'job_tracking.job_description',
+    //                 'jobs.job_name',
+    //                 'company.company_name',
+    //                 'company.status',
+    //                 DB::raw('COALESCE(YEAR(job_tracking.date_end), "Now") as date_end'),
+    //                 DB::raw('COALESCE(YEAR(job_tracking.date_start), "Now") as date_start')
+    //             )
+    //             ->orderBy('job_tracking.id_tracking', 'desc')
+    //             ->get()
+    //             ->map(function ($job) use ($id) {
+    //                 // 3. For each job, find related alumni
+
+    //                 // Find alumni who currently have this job
+    //                 $alumniWithCurrentJob = UserDetails::where('current_job', $job->job_name)
+    //                     ->join('users', 'user_details.id_users', '=', 'users.id_users')
+    //                     ->where('users.id_roles', 2) // Ensure they are alumni
+    //                     ->where('user_details.id_userDetails', '!=', $id) // Exclude current user
+    //                     ->select(
+    //                         'user_details.name',
+    //                         'user_details.current_job',
+    //                         'user_details.current_company',
+    //                         DB::raw("COALESCE(user_details.profile_photo, 'default_profile.png') as profile_photo"),
+    //                         DB::raw("COALESCE(user_details.graduate_year, '-') as graduate_year")
+    //                     )
+    //                     ->limit(5)
+    //                     ->get();
+
+    //                 // Find alumni who had this job in their history
+    //                 $alumniWithJobHistory = UserDetails::join('job_tracking', 'user_details.id_userDetails', '=', 'job_tracking.id_userDetails')
+    //                     ->join('jobs', 'job_tracking.id_jobs', '=', 'jobs.id_jobs')
+    //                     ->join('users', 'user_details.id_users', '=', 'users.id_users')
+    //                     ->where('jobs.job_name', $job->job_name)
+    //                     ->where('users.id_roles', 2) // Ensure they are alumni
+    //                     ->where('user_details.id_userDetails', '!=', $id)
+    //                     ->whereNotIn('user_details.id_userDetails', $alumniWithCurrentJob->pluck('id_userDetails')) // Avoid duplicates
+    //                     ->select(
+    //                         'user_details.name',
+    //                          'user_details.current_job',
+    //                         'user_details.current_company',
+    //                         DB::raw("COALESCE(user_details.profile_photo, 'default_profile.png') as profile_photo"),
+    //                         DB::raw("COALESCE(user_details.graduate_year, '-') as graduate_year")
+    //                     )
+    //                     ->distinct()
+    //                     ->limit(5 - $alumniWithCurrentJob->count()) // Fill remaining spots
+    //                     ->get();
+
+    //                 // Combine the lists of related alumni
+    //                 $job->related_alumni = $alumniWithCurrentJob->concat($alumniWithJobHistory);
+
+    //                 // Decode the job description
+    //                 $job->job_description = json_decode($job->job_description, true);
+
+    //                 return $job;
+    //             });
+
+    //         // 4. Construct the final JSON response
+    //         return response()->json([
+    //             'success' => true,
+    //             'data' => [
+    //                 'user_details' => $userDetails,
+    //                 'job_history' => $jobHistory,
+    //             ],
+    //         ]);
+
+    //     } catch (ModelNotFoundException $e) {
+    //         // Handle cases where the user is not found
+    //         return response()->json([
+    //             'success' => false,
+    //             'message' => 'User not found.',
+    //         ], 404);
+    //     } catch (\Exception $e) {
+    //         // Handle other potential errors
+    //         return response()->json([
+    //             'success' => false,
+    //             'message' => 'An error occurred while fetching the data.',
+    //             'error' => $e->getMessage(), // Optional: for debugging
+    //         ], 500);
+    //     }
+    // }
 }

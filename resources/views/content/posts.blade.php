@@ -34,14 +34,16 @@
                 @auth
                     @if (Auth::check() && Auth::user()->id_roles == '2')
                         <div class="mb-2 flex justify-between sm:mb-0 sm:space-x-4 xl:space-x-10">
-                            <button
-                                class="text-cyan-600 rounded-xl border border-gray-200 px-3 py-2 text-sm hover:bg-gray-200 focus:bg-cyan-100 focus:text-white sm:px-6 sm:py-4 xl:text-base">
-                                My Post
-                            </button>
-                            <button
-                                class="text-cyan-600 rounded-xl border border-gray-200 px-3 py-2 text-sm hover:bg-gray-200 focus:bg-cyan-100 focus:text-white sm:px-6 sm:py-4 xl:text-base">
-                                My Commented Post
-                            </button>
+
+                            <a href="{{ route('posts', ['filter' => 'my_posts']) }}"
+                                class="text-cyan-600 rounded-xl border border-gray-200 px-3 py-2 text-sm hover:bg-gray-200 sm:px-6 sm:py-4 xl:text-base {{ request('filter') == 'my_posts' ? 'bg-cyan-100 text-white' : '' }}">
+                                 My Post
+                             </a>
+
+                             <a href="{{ route('posts', ['filter' => 'my_commented_posts']) }}"
+                                class="text-cyan-600 rounded-xl border border-gray-200 px-3 py-2 text-sm hover:bg-gray-200 sm:px-6 sm:py-4 xl:text-base {{ request('filter') == 'my_commented_posts' ? 'bg-cyan-100 text-white' : '' }}">
+                                 My Commented Post
+                             </a>
                         </div>
                         {{-- Search --}}
                         <div class="mx-auto mb-2 max-w-screen-xl px-4 sm:mb-0 sm:px-6">

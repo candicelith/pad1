@@ -2138,6 +2138,10 @@ INSERT INTO users (id_roles, email, password) VALUES (3, 'fahmiamanielfadli2005@
 SET @last_id = LAST_INSERT_ID();
 INSERT INTO user_details (id_users, nim, name, entry_year) VALUES (@last_id, '24/545808/SV/25765', 'Fahmi Amaniel Fadli', 2024);
 
+-- Admin 
+INSERT INTO users (id_roles, email, password) VALUES (1, 'mustafafagan@gmail.com', '12345');
+SET @last_id = LAST_INSERT_ID();
+INSERT INTO user_details (id_users, nim, name, entry_year) VALUES (@last_id, '69/23232/SV/696969', 'Admin', 2019);
 
 -- Commit the transaction
 COMMIT;
