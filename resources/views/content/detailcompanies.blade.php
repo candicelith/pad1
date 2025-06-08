@@ -18,9 +18,13 @@
                 {{-- Companies Details --}}
                 <div class="p-6 sm:p-8 lg:p-10">
                     <div class="lg:mx-14">
-                        <div class="flex flex-col lg:flex-row lg:space-x-8">
+                        <div id="company-content">
+
+                        </div>
+                        {{-- <div class="flex flex-col lg:flex-row lg:space-x-8">
                             <img class="h-24 w-24 rounded-full object-cover sm:h-28 sm:w-28"
-                                src="{{ $company->company_picture ? asset('storage/company/' . $company->company_picture) : asset('images/default_profile.png') }}" alt="" />
+                                src="{{ $company->company_picture ? asset('storage/company/' . $company->company_picture) : asset('images/default_profile.png') }}"
+                                alt="" />
                             <div class="mt-4">
                                 <h2 class="text-xl text-cyan sm:text-2xl">{{ $company->company_name }}</h2>
                                 <h3 class="text-md text-cyan sm:text-lg">{{ $company->company_field }}</h3>
@@ -33,17 +37,9 @@
                             <p class="sm:text-md text-justify text-sm text-cyan">
                                 {{ $company->company_description }}
                             </p>
-                        </div>
+                        </div> --}}
 
                         <div class="flex flex-col space-y-4 pt-5">
-                            {{-- <div class="scrollbar-hide flex overflow-x-auto">
-                                <img src=" {{ asset('assets/company-2.png') }} " alt="">
-                                <img src=" {{ asset('assets/company-3.png') }} " alt="">
-                                <img src=" {{ asset('assets/company-1.png') }} " alt="">
-                                <img src=" {{ asset('assets/company-2.png') }} " alt="">
-                                <img src=" {{ asset('assets/company-3.png') }} " alt="">
-                                <img src=" {{ asset('assets/company-1.png') }} " alt="">
-                            </div> --}}
                             <div class="splide flex">
                                 <div class="splide__slider">
                                     <div class="splide__track">
@@ -58,17 +54,12 @@
                                     </div>
                                 </div>
                             </div>
-                            {{-- <div class="flex justify-end">
-                                <span class="text-sm text-cyan sm:text-base">Scroll for more </span>
-                                <svg class="h-6 w-6 text-cyan" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                    width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4" />
-                                </svg>
-                            </div> --}}
 
+                            <div id="workers-container">
+
+                            </div>
                             @if ($workers->isNotEmpty())
-                                <h4 class="sticky top-0 z-10 pb-6 text-lg text-cyan sm:text-xl">
+                                <h4 class="sticky top-0 z-10 text-lg text-cyan sm:text-xl">
                                     Career Journeys
                                 </h4>
                             @endif
@@ -132,36 +123,83 @@
                 </div>
             </div>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1/dist/js/splide.min.js"></script>
-        <script
-            src="https://cdn.jsdelivr.net/npm/@splidejs/splide-extension-auto-scroll@0.5/dist/js/splide-extension-auto-scroll.min.js">
-        </script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1/dist/css/splide.min.css">
-        <script>
-            const splide = new Splide('.splide', {
-                type: 'loop',
-                drag: 'free',
-                focus: 'center',
-                perPage: 3,
-                gap: '0',
-                pagination: false,
-                arrows: false,
-                autoScroll: {
-                    speed: 0.5,
-                },
-                breakpoints: {
-                    640: {
-                        perPage: 1,
-                    },
-                    768: {
-                        perPage: 2,
-                    },
-                    1024: {
-                        perPage: 3,
-                    },
-                },
-            });
-            splide.mount(window.splide.Extensions);
-        </script>
     </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    {{-- Detail Comp API --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const companyId = window.location.pathname.split('/').pop();
+
+            axios.get(`http://127.0.0.1:8000/api/companies/${companyId}`, {
+                    withCredentials: true
+                })
+                .then(companyResponse => {
+                    const company = companyResponse.data.data; // tambahkan `.data` karena pakai resource
+                    const container = document.getElementById('company-content');
+
+                    container.innerHTML = `
+                <div class="flex flex-col lg:flex-row lg:space-x-8">
+                    <img class="h-24 w-24 rounded-full object-cover sm:h-28 sm:w-28"
+                        src="${company.company_picture ? '/storage/company/' + company.company_picture : '/images/default_profile.png'}"
+                        alt="${company.company_name}" />
+                    <div class="mt-4">
+                        <h2 class="text-xl text-cyan sm:text-2xl">${company.company_name}</h2>
+                        <h3 class="text-md text-cyan sm:text-lg">${company.company_field}</h3>
+                        <h4 class="text-sm text-gray-500 sm:text-base">${company.company_address}</h4>
+                    </div>
+                </div>
+
+                <div class="mt-8 space-y-4">
+                    <h4 class="text-lg text-cyan sm:text-xl">About</h4>
+                    <p class="sm:text-md text-justify text-sm text-cyan">
+                        ${company.company_description}
+                    </p>
+                </div>
+            `;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('company-content').innerHTML = `
+                <div class="col-span-full py-10 text-center text-gray-500">
+                    <p class="text-xl">Error loading company details. Please try again later.</p>
+                </div>
+            `;
+                });
+        });
+    </script>
+
+    {{-- Splide.js for Carousel --}}
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1/dist/js/splide.min.js"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/@splidejs/splide-extension-auto-scroll@0.5/dist/js/splide-extension-auto-scroll.min.js">
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1/dist/css/splide.min.css">
+    <script>
+        const splide = new Splide('.splide', {
+            type: 'loop',
+            drag: 'free',
+            focus: 'center',
+            perPage: 3,
+            gap: '0',
+            pagination: false,
+            arrows: false,
+            autoScroll: {
+                speed: 0.5,
+            },
+            breakpoints: {
+                640: {
+                    perPage: 1,
+                },
+                768: {
+                    perPage: 2,
+                },
+                1024: {
+                    perPage: 3,
+                },
+            },
+        });
+        splide.mount(window.splide.Extensions);
+    </script>
 @endsection

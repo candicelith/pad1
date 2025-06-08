@@ -47,13 +47,13 @@
 
                                         {{-- Job Drawer Toggle --}}
                                         <button onclick="toggleDrawer('job-drawer-{{ $job->id_tracking }}')"
-                                            class="text-lg text-cyan hover:underline sm:text-xl">
+                                            class="text-start text-lg text-cyan hover:underline sm:text-xl lg:text-center">
                                             {{ $job->job_name }}
                                         </button>
 
                                         {{-- Drawer Content --}}
                                         <div id="job-drawer-{{ $job->id_tracking }}"
-                                            class="fixed right-0 top-28 z-20 w-2/5 translate-x-full overflow-y-auto rounded-lg bg-cyan-400 p-4 transition-transform duration-300"
+                                            class="fixed right-0 top-28 z-20 translate-x-full rounded-lg bg-cyan-400 p-4 transition-transform duration-300 lg:w-2/5"
                                             tabindex="-1" aria-labelledby="drawer-right-label">
                                             <div
                                                 class="flex items-center justify-between rounded-t border-b border-white md:py-4">
@@ -73,11 +73,12 @@
                                                     <span class="sr-only">Close</span>
                                                 </button>
                                             </div>
-                                            <div class="max-h-96 space-y-4">
+                                            <div class="scrollbar-modal max-h-96 space-y-4 overflow-y-auto">
                                                 <h4 class="mt-4 text-lg text-white">Alumni with the same experience:</h4>
 
                                                 @if (isset($jobsWithAlumni[$job->id_tracking]) && count($jobsWithAlumni[$job->id_tracking]) > 0)
-                                                    <div class="grid gap-6 py-4 sm:grid-cols-1 md:grid-cols-2">
+                                                    <div
+                                                        class="grid justify-items-center gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:gap-2">
                                                         @foreach ($jobsWithAlumni[$job->id_tracking] as $alumni)
                                                             <a class="alumni-card w-full max-w-sm cursor-pointer rounded-lg border border-gray-200 bg-lightblue shadow-md transition-shadow duration-300 hover:shadow-lg"
                                                                 href="{{ route('alumni.detail', $alumni->id_userDetails) }}">
@@ -92,7 +93,7 @@
                                                                         <img class="mb-3 h-20 w-20 rounded-full object-cover shadow-lg"
                                                                             src="{{ asset('storage/profile/' . $alumni->profile_photo) }}"
                                                                             alt="{{ $alumni->name }}" />
-                                                                        <h2 class="mb-1 text-xl font-semibold text-cyan">
+                                                                        <h2 class="mb-1 text-xl text-cyan">
                                                                             {{ $alumni->name }}
                                                                         </h2>
                                                                         <h3 class="text-sm text-cyan">
@@ -136,6 +137,12 @@
         </div>
     </section>
 
+{{-- Alumni Detail API --}}
+<script>
+    
+</script>
+
+    {{-- Alumni Drawer --}}
     <script>
         let currentOpenDrawer = null;
 
