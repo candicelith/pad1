@@ -66,7 +66,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/users', [UserControllerAPI::class, 'index']); // Daftar semua user (hanya admin)
     Route::put('/users/{user}', [UserControllerAPI::class, 'update']); // Update profil sendiri
 
-    Route::get('/users/{user}', [UserControllerAPI::class, 'show']); // Detail user (dengan logic otorisasi siapa boleh lihat siapa)
+    Route::get('/users/{user}', [UserControllerAPI::class, 'show']);         // Detail user (dengan logic otorisasi siapa boleh lihat siapa)
 
     // User Experiences (Alumni)
     Route::get('/users/{user}/experiences', [UserExperiencesControllerAPI::class, 'index']);

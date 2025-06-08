@@ -116,6 +116,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
+    {{-- Company API --}}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Function to fetch and display companies
