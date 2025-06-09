@@ -36,14 +36,14 @@
                         <div class="mb-2 flex justify-between sm:mb-0 sm:space-x-4 xl:space-x-10">
 
                             <a href="{{ route('posts', ['filter' => 'my_posts']) }}"
-                                class="text-cyan-600 rounded-xl border border-gray-200 px-3 py-2 text-sm hover:bg-gray-200 sm:px-6 sm:py-4 xl:text-base {{ request('filter') == 'my_posts' ? 'bg-cyan-100 text-white' : '' }}">
-                                 My Post
-                             </a>
+                                class="text-cyan-600 {{ request('filter') == 'my_posts' ? 'bg-cyan-100 text-white' : '' }} rounded-xl border border-gray-200 px-3 py-2 text-sm hover:bg-gray-200 sm:px-6 sm:py-4 xl:text-base">
+                                My Post
+                            </a>
 
-                             <a href="{{ route('posts', ['filter' => 'my_commented_posts']) }}"
-                                class="text-cyan-600 rounded-xl border border-gray-200 px-3 py-2 text-sm hover:bg-gray-200 sm:px-6 sm:py-4 xl:text-base {{ request('filter') == 'my_commented_posts' ? 'bg-cyan-100 text-white' : '' }}">
-                                 My Commented Post
-                             </a>
+                            <a href="{{ route('posts', ['filter' => 'my_commented_posts']) }}"
+                                class="text-cyan-600 {{ request('filter') == 'my_commented_posts' ? 'bg-cyan-100 text-white' : '' }} rounded-xl border border-gray-200 px-3 py-2 text-sm hover:bg-gray-200 sm:px-6 sm:py-4 xl:text-base">
+                                My Commented Post
+                            </a>
                         </div>
                         {{-- Search --}}
                         <div class="mx-auto mb-2 max-w-screen-xl px-4 sm:mb-0 sm:px-6">
@@ -543,94 +543,78 @@
 
     {{-- Post API --}}
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Function to fetch and display posts
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchAndDisplayPosts();
+
             async function fetchAndDisplayPosts() {
+                const postsContainer = document.getElementById('post-container');
+                postsContainer.innerHTML = '<p class="text-center py-4 text-gray-500">Loading...</p>';
+
                 try {
                     const response = await axios.get('http://127.0.0.1:8000/api/posts', {
                         withCredentials: true
                     });
 
-                    const postsContainer = document.getElementById('post-container');
-                    const allPosts = response.data.data; // Access the data array from the response
+                    const posts = response.data.data;
 
-                    if (allPosts.length === 0) {
+                    if (!posts || posts.length === 0) {
                         postsContainer.innerHTML = '<p class="text-center py-4">No vacancies available</p>';
                         return;
                     }
 
-                    let postsHTML = '';
-                    allPosts.forEach(post => {
-                        const dateDifference = post.date_open ? calculateDateDifference(post
-                            .date_open) : 'Recently';
+                    const postsHTML = posts.data.map(post => {
+                        const dateDiffText = formatDateDifference(post.date_open);
+                        const profilePhoto = post.profile_photo || 'default_profile.png';
 
-                        postsHTML += `
-                        <a href="/posts/detail/${post.id_vacancy}" class="post-card">
-                            <div class="mt-3 grid space-y-4 lg:grid-cols-1">
-                                <article class="cursor-pointer rounded-lg border border-gray-200 bg-lightblue p-6 shadow-[0px_2px_3px_0px_rgba(0,0,0,0.30)]">
-                                    <div class="mb-5 flex items-center justify-between text-gray-400">
-                                        <span class="ml-auto text-xs sm:text-sm">
-                                            ${dateDifference}
-                                        </span>
-                                    </div>
-                                    <div class="flex flex-col lg:flex-row lg:space-x-8">
-                                        <div class="flex-shrink-0">
-                                            <img class="h-20 w-20 rounded-full object-cover"
-                                                src="/storage/profile/${post.profile_photo || 'default_profile.png'}"
-                                                alt="${post.name}" />
+                        return `
+                            <a href="/posts/detail/${post.id_vacancy}" class="post-card">
+                                <div class="mt-3 grid space-y-4 lg:grid-cols-1">
+                                    <article class="cursor-pointer rounded-lg border border-gray-200 bg-lightblue p-6 shadow-[0px_2px_3px_0px_rgba(0,0,0,0.30)]">
+                                        <div class="mb-5 flex items-center justify-between text-gray-400">
+                                            <span class="ml-auto text-xs sm:text-sm">${dateDiffText}</span>
                                         </div>
-                                        <div class="mt-4 lg:mt-0">
-                                            <h2 class="post-title mb-2 text-xl tracking-tight text-cyan sm:text-2xl">
-                                                ${post.position}
-                                            </h2>
-                                            <h2 class="post-company mb-2 text-base tracking-tight text-cyan sm:text-xl">
-                                                ${post.company_name}
-                                            </h2>
-                                            <p class="post-author text-sm text-gray-400 sm:text-lg">Posted by
-                                                ${post.name}
-                                            </p>
+                                        <div class="flex flex-col lg:flex-row lg:space-x-8">
+                                            <div class="flex-shrink-0">
+                                                <img class="h-20 w-20 rounded-full object-cover"
+                                                     src="/storage/profile/${profilePhoto}"
+                                                     alt="${post.name}" />
+                                            </div>
+                                            <div class="mt-4 lg:mt-0">
+                                                <h2 class="post-title mb-2 text-xl tracking-tight text-cyan sm:text-2xl">
+                                                    ${post.position}
+                                                </h2>
+                                                <h2 class="post-company mb-2 text-base tracking-tight text-cyan sm:text-xl">
+                                                    ${post.company_name}
+                                                </h2>
+                                                <p class="post-author text-sm text-gray-400 sm:text-lg">Posted by ${post.name}</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </article>
-                            </div>
-                        </a>
-                    `;
-                    });
+                                    </article>
+                                </div>
+                            </a>
+                        `;
+                    }).join('');
 
                     postsContainer.innerHTML = postsHTML;
+
                 } catch (error) {
-                    console.error('Error:', error);
-                    document.getElementById('post-container').innerHTML =
-                        '<p class="text-center py-4 text-red-500">Error loading vacancies. Please try again later.</p>';
+                    console.error('Error fetching posts:', error);
+                    postsContainer.innerHTML =
+                        '<p class="text-center py-4 text-red-500">Failed to load vacancies.</p>';
                 }
             }
 
-            // Date difference calculation function
-            function calculateDateDifference(dateString) {
-                const postDate = new Date(dateString);
+            // Format difference date (e.g., Today, 1 day ago, 5 days ago)
+            function formatDateDifference(dateOpen) {
                 const now = new Date();
-                const diffInDays = Math.floor((now - postDate) / (1000 * 60 * 60 * 24));
+                const opened = new Date(dateOpen);
+                const diffTime = Math.abs(now - opened);
+                const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
 
-                if (diffInDays === 0) return 'Today';
-                if (diffInDays === 1) return 'Yesterday';
-                if (diffInDays < 7) return `${diffInDays} days ago`;
-                if (diffInDays < 30) return `${Math.floor(diffInDays / 7)} weeks ago`;
-                return `${Math.floor(diffInDays / 30)} months ago`;
+                if (diffDays === 0) return 'Today';
+                if (diffDays === 1) return '1 day ago';
+                return `${diffDays} days ago`;
             }
-
-            // Initial fetch
-            fetchAndDisplayPosts();
-
-            // You can add pagination handling here if needed
-            // For example:
-            document.querySelectorAll('.pagination a').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const url = new URL(this.href);
-                    const page = url.searchParams.get('page');
-                    fetchAndDisplayPosts(page);
-                });
-            });
         });
     </script>
 @endsection
