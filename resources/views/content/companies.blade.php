@@ -86,35 +86,92 @@
             </div>
         </div>
 
-        <div class="mx-auto max-w-screen-xl px-4 py-8 lg:px-6 lg:py-16">
+        <div class="mx-auto max-w-screen-xl px-4 py-4 lg:px-6 lg:py-8">
             {{-- Companies Cards Start --}}
             <div id="companies-card" class="grid justify-items-center gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                @foreach ($company as $com)
+                {{-- @foreach ($company as $com)
                     <a href="{{ route('companies.detail', ['id' => $com->id_company]) }}"
                         class="company-card w-full max-w-sm cursor-pointer rounded-lg border border-gray-200 bg-lightblue shadow-md"
                         data-name="{{ strtolower($com->company_name) }}">
-                        <div {{-- data-aos="fade-up" --}}>
-                            <div class="flex flex-col items-center px-8 py-8 text-center">
-                                <img class="mb-3 h-24 w-24 rounded-full shadow-lg"
-                                    src="{{ $com->company_picture ? asset('storage/company/' . $com->company_picture) : asset('images/default_profile.png') }}"
-                                    alt="Company" />
-                                <h2 class="mb-1 text-2xl text-cyan">
-                                    {{ $com->company_name }}
-                                </h2>
-                                <h3 class="mb-1 text-base text-cyan">
-                                    {{ $com->company_field }}
-                                </h3>
-                                <h4 class="text-sm text-gray-400">
-                                    {{ $com->company_address }}
-                                </h4>
-                            </div>
+                        <div class="flex flex-col items-center px-8 py-8 text-center">
+                            <img class="mb-3 h-24 w-24 rounded-full shadow-lg"
+                                src="{{ $com->company_picture ? asset('storage/company/' . $com->company_picture) : asset('images/default_profile.png') }}"
+                                alt="Company" />
+                            <h2 class="mb-1 text-2xl text-cyan">
+                                {{ $com->company_name }}
+                            </h2>
+                            <h3 class="mb-1 text-base text-cyan">
+                                {{ $com->company_field }}
+                            </h3>
+                            <h4 class="text-sm text-gray-400">
+                                {{ $com->company_address }}
+                            </h4>
                         </div>
                     </a>
-                @endforeach
+                @endforeach --}}
             </div>
             {{-- Companies Cards End --}}
         </div>
     </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    {{-- Company API --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Function to fetch and display companies
+            async function fetchAndDisplayCompanies() {
+                try {
+                    const response = await axios.get('http://127.0.0.1:8000/api/companies', {
+                        withCredentials: true
+                    });
+
+                    const companiesContainer = document.getElementById('companies-card');
+                    const companies = response.data.data; // Assuming paginated response
+
+                    if (!companies || companies.length === 0) {
+                        companiesContainer.innerHTML = '<p class="text-center py-4">No companies available</p>';
+                        return;
+                    }
+
+                    let companiesHTML = '';
+                    companies.forEach(company => {
+                        companiesHTML += `
+                            <a href="/companies/detail/${company.id}"
+                                class="company-card w-full max-w-sm cursor-pointer rounded-lg border border-gray-200 bg-lightblue shadow-md"
+                                data-name="${company.company_name.toLowerCase()}">
+                                <div>
+                                    <div class="flex flex-col items-center px-8 py-8 text-center">
+                                        <img class="mb-3 h-24 w-24 rounded-full shadow-lg"
+                                            src="${company.company_picture ? '/storage/company/' + company.company_picture : '/images/default_profile.png'}"
+                                            alt="${company.company_name}" />
+                                        <h2 class="mb-1 text-2xl text-cyan">
+                                            ${company.company_name || 'Unnamed Company'}
+                                        </h2>
+                                        <h3 class="mb-1 text-base text-cyan">
+                                            ${company.company_field || 'Field not specified'}
+                                        </h3>
+                                        <h4 class="text-sm text-gray-400">
+                                            ${company.company_address || 'Address not available'}
+                                        </h4>
+                                    </div>
+                                </div>
+                            </a>
+                        `;
+                    });
+
+                    companiesContainer.innerHTML = companiesHTML;
+                } catch (error) {
+                    console.error('Error:', error);
+                    document.getElementById('companies-card').innerHTML =
+                        '<p class="text-center py-4 text-red-500">Error loading companies. Please try again later.</p>';
+                }
+            }
+
+            // Initial fetch
+            fetchAndDisplayCompanies();
+        });
+    </script>
 
     {{-- Filter Companies --}}
     <script>

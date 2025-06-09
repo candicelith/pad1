@@ -19,10 +19,10 @@
 
     <section class="mt-20 bg-white sm:mt-28">
         <div class="mx-auto max-w-screen-xl py-8 lg:px-6 lg:py-16">
-            <div class="mx-2.5 flex flex-col items-start sm:flex-row">
+            <div class="mx-2.5 flex flex-col items-start sm:flex-row lg:mx-0">
 
                 {{-- Back Button --}}
-                <button class="sm:mb-4" onclick="handleBack()">
+                <button class="mb-2 sm:mb-0" onclick="handleBack()">
                     <svg class="h-8 w-8 text-gray-800 sm:h-16 sm:w-16" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                         width="24" height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -275,7 +275,7 @@
 
                                                     @if (Auth::check())
                                                         {{-- Reply button --}}
-                                                        <div class="flex items-center space-x-4">
+                                                        <div class="mt-2 flex items-center space-x-4">
                                                             <span
                                                                 class="reply-toggle text-cyan-600 cursor-pointer text-xs hover:underline"
                                                                 data-comment-id="{{ $comment->id_comment }}"
