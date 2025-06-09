@@ -18,7 +18,7 @@ class UserExperiencesControllerAPI extends Controller
     public function index(String $id)
     {
         try {
-            // First, get the user details with computed fields
+            // Get user details with fallback values
             $userDetails = DB::table('user_details')
                 ->select(
                     'user_details.*',
@@ -37,6 +37,7 @@ class UserExperiencesControllerAPI extends Controller
                 ], 404);
             }
 
+            // Get all job details for the user
             $jobDetails = DB::table('job_tracking')
                 ->join('jobs', 'job_tracking.id_jobs', '=', 'jobs.id_jobs')
                 ->leftJoin('company', 'jobs.id_company', '=', 'company.id_company')
@@ -47,17 +48,60 @@ class UserExperiencesControllerAPI extends Controller
                     'company.company_name',
                     'company.status',
                     DB::raw('COALESCE(YEAR(job_tracking.date_end), "Now") as date_end'),
-                    DB::raw('COALESCE(YEAR(job_tracking.date_start), "Now") as date_start')
+                    DB::raw('COALESCE(YEAR(job_tracking.date_start), "Now") as date_start'),
+                    'jobs.job_description'
                 )
                 ->orderBy('job_tracking.id_tracking', 'desc')
-                ->get()
-                ->map(function ($job) {
-                    // Handle job_description - it might be a string (JSON) or already an array
-                    if (is_string($job->job_description)) {
-                        $job->job_description = json_decode($job->job_description, true);
-                    }
-                    return $job;
-                });
+                ->get();
+
+            // Loop over job details and append related alumni
+            $jobDetails->transform(function ($job) use ($id) {
+                // Decode job_description if it's JSON
+                if (is_string($job->job_description)) {
+                    $job->job_description = json_decode($job->job_description, true);
+                }
+
+                // Find alumni currently in this job
+                $alumniWithCurrentJob = UserDetails::where('current_job', $job->job_name)
+                    ->join('users', 'user_details.id_users', '=', 'users.id_users')
+                    ->where('users.id_roles', 2) // alumni role
+                    ->where('user_details.id_userDetails', '!=', $id)
+                    ->select(
+                        'user_details.id_userDetails',
+                        'user_details.name',
+                        'user_details.current_job',
+                        'user_details.current_company',
+                        DB::raw("COALESCE(user_details.profile_photo, 'default_profile.png') as profile_photo"),
+                        DB::raw("COALESCE(user_details.graduate_year, '-') as graduate_year")
+                    )
+                    ->limit(5)
+                    ->get();
+
+                // Find alumni who had this job in the past
+                $alumniWithJobHistory = UserDetails::join('job_tracking', 'user_details.id_userDetails', '=', 'job_tracking.id_userDetails')
+                    ->join('jobs', 'job_tracking.id_jobs', '=', 'jobs.id_jobs')
+                    ->join('users', 'user_details.id_users', '=', 'users.id_users')
+                    ->where('jobs.job_name', $job->job_name)
+                    ->where('users.id_roles', 2)
+                    ->where('user_details.id_userDetails', '!=', $id)
+                    ->whereNotIn('user_details.id_userDetails', $alumniWithCurrentJob->pluck('id_userDetails'))
+                    ->select(
+                        'user_details.id_userDetails',
+                        'user_details.name',
+                        'user_details.current_job',
+                        'user_details.current_company',
+                        DB::raw("COALESCE(user_details.profile_photo, 'default_profile.png') as profile_photo"),
+                        DB::raw("COALESCE(user_details.graduate_year, '-') as graduate_year")
+                    )
+                    ->distinct()
+                    ->limit(5 - $alumniWithCurrentJob->count())
+                    ->get();
+
+                // Merge both alumni collections
+                $job->related_alumni = $alumniWithCurrentJob->concat($alumniWithJobHistory);
+
+                return $job;
+            });
 
             return response()->json([
                 "success" => true,
@@ -76,6 +120,7 @@ class UserExperiencesControllerAPI extends Controller
             ], 500);
         }
     }
+
 
     /**
      * Store a newly created resource in storage.
