@@ -22,7 +22,7 @@ class PostController extends Controller
     public function index(Request $request)
     {
         // Mengambil Data Table Vacancy Join Users Join User_Details Join Company
-        $vacancysQuery  = DB::table('vacancy')
+        $vacancysQuery = DB::table('vacancy')
             ->join('users', 'vacancy.id_users', '=', 'users.id_users')
             ->join('user_details', 'users.id_users', '=', 'user_details.id_users')
             ->join('company', 'vacancy.id_company', '=', 'company.id_company')
@@ -34,9 +34,9 @@ class PostController extends Controller
                 DB::raw("COALESCE(user_details.profile_photo, 'default_profile.png') as profile_photo"),
             );
 
-        if ($request->input('filter' )  == 'my_posts') {
+        if ($request->input('filter') == 'my_posts') {
             $vacancysQuery->where('vacancy.id_users', Auth::id());
-        }elseif ($request->input('filter') == 'my_commented_posts') {
+        } elseif ($request->input('filter') == 'my_commented_posts') {
             // Jika filter adalah 'my_commented_posts', cari post yang pernah dikomentari user
             $vacancysQuery->whereIn('vacancy.id_vacancy', function ($query) {
                 $query->select('id_vacancy')
@@ -79,7 +79,7 @@ class PostController extends Controller
         }
 
         // Mengembalikan View Content.Posts dengan Compact 'Vacancys, Companies'
-        return view('content.posts', compact('vacancys','companies'));
+        return view('content.posts', compact('vacancys', 'companies'));
     }
 
     /**
@@ -101,8 +101,8 @@ class PostController extends Controller
             'company' => 'required|exists:company,id_company',
             'vacancy_description' => 'required|string|max:500',
 
-            'start_date'=>'required|date',
-            'end_date'=>'required|date',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date',
 
             'vacancy_responsibility' => 'required|array|min:1',
             'vacancy_responsibility.*' => 'required|string|max:1000',
@@ -142,7 +142,7 @@ class PostController extends Controller
             'vacancy_picture' => $filenameSimpan ?? null
         ]);
 
-        return redirect()->route('posts')->with('success', 'Berhasil menambahkan unggahan');
+        return redirect()->route('posts')->with('success', 'Your post has been successfully added!');
     }
 
     /**

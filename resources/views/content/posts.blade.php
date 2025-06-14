@@ -21,7 +21,7 @@
                 @if (Auth::check() && Auth::user()->id_roles == '2')
                     {{-- New Post Button --}}
                     <div class="mx-auto mt-6 flex max-w-screen-xl justify-end px-4 sm:px-6">
-                        <button data-modal-target="crud-modal-post" data-modal-toggle="crud-modal-post"
+                        <button id="new-post-btn" data-modal-target="crud-modal-post" data-modal-toggle="crud-modal-post"
                             class="bg-btn-cyan items-center rounded-xl bg-cyan px-6 py-3 text-sm text-white shadow-md hover:bg-lightblue hover:text-cyan sm:text-base">
                             New Post +
                         </button>
@@ -45,26 +45,6 @@
                                 My Commented Post
                             </a>
                         </div>
-                        {{-- Search --}}
-                        <div class="mx-auto mb-2 max-w-screen-xl px-4 sm:mb-0 sm:px-6">
-                            <form id="search-form" class="mx-auto flex max-w-sm items-center">
-                                <label for="simple-search" class="sr-only">Search</label>
-                                <div class="relative w-full">
-                                    <input type="text" id="simple-search" name="query"
-                                        class="block w-full rounded-lg border border-gray-500 bg-gray-200 p-2.5 ps-10 text-sm text-gray-900 focus:border-cyan focus:ring-cyan"
-                                        placeholder="Search post..." onkeyup="filterPosts()" />
-                                </div>
-                                <button type="submit"
-                                    class="bg-btn-cyan ms-2 rounded-xl border border-cyan bg-cyan p-2.5 text-sm font-medium text-white hover:bg-cyan-100 focus:outline-none focus:ring-4 focus:ring-cyan">
-                                    <svg class="h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                        viewBox="0 0 20 20">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                                    </svg>
-                                    <span class="sr-only">Search</span>
-                                </button>
-                            </form>
-                        </div>
                     @elseif (Auth::check() && Auth::user()->id_roles == '3')
                         <div class="mb-2 flex justify-center sm:mb-0 sm:space-x-4 xl:space-x-10">
                             <button
@@ -72,49 +52,28 @@
                                 My Commented Post
                             </button>
                         </div>
-                        {{-- Search --}}
-                        <div class="mx-auto mb-2 max-w-screen-xl px-4 sm:mb-0 sm:px-6">
-                            <form id="search-form" class="mx-auto flex max-w-sm items-center">
-                                <label for="simple-search" class="sr-only">Search</label>
-                                <div class="relative w-full">
-                                    <input type="text" id="simple-search" name="query"
-                                        class="block w-full rounded-lg border border-gray-500 bg-gray-200 p-2.5 ps-10 text-sm text-gray-900 focus:border-cyan focus:ring-cyan"
-                                        placeholder="Search post..." onkeyup="filterPosts()" />
-                                </div>
-                                <button type="submit"
-                                    class="bg-btn-cyan ms-2 rounded-xl border border-cyan bg-cyan p-2.5 text-sm font-medium text-white hover:bg-cyan-100 focus:outline-none focus:ring-4 focus:ring-cyan">
-                                    <svg class="h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                        viewBox="0 0 20 20">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                                    </svg>
-                                    <span class="sr-only">Search</span>
-                                </button>
-                            </form>
-                        </div>
-                    @else
-                        {{-- Search --}}
-                        <div class="mb-2 max-w-screen-xl sm:mb-0">
-                            <form id="search-form" class="flex max-w-sm items-center">
-                                <label for="simple-search" class="sr-only">Search</label>
-                                <div class="relative w-full">
-                                    <input type="text" id="simple-search" name="query"
-                                        class="block w-full rounded-lg border border-gray-500 bg-gray-200 p-2.5 ps-10 text-sm text-gray-900 focus:border-cyan focus:ring-cyan"
-                                        placeholder="Search post..." onkeyup="filterPosts()" />
-                                </div>
-                                <button type="submit"
-                                    class="bg-btn-cyan ms-2 rounded-xl border border-cyan bg-cyan p-2.5 text-sm font-medium text-white hover:bg-cyan-100 focus:outline-none focus:ring-4 focus:ring-cyan">
-                                    <svg class="h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                        viewBox="0 0 20 20">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                                    </svg>
-                                    <span class="sr-only">Search</span>
-                                </button>
-                            </form>
-                        </div>
                     @endif
                 @endauth
+                {{-- Search --}}
+                <div class="mb-2 max-w-screen-xl sm:mb-0">
+                    <form id="search-form" class="flex max-w-sm items-center">
+                        <label for="simple-search" class="sr-only">Search</label>
+                        <div class="relative w-full">
+                            <input type="text" id="simple-search" name="query"
+                                class="block w-full rounded-lg border border-gray-500 bg-gray-200 p-2.5 ps-10 text-sm text-gray-900 focus:border-cyan focus:ring-cyan"
+                                placeholder="Search post..." onkeyup="filterPosts()" />
+                        </div>
+                        <button type="submit"
+                            class="bg-btn-cyan ms-2 rounded-xl border border-cyan bg-cyan p-2.5 text-sm font-medium text-white hover:bg-cyan-100 focus:outline-none focus:ring-4 focus:ring-cyan">
+                            <svg class="h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 20 20">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                            </svg>
+                            <span class="sr-only">Search</span>
+                        </button>
+                    </form>
+                </div>
                 {{-- Date Range --}}
                 <div id="date-range-picker" date-rangepicker datepicker datepicker-buttons datepicker-autoselect-today
                     class="flex items-center">
@@ -161,8 +120,8 @@
                         <button type="button" class="inline-flex items-center" data-modal-toggle="crud-modal-post">
                             <svg class="h-6 w-6 text-cyan" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                 width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="3" d="M6 18 17.94 6M18 18 6.06 6" />
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+                                    d="M6 18 17.94 6M18 18 6.06 6" />
                             </svg>
                         </button>
                     </div>
@@ -170,7 +129,8 @@
                     {{-- Modal Create Posts --}}
                     @auth
                         @if (Auth::check() && Auth::user()->id_roles == '2')
-                            <form class="scrollbar-modal max-h-96 space-y-8 overflow-y-auto px-4 pb-4 pt-0 md:px-5 md:pb-5"
+                            <form id="vacancy-form"
+                                class="scrollbar-modal max-h-96 space-y-8 overflow-y-auto px-4 pb-4 pt-0 md:px-5 md:pb-5"
                                 method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data">
                                 @csrf
 
@@ -279,7 +239,7 @@
                                             {{-- Handle existing old input or provide at least one empty field --}}
                                             @forelse (old('vacancy_responsibility', ['']) as $index => $responsibility)
                                                 <div class="responsibility-item mb-2 flex items-center">
-                                                    <input type="text" name="vacancy_responsibility[]"
+                                                    <input id="responsibility" type="text" name="vacancy_responsibility[]"
                                                         value="{{ $responsibility }}"
                                                         class="@error('vacancy_responsibility.' . $index) border-red-500 @else border-gray-300 @enderror w-full rounded-full border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
                                                         placeholder="Enter responsibility" />
@@ -293,7 +253,7 @@
                                             @empty
                                                 {{-- This case should ideally not be hit if default [''] is used for old() --}}
                                                 <div class="responsibility-item mb-2 flex items-center">
-                                                    <input type="text" name="vacancy_responsibility[]"
+                                                    <input id="responsibility" type="text" name="vacancy_responsibility[]"
                                                         class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
                                                         placeholder="Enter responsibility" />
                                                     <button type="button"
@@ -319,7 +279,7 @@
                                         <div id="qualification-container">
                                             @forelse (old('vacancy_qualification', ['']) as $index => $qualification)
                                                 <div class="qualification-item mb-2 flex items-center">
-                                                    <input type="text" name="vacancy_qualification[]"
+                                                    <input id="qualification" type="text" name="vacancy_qualification[]"
                                                         value="{{ $qualification }}"
                                                         class="@error('vacancy_qualification.' . $index) border-red-500 @else border-gray-300 @enderror w-full rounded-full border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
                                                         placeholder="Enter qualification" />
@@ -332,7 +292,7 @@
                                                 @enderror
                                             @empty
                                                 <div class="qualification-item mb-2 flex items-center">
-                                                    <input type="text" name="vacancy_qualification[]"
+                                                    <input id="qualification" type="text" name="vacancy_qualification[]"
                                                         class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
                                                         placeholder="Enter qualification" />
                                                     <button type="button"
@@ -357,7 +317,7 @@
                                         <div id="benefits-container">
                                             @forelse (old('vacancy_benefits', ['']) as $index => $benefit)
                                                 <div class="benefits-item mb-2 flex items-center">
-                                                    <input type="text" name="vacancy_benefits[]"
+                                                    <input id="benefit" type="text" name="vacancy_benefits[]"
                                                         value="{{ $benefit }}"
                                                         class="@error('vacancy_benefits.' . $index) border-red-500 @else border-gray-300 @enderror w-full rounded-full border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
                                                         placeholder="Enter benefits" />
@@ -370,7 +330,7 @@
                                                 @enderror
                                             @empty
                                                 <div class="benefits-item mb-2 flex items-center">
-                                                    <input type="text" name="vacancy_benefits[]"
+                                                    <input id="benefit" type="text" name="vacancy_benefits[]"
                                                         class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
                                                         placeholder="Enter benefits" />
                                                     <button type="button"
@@ -402,7 +362,7 @@
                                 </div>
 
                                 <div class="flex justify-end">
-                                    <button type="submit"
+                                    <button type="submit" id="submit-vacancy"
                                         class="bg-btn-cyan m-4 rounded-lg bg-cyan px-6 py-2 text-white shadow-lg hover:bg-cyan-400 hover:text-cyan sm:py-2.5">
                                         Post
                                     </button>
@@ -541,6 +501,7 @@
         });
     </script>
 
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> --}}
     {{-- Post API --}}
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -551,7 +512,7 @@
                 postsContainer.innerHTML = '<p class="text-center py-4 text-gray-500">Loading...</p>';
 
                 try {
-                    const response = await axios.get('http://127.0.0.1:8000/api/posts', {
+                    const response = await axios.get('/api/posts', {
                         withCredentials: true
                     });
 
@@ -604,7 +565,6 @@
                 }
             }
 
-            // Format difference date (e.g., Today, 1 day ago, 5 days ago)
             function formatDateDifference(dateOpen) {
                 const now = new Date();
                 const opened = new Date(dateOpen);

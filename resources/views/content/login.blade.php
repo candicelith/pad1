@@ -16,7 +16,8 @@
                         <div class="space-y-2 sm:space-y-3">
                             <div class="flex items-center justify-center rounded-xl bg-white pe-8">
                                 <img src="{{ asset('assets/Google Icon.svg') }}" alt="" class="h-14 w-14 p-4">
-                                <button class="px-4 py-5" onclick="window.location.href='/auth/google/redirect'">
+                                <button id="login-btn" class="px-4 py-5"
+                                    onclick="window.location.href='/auth/google/redirect'">
                                     <p class="text-center text-sm text-gray-400 sm:text-lg">Sign In With Google</p>
                                 </button>
                             </div>
@@ -44,4 +45,10 @@
             }
         </script>
     </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script>
+        
+    </script>
 @endsection

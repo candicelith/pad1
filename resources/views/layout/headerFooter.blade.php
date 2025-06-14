@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Pokari</title>
     @vite(['public/css/style.css', 'public/js/script.js'])
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css" rel="stylesheet" />
@@ -44,7 +45,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('posts') }}"
+                            <a id="posts-page" href="{{ route('posts') }}"
                                 class="{{ request()->routeIs('posts', 'posts.detail', 'posts.create') ? 'text-cyan' : 'text-gray-400' }} block rounded px-3 py-2 text-xl hover:bg-cyan-100 hover:text-cyan md:border-0 md:p-0 md:hover:bg-transparent"
                                 @if (request()->routeIs('posts', 'posts.detail', 'posts.create')) aria-current="page" @endif>
                                 Posts

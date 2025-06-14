@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
-class   AuthControllerAPI extends Controller
+class AuthControllerAPI extends Controller
 {
     /**
      * API Login dengan Email/Password untuk Postman
@@ -174,7 +174,7 @@ class   AuthControllerAPI extends Controller
     {
         $token = $request->bearerToken();
         if ($token) {
-            cache()->forget( $token);
+            cache()->forget($token);
             return response()->json(['message' => 'API token revoked successfully']);
         }
 

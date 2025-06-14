@@ -9,28 +9,32 @@
             <div class="absolute inset-0 translate-x-full transform transition-transform duration-700 ease-in-out"
                 data-carousel-item>
                 <div
-                    class="flex h-full w-full items-center justify-start bg-gray-700 bg-jumbotron bg-center bg-no-repeat px-4 py-20 text-start bg-blend-multiply shadow md:py-24 lg:py-56">
-                    <div class="mx-auto w-full max-w-screen-xl text-white">
+                    class="relative flex h-full w-full items-center justify-start bg-gray-700 px-4 py-20 text-start shadow md:py-24 lg:py-56">
+
+                    <img src="{{ asset('assets/jumbotron.png') }}" alt="Background"
+                        class="absolute inset-0 z-0 h-full w-full object-cover opacity-60">
+
+                    <div class="relative z-10 mx-auto w-full max-w-screen-xl text-white">
                         <h1 class="mb-4 text-3xl leading-tight sm:text-4xl md:text-5xl lg:text-6xl">
                             Strategi Alumni Meraih Karier di Perusahaan Terbaik
                         </h1>
                         <p class="mb-8 text-base font-normal text-gray-300 sm:text-lg lg:text-xl">
                             Memasuki dunia kerja setelah lulus merupakan tantangan tersendiri bagi banyak alumni...
                         </p>
-                        {{-- <a href="{{ route('404') }}"
-                            class="inline-flex items-center justify-center rounded-lg bg-cyan-100 px-5 py-3 text-base font-medium text-white hover:bg-white hover:text-cyan-100 focus:ring-4 focus:ring-cyan">
-                            Read More
-                        </a> --}}
                     </div>
                 </div>
             </div>
 
             {{-- Slide 2 --}}
-            <div class="absolute inset-0 translate-x-0 transform transition-transform duration-700 ease-in-out"
+            <div class="absolute inset-0 translate-x-full transform transition-transform duration-700 ease-in-out"
                 data-carousel-item>
                 <div
-                    class="bg-jumbotron-2 flex h-full w-full items-center justify-start bg-gray-700 bg-center bg-no-repeat px-4 py-20 text-start bg-blend-multiply shadow md:py-24 lg:py-56">
-                    <div class="mx-auto w-full max-w-screen-xl text-white">
+                    class="relative flex h-full w-full items-center justify-start bg-gray-700 px-4 py-20 text-start shadow md:py-24 lg:py-56">
+
+                    <img src="{{ asset('assets/jumbotron2.png') }}" alt="Background"
+                        class="absolute inset-0 z-0 h-full w-full object-cover opacity-60">
+
+                    <div class="relative z-10 mx-auto w-full max-w-screen-xl text-white">
                         <h1 class="mb-4 text-3xl leading-tight sm:text-4xl md:text-5xl lg:text-6xl">
                             Adaptasi dan Skill Baru: Tantangan Dunia Kerja di Era Digital
                         </h1>
@@ -39,32 +43,28 @@
                             profesional untuk terus beradaptasi dengan berbagai skill baru yang dibutuhkan oleh
                             industri. Dari kemampuan analisis data hingga keahlian dalam menggunakan alat kolaborasi...
                         </p>
-                        {{-- <a href="{{ route('404') }}"
-                            class="inline-flex items-center justify-center rounded-lg bg-cyan-100 px-5 py-3 text-base font-medium text-white hover:bg-white hover:text-cyan-100 focus:ring-4 focus:ring-cyan">
-                            Read More
-                        </a> --}}
                     </div>
                 </div>
             </div>
 
             {{-- Slide 3 --}}
-            <div class="absolute inset-0 translate-x-1 transform transition-transform duration-700 ease-in-out"
+            <div class="absolute inset-0 translate-x-full transform transition-transform duration-700 ease-in-out"
                 data-carousel-item>
                 <div
-                    class="bg-jumbotron-3 flex h-full w-full items-center justify-start bg-gray-700 bg-center bg-no-repeat px-4 py-20 text-start bg-blend-multiply shadow md:py-24 lg:py-56">
-                    <div class="mx-auto w-full max-w-screen-xl text-white">
+                    class="relative flex h-full w-full items-center justify-start bg-gray-700 px-4 py-20 text-start shadow md:py-24 lg:py-56">
+
+                    <img src="{{ asset('assets/jumbotron3.png') }}" alt="Background"
+                        class="absolute inset-0 z-0 h-full w-full object-cover opacity-60">
+
+                    <div class="relative z-10 mx-auto w-full max-w-screen-xl text-white">
                         <h1 class="mb-4 text-3xl leading-tight sm:text-4xl md:text-5xl lg:text-6xl">
                             Tips & Trik Karir: Panduan Memasuki Dunia Kerja bagi Fresh Graduate
                         </h1>
                         <p class="mb-8 text-base font-normal text-gray-300 sm:text-lg lg:text-xl">
                             Memasuki dunia kerja sebagai fresh graduate bisa menjadi tantangan tersendiri. Selain
                             persaingan yang ketat, lulusan baru juga perlu memahami etika profesional dan cara
-                            beradaptasi di lingkungan kerja yang dinamis. ...
+                            beradaptasi di lingkungan kerja yang dinamis...
                         </p>
-                        {{-- <a href="{{ route('404') }}"
-                            class="inline-flex items-center justify-center rounded-lg bg-cyan-100 px-5 py-3 text-base font-medium text-white hover:bg-white hover:text-cyan-100 focus:ring-4 focus:ring-cyan">
-                            Read More
-                        </a> --}}
                     </div>
                 </div>
             </div>
@@ -230,8 +230,9 @@
                 })
                 .then(response => {
                     const postsContainer = document.getElementById('posts-container');
-                    const allPosts = response.data.data; // Access the data array from the response
-                    const posts = allPosts.slice(0, 2); // Only take the first 2 posts
+                    const allPosts = response.data.data.data ??
+                []; // Pake .data.data karena kamu pakai paginate
+                    const posts = allPosts.slice(0, 2); // Ambil hanya 2 pertama
 
                     if (posts.length === 0) {
                         postsContainer.innerHTML = '<p>No posts available</p>';
@@ -240,46 +241,43 @@
 
                     let postsHTML = '';
                     posts.forEach(post => {
-                        const dateDifference = post.date_open ? calculateDateDifference(post
-                            .date_open) : 'Recently';
-
                         postsHTML += `
-                    <a href="/posts/detail/${post.id_vacancy}">
-                        <div class="mb-4 cursor-pointer">
-                            <article class="rounded-lg border border-gray-500 bg-lightblue px-6 pb-0 pt-2 shadow-lg">
-                                <div class="mb-2.5 flex items-center justify-between text-gray-400">
-                                    <span class="ml-auto text-sm">
-                                        ${dateDifference}
-                                    </span>
-                                </div>
-                                <div class="mb-2 flex flex-col sm:flex-row sm:space-x-4">
-                                    <div class="h-16 w-16">
-                                        <img class="h-full w-full rounded-full object-cover"
-                                            src="/storage/profile/${post.profile_photo || 'default_profile.png'}"
-                                            alt="Profile Photo" />
+                        <a href="/posts/detail/${post.id_vacancy}">
+                            <div class="mb-4 cursor-pointer">
+                                <article class="rounded-lg border border-gray-500 bg-lightblue px-6 pb-0 pt-2 shadow-lg">
+                                    <div class="mb-2.5 flex items-center justify-between text-gray-400">
+                                        <span class="ml-auto text-sm">
+                                            ${post.date_difference ?? 'Recently'}
+                                        </span>
                                     </div>
-                                    <div class="mt-2">
-                                        <h2 class="text-md text-cyan sm:text-lg lg:text-xl">
-                                            ${post.name}
-                                        </h2>
-                                        <h2 class="sm:text-md text-xs text-cyan">
-                                            <span class="text-gray-400">Searching for:</span>
-                                            ${post.position}
-                                        </h2>
+                                    <div class="mb-2 flex flex-col sm:flex-row sm:space-x-4">
+                                        <div class="h-16 w-16">
+                                            <img class="h-full w-full rounded-full object-cover"
+                                                src="/storage/profile/${post.profile_photo}"
+                                                alt="Profile Photo" />
+                                        </div>
+                                        <div class="mt-2">
+                                            <h2 class="text-md text-cyan sm:text-lg lg:text-xl">
+                                                ${post.name}
+                                            </h2>
+                                            <h2 class="sm:text-md text-xs text-cyan">
+                                                <span class="text-gray-400">Searching for:</span>
+                                                ${post.position}
+                                            </h2>
+                                        </div>
                                     </div>
-                                </div>
-                                <div>
-                                    <p class="my-3 max-w-lg truncate text-xs sm:text-base">
-                                        ${post.vacancy_description}
-                                    </p>
+                                    <div>
+                                        <p class="my-3 max-w-lg truncate text-xs sm:text-base">
+                                            ${post.vacancy_description}
+                                        </p>
                                         <img class="h-36 w-full rounded-tl-md rounded-tr-md object-cover md:h-40"
-                                            src="/storage/vacancies/${post.vacancy_picture || 'default-vacancy.jpg'}"
+                                            src="/storage/vacancies/${post.vacancy_picture ?? 'default-vacancy.jpg'}"
                                             alt="Vacancy Picture" />
-                                </div>
-                            </article>
-                        </div>
-                    </a>
-                `;
+                                    </div>
+                                </article>
+                            </div>
+                        </a>
+                    `;
                     });
 
                     postsContainer.innerHTML = postsHTML;
@@ -289,18 +287,6 @@
                     document.getElementById('posts-container').innerHTML =
                         '<p>Error loading posts. Please try again later.</p>';
                 });
-
-            function calculateDateDifference(dateString) {
-                const postDate = new Date(dateString);
-                const now = new Date();
-                const diffInDays = Math.floor((now - postDate) / (1000 * 60 * 60 * 24));
-
-                if (diffInDays === 0) return 'Today';
-                if (diffInDays === 1) return 'Yesterday';
-                if (diffInDays < 7) return `${diffInDays} days ago`;
-                if (diffInDays < 30) return `${Math.floor(diffInDays / 7)} weeks ago`;
-                return `${Math.floor(diffInDays / 30)} months ago`;
-            }
         });
     </script>
 

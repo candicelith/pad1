@@ -3,10 +3,11 @@
 @section('content')
     <section class="mt-28 bg-white sm:mt-0">
         <div class="mx-auto my-16 flex max-w-screen-xl items-center justify-center md:h-screen lg:py-16">
-            <div class="flex w-full justify-center px-6 py-10 sm:max-w-xl md:px-24 md:py-11 lg:max-w-5xl xl:max-w-6xl">
-                <div class="w-full max-w-lg rounded-lg border-4 border-cyan-100 bg-white px-6 py-7">
-                    <h1 class="text-3xl text-cyan">Registration Form</h1>
-                    <h2 class="text-xl text-cyan">Please verify your profile</h2>
+            <div
+                class="flex w-full justify-center px-2 py-10 sm:max-w-xl sm:px-6 md:px-24 md:py-11 lg:max-w-5xl xl:max-w-6xl">
+                <div class="w-full rounded-lg border-4 border-cyan-100 bg-white px-4 py-3 sm:max-w-lg sm:px-6 sm:py-7">
+                    <h1 class="text-xl text-cyan sm:text-3xl">Registration Form</h1>
+                    <h2 class="text-lg text-cyan sm:text-xl">Please verify your profile</h2>
 
                     <form id="registration-form" action="{{ route('registration.submit') }}" method="POST">
                         @csrf
@@ -40,14 +41,14 @@
                                     <p class="mt-2 text-sm text-red-500">{{ $message }}</p>
                                 @enderror
                             </div>
-                            <div class="flex justify-between space-x-4">
+                            <div class="justify-between space-y-2 sm:flex sm:space-x-4 sm:space-y-0">
                                 <button type="button"
-                                    class="bg-btn-lightblue w-1/2 rounded-lg border border-gray-400 px-14 py-2 text-center text-xl font-medium text-gray-400"
+                                    class="bg-btn-lightblue w-full rounded-lg border border-gray-400 px-14 py-2 text-center text-xl font-medium text-gray-400 sm:w-1/2"
                                     disabled>
                                     Previous
                                 </button>
                                 <button type="button" id="next-btn"
-                                    class="bg-btn-cyan w-1/2 rounded-lg bg-cyan px-20 py-2 text-center text-xl font-medium text-white hover:bg-cyan-400 hover:text-cyan">
+                                    class="bg-btn-cyan w-full rounded-lg bg-cyan px-20 py-2 text-center text-xl font-medium text-white hover:bg-cyan-400 hover:text-cyan sm:w-1/2">
                                     Next
                                 </button>
                             </div>
@@ -121,7 +122,7 @@
                                     class="bg-btn-lightblue w-1/2 rounded-lg border border-gray-400 px-14 py-2 text-center text-xl font-medium text-gray-400 hover:bg-cyan hover:text-white">
                                     Previous
                                 </button>
-                                <button type="submit"
+                                <button id="submit-btn" type="submit"
                                     class="bg-btn-cyan w-1/2 rounded-lg bg-cyan px-20 py-2 text-center text-xl font-medium text-white hover:bg-cyan-400 hover:text-cyan">
                                     Submit
                                 </button>

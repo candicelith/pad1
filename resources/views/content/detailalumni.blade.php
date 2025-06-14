@@ -155,107 +155,107 @@
 
                 const container = document.getElementById('detail-container');
 
-                let jobHTML = jobs.map(job => {
+                const jobHTML = jobs.map(job => {
                     const descriptions = Array.isArray(job.job_description) ?
-                        job.job_description.map(desc => `<li>${desc}</li>`).join('') : '';
-                    const alumniList = Array.isArray(job.other_alumni) && job.other_alumni.length > 0 ?
+                        job.job_description.map(desc => `<li>${desc}</li>`).join('') :
+                        '';
+
+                    const alumniList = Array.isArray(job.related_alumni) && job.related_alumni.length >
+                        0 ?
                         `
-                    <div class="grid justify-items-center gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:gap-2">
-                        ${job.other_alumni.map(alumni =>
-                        `
-                            <a class="alumni-card w-full max-w-sm cursor-pointer rounded-lg border border-gray-200 bg-lightblue shadow-md transition-shadow duration-300 hover:shadow-lg"
-                            href="/alumni/${alumni.id_userDetails}">
-                                <div>
+                            <div class="grid justify-items-center gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:gap-2">
+                                ${job.related_alumni.map(alumni => `
+                                <a class="alumni-card w-full max-w-sm cursor-pointer rounded-lg border border-gray-200 bg-lightblue shadow-md transition-shadow duration-300 hover:shadow-lg"
+                                href="/alumni/${alumni.id_userDetails}">
                                     <div class="flex flex-col items-center p-4 text-center">
                                         <div class="mb-3 flex w-full justify-end px-2 text-gray-400">
-                                            <span class="text-sm">${alumni.entry_year}</span>
+                                            <span class="text-sm">${alumni.graduate_year}</span>
                                         </div>
                                         <img class="mb-3 h-20 w-20 rounded-full object-cover shadow-lg"
-                                            src="/storage/profile/${alumni.profile_photo}"
-                                            alt="${alumni.name}" />
+                                            src="/storage/profile/${alumni.profile_photo}" alt="${alumni.name}" />
                                         <h2 class="mb-1 text-xl text-cyan">${alumni.name}</h2>
                                         <h3 class="text-sm text-cyan">${alumni.current_job}</h3>
                                         <h4 class="text-xs text-gray-500">${alumni.current_company}</h4>
                                     </div>
-                                </div>
-                            </a>
-                        `)
-                        .join('')}
-                    </div>
-                    ` :
-                        `
-                    <div class="py-6 text-center">
-                        <p class="text-white">No other alumni found with this job experience.</p>
-                    </div>`;
+                                </a>
+                            `).join('')}
+                            </div>
+                        ` : `
+                            <div class="py-6 text-center">
+                                <p class="text-white">No other alumni found with this job experience.</p>
+                            </div>
+                        `;
 
                     return `
-                    <li class="mb-10 ms-4">
-                        <div class="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full border border-gray-900 bg-gray-900"></div>
-                        <button onclick="toggleDrawer('job-drawer-${job.id_tracking}')"
-                            class="text-start text-lg text-cyan hover:underline sm:text-xl lg:text-center">
-                            ${job.job_name}
-                        </button>
+                        <li class="mb-10 ms-4">
+                            <div class="absolute -start-1.5 mt-1.5 h-3 w-3 rounded-full border border-gray-900 bg-gray-900"></div>
+                            <button onclick="toggleDrawer('job-drawer-${job.id_tracking}')"
+                                class="text-start text-lg text-cyan hover:underline sm:text-xl lg:text-center">
+                                ${job.job_name}
+                            </button>
 
-                        <div id="job-drawer-${job.id_tracking}"
-                            class="fixed right-0 top-28 z-20 translate-x-full rounded-lg bg-cyan-400 p-4 transition-transform duration-300 lg:w-2/5"
-                            tabindex="-1" aria-labelledby="drawer-right-label">
-                            <div class="flex items-center justify-between rounded-t border-b border-white md:py-4">
-                                <h3 class="text-2xl text-cyan">${job.job_name}</h3>
-                                <button type="button" class="ms-auto inline-flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-white"
-                                    onclick="closeDrawer('job-drawer-${job.id_tracking}')">
-                                    <svg class="h-6 w-6" fill="none" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                    </svg>
-                                    <span class="sr-only">Close</span>
-                                </button>
+                            <div id="job-drawer-${job.id_tracking}"
+                                class="fixed right-0 top-28 z-20 translate-x-full rounded-lg bg-cyan-400 p-4 transition-transform duration-300 lg:w-2/5"
+                                tabindex="-1" aria-labelledby="drawer-right-label">
+                                <div class="flex items-center justify-between rounded-t border-b border-white md:py-4">
+                                    <h3 class="text-2xl text-cyan">${job.job_name}</h3>
+                                    <button type="button" class="ms-auto inline-flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-white"
+                                        onclick="closeDrawer('job-drawer-${job.id_tracking}')">
+                                        <svg class="h-6 w-6" fill="none" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                        </svg>
+                                        <span class="sr-only">Close</span>
+                                    </button>
+                                </div>
+                                <div class="scrollbar-modal max-h-96 space-y-4 overflow-y-auto">
+                                    <h4 class="mt-4 text-lg text-white">Alumni with the same experience:</h4>
+                                    ${alumniList}
+                                </div>
                             </div>
-                            <div class="scrollbar-modal max-h-96 space-y-4 overflow-y-auto">
-                                <h4 class="mt-4 text-lg text-white">Alumni with the same experience:</h4>
-                                ${alumniList}
-                            </div>
-                        </div>
 
-                        <h3 class="text-base text-cyan sm:text-lg">${job.company_name}</h3>
-                        <p class="text-xs text-gray-400 sm:text-sm">${job.date_start} - ${job.date_end}</p>
-                        <ol class="ms-4 list-outside list-disc text-sm sm:text-base">
-                            ${descriptions}
-                        </ol>
-                    </li>
-                `;
+                            <h3 class="text-base text-cyan sm:text-lg">${job.company_name}</h3>
+                            <p class="text-xs text-gray-400 sm:text-sm">${job.date_start} - ${job.date_end}</p>
+                            <ol class="ms-4 list-outside list-disc text-sm sm:text-base">
+                                ${descriptions}
+                            </ol>
+                        </li>
+                    `;
                 }).join('');
 
                 container.innerHTML = `
-                <div class="flex flex-col lg:flex-row lg:space-x-8">
-                    <img class="h-24 w-24 rounded-full object-cover sm:h-28 sm:w-28"
-                        src="/storage/profile/${user.profile_photo}" alt="" />
-                    <div class="mt-4">
-                        <h2 class="text-xl text-cyan sm:text-2xl">${user.name}</h2>
-                        <h3 class="text-md text-cyan sm:text-lg">
-                            ${user.current_job}, ${user.current_company}
-                        </h3>
+                    <div class="flex flex-col lg:flex-row lg:space-x-8">
+                        <img class="h-24 w-24 rounded-full object-cover sm:h-28 sm:w-28"
+                            src="/storage/profile/${user.profile_photo}" alt="" />
+                        <div class="mt-4">
+                            <h2 class="text-xl text-cyan sm:text-2xl">${user.name}</h2>
+                            <h3 class="text-md text-cyan sm:text-lg">
+                                ${user.current_job}, ${user.current_company}
+                            </h3>
+                        </div>
                     </div>
-                </div>
 
-                <div class="mt-8 space-y-4">
-                    <h4 class="text-lg text-cyan sm:text-xl">About</h4>
-                    <p class="sm:text-md text-sm text-cyan sm:text-justify">
-                        ${user.user_description}
-                    </p>
-                </div>
+                    <div class="mt-8 space-y-4">
+                        <h4 class="text-lg text-cyan sm:text-xl">About</h4>
+                        <p class="sm:text-md text-sm text-cyan sm:text-justify">
+                            ${user.user_description || '-'}
+                        </p>
+                    </div>
 
-                <div class="flex flex-col space-y-4 pt-5">
-                    <h4 class="text-lg text-cyan sm:text-xl">Experience</h4>
-                    <ol class="relative ms-4 border-s border-gray-900">
-                        ${jobHTML}
-                    </ol>
-                </div>
-            `;
+                    <div class="flex flex-col space-y-4 pt-5">
+                        <h4 class="text-lg text-cyan sm:text-xl">Experience</h4>
+                        <ol class="relative ms-4 border-s border-gray-900">
+                            ${jobHTML}
+                        </ol>
+                    </div>
+                `;
+
             } catch (err) {
                 console.error('Failed to fetch data:', err);
             }
         });
     </script>
+
 
     {{-- Alumni Drawer --}}
     <script>
