@@ -6,8 +6,7 @@
         <div class="relative h-screen overflow-hidden">
 
             {{-- Slide 1 --}}
-            <div class="absolute inset-0 translate-x-full transform transition-transform duration-700 ease-in-out"
-                data-carousel-item>
+            <div class="absolute inset-0 transform transition-transform duration-700 ease-in-out" data-carousel-item="active">
                 <div
                     class="relative flex h-full w-full items-center justify-start bg-gray-700 px-4 py-20 text-start shadow md:py-24 lg:py-56">
 

@@ -382,18 +382,17 @@
                                             placeholder="..." id="comment-input">
 
                                     </div>
-                                    <button type="submit" class="p-1">
-
-                                        <svg class="h-9 w-9 rotate-90 text-green-900 transition-transform duration-300 sm:h-11 sm:w-11"
-                                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
-                                            height="24" fill="none" viewBox="0 0 24 24">
-
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-lienjoin="round"
-                                                stroke-width="2" d="m12 18-7 3 7-18 7 18-7-3Zm0 0v-5" />
-
+                                    <button type="submit" id="submit-button"
+                                        class="p-1 text-green-900 transition-colors duration-300 sm:h-11 sm:w-11 disabled:text-gray-400 disabled:opacity-50 disabled:cursor-not-allowed">
+                                        <svg class="h-9 w-9 rotate-90 transition-transform duration-300"
+                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                            stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="m12 18-7 3 7-18 7 18-7-3Zm0 0v-5" />
                                         </svg>
-
                                     </button>
+
+
                                 </div>
                             </form>
                         @endif
@@ -520,8 +519,44 @@
                 });
             });
         });
-    </script>
 
+        // Comment Input Handler
+        const input = document.getElementById('comment-input');
+        const submitBtn = document.getElementById('submit-button');
+        const maxLength = 1000;
+        const errorId = 'length-error';
+
+        input.addEventListener('input', () => {
+            const currentLength = input.value.length;
+            let error = document.getElementById(errorId);
+
+            if (currentLength > maxLength) {
+                // Add red border and disable submit
+                input.classList.add('border-red-500');
+                submitBtn.disabled = true;
+                submitBtn.classList.add('text-gray-400', 'opacity-50', 'cursor-not-allowed');
+                submitBtn.classList.remove('text-green-900');
+
+                // Show error message
+                if (!error) {
+                    error = document.createElement('p');
+                    error.id = errorId;
+                    error.className = 'text-sm text-red-600 mt-1';
+                    input.parentElement.appendChild(error);
+                }
+                error.innerText = `Maximum 1000 characters allowed. You’ve typed ${currentLength}.`;
+            } else {
+                // Remove error styles and re-enable
+                input.classList.remove('border-red-500');
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('text-gray-400', 'opacity-50', 'cursor-not-allowed');
+                submitBtn.classList.add('text-green-900');
+
+                // Remove error text if exists
+                if (error) error.remove();
+            }
+        });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@9.0.3"></script>
 
 @endsection
