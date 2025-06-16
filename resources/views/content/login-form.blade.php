@@ -3,12 +3,23 @@
 @section('content')
     <section class="mt-28 bg-white sm:mt-0">
         <div class="mx-auto my-16 flex max-w-screen-xl items-center justify-center md:h-screen lg:py-16">
+            {{-- 💡 Wrapper for both error box and form --}}
+            <div class="w-full sm:max-w-xl md:max-w-3xl lg:max-w-4xl xl:max-w-5xl px-4">
+                @if ($errors->any())
+                    <div class="mb-6 rounded-md border border-red-300 bg-red-50 px-4 py-3 text-sm text-red-700">
+                        <strong class="block font-semibold">Please fix the following errors:</strong>
+                        <ul class="mt-2 list-disc list-inside">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
             <div
                 class="flex w-full justify-center px-2 py-10 sm:max-w-xl sm:px-6 md:px-24 md:py-11 lg:max-w-5xl xl:max-w-6xl">
                 <div class="w-full rounded-lg border-4 border-cyan-100 bg-white px-4 py-3 sm:max-w-lg sm:px-6 sm:py-7">
                     <h1 class="text-xl text-cyan sm:text-3xl">Registration Form</h1>
                     <h2 class="text-lg text-cyan sm:text-xl">Please verify your profile</h2>
-
                     <form id="registration-form" action="{{ route('registration.submit') }}" method="POST">
                         @csrf
                         <div class="mt-5 w-full" id="step-1">
@@ -180,6 +191,15 @@
                 // Run on load in case role was already selected
                 updateGraduateYearVisibility();
             });
+
+            @if ($errors->any())
+            document.addEventListener('DOMContentLoaded', function () {
+                document.getElementById('step-1').classList.remove('hidden');
+                document.getElementById('step-2').classList.add('hidden');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        @endif
+
         </script>
 
     </section>

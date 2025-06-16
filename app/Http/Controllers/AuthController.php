@@ -107,6 +107,11 @@ class AuthController extends Controller
             $validationRules['graduate_year'] = 'required|integer|min:2000|max:' . (date('Y'));
         }
 
+        // Enforce that graduate_year must be equal to or after entry_year
+        if ($request->filled('graduate_year') && $request->filled('entry_year')) {
+            $validationRules['graduate_year'] .= '|gte:entry_year';
+        }
+
         // Validate the input with the appropriate rules
         $validated = $request->validate($validationRules);
 
