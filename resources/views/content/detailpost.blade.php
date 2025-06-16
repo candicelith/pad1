@@ -47,27 +47,28 @@
 
                     {{-- Post Details --}}
                     <div
-                        class="w-full rounded-tl-lg rounded-tr-lg border-b-2 border-cyan bg-lightblue p-2 sm:rounded-e-none sm:rounded-s-lg sm:rounded-tr-none sm:border-b-0 sm:border-e-2 sm:px-5 md:rounded-e-none md:rounded-s-lg md:rounded-tr-none md:border-b-0 md:border-e-2">
-                        <div class="flex flex-col lg:flex-row lg:space-x-8">
-                            <div class="flex-shrink-0">
+                        class="w-full rounded-tl-lg rounded-tr-lg border-b-2 border-cyan bg-lightblue p-2 sm:rounded-e-none sm:rounded-s-lg sm:rounded-tr-none sm:border-b-0 sm:border-e-2 sm:px-5 md:rounded-e-none md:rounded-s-lg md:rounded-tr-none md:border-b-0 md:border-e-2 lg:px-4 lg:py-4">
+                        <div id="vacancy-container"></div>
+                        {{-- <div class="flex flex-col lg:flex-row lg:space-x-8"> --}}
+                        {{-- <div class="flex-shrink-0">
                                 <img class="h-28 w-28 rounded-full object-cover"
                                     src="{{ asset('storage/profile/' . $vacancy->profile_photo) }}" alt="" />
                             </div>
-                            <div class="mt-4 lg:mt-0">
-                                {{-- Position --}}
-                                <h2 class="mb-2 text-xl tracking-tight text-cyan sm:text-2xl">{{ $vacancy->position }}</h2>
-                                {{-- Company Name --}}
-                                <h2 class="mb-2 text-lg tracking-tight text-cyan sm:text-xl">{{ $vacancy->company_name }}
-                                </h2>
-                                {{-- Posted By "Name" --}}
-                                <p class="text-base text-gray-400 sm:text-lg">Posted by {{ $vacancy->name }}</p>
-                                <div class="flex">
-                                    {{-- Start Date --}}
-                                    <p class="pe-5 text-xs text-gray-400 sm:text-sm">
+                            <div class="mt-4 lg:mt-0"> --}}
+                        {{-- Position --}}
+                        {{-- <h2 class="mb-2 text-xl tracking-tight text-cyan sm:text-2xl">{{ $vacancy->position }}</h2> --}}
+                        {{-- Company Name --}}
+                        {{-- <h2 class="mb-2 text-lg tracking-tight text-cyan sm:text-xl">{{ $vacancy->company_name }}
+                                </h2> --}}
+                        {{-- Posted By "Name" --}}
+                        {{-- <p class="text-base text-gray-400 sm:text-lg">Posted by {{ $vacancy->name }}</p>
+                                <div class="flex"> --}}
+                        {{-- Start Date --}}
+                        {{-- <p class="pe-5 text-xs text-gray-400 sm:text-sm">
                                         Start Date: {{ \Carbon\Carbon::parse($vacancy->date_open)->format('d M Y') }}
-                                    </p>
-                                    {{-- End Date --}}
-                                    <p class="text-xs text-gray-400 sm:text-sm">
+                                    </p> --}}
+                        {{-- End Date --}}
+                        {{-- <p class="text-xs text-gray-400 sm:text-sm">
                                         End Date: {{ \Carbon\Carbon::parse($vacancy->date_closed)->format('d M Y') }}
                                     </p>
                                 </div>
@@ -107,7 +108,8 @@
                                 <img src="{{ asset('storage/vacancies/' . $vacancy->vacancy_picture) }}"
                                     alt="vacancy_image" />
                             </div>
-                        </div>
+                        </div> --}}
+
                         @if (Auth::check() && !$registrations->contains('user_id', Auth::user()->id_users))
                             <div class="mt-10">
                                 <!-- Modal toggle -->
@@ -183,7 +185,7 @@
                                                 <th class="px-1 text-center text-sm">No</th>
                                                 <th class="px-1 text-sm">Name</th>
                                                 <th class="px-1 text-center text-sm">File Submitted</th>
-                                                <th class="px-1 text-center text-sm">Edit</th>
+                                                <th class="px-1 text-center text-sm">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody class="text-left">
@@ -199,8 +201,7 @@
                                                             class="flex items-center justify-center">
                                                             <svg class="h-6 w-6 text-gray-800 dark:text-white"
                                                                 xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                                viewBox="0 0 24 24" stroke="currentColor"
-                                                                stroke-width="2">
+                                                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                                     d="M12 13V4M7 14H5a1 1 0 00-1 1v4a1 1 0 001 1h14a1 1 0 001-1v-4a1 1 0 00-1-1h-2m-1-5l-4 5-4-5m9 8h.01" />
                                                             </svg>
@@ -238,17 +239,19 @@
                     {{-- Comment Section --}}
                     <div
                         class="flex w-full flex-col rounded-bl-lg rounded-br-lg border-t-2 border-cyan bg-lightblue px-5 py-10 sm:rounded-e-lg sm:rounded-bl-none sm:border-s-2 sm:border-t-0 lg:mt-0 lg:w-1">
-                        <div class="mx-2 flex-grow sm:my-10 sm:mt-10">
-                            <div class="scrollbar-detailposts custom-scrollbar max-h-screen space-y-6 overflow-y-auto">
-                                @if ($comments->isEmpty())
+                        <div class="mx-2 flex-grow sm:my-10 sm:mt-10 lg:my-2">
+                            <div
+                                class="scrollbar-detailposts custom-scrollbar max-h-screen space-y-6 overflow-y-auto border-b-4">
+                                {{-- @if ($comments->isEmpty())
                                     <div class="flex h-full flex-col items-center justify-center space-y-8 text-center">
                                         <img src="{{ asset('assets/Thinking Bubble.svg') }}" alt="">
                                         <p class="text-cyan">No comments yet.<br>
                                             Be the first to share your thoughts!</p>
                                     </div>
-                                @else
-                                    {{-- Comment Start --}}
-                                    @foreach ($comments as $comment)
+                                @else --}}
+                                {{-- Comment Start --}}
+                                <div id="comments-container"></div>
+                                {{-- @foreach ($comments as $comment)
                                         <div id="comment-{{ $comment->id_comment }}" class="comment-item relative mb-6">
                                             <div class="flex items-start space-x-2 sm:space-x-4">
                                                 <img src="{{ asset('storage/profile/' . ($comment->user->userDetails->profile_photo ?? 'default_profile.png')) }}"
@@ -273,9 +276,9 @@
                                                         </p>
                                                     </div>
 
-                                                    @if (Auth::check())
-                                                        {{-- Reply button --}}
-                                                        <div class="mt-2 flex items-center space-x-4">
+                                                    @if (Auth::check()) --}}
+                                {{-- Reply button --}}
+                                {{-- <div class="mt-2 flex items-center space-x-4">
                                                             <span
                                                                 class="reply-toggle text-cyan-600 cursor-pointer text-xs hover:underline"
                                                                 data-comment-id="{{ $comment->id_comment }}"
@@ -293,12 +296,10 @@
                                                         </div>
                                                     @endif
                                                 </div>
-                                            </div>
+                                            </div> --}}
 
-
-
-                                            {{-- Nested Replies --}}
-                                            @if ($comment->replies && $comment->replies->count() > 0)
+                                {{-- Nested Replies --}}
+                                {{-- @if ($comment->replies && $comment->replies->count() > 0)
                                                 <div class="replies-container relative ml-10 mt-4 space-y-4 sm:ml-16">
 
 
@@ -306,9 +307,9 @@
                                                         id="replies-{{ $comment->id_comment }}">
                                                         @foreach ($comment->replies as $reply)
                                                             <div id="comment-{{ $reply->id_comment }}"
-                                                                class="reply-item relative mb-4 pl-4">
-                                                                {{-- Line to separate replies --}}
-                                                                <div class="absolute -top-16 bottom-0 left-[-20px]">
+                                                                class="reply-item relative mb-4 pl-4"> --}}
+                                {{-- Line to separate replies --}}
+                                {{-- <div class="absolute -top-16 bottom-0 left-[-20px]">
                                                                     <img src="{{ asset('assets/line chat.svg') }}"
                                                                         alt="">
                                                                 </div>
@@ -343,10 +344,9 @@
                                             @endif
                                         </div>
                                     @endforeach
-                                @endif
+                                @endif --}}
                             </div>
                         </div>
-
 
                         {{-- Input Section --}}
                         @if (Auth::check())
@@ -362,7 +362,8 @@
                                         <div id="reply-context"
                                             class="absolute bottom-full left-0 right-0 mb-1 flex hidden items-center justify-between rounded-t-lg border-green-tertiary bg-white px-4 py-2">
                                             <div class="flex min-w-0 items-center space-x-2">
-                                                <span class="whitespace-nowrap text-sm font-semibold">Replying to:</span>
+                                                <span class="whitespace-nowrap text-sm font-semibold">Replying
+                                                    to:</span>
                                                 <span id="reply-context-text" class="flex-grow truncate text-sm">
                                                     <!-- Reply text will be inserted here -->
                                                 </span>
@@ -524,4 +525,401 @@
 
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@9.0.3"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    {{-- Detail Post API --}}
+    <script>
+        // Utility function to format date as "dd MMM yyyy"
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
+        }
+
+        // Calculate "X days ago" for the start date
+        function getDateDifference(dateString) {
+            const startDate = new Date(dateString);
+            const now = new Date();
+            const diffTime = Math.abs(now - startDate);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+            return diffDays === 0 ? 'Today' : `${diffDays} days ago`;
+        }
+
+        // Function to fetch vacancy data and render it
+        async function renderVacancyDetails() {
+            // Get vacancy ID from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const vacancyId = window.location.pathname.split('/').pop();;
+
+            if (!vacancyId) {
+                console.error('Vacancy ID is missing in URL parameters');
+                return;
+            }
+
+            try {
+                // Make API request
+                const response = await axios.get(`/api/posts/${vacancyId}`, {
+                    withCredentials: true
+                });
+
+                if (!response.data.success) {
+                    throw new Error(response.data.message || 'Failed to fetch vacancy details');
+                }
+
+                const vacancy = response.data.data;
+
+                // Generate HTML for lists
+                const responsibilitiesHTML = vacancy.vacancy_responsibilities
+                    .map(resp => `<li>${resp}</li>`)
+                    .join('');
+
+                const qualificationsHTML = vacancy.vacancy_qualification
+                    .map(qual => `<li>${qual}</li>`)
+                    .join('');
+
+                const benefitsHTML = vacancy.vacancy_benefits
+                    .map(benefit => `<li>${benefit}</li>`)
+                    .join('');
+
+                // Create the HTML structure
+                const vacancyHTML = `
+            <div class="flex flex-col lg:flex-row lg:space-x-8">
+                <div class="flex-shrink-0">
+                    <img class="h-28 w-28 rounded-full object-cover"
+                        src="${vacancy.profile_photo ? `/storage/profile/${vacancy.profile_photo}` : '/storage/profile/default_profile.png'}"
+                        alt="Company logo" />
+                </div>
+                <div class="mt-4 lg:mt-0">
+                    <h2 class="mb-2 text-xl tracking-tight text-cyan sm:text-2xl">${vacancy.position}</h2>
+                    <h2 class="mb-2 text-lg tracking-tight text-cyan sm:text-xl">${vacancy.company.company_name}</h2>
+                    <p class="text-base text-gray-400 sm:text-lg">Posted by ${vacancy.user.user_details.name}</p>
+                    <div class="flex">
+                        <p class="pe-5 text-xs text-gray-400 sm:text-sm">
+                            Start Date: ${formatDate(vacancy.date_open)}
+                        </p>
+                        <p class="text-xs text-gray-400 sm:text-sm">
+                            End Date: ${formatDate(vacancy.date_closed)}
+                        </p>
+                    </div>
+                    <p class="mt-2 text-xs text-cyan sm:text-sm">
+                        Posted: ${getDateDifference(vacancy.date_open)}
+                    </p>
+                </div>
+            </div>
+            <div class="mt-4 space-y-6 sm:mt-8">
+                <p class="text-justify text-sm text-cyan">
+                    ${vacancy.vacancy_description}
+                </p>
+                <div class="ms-2 space-y-3">
+                    <div class="text-cyan">
+                        <h3 class="-ms-2 text-sm sm:text-base">Responsibilities</h3>
+                        <ul class="ms-2 list-outside list-disc text-sm">
+                            ${responsibilitiesHTML}
+                        </ul>
+                    </div>
+                    <div class="text-cyan">
+                        <h3 class="-ms-2 text-sm sm:text-base">Qualifications</h3>
+                        <ul class="ms-2 list-outside list-disc text-sm">
+                            ${qualificationsHTML}
+                        </ul>
+                    </div>
+                    <div class="text-cyan">
+                        <h3 class="-ms-2 text-sm sm:text-base">Benefits</h3>
+                        <ul class="ms-2 list-outside list-disc text-sm">
+                            ${benefitsHTML}
+                        </ul>
+                    </div>
+                </div>
+                ${vacancy.vacancy_picture ? `
+                                                                                                                                                <div>
+                                                                                                                                                    <img src="/storage/vacancies/default-vacancy.jpg"
+                                                                                                                                                            alt="Vacancy image"
+                                                                                                                                                            class="mt-4 rounded-lg shadow-md max-w-full" />
+                                                                                                                                                </div>
+                                                                                                                                            ` : ''}
+            </div>
+        `;
+
+                // Insert the HTML into the container
+                document.getElementById('vacancy-container').innerHTML = vacancyHTML;
+
+            } catch (error) {
+                console.error('Error loading vacancy details:', error);
+
+                // Show error message
+                document.getElementById('vacancy-container').innerHTML = `
+            <div class="p-4 bg-red-50 text-red-700 rounded-lg">
+                <h3 class="font-bold">Error loading vacancy</h3>
+                <p>${error.message || 'Please try again later'}</p>
+            </div>
+        `;
+            }
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            // Make sure Axios is loaded
+            if (typeof axios === 'undefined') {
+                console.error('Axios is not loaded. Please include Axios library.');
+                return;
+            }
+
+            // Render the vacancy details
+            renderVacancyDetails();
+        });
+    </script>
+
+    {{-- Comment API --}}
+    <script>
+        // DOM elements
+        const commentsContainer = document.getElementById('comments-container');
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get vacancy ID from URL
+            const vacancyId = window.location.pathname.split('/').pop();
+
+            // Load comments
+            if (vacancyId) {
+                fetchComments(vacancyId);
+            }
+
+            // Reply logic (initialize after DOM loaded)
+            const commentInput = document.getElementById('comment-input');
+            const replyContext = document.getElementById('reply-context');
+            const replyContextText = document.getElementById('reply-context-text');
+            const parentCommentIdInput = document.getElementById('parent-comment-id');
+            const cancelReplyButton = document.getElementById('cancel-reply');
+
+            // Handle reply button click via event delegation
+            commentsContainer.addEventListener('click', function(event) {
+                const target = event.target;
+                if (target.classList.contains('reply-toggle')) {
+                    const commentId = target.dataset.commentId;
+                    const commentText = target.dataset.commentText;
+
+                    parentCommentIdInput.value = commentId;
+                    replyContext.classList.remove('hidden');
+                    replyContextText.textContent = commentText;
+
+                    commentInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    commentInput.focus();
+                }
+            });
+
+            // Cancel reply
+            cancelReplyButton.addEventListener('click', function () {
+                parentCommentIdInput.value = '';
+                replyContext.classList.add('hidden');
+                replyContextText.textContent = '';
+            });
+        });
+
+        // Fetch comments for a vacancy
+        async function fetchComments(vacancyId) {
+            try {
+                const response = await axios.get(`/api/posts/${vacancyId}/comments`, {
+                    withCredentials: true
+                });
+
+                if (response.data.success) {
+                    renderComments(response.data.data);
+                } else {
+                    renderEmptyState();
+                }
+            } catch (error) {
+                console.error('Error fetching comments:', error);
+                renderErrorState();
+            }
+        }
+
+        // Render comments to the UI
+        function renderComments(comments) {
+            const loadingElement = document.getElementById('comments-loading');
+            if (loadingElement) loadingElement.remove();
+
+            if (!comments || comments.length === 0) {
+                renderEmptyState();
+                return;
+            }
+
+            commentsContainer.innerHTML = '';
+
+            comments.forEach(comment => {
+                const commentElement = createCommentElement(comment);
+                commentsContainer.appendChild(commentElement);
+
+                if (comment.replies && comment.replies.length > 0) {
+                    const repliesContainer = document.createElement('div');
+                    repliesContainer.className = 'replies-container relative ml-10 mt-4 space-y-4 sm:ml-16';
+
+                    repliesContainer.innerHTML = `
+                        <div class="replies-list hidden" id="replies-${comment.id_comment}">
+                            ${comment.replies.map(reply => createReplyElement(reply)).join('')}
+                        </div>
+                    `;
+
+                    commentElement.appendChild(repliesContainer);
+                }
+            });
+        }
+
+        function createCommentElement(comment) {
+            const commentElement = document.createElement('div');
+            commentElement.className = 'comment-item relative mb-6';
+            commentElement.id = `comment-${comment.id_comment}`;
+
+            const profilePhoto = comment.user?.user_details?.profile_photo || 'default_profile.png';
+            const userName = comment.user?.user_details?.name || 'Unknown User';
+            const repliesCount = comment.replies?.length || 0;
+
+            commentElement.innerHTML = `
+                <div class="flex items-start space-x-2 sm:space-x-4">
+                    <img src="/storage/profile/${profilePhoto}"
+                        alt="avatar"
+                        class="h-14 w-14 rounded-full object-cover">
+                    <div class="relative w-full max-w-md">
+                        <div class="flex items-start justify-between">
+                            <h2 class="text-sm font-medium hover:underline sm:text-base">
+                                <a href="#">${userName}</a>
+                            </h2>
+                        </div>
+
+                        <span class="mt-1 block text-xs text-cyan">
+                            ${formatTimeAgo(comment.created_at)}
+                        </span>
+
+                        <div class="comment-content">
+                            <p class="relative mt-2 overflow-hidden whitespace-normal break-words break-all rounded-b-full rounded-e-full rounded-tl-none bg-white px-8 py-3 text-sm shadow">
+                                ${comment.text_comment}
+                            </p>
+                        </div>
+
+                        <div class="mt-2 flex items-center space-x-4">
+                            <span class="reply-toggle text-cyan-600 cursor-pointer text-xs hover:underline"
+                                data-comment-id="${comment.id_comment}"
+                                data-comment-text="${comment.text_comment}">
+                                Reply
+                            </span>
+
+                            ${repliesCount > 0 ? `
+                                <span class="show-all-replies text-cyan-600 cursor-pointer text-xs hover:underline"
+                                    data-comment-id="${comment.id_comment}">
+                                    Show replies (${repliesCount})
+                                </span>
+                            ` : ''}
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            if (repliesCount > 0) {
+                const showReplies = commentElement.querySelector('.show-all-replies');
+                if (showReplies) {
+                    showReplies.addEventListener('click', function () {
+                        const repliesContainer = document.getElementById(`replies-${this.dataset.commentId}`);
+                        if (repliesContainer) {
+                            repliesContainer.classList.toggle('hidden');
+                            this.textContent = repliesContainer.classList.contains('hidden')
+                                ? `Show replies (${repliesCount})`
+                                : `Hide replies (${repliesCount})`;
+                        }
+                    });
+                }
+            }
+
+            return commentElement;
+        }
+
+        function createReplyElement(reply) {
+            const profilePhoto = reply.user?.user_details?.profile_photo || 'default_profile.png';
+            const userName = reply.user?.user_details?.name || 'Unknown User';
+
+            return `
+                <div id="comment-${reply.id_comment}" class="reply-item relative mb-4 pl-4">
+                    <div class="absolute -top-16 bottom-0 left-[-20px]">
+                        <img src="{{ asset('assets/line chat.svg') }}" alt="">
+                    </div>
+                    <div class="flex items-start space-x-2 sm:space-x-4">
+                        <img src="/storage/profile/${profilePhoto}"
+                            alt="avatar"
+                            class="h-10 w-10 rounded-full object-cover sm:h-14 sm:w-14">
+                        <div class="relative w-full max-w-md">
+                            <div class="flex items-start justify-between">
+                                <h2 class="text-sm font-medium sm:text-base">
+                                    <a href="#">${userName}</a>
+                                </h2>
+                            </div>
+
+                            <span class="mt-1 block text-xs text-cyan">
+                                ${formatTimeAgo(reply.created_at)}
+                            </span>
+
+                            <div class="comment-content">
+                                <p class="relative mt-2 whitespace-normal break-words break-all rounded-b-full rounded-e-full rounded-tl-none bg-white px-6 py-2 text-sm shadow sm:px-8 sm:py-3">
+                                    ${reply.text_comment}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function formatTimeAgo(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const seconds = Math.floor((now - date) / 1000);
+
+            if (seconds < 60) return 'just now';
+
+            const minutes = Math.floor(seconds / 60);
+            if (minutes < 60) return `${minutes} min ago`;
+
+            const hours = Math.floor(minutes / 60);
+            if (hours < 24) return `${hours} hour${hours !== 1 ? 's' : ''} ago`;
+
+            const days = Math.floor(hours / 24);
+            return `${days} day${days !== 1 ? 's' : ''} ago`;
+        }
+
+        function renderEmptyState() {
+            const loadingElement = document.getElementById('comments-loading');
+            if (loadingElement) loadingElement.remove();
+
+            commentsContainer.innerHTML = `
+                <div class="flex h-full flex-col items-center justify-center space-y-8 text-center">
+                    <img src="{{ asset('assets/Thinking Bubble.svg') }}" alt="No comments">
+                    <p class="text-cyan">No comments yet.<br>Be the first to share your thoughts!</p>
+                </div>
+            `;
+        }
+
+        function renderErrorState() {
+            const loadingElement = document.getElementById('comments-loading');
+            if (loadingElement) loadingElement.remove();
+
+            commentsContainer.innerHTML = `
+                <div class="flex flex-col items-center justify-center space-y-4 py-8 text-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                    <p class="text-lg font-medium text-red-500">Failed to load comments</p>
+                    <p class="text-gray-600">Please try again later</p>
+                    <button id="retry-comments" class="mt-4 rounded bg-cyan-500 px-4 py-2 font-medium text-white hover:bg-cyan-600">
+                        Retry
+                    </button>
+                </div>
+            `;
+
+            const retryBtn = document.getElementById('retry-comments');
+            if (retryBtn) {
+                retryBtn.addEventListener('click', function () {
+                    const vacancyId = window.location.pathname.split('/').pop();
+                    if (vacancyId) fetchComments(vacancyId);
+                });
+            }
+        }
+    </script>
 @endsection

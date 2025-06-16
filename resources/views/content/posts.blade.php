@@ -433,8 +433,11 @@
             <div class="mt-6 flex justify-center">
                 {{ $vacancys->links('vendor.pagination.custom-pagination') }}
             </div>
+
         </div>
     </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
@@ -505,20 +508,79 @@
     {{-- Post API --}}
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            fetchAndDisplayPosts();
+            let currentFilter = new URLSearchParams(window.location.search).get('filter') || '';
+            let startDate = '';
+            let endDate = '';
 
-            async function fetchAndDisplayPosts() {
+            const startInput = document.getElementById('datepicker-range-start');
+            const endInput = document.getElementById('datepicker-range-end');
+
+            // Initialize from URL if dates are in query
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('start')) startDate = urlParams.get('start');
+            if (urlParams.has('end')) endDate = urlParams.get('end');
+            if (startDate) startInput.value = startDate;
+            if (endDate) endInput.value = endDate;
+
+            fetchAndDisplayPosts(currentFilter, startDate, endDate);
+            updateActiveButton(currentFilter);
+
+            // Filter buttons
+            const filterLinks = document.querySelectorAll('a[href*="filter="]');
+            filterLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const url = new URL(this.href);
+                    const selectedFilter = url.searchParams.get('filter') || '';
+
+                    if (selectedFilter === currentFilter) {
+                        currentFilter = '';
+                        history.pushState(null, '', window.location.pathname);
+                    } else {
+                        currentFilter = selectedFilter;
+                        updateURL();
+                    }
+
+                    updateActiveButton(currentFilter);
+                    fetchAndDisplayPosts(currentFilter, startDate, endDate);
+                });
+            });
+
+            // Datepicker changes
+            [startInput, endInput].forEach(input => {
+                input.addEventListener('change', () => {
+                    startDate = startInput.value;
+                    endDate = endInput.value;
+                    updateURL();
+                    fetchAndDisplayPosts(currentFilter, startDate, endDate);
+                });
+            });
+
+            function updateURL() {
+                const params = new URLSearchParams();
+                if (currentFilter) params.set('filter', currentFilter);
+                if (startDate) params.set('start', startDate);
+                if (endDate) params.set('end', endDate);
+                history.pushState(null, '', `${window.location.pathname}?${params.toString()}`);
+            }
+
+            async function fetchAndDisplayPosts(filter = '', start = '', end = '') {
                 const postsContainer = document.getElementById('post-container');
                 postsContainer.innerHTML = '<p class="text-center py-4 text-gray-500">Loading...</p>';
 
                 try {
-                    const response = await axios.get('/api/posts', {
+                    const response = await axios.get('http://127.0.0.1:8000/api/posts', {
+                        params: {
+                            filter,
+                            start,
+                            end
+                        },
                         withCredentials: true
                     });
 
                     const posts = response.data.data;
 
-                    if (!posts || posts.length === 0) {
+                    if (!posts || posts.length === 0 || !posts.data || posts.data.length === 0) {
                         postsContainer.innerHTML = '<p class="text-center py-4">No vacancies available</p>';
                         return;
                     }
@@ -528,32 +590,32 @@
                         const profilePhoto = post.profile_photo || 'default_profile.png';
 
                         return `
-                            <a href="/posts/detail/${post.id_vacancy}" class="post-card">
-                                <div class="mt-3 grid space-y-4 lg:grid-cols-1">
-                                    <article class="cursor-pointer rounded-lg border border-gray-200 bg-lightblue p-6 shadow-[0px_2px_3px_0px_rgba(0,0,0,0.30)]">
-                                        <div class="mb-5 flex items-center justify-between text-gray-400">
-                                            <span class="ml-auto text-xs sm:text-sm">${dateDiffText}</span>
+                        <a href="/posts/detail/${post.id_vacancy}" class="post-card">
+                            <div class="mt-3 grid space-y-4 lg:grid-cols-1">
+                                <article class="cursor-pointer rounded-lg border border-gray-200 bg-lightblue p-6 shadow-[0px_2px_3px_0px_rgba(0,0,0,0.30)]">
+                                    <div class="mb-5 flex items-center justify-between text-gray-400">
+                                        <span class="ml-auto text-xs sm:text-sm">${dateDiffText}</span>
+                                    </div>
+                                    <div class="flex flex-col lg:flex-row lg:space-x-8">
+                                        <div class="flex-shrink-0">
+                                            <img class="h-20 w-20 rounded-full object-cover"
+                                                 src="/storage/profile/${profilePhoto}"
+                                                 alt="${post.name}" />
                                         </div>
-                                        <div class="flex flex-col lg:flex-row lg:space-x-8">
-                                            <div class="flex-shrink-0">
-                                                <img class="h-20 w-20 rounded-full object-cover"
-                                                     src="/storage/profile/${profilePhoto}"
-                                                     alt="${post.name}" />
-                                            </div>
-                                            <div class="mt-4 lg:mt-0">
-                                                <h2 class="post-title mb-2 text-xl tracking-tight text-cyan sm:text-2xl">
-                                                    ${post.position}
-                                                </h2>
-                                                <h2 class="post-company mb-2 text-base tracking-tight text-cyan sm:text-xl">
-                                                    ${post.company_name}
-                                                </h2>
-                                                <p class="post-author text-sm text-gray-400 sm:text-lg">Posted by ${post.name}</p>
-                                            </div>
+                                        <div class="mt-4 lg:mt-0">
+                                            <h2 class="post-title mb-2 text-xl tracking-tight text-cyan sm:text-2xl">
+                                                ${post.position}
+                                            </h2>
+                                            <h2 class="post-company mb-2 text-base tracking-tight text-cyan sm:text-xl">
+                                                ${post.company_name}
+                                            </h2>
+                                            <p class="post-author text-sm text-gray-400 sm:text-lg">Posted by ${post.name}</p>
                                         </div>
-                                    </article>
-                                </div>
-                            </a>
-                        `;
+                                    </div>
+                                </article>
+                            </div>
+                        </a>
+                    `;
                     }).join('');
 
                     postsContainer.innerHTML = postsHTML;
@@ -565,15 +627,27 @@
                 }
             }
 
-            function formatDateDifference(dateOpen) {
+            function formatDateDifference(dateString) {
+                const postDate = new Date(dateString);
                 const now = new Date();
-                const opened = new Date(dateOpen);
-                const diffTime = Math.abs(now - opened);
+                const diffTime = Math.abs(now - postDate);
                 const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+                return diffDays === 0 ? 'Today' : `${diffDays} days ago`;
+            }
 
-                if (diffDays === 0) return 'Today';
-                if (diffDays === 1) return '1 day ago';
-                return `${diffDays} days ago`;
+            function updateActiveButton(activeFilter) {
+                const filterLinks = document.querySelectorAll('a[href*="filter="]');
+                filterLinks.forEach(link => {
+                    const url = new URL(link.href);
+                    const filter = url.searchParams.get('filter') || '';
+                    if (filter === activeFilter) {
+                        link.classList.add('bg-cyan-100', 'text-white');
+                        link.classList.remove('bg-white', 'text-gray-800');
+                    } else {
+                        link.classList.remove('bg-cyan-100', 'text-white');
+                        link.classList.add('bg-white', 'text-gray-800');
+                    }
+                });
             }
         });
     </script>

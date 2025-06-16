@@ -50,7 +50,7 @@ Route::post('/auth/check-email', [AuthControllerAPI::class, 'checkEmail']);
 
 
 // Rute yang Memerlukan Otentikasi (Sanctum)
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware('auth:sanctum')->group(function (): void {
     Route::post('/auth/logout', [AuthControllerAPI::class, 'logout']);
     Route::get('/auth/user', [AuthControllerAPI::class, 'me']); // Mendapatkan user yang terotentikasi
 
