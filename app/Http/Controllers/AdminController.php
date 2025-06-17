@@ -74,7 +74,7 @@ class AdminController extends Controller
             null,
             true, // secure
             false  // httpOnly
-         );
+        );
 
         // Generate API token
         Auth::login($user);
@@ -239,7 +239,7 @@ class AdminController extends Controller
                 return $job;
             });
         $companies = Company::all();
-        return view('content.admin-editalumni', compact('userDetails', 'jobDetails', 'companies',));
+        return view('content.admin-editalumni', compact('userDetails', 'jobDetails', 'companies', ));
     }
 
     public function addAlumniExperiences(Request $request, string $id)
@@ -341,7 +341,8 @@ class AdminController extends Controller
                 Notification::create([
                     'id_users' => $pendingRequest->userDetails->user->id_users,
                     'type' => 'approved',
-                    'message' => 'Data Anda berhasil diverifikasi. Perubahan telah diterapkan.',
+                    'message' => 'Verification complete! Your information has been
+successfully updated.',
                 ]);
             } elseif ($pendingRequest->request_type === 'update') {
                 // Update the existing JobTracking record
@@ -367,13 +368,14 @@ class AdminController extends Controller
                 Notification::create([
                     'id_users' => $pendingRequest->userDetails->user->id_users,
                     'type' => 'approved',
-                    'message' => 'Data Anda berhasil diverifikasi. Perubahan telah diterapkan.',
+                    'message' => 'Verification complete! Your information has been
+successfully updated.',
                 ]);
             }
             // Clear the cache so updated data is fetched fresh
             Cache::forget('pending_requests');
             $pendingRequest->update(['approval_status' => 'approved']);
-            return redirect()->route('admin.home')->with('approved', 'Permintaaan pengubahan data disetujui.');
+            return redirect()->route('admin.home')->with('approved', 'Data update request has been approved.');
         }
 
         if ($request->action === 'reject') {
@@ -382,11 +384,11 @@ class AdminController extends Controller
             Notification::create([
                 'id_users' => $pendingRequest->userDetails->user->id_users,
                 'type' => 'rejected',
-                'message' => 'Verifikasi data tidak berhasil. Mohon periksa kembali informasi yang Anda berikan atau coba lagi nanti.',
+                'message' => 'Verification failed. Please check your data and try again.',
             ]);
             // Clear the cache so updated data is fetched fresh
             Cache::forget('pending_requests');
-            return redirect()->route('admin.home')->with('rejected', 'Permintaan pengubahan data ditolak.');
+            return redirect()->route('admin.home')->with('rejected', 'Data update request has been rejected.');
         }
     }
 

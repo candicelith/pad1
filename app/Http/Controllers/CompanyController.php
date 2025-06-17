@@ -20,7 +20,7 @@ class CompanyController extends Controller
      */
     public function index(Request $request)
     {
-        $company = Company::where('status','!=','pending')->paginate(50);
+        $company = Company::where('status', '!=', 'pending')->paginate(50);
 
         if ($request->expectsJson()) {
             return response()->json([
@@ -116,7 +116,7 @@ class CompanyController extends Controller
                 $file->storeAs('public/company', $filenameSimpan);
                 $companyData['company_picture'] = $filenameSimpan;
             } else {
-                 // If you have a default image, set it here. Otherwise, null.
+                // If you have a default image, set it here. Otherwise, null.
                 $companyData['company_picture'] = 'default_company.png'; // Example default
             }
             $company = Company::create($companyData);
@@ -140,7 +140,7 @@ class CompanyController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(String $id)
+    public function show(string $id)
     {
         $company = Company::findOrFail($id);
 
@@ -237,14 +237,14 @@ class CompanyController extends Controller
         ], 200);
     }
 
-    public function detailApproval(String $id)
+    public function detailApproval(string $id)
     {
         $company = Company::findOrFail($id);
-        return view('content.admin-detail-company',compact('company'));
+        return view('content.admin-detail-company', compact('company'));
     }
 
     // Method to approve a company
-    public function approveCompany(String $id) // Using route model binding
+    public function approveCompany(string $id) // Using route model binding
     {
         $company = Company::findOrFail($id);
         if ($company->status === 'pending') {
@@ -268,7 +268,7 @@ class CompanyController extends Controller
     }
 
     // Method to reject a company
-    public function rejectCompany(Request $request, String $id) // Using route model binding
+    public function rejectCompany(Request $request, string $id) // Using route model binding
     {
         $request->validate(['rejection_reason' => 'nullable|string|min:5|max:500']);
 
