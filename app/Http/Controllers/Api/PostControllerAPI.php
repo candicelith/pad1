@@ -35,7 +35,6 @@ class PostControllerAPI extends Controller
                 ->select(
                     'vacancy.*',
                     'user_details.name', // Lebih baik sebutkan kolom spesifik untuk menghindari tumpang tindih
-                    'user_details.profile_photo',
                     'company.company_name',
                     DB::raw("COALESCE(user_details.profile_photo, 'default_profile.png') as profile_photo"),
                 );
