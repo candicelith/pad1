@@ -45,7 +45,7 @@ class PostControllerAPI extends Controller
             } elseif ($filter == 'my_commented_posts') {
                 $vacancysQuery->whereIn('vacancy.id_vacancy', function ($query) {
                     $query->select('id_vacancy')
-                          ->from('comments') // 2. Koreksi nama tabel menjadi 'comments'
+                          ->from('comment')
                           ->where('id_users', Auth::id());
                 });
             }

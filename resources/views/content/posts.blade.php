@@ -35,22 +35,22 @@
                     @if (Auth::check() && Auth::user()->id_roles == '2')
                         <div class="mb-2 flex justify-between sm:mb-0 sm:space-x-4 xl:space-x-10">
 
-                            <a href="{{ route('posts', ['filter' => 'my_posts']) }}"
+                            <a href="{{ route('posts', ['filter' => 'my_posts']) }}" id="my-post-button"
                                 class="text-cyan-600 {{ request('filter') == 'my_posts' ? 'bg-cyan-100 text-white' : '' }} rounded-xl border border-gray-200 px-3 py-2 text-sm hover:bg-gray-200 sm:px-6 sm:py-4 xl:text-base">
                                 My Post
                             </a>
 
-                            <a href="{{ route('posts', ['filter' => 'my_commented_posts']) }}"
+                            <a href="{{ route('posts', ['filter' => 'my_commented_posts']) }}" id="my-commented-post-button"
                                 class="text-cyan-600 {{ request('filter') == 'my_commented_posts' ? 'bg-cyan-100 text-white' : '' }} rounded-xl border border-gray-200 px-3 py-2 text-sm hover:bg-gray-200 sm:px-6 sm:py-4 xl:text-base">
                                 My Commented Post
                             </a>
                         </div>
                     @elseif (Auth::check() && Auth::user()->id_roles == '3')
                         <div class="mb-2 flex justify-center sm:mb-0 sm:space-x-4 xl:space-x-10">
-                            <button
-                                class="text-cyan-600 w-full rounded-xl border border-gray-200 px-3 py-2 text-sm hover:bg-gray-200 focus:bg-cyan-100 focus:text-white sm:px-6 sm:py-4 xl:text-base">
+                            <a href="{{ route('posts', ['filter' => 'my_commented_posts']) }}" id="my-commented-post-button"
+                                class="text-cyan-600 {{ request('filter') == 'my_commented_posts' ? 'bg-cyan-100 text-white' : '' }} rounded-xl border border-gray-200 px-3 py-2 text-sm hover:bg-gray-200 sm:px-6 sm:py-4 xl:text-base">
                                 My Commented Post
-                            </button>
+                            </a>
                         </div>
                     @endif
                 @endauth
