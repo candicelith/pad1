@@ -39,28 +39,20 @@ class AdminController extends Controller
 
     public function login(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'email' => 'required|email',
             'password' => 'required|string',
         ]);
 
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors(['error' => 'Invalid Input']);
-        }
-
         // Cek apakah user ada di database
         $user = User::where('email', $request->email)->first();
 
-        // Debugging Purpose :
-        // if (!$user) {
-        //     dd('No user found');
-        // }
-        // if (!Hash::check($request->password, $user->password)) {
-        //     dd('Password does not match');
-        // }
-        // if ($user->id_roles !== 1) {
-        //     dd('Not an admin');
-        // }
+        // Validasi Password
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            return redirect()->back()->withErrors([
+                'email' => 'Invalid email input or password.',
+            ])->withInput();        }
+
 
         // NEW: Create token instead of just using Auth::login()
         $token = $user->createToken('web-session')->plainTextToken;
