@@ -17,7 +17,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        //get posts
         // Get posts
         $posts = DB::table('vacancy')
             ->join('users', 'vacancy.id_users', '=', 'users.id_users')
