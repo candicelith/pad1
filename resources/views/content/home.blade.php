@@ -221,6 +221,10 @@
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
+    {{-- News Banner API --}}
+
+    </script>
+
     {{-- Posts API --}}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
