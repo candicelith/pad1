@@ -136,6 +136,15 @@
 
                     let companiesHTML = '';
                     companies.forEach(company => {
+                        // Handle company picture URL
+                        let companyPicture = company.company_picture;
+                            if (companyPicture ===
+                                'https://picsum.photos/id/870/200/300?grayscale&blur=2') {
+                                companyPicture = '/storage/company/default_company.png';
+                            } else if (!companyPicture.startsWith('http')) {
+                                companyPicture =
+                                    `/storage/company/${companyPicture || 'default_company.png'}`;
+                            }
                         companiesHTML += `
                             <a href="/companies/detail/${company.id}"
                                 class="company-card w-full max-w-sm cursor-pointer rounded-lg border border-gray-200 bg-lightblue shadow-md"
@@ -143,7 +152,7 @@
                                 <div>
                                     <div class="flex flex-col items-center px-8 py-8 text-center">
                                         <img class="mb-3 h-24 w-24 rounded-full shadow-lg"
-                                            src="${company.company_picture ? '/storage/company/' + company.company_picture : '/images/default_profile.png'}"
+                                            src="${companyPicture}"
                                             alt="${company.company_name}" />
                                         <h2 class="mb-1 text-2xl text-cyan">
                                             ${company.company_name || 'Unnamed Company'}

@@ -136,13 +136,23 @@
                     withCredentials: true
                 })
                 .then(companyResponse => {
-                    const company = companyResponse.data.data; // tambahkan `.data` karena pakai resource
+                    const company = companyResponse.data.company;
                     const container = document.getElementById('company-content');
+
+                    // Handle company picture URL
+                    let companyPicture = company.company_picture;
+                        if (companyPicture ===
+                            'https://picsum.photos/id/870/200/300?grayscale&blur=2') {
+                            companyPicture = '/storage/company/default_company.png';
+                        } else if (!companyPicture.startsWith('http')) {
+                            companyPicture =
+                                `/storage/company/${companyPicture || 'default_company.png'}`;
+                        }
 
                     container.innerHTML = `
                 <div class="flex flex-col lg:flex-row lg:space-x-8">
                     <img class="h-24 w-24 rounded-full object-cover sm:h-28 sm:w-28"
-                        src="${company.company_picture ? '/storage/company/' + company.company_picture : '/images/default_profile.png'}"
+                        src="${companyPicture}"
                         alt="${company.company_name}" />
                     <div class="mt-4">
                         <h2 class="text-xl text-cyan sm:text-2xl">${company.company_name}</h2>

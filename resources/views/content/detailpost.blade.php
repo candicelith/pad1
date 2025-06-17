@@ -233,6 +233,36 @@
                                     </table>
                                 </div>
                             </div>
+
+                            <div class="fixed bottom-5 left-5">
+                                <div id="toast-success"
+                                    class="mb-4 flex w-full max-w-xs items-center rounded-lg bg-white p-4 text-gray-500 shadow-sm dark:bg-gray-800 dark:text-gray-400"
+                                    role="alert">
+                                    <div
+                                        class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-green-600 text-green-200">
+                                        <svg class="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                            fill="currentColor" viewBox="0 0 20 20">
+                                            <path
+                                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                                        </svg>
+                                        <span class="sr-only">Check icon</span>
+                                    </div>
+                                    <div>
+                                        <div class="ms-3 text-base font-bold text-black">Success</div>
+                                        <div class="ms-3 text-sm font-normal">CV downloaded successfully</div>
+                                    </div>
+                                    <button type="button"
+                                        class="-mx-1.5 -my-1.5 ms-auto inline-flex h-8 w-8 items-center justify-center rounded-lg bg-white p-1.5 text-gray-400 hover:bg-gray-100 hover:text-gray-900 focus:ring-2 focus:ring-gray-300 dark:bg-gray-800 dark:text-gray-500 dark:hover:bg-gray-700 dark:hover:text-white"
+                                        data-dismiss-target="#toast-success" aria-label="Close">
+                                        <span class="sr-only">Close</span>
+                                        <svg class="h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                            fill="none" viewBox="0 0 14 14">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
                         @endif
                     </div>
 
@@ -384,7 +414,7 @@
 
                                     </div>
                                     <button type="submit" id="submit-button"
-                                        class="p-1 text-green-900 transition-colors duration-300 sm:h-11 sm:w-11 disabled:text-gray-400 disabled:opacity-50 disabled:cursor-not-allowed">
+                                        class="p-1 text-green-900 transition-colors duration-300 disabled:cursor-not-allowed disabled:text-gray-400 disabled:opacity-50 sm:h-11 sm:w-11">
                                         <svg class="h-9 w-9 rotate-90 transition-transform duration-300"
                                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke="currentColor">
@@ -392,7 +422,6 @@
                                                 d="m12 18-7 3 7-18 7 18-7-3Zm0 0v-5" />
                                         </svg>
                                     </button>
-
 
                                 </div>
                             </form>
@@ -409,7 +438,6 @@
                                             details</h3>
                                         <p class="mb-5 text-sm font-normal text-cyan">Would you like to log in?
                                         </p>
-
                                         <button data-modal-hide="defaultModal" type="button"
                                             onclick="window.location.href='{{ route('login') }}'"
                                             class="ms-3 rounded-full border border-gray-900 bg-white px-11 py-3 text-sm font-medium text-cyan hover:bg-cyan hover:text-white focus:z-10 focus:outline-none focus:ring-4 focus:ring-cyan">
@@ -558,6 +586,7 @@
             }
         });
     </script>
+
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@9.0.3"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -622,7 +651,7 @@
             <div class="flex flex-col lg:flex-row lg:space-x-8">
                 <div class="flex-shrink-0">
                     <img class="h-28 w-28 rounded-full object-cover"
-                        src="${vacancy.profile_photo ? `/storage/profile/${vacancy.profile_photo}` : '/storage/profile/default_profile.png'}"
+                        src="${vacancy.company.company_picture ? `/storage/company/${vacancy.company.company_picture}` : '/storage/company/default_company.png'}"
                         alt="Company logo" />
                 </div>
                 <div class="mt-4 lg:mt-0">
@@ -666,13 +695,11 @@
                         </ul>
                     </div>
                 </div>
-                ${vacancy.vacancy_picture ? `
-                                                                                                                                                <div>
-                                                                                                                                                    <img src="/storage/vacancies/default-vacancy.jpg"
-                                                                                                                                                            alt="Vacancy image"
-                                                                                                                                                            class="mt-4 rounded-lg shadow-md max-w-full" />
-                                                                                                                                                </div>
-                                                                                                                                            ` : ''}
+                <div>
+                    <img src="${vacancy.vacancy_picture ?? 'default-vacancy.jpg'}"
+                            alt="Vacancy image"
+                            class="mt-4 rounded-lg shadow-md max-w-full" />
+                </div>
             </div>
         `;
 
@@ -738,13 +765,16 @@
                     replyContext.classList.remove('hidden');
                     replyContextText.textContent = commentText;
 
-                    commentInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    commentInput.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
                     commentInput.focus();
                 }
             });
 
             // Cancel reply
-            cancelReplyButton.addEventListener('click', function () {
+            cancelReplyButton.addEventListener('click', function() {
                 parentCommentIdInput.value = '';
                 replyContext.classList.add('hidden');
                 replyContextText.textContent = '';
@@ -839,11 +869,11 @@
                             </span>
 
                             ${repliesCount > 0 ? `
-                                <span class="show-all-replies text-cyan-600 cursor-pointer text-xs hover:underline"
-                                    data-comment-id="${comment.id_comment}">
-                                    Show replies (${repliesCount})
-                                </span>
-                            ` : ''}
+                                    <span class="show-all-replies text-cyan-600 cursor-pointer text-xs hover:underline"
+                                        data-comment-id="${comment.id_comment}">
+                                        Show replies (${repliesCount})
+                                    </span>
+                                ` : ''}
                         </div>
                     </div>
                 </div>
@@ -852,13 +882,13 @@
             if (repliesCount > 0) {
                 const showReplies = commentElement.querySelector('.show-all-replies');
                 if (showReplies) {
-                    showReplies.addEventListener('click', function () {
+                    showReplies.addEventListener('click', function() {
                         const repliesContainer = document.getElementById(`replies-${this.dataset.commentId}`);
                         if (repliesContainer) {
                             repliesContainer.classList.toggle('hidden');
-                            this.textContent = repliesContainer.classList.contains('hidden')
-                                ? `Show replies (${repliesCount})`
-                                : `Hide replies (${repliesCount})`;
+                            this.textContent = repliesContainer.classList.contains('hidden') ?
+                                `Show replies (${repliesCount})` :
+                                `Hide replies (${repliesCount})`;
                         }
                     });
                 }
@@ -950,7 +980,7 @@
 
             const retryBtn = document.getElementById('retry-comments');
             if (retryBtn) {
-                retryBtn.addEventListener('click', function () {
+                retryBtn.addEventListener('click', function() {
                     const vacancyId = window.location.pathname.split('/').pop();
                     if (vacancyId) fetchComments(vacancyId);
                 });
