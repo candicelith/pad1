@@ -194,11 +194,13 @@
                                                     <td class="px-1 text-center">{{ $index + 1 }}</td>
                                                     <td
                                                         class="sm:truncate-0 max-w-16 truncate px-1 text-sm sm:max-w-32 sm:whitespace-normal">
-                                                        {{ $registration->user->email }}</td>
+                                                        {{ $registration->user->email }}
+                                                    </td>
                                                     <td class="px-1 text-center">
-                                                        <a href="{{ asset('storage/cvs/' . $registration->cv) }}"
+                                                        <a id=""
+                                                            href="{{ asset('storage/cvs/' . $registration->cv) }}"
                                                             target="_blank" aria-label="Download file"
-                                                            class="flex items-center justify-center">
+                                                            class="download-cv flex items-center justify-center">
                                                             <svg class="h-6 w-6 text-gray-800 dark:text-white"
                                                                 xmlns="http://www.w3.org/2000/svg" fill="none"
                                                                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -233,36 +235,60 @@
                                     </table>
                                 </div>
                             </div>
-
-                            <div class="fixed bottom-5 left-5">
-                                <div id="toast-success"
-                                    class="mb-4 flex w-full max-w-xs items-center rounded-lg bg-white p-4 text-gray-500 shadow-sm dark:bg-gray-800 dark:text-gray-400"
-                                    role="alert">
-                                    <div
-                                        class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-green-600 text-green-200">
-                                        <svg class="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                            fill="currentColor" viewBox="0 0 20 20">
-                                            <path
-                                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
-                                        </svg>
-                                        <span class="sr-only">Check icon</span>
-                                    </div>
-                                    <div>
-                                        <div class="ms-3 text-base font-bold text-black">Success</div>
-                                        <div class="ms-3 text-sm font-normal">CV downloaded successfully</div>
-                                    </div>
-                                    <button type="button"
-                                        class="-mx-1.5 -my-1.5 ms-auto inline-flex h-8 w-8 items-center justify-center rounded-lg bg-white p-1.5 text-gray-400 hover:bg-gray-100 hover:text-gray-900 focus:ring-2 focus:ring-gray-300 dark:bg-gray-800 dark:text-gray-500 dark:hover:bg-gray-700 dark:hover:text-white"
-                                        data-dismiss-target="#toast-success" aria-label="Close">
-                                        <span class="sr-only">Close</span>
-                                        <svg class="h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                            fill="none" viewBox="0 0 14 14">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                                stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                        </svg>
-                                    </button>
+                            <div id="toast-success"
+                                class="fixed bottom-5 left-5 mb-4 flex hidden w-full max-w-xs items-center rounded-lg bg-white p-4 text-gray-500 shadow-sm dark:bg-gray-800 dark:text-gray-400"
+                                role="alert">
+                                <div
+                                    class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-green-600 text-green-200">
+                                    <svg class="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                        fill="currentColor" viewBox="0 0 20 20">
+                                        <path
+                                            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                                    </svg>
+                                    <span class="sr-only">Check icon</span>
                                 </div>
+                                <div>
+                                    <div class="ms-3 text-base font-bold text-black">Success
+                                    </div>
+                                    <div class="ms-3 text-sm font-normal">CV downloaded
+                                        successfully</div>
+                                </div>
+                                <button type="button"
+                                    class="-mx-1.5 -my-1.5 ms-auto inline-flex h-8 w-8 items-center justify-center rounded-lg bg-white p-1.5 text-gray-400 hover:bg-gray-100 hover:text-gray-900 focus:ring-2 focus:ring-gray-300 dark:bg-gray-800 dark:text-gray-500 dark:hover:bg-gray-700 dark:hover:text-white"
+                                    data-dismiss-target="#toast-success" aria-label="Close">
+                                    <span class="sr-only">Close</span>
+                                    <svg class="h-3 w-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                        fill="none" viewBox="0 0 14 14">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                    </svg>
+                                </button>
                             </div>
+
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function() {
+                                    // Tambahkan event listener untuk semua link download CV
+                                    document.querySelectorAll('.download-cv').forEach(link => {
+                                        link.addEventListener('click', function(e) {
+                                            // Tampilkan toast
+                                            const toast = document.getElementById('toast-success');
+                                            toast.classList.remove('hidden');
+
+                                            // Sembunyikan toast setelah 5 detik
+                                            setTimeout(() => {
+                                                toast.classList.add('hidden');
+                                            }, 5000);
+                                        });
+                                    });
+
+                                    // Event untuk tombol close toast
+                                    document.querySelector('[data-dismiss-target="#toast-success"]')
+                                        .addEventListener('click', function() {
+                                            const toast = document.getElementById('toast-success');
+                                            toast.classList.add('hidden');
+                                        });
+                                });
+                            </script>
                         @endif
                     </div>
 
@@ -646,12 +672,22 @@
                     .map(benefit => `<li>${benefit}</li>`)
                     .join('');
 
+                // Handle company picture URL
+                let companyPicture = vacancy.company.company_picture;
+                if (companyPicture ===
+                    'https://picsum.photos/id/870/200/300?grayscale&blur=2') {
+                    companyPicture = '/storage/company/default_company.png';
+                } else if (!companyPicture.startsWith('http')) {
+                    companyPicture =
+                        `/storage/company/${companyPicture || 'default_company.png'}`;
+                }
+
                 // Create the HTML structure
                 const vacancyHTML = `
             <div class="flex flex-col lg:flex-row lg:space-x-8">
                 <div class="flex-shrink-0">
                     <img class="h-28 w-28 rounded-full object-cover"
-                        src="${vacancy.company.company_picture ? `/storage/company/${vacancy.company.company_picture}` : '/storage/company/default_company.png'}"
+                        src="${companyPicture}"
                         alt="Company logo" />
                 </div>
                 <div class="mt-4 lg:mt-0">
@@ -869,11 +905,11 @@
                             </span>
 
                             ${repliesCount > 0 ? `
-                                    <span class="show-all-replies text-cyan-600 cursor-pointer text-xs hover:underline"
-                                        data-comment-id="${comment.id_comment}">
-                                        Show replies (${repliesCount})
-                                    </span>
-                                ` : ''}
+                                                                                    <span class="show-all-replies text-cyan-600 cursor-pointer text-xs hover:underline"
+                                                                                        data-comment-id="${comment.id_comment}">
+                                                                                        Show replies (${repliesCount})
+                                                                                    </span>
+                                                                                ` : ''}
                         </div>
                     </div>
                 </div>

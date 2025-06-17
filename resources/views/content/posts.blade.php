@@ -47,10 +47,10 @@
                         </div>
                     @elseif (Auth::check() && Auth::user()->id_roles == '3')
                         <div class="mb-2 flex justify-center sm:mb-0 sm:space-x-4 xl:space-x-10">
-                            <button
-                                class="text-cyan-600 w-full rounded-xl border border-gray-200 px-3 py-2 text-sm hover:bg-gray-200 focus:bg-cyan-100 focus:text-white sm:px-6 sm:py-4 xl:text-base">
+                            <a href="{{ route('posts', ['filter' => 'my_commented_posts']) }}"
+                                class="text-cyan-600 {{ request('filter') == 'my_commented_posts' ? 'bg-cyan-100 text-white' : '' }} rounded-xl border border-gray-200 px-3 py-2 text-sm hover:bg-gray-200 sm:px-6 sm:py-4 xl:text-base">
                                 My Commented Post
-                            </button>
+                            </a>
                         </div>
                     @endif
                 @endauth
@@ -163,7 +163,8 @@
                                                 {{ old('position') == 'Frontend Developer' ? 'selected' : '' }}>Frontend
                                                 Developer</option>
                                             <option value="Backend Developer"
-                                                {{ old('position') == 'Backend Developer' ? 'selected' : '' }}>Backend Developer
+                                                {{ old('position') == 'Backend Developer' ? 'selected' : '' }}>Backend
+                                                Developer
                                             </option>
                                             {{-- Add other positions as needed --}}
                                         </select>
@@ -509,23 +510,12 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             let currentFilter = new URLSearchParams(window.location.search).get('filter') || '';
-            let startDate = '';
-            let endDate = '';
 
-            const startInput = document.getElementById('datepicker-range-start');
-            const endInput = document.getElementById('datepicker-range-end');
-
-            // Initialize from URL if dates are in query
-            const urlParams = new URLSearchParams(window.location.search);
-            if (urlParams.has('start')) startDate = urlParams.get('start');
-            if (urlParams.has('end')) endDate = urlParams.get('end');
-            if (startDate) startInput.value = startDate;
-            if (endDate) endInput.value = endDate;
-
-            fetchAndDisplayPosts(currentFilter, startDate, endDate);
+            // Fetch posts on load
+            fetchAndDisplayPosts(currentFilter);
             updateActiveButton(currentFilter);
 
-            // Filter buttons
+            // Handle filter button clicks
             const filterLinks = document.querySelectorAll('a[href*="filter="]');
             filterLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
@@ -533,54 +523,40 @@
                     const url = new URL(this.href);
                     const selectedFilter = url.searchParams.get('filter') || '';
 
+                    // Toggle filter: if the same filter is clicked, remove it
                     if (selectedFilter === currentFilter) {
                         currentFilter = '';
-                        history.pushState(null, '', window.location.pathname);
+                        history.pushState(null, '', window.location
+                            .pathname); // remove filter from URL
                     } else {
                         currentFilter = selectedFilter;
-                        updateURL();
+                        history.pushState(null, '', `?filter=${currentFilter}`);
                     }
 
                     updateActiveButton(currentFilter);
-                    fetchAndDisplayPosts(currentFilter, startDate, endDate);
+                    fetchAndDisplayPosts(currentFilter);
                 });
             });
 
-            // Datepicker changes
-            [startInput, endInput].forEach(input => {
-                input.addEventListener('change', () => {
-                    startDate = startInput.value;
-                    endDate = endInput.value;
-                    updateURL();
-                    fetchAndDisplayPosts(currentFilter, startDate, endDate);
-                });
-            });
-
-            function updateURL() {
-                const params = new URLSearchParams();
-                if (currentFilter) params.set('filter', currentFilter);
-                if (startDate) params.set('start', startDate);
-                if (endDate) params.set('end', endDate);
-                history.pushState(null, '', `${window.location.pathname}?${params.toString()}`);
-            }
-
-            async function fetchAndDisplayPosts(filter = '', start = '', end = '') {
+            async function fetchAndDisplayPosts(filter = '') {
                 const postsContainer = document.getElementById('post-container');
                 postsContainer.innerHTML = '<p class="text-center py-4 text-gray-500">Loading...</p>';
 
                 try {
+                    console.log('Fetching with filter:', filter); // ✅ Debug filter value
+
                     const response = await axios.get('http://127.0.0.1:8000/api/posts', {
                         params: {
-                            filter,
-                            start,
-                            end
+                            filter
                         },
                         withCredentials: true
                     });
 
+                    console.log('Response:', response); // ✅ Debug response
+
                     const posts = response.data.data;
 
-                    if (!posts || posts.length === 0 || !posts.data || posts.data.length === 0) {
+                    if (!posts || posts.length === 0 || posts.data.length === 0) {
                         postsContainer.innerHTML = '<p class="text-center py-4">No vacancies available</p>';
                         return;
                     }
@@ -590,32 +566,32 @@
                         const profilePhoto = post.profile_photo || 'default_profile.png';
 
                         return `
-                        <a href="/posts/detail/${post.id_vacancy}" class="post-card">
-                            <div class="mt-3 grid space-y-4 lg:grid-cols-1">
-                                <article class="cursor-pointer rounded-lg border border-gray-200 bg-lightblue p-6 shadow-[0px_2px_3px_0px_rgba(0,0,0,0.30)]">
-                                    <div class="mb-5 flex items-center justify-between text-gray-400">
-                                        <span class="ml-auto text-xs sm:text-sm">${dateDiffText}</span>
-                                    </div>
-                                    <div class="flex flex-col lg:flex-row lg:space-x-8">
-                                        <div class="flex-shrink-0">
-                                            <img class="h-20 w-20 rounded-full object-cover"
-                                                 src="/storage/profile/${profilePhoto}"
-                                                 alt="${post.name}" />
-                                        </div>
-                                        <div class="mt-4 lg:mt-0">
-                                            <h2 class="post-title mb-2 text-xl tracking-tight text-cyan sm:text-2xl">
-                                                ${post.position}
-                                            </h2>
-                                            <h2 class="post-company mb-2 text-base tracking-tight text-cyan sm:text-xl">
-                                                ${post.company_name}
-                                            </h2>
-                                            <p class="post-author text-sm text-gray-400 sm:text-lg">Posted by ${post.name}</p>
-                                        </div>
-                                    </div>
-                                </article>
+                <a href="/posts/detail/${post.id_vacancy}" class="post-card">
+                    <div class="mt-3 grid space-y-4 lg:grid-cols-1">
+                        <article class="cursor-pointer rounded-lg border border-gray-200 bg-lightblue p-6 shadow-[0px_2px_3px_0px_rgba(0,0,0,0.30)]">
+                            <div class="mb-5 flex items-center justify-between text-gray-400">
+                                <span class="ml-auto text-xs sm:text-sm">${dateDiffText}</span>
                             </div>
-                        </a>
-                    `;
+                            <div class="flex flex-col lg:flex-row lg:space-x-8">
+                                <div class="flex-shrink-0">
+                                    <img class="h-20 w-20 rounded-full object-cover"
+                                         src="/storage/profile/${profilePhoto}"
+                                         alt="${post.name}" />
+                                </div>
+                                <div class="mt-4 lg:mt-0">
+                                    <h2 class="post-title mb-2 text-xl tracking-tight text-cyan sm:text-2xl">
+                                        ${post.position}
+                                    </h2>
+                                    <h2 class="post-company mb-2 text-base tracking-tight text-cyan sm:text-xl">
+                                        ${post.company_name}
+                                    </h2>
+                                    <p class="post-author text-sm text-gray-400 sm:text-lg">Posted by ${post.name}</p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </a>
+            `;
                     }).join('');
 
                     postsContainer.innerHTML = postsHTML;
@@ -641,8 +617,8 @@
                     const url = new URL(link.href);
                     const filter = url.searchParams.get('filter') || '';
                     if (filter === activeFilter) {
-                        link.classList.add('bg-cyan-100', 'text-white');
-                        link.classList.remove('bg-white', 'text-gray-800');
+                        link.classList.add('bg-cyan-100', 'text-white'); // active style
+                        link.classList.remove('bg-white', 'text-gray-800'); // remove default
                     } else {
                         link.classList.remove('bg-cyan-100', 'text-white');
                         link.classList.add('bg-white', 'text-gray-800');
@@ -651,4 +627,5 @@
             }
         });
     </script>
+
 @endsection

@@ -103,7 +103,7 @@ class AlumniController extends Controller
                     ->where('id', '!=', $latestNotification->id ?? null)
                     ->update(['is_read' => true]);
 
-                $companies = Company::where('status','!=','pending')->get();
+                $companies = Company::where('status', '!=', 'pending')->get();
                 return view('content.profile-alumni', compact('user', 'userDetails', 'jobDetails', 'companies', 'latestNotification'));
             }
         }
@@ -275,9 +275,8 @@ class AlumniController extends Controller
         Notification::create([
             'id_users' => Auth::user()->id_users, // ID of the user being notified
             'type' => 'pending_approval',
-            'message' => 'Perubahan data sedang dalam proses verifikasi oleh admin. Mohon tunggu
-                konfirmasi lebih
-                lanjut.',
+            'message' => 'Your changes are under review.
+We’ll notify you once your update is confirmed.',
         ]);
 
         PendingRequest::create([
@@ -291,9 +290,8 @@ class AlumniController extends Controller
             'request_type' => 'create'
         ]);
 
-        return redirect()->route('alumni.show-profile')->with('info', 'Perubahan data sedang dalam proses verifikasi oleh admin. Mohon tunggu
-                konfirmasi lebih
-                lanjut.');
+        return redirect()->route('alumni.show-profile')->with('info', 'Your changes are under review.
+We’ll notify you once your update is confirmed.');
     }
 
     public function updateExperiences(Request $request, string $id)
@@ -318,9 +316,8 @@ class AlumniController extends Controller
         Notification::create([
             'id_users' => Auth::user()->id_users, // ID of the user being notified
             'type' => 'pending_approval',
-            'message' => 'Perubahan data sedang dalam proses verifikasi oleh admin. Mohon tunggu
-                konfirmasi lebih
-                lanjut.',
+            'message' => 'Your changes are under review.
+We’ll notify you once your update is confirmed.',
         ]);
 
         // Store the changes in the pending_changes table
@@ -339,9 +336,8 @@ class AlumniController extends Controller
 
         // Redirect with info message
         return redirect()->route('alumni.show-profile')
-            ->with('info', 'Perubahan data sedang dalam proses verifikasi oleh admin. Mohon tunggu
-                konfirmasi lebih
-                lanjut.');
+            ->with('info', 'Your changes are under review.
+We’ll notify you once your update is confirmed.');
     }
 
 }
