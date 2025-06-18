@@ -18,7 +18,7 @@ class PostControllerAPI extends Controller
     public function index(Request $request)
     {
         try {
-            // 1. Tambahkan pengecekan autentikasi untuk filter khusus
+            // My Post and MyCommented Post
             $filter = $request->input('filter');
             if (($filter == 'my_posts' || $filter == 'my_commented_posts') && !Auth::check()) {
                 return response()->json([
@@ -26,6 +26,9 @@ class PostControllerAPI extends Controller
                     "message" => "Unauthorized. You need to be logged in to use this filter.",
                 ], 401);
             }
+            // Date
+            $startDate = $request->input('start_date');
+            $endDate = $request->input('end_date');
 
             // Memulai query builder
             $vacancysQuery = DB::table('vacancy')
@@ -39,6 +42,7 @@ class PostControllerAPI extends Controller
                     DB::raw("COALESCE(user_details.profile_photo, 'default_profile.png') as profile_photo"),
                 );
 
+            // Apply Filter
             if ($filter == 'my_posts') {
                 $vacancysQuery->where('vacancy.id_users', Auth::id());
 
@@ -50,7 +54,17 @@ class PostControllerAPI extends Controller
                 });
             }
 
+            // Apply Date Filter
+            if ($startDate) {
+                // Use the date_open column from the vacancy table
+                $vacancysQuery->whereDate('vacancy.date_open', '>=', Carbon::parse($startDate)->format('Y-m-d'));
+            }
+            if ($endDate) {
+                $vacancysQuery->whereDate('vacancy.date_open', '<=', Carbon::parse($endDate)->format('Y-m-d'));
+            }
+
             $vacancys = $vacancysQuery->orderBy('id_vacancy', 'desc')->paginate(10);
+            $vacancys->appends($request->all());
 
             // Membuat Variabel Tanggal Menjadi Lebih Dinamis dengan Tanggal Saat ini
             foreach ($vacancys as $vc) {

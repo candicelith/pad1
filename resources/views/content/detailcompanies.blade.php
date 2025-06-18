@@ -132,7 +132,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             const companyId = window.location.pathname.split('/').pop();
 
-            axios.get(`http://127.0.0.1:8000/api/companies/${companyId}`, {
+            axios.get(`/api/companies/${companyId}`, {
                     withCredentials: true
                 })
                 .then(companyResponse => {

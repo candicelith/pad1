@@ -228,7 +228,7 @@
     {{-- Posts API --}}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            axios.get('http://127.0.0.1:8000/api/posts', {
+            axios.get('/api/posts', {
                     withCredentials: true
                 })
                 .then(response => {
@@ -300,7 +300,7 @@
             const companiesContainer = document.getElementById('companies-container');
 
             // Make API request to get approved companies
-            axios.get('http://127.0.0.1:8000/api/home/top-company')
+            axios.get('/api/home/top-company')
                 .then(response => {
                     // Get companies array from the data property of the response
                     const topCompanies = response.data.data.data; // Access the nested data array

@@ -145,7 +145,7 @@
             const alumniId = window.location.pathname.split('/').pop();
 
             try {
-                const response = await axios.get(`http://127.0.0.1:8000/api/users/${alumniId}/experiences`, {
+                const response = await axios.get(`/api/users/${alumniId}/experiences`, {
                     withCredentials: true
                 });
 

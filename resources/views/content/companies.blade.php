@@ -122,7 +122,7 @@
             // Function to fetch and display companies
             async function fetchAndDisplayCompanies() {
                 try {
-                    const response = await axios.get('http://127.0.0.1:8000/api/companies', {
+                    const response = await axios.get('/api/companies', {
                         withCredentials: true
                     });
 
