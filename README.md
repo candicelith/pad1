@@ -9,27 +9,22 @@
 
 ## Pokari
 
-Website ini sistem digital yang membantu petugas posyandu/puskesmas mencatat data gizi anak secara real-time, aman, dan efisien. Data seperti berat badan, tinggi badan, dan status gizi dapat dicatat dengan mudah, serta tersimpan otomatis sebagai riwayat perkembangan anak tanpa perlu rekap manual. Sistem ini terintegrasi langsung dengan Healthmap, sehingga setiap data yang diinput akan disinkronkan secara otomatis. 
+ntang Pokari
+Sistem informasi alumni sangat dibutuhkan untuk mendukung proses akreditasi program studi, khususnya bagi program studi Teknologi Rekayasa Perangkat Lunak (TRPL). Kehadiran platform ini memudahkan pihak eksternal untuk melihat rekam jejak karir alumni. Dengan melihat pengalaman kerja alumni TRPL di berbagai perusahaan, pihak yang menilai akreditasi dapat memperoleh bukti bahwa lulusan program studi ini memiliki pengalaman karir yang relevan, kompeten, dan luas di bidang teknologi. Hal ini menjadi salah satu indikator penting dalam peningkatan mutu program studi.
+Pokari (Portal Karir Alumni) adalah solusi untuk menghubungkan mahasiswa Teknologi Rekayasa Perangkat Lunak dengan alumninya sekaligus mendukung akreditasi program studi. Portal ini tidak hanya memberikan akses kepada mahasiswa untuk melihat pengalaman kerja alumni, tetapi juga menyediakan informasi mengenai peluang magang dan pekerjaan yang diunggah oleh alumni. Dengan demikian, portal ini diharapkan dapat membantu mahasiswa dalam mendapatkan kesempatan karir yang lebih baik, serta memperkuat citra dan kualitas lulusan di mata lembaga akreditasi dan industri.
 
 ## Features
 
-* Authentikasi dan Otorisasi: Pengguna dapat melakukan sign up, login, dan logout untuk mengakses sistem.
-* Visualisasi data gizi anak: Pie chart akan menampilkan  proporsi anak dengan gizi buruk dan anak yang memenuhi asupan gizi dalam suatu posyandu.
-* Dashboard: Sistem menampilkan jumlah data anak yang terdaftar.
-* Tabel Data Anak:
-    * Menampilkan seluruh data anak.
-    * Menmbah data anak.
-    * Memperbarui data anak.
-    * menghapus data anak.
-* Tabel Data Gizi Anak:
-    * Menampilkan seluruh data gizi anak.
-    * Menmbah data gizi anak.
-    * Memperbarui data gizi anak.
-    * menghapus data gizi anak.
+* Authentikasi dan Otorisasi: Pengguna dapat melakukan Register, Login, dan Logout untuk mengakses sistem.
+* Home Page: Pengguna dapat melihat 2 post lowongan pekerjaan terbaru dan 5 perusahaan dengan alumni terbanyak.
+* Posts: Pengguna dapat melihat daftar post lowongan pekerjaan. Pengguna dengan role Alumni dapat mengunggah post lowongan pekerjaan.
+* Alumni: Pengguna dapat melihat daftar alumni dan pengalaman bekerja alumni.
+* Companies: Pengguna dapat melihat daftar perusahaan beserta alumni yang bekerja.
+* Profile: Pengguna dapat melihat informasi profil. Pengguna dengan role Alumni dapat mengubah profilnya dan menambah pengalaman bekerja.
 
 ## Technologies Used
 
-* Framework: Laravel 11, Tailwind v4.1
+* Framework: Laravel 10, Tailwind
 * Library: Flowbite, ApexChart
 * Bahasa Pemrograman: PHP, JavaScript
 * UI/UX: Figma
