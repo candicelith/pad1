@@ -7,60 +7,96 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+## Pokari
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Website ini sistem digital yang membantu petugas posyandu/puskesmas mencatat data gizi anak secara real-time, aman, dan efisien. Data seperti berat badan, tinggi badan, dan status gizi dapat dicatat dengan mudah, serta tersimpan otomatis sebagai riwayat perkembangan anak tanpa perlu rekap manual. Sistem ini terintegrasi langsung dengan Healthmap, sehingga setiap data yang diinput akan disinkronkan secara otomatis. 
 
--   [Simple, fast routing engine](https://laravel.com/docs/routing).
--   [Powerful dependency injection container](https://laravel.com/docs/container).
--   Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
--   Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
--   Database agnostic [schema migrations](https://laravel.com/docs/migrations).
--   [Robust background job processing](https://laravel.com/docs/queues).
--   [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+* Authentikasi dan Otorisasi: Pengguna dapat melakukan sign up, login, dan logout untuk mengakses sistem.
+* Visualisasi data gizi anak: Pie chart akan menampilkan  proporsi anak dengan gizi buruk dan anak yang memenuhi asupan gizi dalam suatu posyandu.
+* Dashboard: Sistem menampilkan jumlah data anak yang terdaftar.
+* Tabel Data Anak:
+    * Menampilkan seluruh data anak.
+    * Menmbah data anak.
+    * Memperbarui data anak.
+    * menghapus data anak.
+* Tabel Data Gizi Anak:
+    * Menampilkan seluruh data gizi anak.
+    * Menmbah data gizi anak.
+    * Memperbarui data gizi anak.
+    * menghapus data gizi anak.
 
-## Learning Laravel
+## Technologies Used
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+* Framework: Laravel 11, Tailwind v4.1
+* Library: Flowbite, ApexChart
+* Bahasa Pemrograman: PHP, JavaScript
+* UI/UX: Figma
+* Tools General : Draw.io, Google tools, Github, VSCode
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Penggunaan
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Sign Up dan Login
+1. Buka halaman utama HealthMap.
+2. Apbila belum terdaftar, klik tombol "Sign Up" untuk membuat akun baru.
+3. Apabila sudah memiliki akun, login menggunakan akun yang sudah terdaftar untuk mengakses sistem.
 
-## Laravel Sponsors
+### Melihat Dashboard
+1. Masuk ke dashboard utama setelah login.
+2. Pahami data di posyandu dengan melihat pie chart.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### Melihat Data Anak
+1. Masuk ke menu Data Anak.
+2. Lihat tabel yang tersedia.
+   
+### Menambah Data Anak
+1. Masuk ke menu Data Anak.
+2. Klik tombol 'Tambah Data'
+3. Isi form sesuai ketentuan.
+   
+### Memperbarui Data Anak
+1. Masuk ke menu Data Anak.
+2. Klik icon berbentuk pensil di kolom terakhir pada tabel.
+3. Isi form sesuai ketentuan.
+   
+### Menghapus Data Anak
+1. Masuk ke menu Data Anak.
+2. Klik icon berbentuk tempat sampah di kolom terakhir pada tabel.
 
-### Premium Partners
+### Melihat Data Gizi
+1. Masuk ke menu Data Gizi.
+2. Lihat tabel yang tersedia.
+   
+### Menambah Data Gizi
+1. Masuk ke menu Data Gizi.
+2. Klik tombol 'Tambah Data'
+3. Isi form sesuai ketentuan.
+   
+### Memperbarui Data Gizi
+1. Masuk ke menu Data Gizi.
+2. Klik icon berbentuk pensil di kolom terakhir pada tabel.
+3. Isi form sesuai ketentuan.
+   
+### Menghapus Data Gizi
+1. Masuk ke menu Data Gizi.
+2. Klik icon berbentuk tempat sampah di kolom terakhir pada tabel.
 
--   **[Vehikl](https://vehikl.com/)**
--   **[Tighten Co.](https://tighten.co)**
--   **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
--   **[64 Robots](https://64robots.com)**
--   **[Cubet Techno Labs](https://cubettech.com)**
--   **[Cyber-Duck](https://cyber-duck.co.uk)**
--   **[Many](https://www.many.co.uk)**
--   **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
--   **[DevSquad](https://devsquad.com)**
--   **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
--   **[OP.GG](https://op.gg)**
--   **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
--   **[Lendio](https://lendio.com)**
+## Lisensi
 
-## Contributing
+Proyek ini dilisensikan di bawah [MIT license](https://opensource.org/licenses/MIT).
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Kontak
 
-## Code of Conduct
+Kelompok 2, Portal Karir Alumni
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Anggota Kelompok:
 
-## Security Vulnerabilities
+    1. Syafira Naila Affani (23/522372/SV/23675)             
+    2. Muh. Naufal Daffachri (23/522227/SV/23636)
+    3. Irene Talitha Tyas Raharjo (23/515223/SV/22503)
+    4. M. Mustafa Fagan (23/523246/SV/23875)    
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+<b>Program Studi Teknologi Rekayasa Perangkat Lunak</b><br>
+<b>Sekolah Vokasi</b><br>
+<b>Universitas Gadjah Mada</b><br>
