@@ -682,6 +682,20 @@
                         `/storage/company/${companyPicture || 'default_company.png'}`;
                 }
 
+                // Handle vacancy picture URL
+                let vacancyPicture = vacancy.vacancy_picture;
+                let vacancyPictureUrl;
+
+                if (!vacancyPicture || vacancyPicture === 'default-vacancy.jpg') {
+                    vacancyPictureUrl = '/storage/vacancies/default-vacancy.jpg';
+                } else if (vacancyPicture.startsWith('http')) {
+                    vacancyPictureUrl = vacancyPicture;
+                } else {
+                    // Remove any existing path segments and just use the filename
+                    const filename = vacancyPicture.split('/').pop();
+                    vacancyPictureUrl = `/storage/vacancies/${filename}`;
+                }
+
                 // Create the HTML structure
                 const vacancyHTML = `
             <div class="flex flex-col lg:flex-row lg:space-x-8">
@@ -732,9 +746,9 @@
                     </div>
                 </div>
                 <div>
-                    <img src="${vacancy.vacancy_picture ?? 'default-vacancy.jpg'}"
-                            alt="Vacancy image"
-                            class="mt-4 rounded-lg shadow-md max-w-full" />
+                    <img src="${vacancyPictureUrl}"
+                        alt="Vacancy image"
+                        class="mt-4 rounded-lg shadow-md max-w-full" />
                 </div>
             </div>
         `;
@@ -905,11 +919,11 @@
                             </span>
 
                             ${repliesCount > 0 ? `
-                                                                                    <span class="show-all-replies text-cyan-600 cursor-pointer text-xs hover:underline"
-                                                                                        data-comment-id="${comment.id_comment}">
-                                                                                        Show replies (${repliesCount})
-                                                                                    </span>
-                                                                                ` : ''}
+                                                                                                            <span class="show-all-replies text-cyan-600 cursor-pointer text-xs hover:underline"
+                                                                                                                data-comment-id="${comment.id_comment}">
+                                                                                                                Show replies (${repliesCount})
+                                                                                                            </span>
+                                                                                                        ` : ''}
                         </div>
                     </div>
                 </div>

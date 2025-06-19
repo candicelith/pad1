@@ -310,14 +310,35 @@ class AdminController extends Controller
     public function getChartData()
     {
         $queryData = DB::table('user_details')
-            ->selectRaw('entry_year AS x, COUNT(*) AS y')
-            ->whereNotNull('entry_year')
-            ->groupBy('entry_year')
-            ->orderBy('entry_year')
+            ->join('users', 'user_details.id_users', '=', 'users.id_users')
+            ->selectRaw('user_details.entry_year AS x, COUNT(*) AS y')
+            ->whereNotNull('user_details.entry_year')
+            ->where('users.id_roles', 2) // Filter hanya role ID 2
+            ->groupBy('user_details.entry_year')
+            ->orderBy('user_details.entry_year')
             ->get();
 
-        return response()->json($queryData); // Return data as JSON for frontend
+        return response()->json($queryData);
     }
+
+    public function getChartUserData()
+    {
+        $queryData = DB::table('users')
+            ->selectRaw("DATE_FORMAT(updated_at, \"%b'%y\") AS x, COUNT(*) AS y, DATE_FORMAT(updated_at, '%Y-%m') AS sort_order")
+            ->whereNotNull('updated_at')
+            ->groupByRaw("x, sort_order")
+            ->orderByRaw("sort_order")
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'x' => $item->x,
+                    'y' => $item->y
+                ];
+            });
+
+        return response()->json($queryData);
+    }
+
 
     public function handleApproval(Request $request, string $id)
     {
@@ -441,7 +462,7 @@ successfully updated.',
             $company->save();
         }
 
-        return redirect()->back()->with('success', 'Company created successfully.');
+        return redirect()->back()->with('success', 'Company added successfully!');
     }
 
     public function updateCompany(Request $request, string $id)

@@ -119,15 +119,14 @@
     {{-- Company API --}}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Function to fetch and display companies
             async function fetchAndDisplayCompanies() {
                 try {
-                    const response = await axios.get('http://127.0.0.1:8000/api/companies', {
+                    const response = await axios.get('/api/companies', {
                         withCredentials: true
                     });
 
                     const companiesContainer = document.getElementById('companies-card');
-                    const companies = response.data.data; // Assuming paginated response
+                    const companies = response.data.data;
 
                     if (!companies || companies.length === 0) {
                         companiesContainer.innerHTML = '<p class="text-center py-4">No companies available</p>';
@@ -136,37 +135,46 @@
 
                     let companiesHTML = '';
                     companies.forEach(company => {
-                        // Handle company picture URL
+                        // Handle company picture URL - without changing backend logic
                         let companyPicture = company.company_picture;
-                            if (companyPicture ===
-                                'https://picsum.photos/id/870/200/300?grayscale&blur=2') {
-                                companyPicture = '/storage/company/default_company.png';
-                            } else if (!companyPicture.startsWith('http')) {
-                                companyPicture =
-                                    `/storage/company/${companyPicture || 'default_company.png'}`;
-                            }
+
+                        // If no picture or default placeholder, use our default image
+                        if (!companyPicture ||
+                            companyPicture ===
+                            'https://picsum.photos/id/870/200/300?grayscale&blur=2' ||
+                            companyPicture === 'default_company.png') {
+                            companyPicture = '/storage/company/default_company.png';
+                        }
+                        // If it's a custom image but not a full URL
+                        else if (!companyPicture.startsWith('http') && !companyPicture.startsWith(
+                                '/storage')) {
+                            companyPicture = `/storage/company/${companyPicture}`;
+                        }
+                        // Otherwise use whatever URL is provided by the backend
+
                         companiesHTML += `
-                            <a href="/companies/detail/${company.id}"
-                                class="company-card w-full max-w-sm cursor-pointer rounded-lg border border-gray-200 bg-lightblue shadow-md"
-                                data-name="${company.company_name.toLowerCase()}">
-                                <div>
-                                    <div class="flex flex-col items-center px-8 py-8 text-center">
-                                        <img class="mb-3 h-24 w-24 rounded-full shadow-lg"
-                                            src="${companyPicture}"
-                                            alt="${company.company_name}" />
-                                        <h2 class="mb-1 text-2xl text-cyan">
-                                            ${company.company_name || 'Unnamed Company'}
-                                        </h2>
-                                        <h3 class="mb-1 text-base text-cyan">
-                                            ${company.company_field || 'Field not specified'}
-                                        </h3>
-                                        <h4 class="text-sm text-gray-400">
-                                            ${company.company_address || 'Address not available'}
-                                        </h4>
-                                    </div>
-                                </div>
-                            </a>
-                        `;
+                    <a href="/companies/detail/${company.id}"
+                        class="company-card w-full max-w-sm cursor-pointer rounded-lg border border-gray-200 bg-lightblue shadow-md"
+                        data-name="${company.company_name.toLowerCase()}">
+                        <div>
+                            <div class="flex flex-col items-center px-8 py-8 text-center">
+                                <img class="mb-3 h-24 w-24 rounded-full shadow-lg"
+                                    src="${companyPicture}"
+                                    alt="${company.company_name}"
+                                    onerror="this.onerror=null;this.src='/storage/company/default_company.png'"/>
+                                <h2 class="mb-1 text-2xl text-cyan">
+                                    ${company.company_name || 'Unnamed Company'}
+                                </h2>
+                                <h3 class="mb-1 text-base text-cyan">
+                                    ${company.company_field || 'Field not specified'}
+                                </h3>
+                                <h4 class="text-sm text-gray-400">
+                                    ${company.company_address || 'Address not available'}
+                                </h4>
+                            </div>
+                        </div>
+                    </a>
+                `;
                     });
 
                     companiesContainer.innerHTML = companiesHTML;
@@ -177,7 +185,6 @@
                 }
             }
 
-            // Initial fetch
             fetchAndDisplayCompanies();
         });
     </script>

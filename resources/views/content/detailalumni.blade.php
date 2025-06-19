@@ -145,7 +145,7 @@
             const alumniId = window.location.pathname.split('/').pop();
 
             try {
-                const response = await axios.get(`http://127.0.0.1:8000/api/users/${alumniId}/experiences`, {
+                const response = await axios.get(`/api/users/${alumniId}/experiences`, {
                     withCredentials: true
                 });
 
@@ -165,20 +165,20 @@
                         `
                             <div class="grid justify-items-center gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:gap-2">
                                 ${job.related_alumni.map(alumni => `
-                                <a class="alumni-card w-full max-w-sm cursor-pointer rounded-lg border border-gray-200 bg-lightblue shadow-md transition-shadow duration-300 hover:shadow-lg"
-                                href="/alumni/${alumni.id_userDetails}">
-                                    <div class="flex flex-col items-center p-4 text-center">
-                                        <div class="mb-3 flex w-full justify-end px-2 text-gray-400">
-                                            <span class="text-sm">${alumni.graduate_year}</span>
+                                    <a class="alumni-card w-full max-w-sm cursor-pointer rounded-lg border border-gray-200 bg-lightblue shadow-md transition-shadow duration-300 hover:shadow-lg"
+                                    href="/alumni/${alumni.id_userDetails}">
+                                        <div class="flex flex-col items-center p-4 text-center">
+                                            <div class="mb-3 flex w-full justify-end px-2 text-gray-400">
+                                                <span class="text-sm">${alumni.graduate_year}</span>
+                                            </div>
+                                            <img class="mb-3 h-20 w-20 rounded-full object-cover shadow-lg"
+                                                src="/storage/profile/${alumni.profile_photo}" alt="${alumni.name}" />
+                                            <h2 class="mb-1 text-xl text-cyan">${alumni.name}</h2>
+                                            <h3 class="text-sm text-cyan">${alumni.current_job}</h3>
+                                            <h4 class="text-xs text-gray-500">${alumni.current_company}</h4>
                                         </div>
-                                        <img class="mb-3 h-20 w-20 rounded-full object-cover shadow-lg"
-                                            src="/storage/profile/${alumni.profile_photo}" alt="${alumni.name}" />
-                                        <h2 class="mb-1 text-xl text-cyan">${alumni.name}</h2>
-                                        <h3 class="text-sm text-cyan">${alumni.current_job}</h3>
-                                        <h4 class="text-xs text-gray-500">${alumni.current_company}</h4>
-                                    </div>
-                                </a>
-                            `).join('')}
+                                    </a>
+                                `).join('')}
                             </div>
                         ` : `
                             <div class="py-6 text-center">
@@ -230,7 +230,7 @@
                         <div class="mt-4">
                             <h2 class="text-xl text-cyan sm:text-2xl">${user.name}</h2>
                             <h3 class="text-md text-cyan sm:text-lg">
-                                ${user.current_job}, ${user.current_company}
+                                ${user.current_job ?? 'Job not specified'}, ${user.current_company ?? 'Company not specified'}
                             </h3>
                         </div>
                     </div>
@@ -238,7 +238,7 @@
                     <div class="mt-8 space-y-4">
                         <h4 class="text-lg text-cyan sm:text-xl">About</h4>
                         <p class="sm:text-md text-sm text-cyan sm:text-justify">
-                            ${user.user_description || '-'}
+                            ${user.user_description ?? '-'}
                         </p>
                     </div>
 

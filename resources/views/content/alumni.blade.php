@@ -142,7 +142,7 @@
             // Function to fetch and display all alumni (including those without complete details)
             async function fetchAndDisplayAlumni() {
                 try {
-                    const response = await axios.get('http://127.0.0.1:8000/api/users/alumni', {
+                    const response = await axios.get('/api/users/alumni', {
                         withCredentials: true
                     });
 

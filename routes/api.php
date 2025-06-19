@@ -26,6 +26,7 @@ use App\Http\Controllers\CompanyController;
 
 // Fetch Alumni Data By Graduate Count
 Route::get('/alumni-data', [AdminController::class, 'getChartData']);
+Route::get('/user-data', [AdminController::class, 'getChartUserData']);
 
 // Rute Publik
 Route::get('/home/top-company', [CompanyControllerAPI::class, 'getTopCompany']);
