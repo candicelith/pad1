@@ -30,7 +30,7 @@ class NewsControllerAPI extends Controller
         $request->validate([
             'heading' => 'required|string|max:255',
             'description' => 'required|string',
-            'cover_page' => 'required|string'
+            'banner_image' => 'required|img'
         ]);
 
         $news = News::create([

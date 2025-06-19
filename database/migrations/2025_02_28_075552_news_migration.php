@@ -15,7 +15,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('heading');
             $table->string('description');
-            $table->string('cover_page');
+            $table->string('banner_image');
             $table->timestamps();
         });
     }

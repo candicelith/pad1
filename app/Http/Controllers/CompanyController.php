@@ -262,9 +262,9 @@ class CompanyController extends Controller
                 'message' => 'Company Anda berhasil diverifikasi. Data telah ditambahkan!.',
             ]);
 
-            return redirect()->route('admin.home')->with('success', "Company '{$company->company_name}' approved.");
+            return redirect()->route('admin.home')->with('approved', "Company '{$company->company_name}' approved.");
         }
-        return redirect()->route('admin.home')->with('error', "Company '{$company->company_name}' is not pending approval.");
+        return redirect()->route('admin.home')->with('rejected', "Company '{$company->company_name}' is not pending approval.");
     }
 
     // Method to reject a company
@@ -286,9 +286,9 @@ class CompanyController extends Controller
             ]);
 
             $company->delete();
-            return redirect()->route('admin.home')->with('success', "Company '{$company->company_name}' rejected.");
+            return redirect()->route('admin.home')->with('approved', "Company '{$company->company_name}' rejected.");
         }
-        return redirect()->route('admin.home')->with('error', "Company '{$company->company_name}' is not pending approval.");
+        return redirect()->route('admin.home')->with('rejected', "Company '{$company->company_name}' is not pending approval.");
     }
 
 }
