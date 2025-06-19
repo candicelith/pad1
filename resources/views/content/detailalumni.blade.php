@@ -210,14 +210,14 @@
                                 </div>
                                 <div class="scrollbar-modal max-h-96 space-y-4 overflow-y-auto">
                                     <h4 class="mt-4 text-lg text-white">Alumni with the same experience:</h4>
-                                    ${alumniList}
+                                    ${alumniList ?? 'No alumni found with this job experience.'}
                                 </div>
                             </div>
 
                             <h3 class="text-base text-cyan sm:text-lg">${job.company_name ?? 'Company not specified'}</h3>
                             <p class="text-xs text-gray-400 sm:text-sm">${job.date_start} - ${job.date_end}</p>
                             <ol class="ms-4 list-outside list-disc text-sm sm:text-base">
-                                ${descriptions}
+                                ${descriptions ?? 'No job descriptions available'}
                             </ol>
                         </li>
                     `;
@@ -245,7 +245,7 @@
                     <div class="flex flex-col space-y-4 pt-5">
                         <h4 class="text-lg text-cyan sm:text-xl">Experience</h4>
                         <ol class="relative ms-4 border-s border-gray-900">
-                            ${jobHTML}
+                            ${jobHTML ?? 'Not available'}
                         </ol>
                     </div>
                 `;
