@@ -589,7 +589,11 @@
                     const posts = response.data.data;
 
                     if (!posts || posts.length === 0) {
-                        postsContainer.innerHTML = '<p class="text-center py-4">No vacancies available</p>';
+                        let message = 'No vacancies available';
+                        if (filter === 'my_posts' || filter === 'my_commented_posts') {
+                            message = 'No vacancies available for this filter';
+                        }
+                        postsContainer.innerHTML = `<p class="text-center py-4">${message}</p>`;
                         return;
                     }
 
@@ -598,32 +602,32 @@
                         const profilePhoto = post.profile_photo || 'default_profile.png';
 
                         return `
-                <a href="/posts/detail/${post.id_vacancy}" class="post-card">
-                    <div class="mt-3 grid space-y-4 lg:grid-cols-1">
-                        <article class="cursor-pointer rounded-lg border border-gray-200 bg-lightblue p-6 shadow-[0px_2px_3px_0px_rgba(0,0,0,0.30)]">
-                            <div class="mb-5 flex items-center justify-between text-gray-400">
-                                <span class="ml-auto text-xs sm:text-sm">${dateDiffText}</span>
-                            </div>
-                            <div class="flex flex-col lg:flex-row lg:space-x-8">
-                                <div class="flex-shrink-0">
-                                    <img class="h-20 w-20 rounded-full object-cover"
-                                         src="/storage/profile/${profilePhoto}"
-                                         alt="${post.name}" />
+                            <a href="/posts/detail/${post.id_vacancy}" class="post-card">
+                                <div class="mt-3 grid space-y-4 lg:grid-cols-1">
+                                    <article class="cursor-pointer rounded-lg border border-gray-200 bg-lightblue p-6 shadow-[0px_2px_3px_0px_rgba(0,0,0,0.30)]">
+                                        <div class="mb-5 flex items-center justify-between text-gray-400">
+                                            <span class="ml-auto text-xs sm:text-sm">${dateDiffText}</span>
+                                        </div>
+                                        <div class="flex flex-col lg:flex-row lg:space-x-8">
+                                            <div class="flex-shrink-0">
+                                                <img class="h-20 w-20 rounded-full object-cover"
+                                                     src="/storage/profile/${profilePhoto}"
+                                                     alt="${post.name}" />
+                                            </div>
+                                            <div class="mt-4 lg:mt-0">
+                                                <h2 class="post-title mb-2 text-xl tracking-tight text-cyan sm:text-2xl">
+                                                    ${post.position}
+                                                </h2>
+                                                <h2 class="post-company mb-2 text-base tracking-tight text-cyan sm:text-xl">
+                                                    ${post.company_name}
+                                                </h2>
+                                                <p class="post-author text-sm text-gray-400 sm:text-lg">Posted by ${post.name}</p>
+                                            </div>
+                                        </div>
+                                    </article>
                                 </div>
-                                <div class="mt-4 lg:mt-0">
-                                    <h2 class="post-title mb-2 text-xl tracking-tight text-cyan sm:text-2xl">
-                                        ${post.position}
-                                    </h2>
-                                    <h2 class="post-company mb-2 text-base tracking-tight text-cyan sm:text-xl">
-                                        ${post.company_name}
-                                    </h2>
-                                    <p class="post-author text-sm text-gray-400 sm:text-lg">Posted by ${post.name}</p>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                </a>
-            `;
+                            </a>
+                        `;
                     }).join('');
 
                     postsContainer.innerHTML = postsHTML;
@@ -631,15 +635,15 @@
                     // Render pagination (add this after posts)
                     if (response.data.meta) {
                         const paginationHTML = `
-                    <div class="pagination mt-8 flex justify-center">
-                        ${response.data.links.map(link => `
-                                    <a href="${link.url || '#'}"
-                                       class="mx-1 rounded px-4 py-2 ${link.active ? 'bg-cyan-500 text-white' : 'bg-white text-gray-800'}">
-                                        ${link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
-                                    </a>
-                                `).join('')}
-                    </div>
-                `;
+                            <div class="pagination mt-8 flex justify-center">
+                                ${response.data.links.map(link => `
+                                        <a href="${link.url || '#'}"
+                                           class="mx-1 rounded px-4 py-2 ${link.active ? 'bg-cyan-500 text-white' : 'bg-white text-gray-800'}">
+                                            ${link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
+                                        </a>
+                                    `).join('')}
+                            </div>
+                        `;
                         postsContainer.insertAdjacentHTML('beforeend', paginationHTML);
 
                         // Set up pagination event listeners
