@@ -246,7 +246,7 @@ class PostController extends Controller
 
         $post->delete();
 
-        return redirect()->back()->with('success', 'Lamaran berhasil dihapus.');
+        return redirect()->back()->with('success', 'CV successfully deleted!');
     }
 
 }

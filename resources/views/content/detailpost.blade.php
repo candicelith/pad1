@@ -82,7 +82,7 @@
             <div class="mx-2.5 flex flex-col items-start sm:flex-row lg:mx-0">
 
                 {{-- Back Button --}}
-                <button class="mb-2 sm:mb-0" onclick="handleBack()">
+                <button class="mb-2 sm:mb-0" onclick="backToPosts()">
                     <svg class="h-8 w-8 text-gray-800 sm:h-16 sm:w-16" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                         width="24" height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -91,14 +91,8 @@
                 </button>
                 {{-- Script for Handling Back Button --}}
                 <script>
-                    function handleBack() {
-                        // Check if there is a previous page in history
-                        if (document.referrer) {
-                            window.history.back();
-                        } else {
-                            // Redirect to the specified route if no previous page
-                            window.location.href = "{{ route('posts') }}";
-                        }
+                    function backToPosts() {
+                        window.location.href = "{{ route('posts') }}";
                     }
                 </script>
 
