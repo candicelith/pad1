@@ -56,7 +56,7 @@
                                                     placeholder="Type the alumni’s name" required="">
                                             </div>
                                             <div class="col-span-2">
-                                                <label for="nim" class="mb-2 block text-sm text-cyan sm:text-2xl">NIM
+                                                <label for="nim" class="mb-2 block text-sm text-cyan sm:text-2xl">NIU
                                                     <span
                                                         class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
                                                 <input type="text" name="nim" id="nim"

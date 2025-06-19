@@ -18,6 +18,66 @@
     </style>
 
     <section class="mt-20 bg-white sm:mt-28">
+        @if (session('success'))
+            <style>
+                @keyframes slideDownFade {
+                    0% {
+                        transform: translateY(-100%);
+                        opacity: 0;
+                    }
+
+                    100% {
+                        transform: translateY(0);
+                        opacity: 1;
+                    }
+                }
+
+                @keyframes slideUpFade {
+                    0% {
+                        transform: translateY(0);
+                        opacity: 1;
+                    }
+
+                    100% {
+                        transform: translateY(-100%);
+                        opacity: 0;
+                    }
+                }
+
+                .animate-slide-in {
+                    animation: slideDownFade 0.4s ease-out forwards;
+                }
+
+                .animate-slide-out {
+                    animation: slideUpFade 0.4s ease-in forwards;
+                }
+            </style>
+
+            <div id="success-alert-wrapper" class="fixed left-0 right-0 top-0 z-50 flex items-center justify-center p-4">
+                <div id="success-alert"
+                    class="animate-slide-in w-full max-w-md rounded-lg bg-lightgreen p-4 text-green-800 shadow-lg">
+                    <div class="flex items-center justify-center">
+                        <span class="text-center">{{ session('success') }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                setTimeout(() => {
+                    const alert = document.getElementById('success-alert');
+                    if (alert) {
+                        alert.classList.remove('animate-slide-in');
+                        alert.classList.add('animate-slide-out');
+
+                        setTimeout(() => {
+                            const wrapper = document.getElementById('success-alert-wrapper');
+                            if (wrapper) wrapper.remove();
+                        }, 400); // match slide-out duration
+                    }
+                }, 1500); // visible for 1.5s before animating out
+            </script>
+        @endif
+
         <div class="mx-auto max-w-screen-xl py-8 lg:px-6 lg:py-16">
             <div class="mx-2.5 flex flex-col items-start sm:flex-row lg:mx-0">
 
@@ -277,7 +337,7 @@
                                             // Sembunyikan toast setelah 5 detik
                                             setTimeout(() => {
                                                 toast.classList.add('hidden');
-                                            }, 5000);
+                                            }, 10000);
                                         });
                                     });
 
@@ -919,11 +979,11 @@
                             </span>
 
                             ${repliesCount > 0 ? `
-                                                                                                            <span class="show-all-replies text-cyan-600 cursor-pointer text-xs hover:underline"
-                                                                                                                data-comment-id="${comment.id_comment}">
-                                                                                                                Show replies (${repliesCount})
-                                                                                                            </span>
-                                                                                                        ` : ''}
+                                                                                                                                            <span class="show-all-replies text-cyan-600 cursor-pointer text-xs hover:underline"
+                                                                                                                                                data-comment-id="${comment.id_comment}">
+                                                                                                                                                Show replies (${repliesCount})
+                                                                                                                                            </span>
+                                                                                                                                        ` : ''}
                         </div>
                     </div>
                 </div>

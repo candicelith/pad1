@@ -181,7 +181,8 @@
                                         <span class="-mt-1 mb-1 block text-sm text-cyan-100">This feature is only available to
                                             users with experience at a company they have worked for.</span>
                                         <select name="company" id="company"
-                                            class="@error('company') border-red-500 @else border-gray-300 @enderror w-full rounded-full border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan">
+                                            class="@error('company') border-red-500 @else border-gray-300 @enderror w-full rounded-full border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
+                                            required>
                                             <option value="" disabled {{ old('company') ? '' : 'selected' }}>Select a
                                                 company</option>
                                             @foreach ($companies as $company)
@@ -203,7 +204,7 @@
                                         </label>
                                         <textarea name="vacancy_description" id="vacancy_description"
                                             class="@error('vacancy_description') border-red-500 @else border-gray-300 @enderror w-full rounded-xl border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
-                                            placeholder="Enter content">{{ old('vacancy_description') }}</textarea>
+                                            placeholder="Enter content" required>{{ old('vacancy_description') }}</textarea>
                                         @error('vacancy_description')
                                             <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                                         @enderror
@@ -216,7 +217,8 @@
                                         </label>
                                         <input type="date" name="start_date" id="start_date"
                                             value="{{ old('start_date') }}"
-                                            class="@error('start_date') border-red-500 @else border-gray-300 @enderror w-full rounded-full border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan">
+                                            class="@error('start_date') border-red-500 @else border-gray-300 @enderror w-full rounded-full border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
+                                            required>
                                         @error('start_date')
                                             <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                                         @enderror
@@ -228,7 +230,8 @@
                                                 class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
                                         </label>
                                         <input type="date" name="end_date" id="end_date" value="{{ old('end_date') }}"
-                                            class="@error('end_date') border-red-500 @else border-gray-300 @enderror w-full rounded-full border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan">
+                                            class="@error('end_date') border-red-500 @else border-gray-300 @enderror w-full rounded-full border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
+                                            required>
                                         @error('end_date')
                                             <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                                         @enderror
@@ -245,7 +248,7 @@
                                                     <input id="responsibility" type="text" name="vacancy_responsibility[]"
                                                         value="{{ $responsibility }}"
                                                         class="@error('vacancy_responsibility.' . $index) border-red-500 @else border-gray-300 @enderror w-full rounded-full border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
-                                                        placeholder="Enter responsibility" />
+                                                        placeholder="Enter responsibility" required />
                                                     <button type="button"
                                                         class="remove-responsibility ml-2 rounded-xl border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2"
                                                         style="{{ $loop->first && !old('vacancy_responsibility') ? 'display: none;' : '' }}">Remove</button>
@@ -258,7 +261,7 @@
                                                 <div class="responsibility-item mb-2 flex items-center">
                                                     <input id="responsibility" type="text" name="vacancy_responsibility[]"
                                                         class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
-                                                        placeholder="Enter responsibility" />
+                                                        placeholder="Enter responsibility" required />
                                                     <button type="button"
                                                         class="remove-responsibility ml-2 rounded-xl border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2"
                                                         style="display: none;">Remove</button>
@@ -637,11 +640,11 @@
                         const paginationHTML = `
                             <div class="pagination mt-8 flex justify-center">
                                 ${response.data.links.map(link => `
-                                        <a href="${link.url || '#'}"
-                                           class="mx-1 rounded px-4 py-2 ${link.active ? 'bg-cyan-500 text-white' : 'bg-white text-gray-800'}">
-                                            ${link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
-                                        </a>
-                                    `).join('')}
+                                                                <a href="${link.url || '#'}"
+                                                                   class="mx-1 rounded px-4 py-2 ${link.active ? 'bg-cyan-500 text-white' : 'bg-white text-gray-800'}">
+                                                                    ${link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
+                                                                </a>
+                                                            `).join('')}
                             </div>
                         `;
                         postsContainer.insertAdjacentHTML('beforeend', paginationHTML);

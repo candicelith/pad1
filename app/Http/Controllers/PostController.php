@@ -227,7 +227,7 @@ class PostController extends Controller
             'status' => 'pending'
         ]);
 
-        return redirect()->route('posts.detail', $id)->with('success', 'Berhasil mengirim lamaran');
+        return redirect()->route('posts.detail', $id)->with('success', 'CV uploaded! Your application is now in review.');
     }
 
     public function deleteApply(string $id)
