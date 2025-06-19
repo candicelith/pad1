@@ -54,25 +54,29 @@ class AdminService
             )
             ->findOrFail($id);
 
-        $jobDetails = JobTracking::with(['job', 'job.company'])
-            ->where('id_userDetails', $userDetails->id_userDetails)
-            ->select('job_tracking.*')
-            ->orderBy('id_tracking', 'desc')
+            $jobDetails = DB::table('job_tracking')
+            ->join('jobs', 'job_tracking.id_jobs', '=', 'jobs.id_jobs')
+            ->leftJoin('company', 'jobs.id_company', '=', 'company.id_company')
+            ->where('job_tracking.id_userDetails', $userDetails->id_userDetails)
+            ->select(
+                'job_tracking.*',
+                'jobs.job_name',
+                'company.*',
+                DB::raw('COALESCE(YEAR(job_tracking.date_end), "Now") as date_end'),
+                DB::raw('COALESCE(YEAR(job_tracking.date_start), "Now") as date_start')
+            )
+            ->orderBy('job_tracking.id_tracking', 'desc')
             ->get()
-            ->map(function ($jobTracking) {
-                $jobTracking->date_end_year = $jobTracking->date_end ? date('Y', strtotime($jobTracking->date_end)) : "Now";
-                $jobTracking->date_start_year = $jobTracking->date_start ? date('Y', strtotime($jobTracking->date_start)) : "Now";
-
-                if (isset($jobTracking->job_description) && is_string($jobTracking->job_description)) {
-                    $jobTracking->job_description = json_decode($jobTracking->job_description, true);
-                }
-
-                return $jobTracking;
+            ->map(function ($job) {
+                // Decode job_description if it's stored as a JSON string
+                $job->job_description = json_decode($job->job_description, true);
+                return $job;
             });
 
         $companies = Cache::remember('all_companies', now()->addHours(1), function () {
             return Company::all();
         });
+
 
         return [
             'userDetails' => $userDetails,

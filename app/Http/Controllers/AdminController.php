@@ -515,7 +515,7 @@ class AdminController extends Controller
         $this->adminService->clearCaches('company', $id);
         $this->adminService->clearCaches('company');
 
-        return redirect()->back()->with('rejected','Successfully Deleted Company Data!');
+        return redirect()->back()->with('approved','Successfully Deleted Company Data!');
     }
 
     public function getNews()
@@ -592,6 +592,6 @@ class AdminController extends Controller
 
         $news->delete();
 
-        return redirect()->back()->with('rejected', 'News has been deleted.');
+        return redirect()->back()->with('approved', 'News has been deleted.');
     }
 }
