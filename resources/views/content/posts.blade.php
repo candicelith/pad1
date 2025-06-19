@@ -176,10 +176,12 @@
                                     </div>
 
                                     <div class="col-span-2 sm:col-span-2">
-                                        <label for="company" class="mb-1 block text-2xl text-cyan">
+                                        <label for="company" class="block text-2xl text-cyan">
                                             Company <span
                                                 class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
                                         </label>
+                                        <span class="-mt-1 mb-1 block text-sm text-cyan-100">This feature is only available to
+                                            users with experience at a company they have worked for.</span>
                                         <select name="company" id="company"
                                             class="@error('company') border-red-500 @else border-gray-300 @enderror w-full rounded-full border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan">
                                             <option value="" disabled {{ old('company') ? '' : 'selected' }}>Select a
@@ -511,10 +513,13 @@
     {{-- Post API --}}
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            let currentFilter = new URLSearchParams(window.location.search).get('filter') || '';
+            // Parse current URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            let currentFilter = urlParams.get('filter') || '';
+            let currentPage = parseInt(urlParams.get('page')) || 1;
 
-            // Fetch posts on load
-            fetchAndDisplayPosts(currentFilter);
+            // Initial fetch with current URL parameters
+            fetchAndDisplayPosts(currentFilter, currentPage);
             updateActiveButton(currentFilter);
 
             // Handle filter button clicks
@@ -525,42 +530,67 @@
                     const url = new URL(this.href);
                     const selectedFilter = url.searchParams.get('filter') || '';
 
-                    // Toggle filter: if the same filter is clicked, remove it
+                    // Reset to page 1 when changing filters
+                    currentPage = 1;
+
+                    // Toggle filter
                     if (selectedFilter === currentFilter) {
                         currentFilter = '';
-                        history.pushState(null, '', window.location
-                            .pathname); // remove filter from URL
                     } else {
                         currentFilter = selectedFilter;
-                        history.pushState(null, '', `?filter=${currentFilter}`);
                     }
 
+                    // Update URL and fetch
+                    updateUrlAndFetch(currentFilter, currentPage);
                     updateActiveButton(currentFilter);
-                    fetchAndDisplayPosts(currentFilter);
                 });
             });
 
-            async function fetchAndDisplayPosts(filter = '') {
+            // Handle backend-rendered pagination clicks
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('.pagination a')) {
+                    e.preventDefault();
+                    const paginationLink = e.target.closest('.pagination a');
+                    const url = new URL(paginationLink.href);
+                    currentPage = parseInt(url.searchParams.get('page')) || 1;
+
+                    // Update URL and fetch
+                    updateUrlAndFetch(currentFilter, currentPage);
+                }
+            });
+
+            // Unified function to update URL and fetch posts
+            function updateUrlAndFetch(filter, page) {
+                let newUrl = window.location.pathname;
+                const params = new URLSearchParams();
+
+                if (filter) params.append('filter', filter);
+                if (page > 1) params.append('page', page);
+
+                if (params.toString()) {
+                    newUrl += `?${params.toString()}`;
+                }
+
+                history.pushState(null, '', newUrl);
+                fetchAndDisplayPosts(filter, page);
+            }
+
+            async function fetchAndDisplayPosts(filter = '', page = 1) {
                 const postsContainer = document.getElementById('post-container');
                 postsContainer.innerHTML = '<p class="text-center py-4 text-gray-500">Loading...</p>';
 
                 try {
-                    console.log('Fetching with filter:', filter); // ✅ Debug filter value
-
                     const response = await axios.get('/api/posts', {
                         params: {
                             filter,
-                            start : '',
-                            end : ''
+                            page // Add page parameter to the request
                         },
                         withCredentials: true
                     });
 
-                    console.log('Response:', response); // ✅ Debug response
-
                     const posts = response.data.data;
 
-                    if (!posts || posts.length === 0 || posts.data.length === 0) {
+                    if (!posts || posts.length === 0) {
                         postsContainer.innerHTML = '<p class="text-center py-4">No vacancies available</p>';
                         return;
                     }
@@ -599,6 +629,24 @@
                     }).join('');
 
                     postsContainer.innerHTML = postsHTML;
+
+                    // Render pagination (add this after posts)
+                    if (response.data.meta) {
+                        const paginationHTML = `
+                    <div class="pagination mt-8 flex justify-center">
+                        ${response.data.links.map(link => `
+                                    <a href="${link.url || '#'}"
+                                       class="mx-1 rounded px-4 py-2 ${link.active ? 'bg-cyan-500 text-white' : 'bg-white text-gray-800'}">
+                                        ${link.label.replace('&laquo;', '«').replace('&raquo;', '»')}
+                                    </a>
+                                `).join('')}
+                    </div>
+                `;
+                        postsContainer.insertAdjacentHTML('beforeend', paginationHTML);
+
+                        // Set up pagination event listeners
+                        setupPaginationListeners();
+                    }
 
                 } catch (error) {
                     console.error('Error fetching posts:', error);

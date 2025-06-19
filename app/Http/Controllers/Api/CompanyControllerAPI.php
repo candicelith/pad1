@@ -79,15 +79,15 @@ class CompanyControllerAPI extends Controller
             "message" => "Succesfuly Fetched Company Data!",
             "company" => $company,
             "workers" => $workers,
-        ],200);
+        ], 200);
     }
 
     public function update(Request $request, string $id)
     {
         $company = Company::findOrFail($id);
 
-        if (Auth::id() !== $company->creator && !(Auth::check() && Auth::user()->id_roles == 1) ) {
-             return response()->json(['message' => 'Forbidden. You do not have permission to update this company.'], 403);
+        if (Auth::id() !== $company->creator && !(Auth::check() && Auth::user()->id_roles == 1)) {
+            return response()->json(['message' => 'Forbidden. You do not have permission to update this company.'], 403);
         }
 
         $validator = Validator::make($request->all(), [
@@ -116,7 +116,7 @@ class CompanyControllerAPI extends Controller
             $data['status'] = $company->status;
         } elseif (Auth::id() === $company->creator && $company->status === 'approved') {
             // Jika creator mengedit perusahaan yang sudah approved, kembalikan statusnya ke pending
-             $data['status'] = 'pending';
+            $data['status'] = 'pending';
         }
 
 
@@ -141,7 +141,7 @@ class CompanyControllerAPI extends Controller
 
         // Kebijakan: Hanya pembuat atau admin yang bisa menghapus
         if (Auth::id() !== $company->creator && !(Auth::check() && Auth::user()->id_roles == 1)) {
-             return response()->json(['message' => 'Forbidden. You do not have permission to delete this company.'], 403);
+            return response()->json(['message' => 'Forbidden. You do not have permission to delete this company.'], 403);
         }
 
         // Hapus gambar dari storage jika ada dan bukan default
@@ -153,7 +153,8 @@ class CompanyControllerAPI extends Controller
 
         return response()->json(['message' => 'Company successfully deleted.'], 200);
     }
-    public function getTopCompany(){
+    public function getTopCompany()
+    {
 
     // Define how long to keep the cache in seconds (e.g., 3600 seconds = 1 hour)
         $cacheDuration = 3600;

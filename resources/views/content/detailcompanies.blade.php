@@ -141,13 +141,13 @@
 
                     // Handle company picture URL
                     let companyPicture = company.company_picture;
-                        if (companyPicture ===
-                            'https://picsum.photos/id/870/200/300?grayscale&blur=2') {
-                            companyPicture = '/storage/company/default_company.png';
-                        } else if (!companyPicture.startsWith('http')) {
-                            companyPicture =
-                                `/storage/company/${companyPicture || 'default_company.png'}`;
-                        }
+                    if (companyPicture ===
+                        'https://picsum.photos/id/870/200/300?grayscale&blur=2') {
+                        companyPicture = '/storage/company/default_company.png';
+                    } else if (!companyPicture.startsWith('http')) {
+                        companyPicture =
+                            `/storage/company/${companyPicture || 'default_company.png'}`;
+                    }
 
                     container.innerHTML = `
                 <div class="flex flex-col lg:flex-row lg:space-x-8">

@@ -93,7 +93,8 @@
                                         <div class="flex items-center space-x-4">
                                             <img onclick="window.location.href='{{ route('admin.company.approval', ['id' => $companies->id_company]) }}'"
                                                 class="h-10 w-10 rounded-full"
-                                                src="{{ $companies->company_picture ? asset('storage/company/' . $companies->company_picture) : asset('images/default_profile.png') }}" alt="profile_picture">
+                                                src="{{ $companies->company_picture ? asset('storage/company/' . $companies->company_picture) : asset('images/default_profile.png') }}"
+                                                alt="profile_picture">
                                             <h3 onclick="window.location.href='{{ route('admin.company.approval', ['id' => $companies->id_company]) }}'"
                                                 class="text-sm text-white">{{ $companies->company_name }}</h3>
                                         </div>
@@ -144,134 +145,165 @@
     </section>
 
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     <script>
-        fetch('/api/alumni-data')
-            .then(response => response.json())
-            .then(data => {
-                const categories = data.map(item => item.x);
-                const values = data.map(item => item.y);
+        document.addEventListener('DOMContentLoaded', () => {
+            axios.get('/api/alumni-data')
+                .then(response => {
+                    const data = response.data;
+                    const categories = data.map(item => item.x);
+                    const values = data.map(item => item.y);
 
-                const baseOptions = {
-                    series: [{
-                        name: "Jumlah Alumni",
-                        data: values
-                    }],
-                    xaxis: {
-                        categories: categories,
-                        labels: {
+                    const baseOptions = {
+                        series: [{
+                            name: "Jumlah Alumni",
+                            data: values
+                        }],
+                        xaxis: {
+                            categories: categories,
+                            labels: {
+                                show: true,
+                                style: {
+                                    fontFamily: "Inter, sans-serif",
+                                    cssClass: 'text-xs font-normal fill-gray-500 dark:fill-gray-400'
+                                }
+                            },
+                            axisBorder: {
+                                show: false
+                            },
+                            axisTicks: {
+                                show: false
+                            },
+                        },
+                        chart: {
+                            height: "320px",
+                            fontFamily: "Gilgan, sans-serif",
+                            toolbar: {
+                                show: false
+                            }
+                        },
+                        tooltip: {
+                            shared: true,
+                            intersect: false,
+                            style: {
+                                fontFamily: "Gilgan, sans-serif",
+                            },
+                        },
+                        stroke: {
                             show: true,
-                            style: {
-                                fontFamily: "Inter, sans-serif",
-                                cssClass: 'text-xs font-normal fill-gray-500 dark:fill-gray-400'
-                            }
+                            width: 2,
+                            colors: ["transparent"],
                         },
-                        axisBorder: { show: false },
-                        axisTicks: { show: false },
-                    },
-                    chart: {
-                        height: "320px",
-                        fontFamily: "Gilgan, sans-serif",
-                        toolbar: { show: false }
-                    },
-                    tooltip: {
-                        shared: true,
-                        intersect: false,
-                        style: {
+                        grid: {
+                            show: false,
+                            strokeDashArray: 4,
+                            padding: {
+                                left: 2,
+                                right: 2,
+                                top: -14
+                            },
+                        },
+                        dataLabels: {
+                            enabled: false
+                        },
+                        legend: {
+                            show: false
+                        },
+                        yaxis: {
+                            show: true
+                        },
+                        fill: {
+                            opacity: 1
+                        }
+                    };
+
+                    const options1 = {
+                        ...baseOptions,
+                        chart: {
+                            ...baseOptions.chart,
+                            type: "bar"
+                        },
+                        colors: ["#183D55"],
+                        plotOptions: {
+                            bar: {
+                                horizontal: false,
+                                columnWidth: "70%",
+                                borderRadiusApplication: "end",
+                                borderRadius: 0,
+                            },
+                        },
+                    };
+
+                    if (typeof ApexCharts !== 'undefined') {
+                        new ApexCharts(document.getElementById("column-chart"), options1).render();
+                    }
+                })
+                .catch(error => console.error('Error fetching alumni data:', error));
+
+            axios.get('/api/user-data')
+                .then(response => {
+                    const data = response.data;
+                    const categories = data.map(item => item.x);
+                    const values = data.map(item => item.y);
+
+                    const options2 = {
+                        series: [{
+                            name: "Jumlah User",
+                            data: values
+                        }],
+                        chart: {
+                            type: "line",
+                            height: "320px",
                             fontFamily: "Gilgan, sans-serif",
+                            toolbar: {
+                                show: false,
+                            },
                         },
-                    },
-                    stroke: {
-                        show: true,
-                        width: 2,
-                        colors: ["transparent"],
-                    },
-                    grid: {
-                        show: false,
-                        strokeDashArray: 4,
-                        padding: { left: 2, right: 2, top: -14 },
-                    },
-                    dataLabels: { enabled: false },
-                    legend: { show: false },
-                    yaxis: { show: true },
-                    fill: { opacity: 1 }
-                };
-
-                // Chart 1: Bar Chart
-                const options1 = {
-                    ...baseOptions,
-                    chart: { ...baseOptions.chart, type: "bar" },
-                    colors: ["#183D55"],
-                    plotOptions: {
-                        bar: {
-                            horizontal: false,
-                            columnWidth: "70%",
-                            borderRadiusApplication: "end",
-                            borderRadius: 0,
+                        colors: ["#183D55"],
+                        stroke: {
+                            curve: 'smooth',
+                            width: 2,
                         },
-                    },
-                };
-
-                // Chart 2: Line Chart
-                const options2 = {
-                    series: [{
-                        name: "Jumlah Alumni",
-                        data: values, // y-axis values
-                    }],
-                    chart: {
-                        type: "line",
-                        height: "320px",
-                        fontFamily: "Gilgan, sans-serif",
-                        toolbar: {
-                            show: false,
+                        xaxis: {
+                            categories: categories,
+                            labels: {
+                                style: {
+                                    fontFamily: "Inter, sans-serif",
+                                    cssClass: 'text-xs font-normal fill-gray-500 dark:fill-gray-400'
+                                }
+                            },
+                            axisBorder: {
+                                show: false,
+                            },
+                            axisTicks: {
+                                show: false,
+                            },
                         },
-                    },
-                    colors: ["#FF5733"], // Line color
-                    stroke: {
-                        curve: 'smooth',
-                        width: 2,
-                    },
-                    xaxis: {
-                        categories: categories, // x-axis values
-                        labels: {
+                        yaxis: {
+                            show: true,
+                        },
+                        tooltip: {
                             style: {
-                                fontFamily: "Inter, sans-serif",
-                                cssClass: 'text-xs font-normal fill-gray-500 dark:fill-gray-400'
-                            }
+                                fontFamily: "Gilgan, sans-serif",
+                            },
                         },
-                        axisBorder: {
+                        legend: {
                             show: false,
                         },
-                        axisTicks: {
+                        grid: {
                             show: false,
                         },
-                    },
-                    yaxis: {
-                        show: true,
-                    },
-                    tooltip: {
-                        style: {
-                            fontFamily: "Gilgan, sans-serif",
-                        },
-                    },
-                    legend: {
-                        show: false,
-                    },
-                    grid: {
-                        show: false,
-                    },
-                };
+                    };
 
-
-                if (typeof ApexCharts !== 'undefined') {
-                    new ApexCharts(document.getElementById("column-chart"), options1).render();
-                    new ApexCharts(document.getElementById("line-chart"), options2).render();
-                }
-            })
-            .catch(error => console.error('Error fetching data:', error));
+                    if (typeof ApexCharts !== 'undefined') {
+                        new ApexCharts(document.getElementById("line-chart"), options2).render();
+                    }
+                })
+                .catch(error => console.error('Error fetching user data:', error));
+        });
     </script>
-
-
-
 
     <script>
         // function approveAlumni(element) {

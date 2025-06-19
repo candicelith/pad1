@@ -3,7 +3,7 @@
 @section('content')
     {{-- Carousel Start --}}
     <section id="default-carousel" class="relative mt-20 w-full" data-carousel="slide">
-        <div class="relative h-screen overflow-hidden">
+        <div class="relative h-screen overflow-hidden" id="news-carousel">
 
             {{-- Slide 1 --}}
             <div class="absolute inset-0 transform transition-transform duration-700 ease-in-out" data-carousel-item="active">
@@ -221,10 +221,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-    {{-- News Banner API --}}
-
-    </script>
-
     {{-- Posts API --}}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -238,7 +234,8 @@
                     const posts = allPosts.slice(0, 2); // Ambil hanya 2 pertama
 
                     if (posts.length === 0) {
-                        postsContainer.innerHTML = '<p>No posts available</p>';
+                        postsContainer.innerHTML =
+                            '<p class="text-white">Looks like there are no posts at the moment. Please check back later!</p>';
                         return;
                     }
 
@@ -306,7 +303,8 @@
                     const topCompanies = response.data.data.data; // Access the nested data array
 
                     if (!topCompanies || topCompanies.length === 0) {
-                        companiesContainer.innerHTML = '<p class="text-white">No companies available</p>';
+                        companiesContainer.innerHTML =
+                            '<p class="text-white">Company information is currently unavailable. Please check back later!</p>';
                         return;
                     }
 
