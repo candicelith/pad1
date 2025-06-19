@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\Job;
 use App\Models\Company;
 use App\Models\Vacancy;
 use Illuminate\Http\Request;
@@ -78,8 +79,9 @@ class PostController extends Controller
             $companies = collect([$job->company]);
         }
 
+        $allJob = Job::get('job_name');
         // Mengembalikan View Content.Posts dengan Compact 'Vacancys, Companies'
-        return view('content.posts', compact('vacancys', 'companies'));
+        return view('content.posts', compact('vacancys', 'companies','allJob'));
     }
 
     /**

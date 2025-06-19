@@ -157,18 +157,15 @@
                                         <select name="position" id="position" required
                                             class="@error('position') border-red-500 @else border-gray-300 @enderror w-full rounded-full border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan">
                                             <option value="">Select a job position</option>
-                                            {{-- Note: These values should likely be distinct or dynamic --}}
-                                            <option value="UIUX Designer"
-                                                {{ old('position') == 'UIUX Designer' ? 'selected' : '' }}>UIUX Designer
+                                            @foreach ($allJob as $job)
+                                            {{--
+                                                The value should be the job's unique ID.
+                                                The text inside the tag is what the user sees.
+                                            --}}
+                                            <option value="{{ $job->job_name }}" {{ old('job_name') == $job->job_name ? 'selected' : '' }}>
+                                                {{ $job->job_name }}
                                             </option>
-                                            <option value="Frontend Developer"
-                                                {{ old('position') == 'Frontend Developer' ? 'selected' : '' }}>Frontend
-                                                Developer</option>
-                                            <option value="Backend Developer"
-                                                {{ old('position') == 'Backend Developer' ? 'selected' : '' }}>Backend
-                                                Developer
-                                            </option>
-                                            {{-- Add other positions as needed --}}
+                                        @endforeach
                                         </select>
                                         @error('position')
                                             <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
@@ -356,17 +353,22 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-span-2 sm:col-span-2"> {{-- Changed col-span-1 to col-span-2 for full width --}}
+                                    <div class="col-span-2 sm:col-span-2">
                                         <label for="vacancy_picture" class="mb-1 block text-2xl text-cyan">
-                                            Upload Poster <span
-                                                class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
+                                            Upload Poster <span class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
                                         </label>
+
                                         <input type="file" name="vacancy_picture" id="vacancy_picture" required
-                                            class="@error('vacancy_picture') border-red-500 @else border-gray-300 @enderror w-full rounded-full border bg-gray-200 file:mr-4 file:rounded-full file:border-0 file:bg-gray-300 file:px-4 file:py-2 file:text-gray-700 hover:file:bg-gray-400">
+                                            class="@error('vacancy_picture') border-red-500 @else border-gray-300 @enderror w-full rounded-full border bg-gray-200 file:mr-4 file:rounded-full file:border-0 file:bg-gray-300 file:px-4 file:py-2 file:text-gray-700 hover:file:bg-gray-400"
+                                            onchange="checkPosterFile(this)">
+
+                                        <p id="poster-error" class="mt-1 text-sm text-red-500"></p>
+
                                         @error('vacancy_picture')
                                             <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                                         @enderror
                                     </div>
+
                                 </div>
 
                                 <div class="flex justify-end">
@@ -712,6 +714,34 @@
         // We'll listen for the final selection on the end date picker
         endDateInput.addEventListener('changeDate', applyDateFilter);
     });
+
+    function checkPosterFile(input) {
+    const errorElement = document.getElementById('poster-error');
+    const file = input.files[0];
+
+    if (!file) {
+        errorElement.textContent = "";
+        return;
+    }
+
+    const maxSizeMB = 1;
+    const maxSizeKB = maxSizeMB * 1024;
+    const allowedTypes = ['image/jpeg', 'image/png'];
+
+    // --- File Size Check ---
+    if (file.size > maxSizeKB * 1024) {
+        errorElement.textContent = `File is too large. Maximum allowed size is ${maxSizeMB} MB.`;
+        input.value = "";
+    }
+
+    // --- File Type Check ---
+    if (!allowedTypes.includes(file.type)) {
+        errorElement.textContent = "Invalid file format. Only JPG or PNG images are allowed.";
+        input.value = "";
+        return;
+    }
+    errorElement.textContent = "";
+}
     </script>
 
 @endsection

@@ -55,7 +55,7 @@ Route::get('/terms-condition', function () {
 })->name('termsandcondition');
 Route::get('/login-admin', function () {
     return view('content.login-admin');
-})->name('login-admin');
+})->name('login-admin')->middleware('guest');
 Route::get('/admin-detail-company', function () {
     return view('content.admin-detail-company');
 })->name('admin-detail-company');
