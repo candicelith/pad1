@@ -49,7 +49,6 @@ class UserExperiencesControllerAPI extends Controller
                     'company.status',
                     DB::raw('COALESCE(YEAR(job_tracking.date_end), "Now") as date_end'),
                     DB::raw('COALESCE(YEAR(job_tracking.date_start), "Now") as date_start'),
-                    'jobs.job_description'
                 )
                 ->orderBy('job_tracking.id_tracking', 'desc')
                 ->get();
