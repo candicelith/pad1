@@ -73,7 +73,7 @@
                                             {{-- Graduate Year --}}
                                             <div class="mb-5 flex w-full justify-end px-6 text-gray-300">
                                                 <span class="text-sm">
-                                                    {{ $worker->graduate_year ?? 'N/A' }}
+                                                    {{ $worker->graduate_year ?? 'Graduated' }}
                                                 </span>
                                             </div>
 
