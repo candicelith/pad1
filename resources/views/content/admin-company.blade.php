@@ -2,11 +2,6 @@
 
 @section('admincontent')
     <section>
-        @if (session('success'))
-            <div class="mb-4 rounded-md bg-green-100 p-4 text-green-700 dark:bg-green-200 dark:text-green-800">
-                {{ session('success') }}
-            </div>
-        @endif
 
         <div class="mt-5 pt-4 sm:ml-64">
             <div class="mx-2 mt-14">
@@ -21,9 +16,15 @@
                     </div>
                 @endif
 
-                @if (session('success'))
-                    <div class="mb-4 rounded-md bg-green-100 p-4 text-green-700 dark:bg-green-200 dark:text-green-800">
-                        {{ session('success') }}
+                @if (Session::has('approved'))
+                    <div class="mx-auto mb-4 w-3/4 transform rounded-lg bg-lightgreen p-4 text-center text-sm text-green-800 opacity-100 transition-opacity duration-500 sm:w-1/2"
+                        role="alert">
+                        {!! Session::get('approved') !!}
+                    </div>
+                @elseif (Session::has('rejected'))
+                    <div class="mx-auto mb-4 w-3/4 transform rounded-lg bg-red-300 p-4 text-center text-sm text-red-800 opacity-100 transition-opacity duration-500 sm:w-1/2"
+                        role="alert">
+                        {!! Session::get('rejected') !!}
                     </div>
                 @endif
 

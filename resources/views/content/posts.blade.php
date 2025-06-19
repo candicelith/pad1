@@ -35,19 +35,19 @@
                     @if (Auth::check() && Auth::user()->id_roles == '2')
                         <div class="mb-2 flex justify-between sm:mb-0 sm:space-x-4 xl:space-x-10">
 
-                            <a href="{{ route('posts', ['filter' => 'my_posts']) }}"
+                            <a href="{{ route('posts', ['filter' => 'my_posts']) }}" id="my-post-button"
                                 class="text-cyan-600 {{ request('filter') == 'my_posts' ? 'bg-cyan-100 text-white' : '' }} rounded-xl border border-gray-200 px-3 py-2 text-sm hover:bg-gray-200 sm:px-6 sm:py-4 xl:text-base">
                                 My Post
                             </a>
 
-                            <a href="{{ route('posts', ['filter' => 'my_commented_posts']) }}"
+                            <a href="{{ route('posts', ['filter' => 'my_commented_posts']) }}" id="my-commented-post-button"
                                 class="text-cyan-600 {{ request('filter') == 'my_commented_posts' ? 'bg-cyan-100 text-white' : '' }} rounded-xl border border-gray-200 px-3 py-2 text-sm hover:bg-gray-200 sm:px-6 sm:py-4 xl:text-base">
                                 My Commented Post
                             </a>
                         </div>
                     @elseif (Auth::check() && Auth::user()->id_roles == '3')
                         <div class="mb-2 flex justify-center sm:mb-0 sm:space-x-4 xl:space-x-10">
-                            <a href="{{ route('posts', ['filter' => 'my_commented_posts']) }}"
+                            <a href="{{ route('posts', ['filter' => 'my_commented_posts']) }}" id="my-commented-post-button"
                                 class="text-cyan-600 {{ request('filter') == 'my_commented_posts' ? 'bg-cyan-100 text-white' : '' }} rounded-xl border border-gray-200 px-3 py-2 text-sm hover:bg-gray-200 sm:px-6 sm:py-4 xl:text-base">
                                 My Commented Post
                             </a>
@@ -85,9 +85,10 @@
                                     d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
                             </svg>
                         </div>
-                        <input id="datepicker-range-start" name="start" type="text"
+                        <input id="datepicker-range-start" name="start_date" type="text"
                             class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 ps-10 text-sm text-gray-900"
-                            placeholder="Select date start">
+                            placeholder="Select date start"
+                            value="{{ request('start_date') }}">
                     </div>
                     <span class="mx-5 text-cyan">to</span>
                     <div class="relative">
@@ -98,9 +99,10 @@
                                     d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
                             </svg>
                         </div>
-                        <input id="datepicker-range-end" name="end" type="text"
+                        <input id="datepicker-range-end" name="end_date" type="text"
                             class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 ps-10 text-sm text-gray-900"
-                            placeholder="Select date end">
+                            placeholder="Select date end"
+                            value="{{ request('end_date') }}">
                     </div>
                 </div>
             </div>
@@ -683,6 +685,33 @@
                 });
             }
         });
+        document.addEventListener('DOMContentLoaded', () => {
+        const startDateInput = document.getElementById('datepicker-range-start');
+        const endDateInput = document.getElementById('datepicker-range-end');
+
+        const applyDateFilter = () => {
+            // Get the current URL and its parameters
+            const url = new URL(window.location.href);
+
+            // Get the selected dates
+            const startDate = startDateInput.value;
+            const endDate = endDateInput.value;
+
+            // Only proceed if both dates are selected to avoid partial reloads
+            if (startDate && endDate) {
+                // Set or update the date parameters
+                url.searchParams.set('start_date', startDate);
+                url.searchParams.set('end_date', endDate);
+
+                // Reload the page with the new URL
+                window.location.href = url.toString();
+            }
+        };
+
+        // For Flowbite's datepicker, the 'changeDate' event is best
+        // We'll listen for the final selection on the end date picker
+        endDateInput.addEventListener('changeDate', applyDateFilter);
+    });
     </script>
 
 @endsection

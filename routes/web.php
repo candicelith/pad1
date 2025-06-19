@@ -161,6 +161,8 @@ Route::middleware(['cookie.token'])->group(function () {
         // News
         Route::post('/admin/news_store', 'storeNews')->name('admin.news.store');
         Route::post('/admin/news_update/{id}', 'updateNews')->name('admin.news.update');
+        Route::delete('/admin/news_delete/{id}', 'deleteNews')->name('admin.news.delete');
+
     });
 
     // Notifications Logic

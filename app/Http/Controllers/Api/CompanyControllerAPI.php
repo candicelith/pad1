@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\CompanyResource;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Cache; //
+
 
 class CompanyControllerAPI extends Controller
 {
@@ -154,8 +156,15 @@ class CompanyControllerAPI extends Controller
     public function getTopCompany()
     {
 
-        // Get top companies
-        $companies = DB::table('company')
+    // Define how long to keep the cache in seconds (e.g., 3600 seconds = 1 hour)
+        $cacheDuration = 3600;
+
+        // Define a unique key for this cache entry
+        $cacheKey = 'home_page_top_companies';
+
+        $companies = Cache::remember($cacheKey, $cacheDuration, function () {
+
+            return DB::table('company')
             ->join('jobs', 'company.id_company', '=', 'jobs.id_company')
             ->join('job_tracking', 'jobs.id_jobs', '=', 'job_tracking.id_jobs')
             ->join('user_details', 'job_tracking.id_userDetails', '=', 'user_details.id_userDetails')
@@ -169,6 +178,7 @@ class CompanyControllerAPI extends Controller
             ->orderBy('employee_count', 'desc')
             ->paginate(5);
 
+        });
         return response()->json([
             'message' => 'Successfully fetched posts and companies',
             'data' => $companies

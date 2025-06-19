@@ -6,6 +6,17 @@
             <div class="mx-2 mt-14">
                 <h2 class="flex justify-center text-4xl">Banner</h2>
                 <div class="relative sm:mx-10">
+                    @if (Session::has('approved'))
+                        <div class="mx-auto mb-4 w-3/4 transform rounded-lg bg-lightgreen p-4 text-center text-sm text-green-800 opacity-100 transition-opacity duration-500 sm:w-1/2"
+                            role="alert">
+                            {!! Session::get('approved') !!}
+                        </div>
+                    @elseif (Session::has('rejected'))
+                        <div class="mx-auto mb-4 w-3/4 transform rounded-lg bg-red-300 p-4 text-center text-sm text-red-800 opacity-100 transition-opacity duration-500 sm:w-1/2"
+                            role="alert">
+                            {!! Session::get('rejected') !!}
+                        </div>
+                    @endif
                     <div class="top-0 z-20 flex justify-between bg-white pb-4">
 
                         {{-- Add News Button --}}
@@ -41,25 +52,24 @@
                                     </div>
 
                                     <form class="scrollbar-modal max-h-96 overflow-y-auto p-4 md:p-5" method="POST"
-                                        action="" enctype="multipart/form-data">
+                                        action="{{ route('admin.news.store') }}" enctype="multipart/form-data">
                                         @csrf
                                         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                                             <div class="col-span-2 sm:col-span-2">
-                                                <label for="banner_title" class="mb-2 block text-sm text-cyan sm:text-2xl">
+                                                <label for="heading" class="mb-2 block text-sm text-cyan sm:text-2xl">
                                                     Title <span
                                                         class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
                                                 </label>
-                                                <input type="text" name="banner_title" id="banner_title"
+                                                <input type="text" name="heading" id="heading"
                                                     class="block h-1/2 w-full rounded-full border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-cyan dark:placeholder-gray-400 sm:p-2.5"
                                                     placeholder="Enter title" required>
                                             </div>
                                             <div class="col-span-2 sm:col-span-2">
-                                                <label for="banner_content"
-                                                    class="mb-2 block text-sm text-cyan sm:text-2xl">
+                                                <label for="description" class="mb-2 block text-sm text-cyan sm:text-2xl">
                                                     Content <span
                                                         class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
                                                 </label>
-                                                <textarea type="text" name="banner_content" id="banner_content"
+                                                <textarea name="description" id="description"
                                                     class="block h-1/2 w-full rounded-xl border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-cyan dark:placeholder-gray-400 sm:p-2.5"
                                                     placeholder="Enter content" required></textarea>
                                             </div>
@@ -109,17 +119,20 @@
                             </thead>
                             <tbody>
                                 <tr class="border-b border-gray-300 bg-white hover:bg-gray-50">
+                                    @foreach ($newss as $index => $news)
+                                <tr class="border-b border-gray-300 bg-white hover:bg-gray-50">
                                     <th scope="row" class="whitespace-nowrap px-6 py-4 text-sm text-black sm:text-base">
-                                        1
+                                        {{ $index + 1 }}
                                     </th>
                                     <td class="px-6 py-4 text-sm text-black sm:text-base">
-                                        <img src="" alt="Banner Image" class="h-10 w-10 rounded-full">
+                                        <img src="{{ asset('storage/' . $news->banner_image) }}" alt="Banner Image"
+                                            class="h-10 w-10 rounded-full">
                                     </td>
-                                    <td class="hidden-mobile px-6 py-4 text-sm text-black sm:text-base">
-                                        Judul
+                                    <td class="px-6 py-4 text-sm text-black sm:text-base">
+                                        {{ $news->heading }}
                                     </td>
-                                    <td class="hidden-mobile px-6 py-4 text-sm text-black sm:text-base">
-                                        Isi
+                                    <td class="px-6 py-4 text-sm text-black sm:text-base">
+                                        {{ $news->description }}
                                     </td>
                                     <td class="px-6 py-4">
                                         <button data-modal-target="crud-modal1" data-modal-toggle="crud-modal1"
@@ -157,39 +170,39 @@
                                                     </div>
 
                                                     <form class="scrollbar-modal max-h-96 overflow-y-auto p-4 md:p-5"
-                                                        method="POST" action="" enctype="multipart/form-data">
+                                                        method="POST"
+                                                        action="{{ route('admin.news.update', ['id' => $news->id]) }}"
+                                                        enctype="multipart/form-data">
                                                         @csrf
                                                         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                                                             <div class="col-span-2 sm:col-span-2">
-                                                                <label for="banner_title"
+                                                                <label for="heading"
                                                                     class="mb-2 block text-sm text-cyan sm:text-2xl">
                                                                     Title <span
                                                                         class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
                                                                 </label>
-                                                                <input type="text" name="banner_title"
-                                                                    id="banner_title"
+                                                                <input type="text" name="heading" id="heading"
                                                                     class="block h-1/2 w-full rounded-full border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-cyan dark:placeholder-gray-400 sm:p-2.5"
-                                                                    placeholder="Enter title" required>
+                                                                    placeholder="Enter title" required
+                                                                    value="{{ $news->heading }}">
                                                             </div>
                                                             <div class="col-span-2 sm:col-span-2">
-                                                                <label for="banner_content"
+                                                                <label for="description"
                                                                     class="mb-2 block text-sm text-cyan sm:text-2xl">
                                                                     Content <span
                                                                         class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
                                                                 </label>
-                                                                <textarea type="text" name="banner_content" id="banner_content"
+                                                                <textarea type="text" name="description" id="description"
                                                                     class="block h-1/2 w-full rounded-xl border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-cyan dark:placeholder-gray-400 sm:p-2.5"
-                                                                    placeholder="Enter content" required></textarea>
+                                                                    placeholder="Enter content" required>{{ $news->description }}</textarea>
                                                             </div>
                                                             <div class="col-span-2 sm:col-span-1">
                                                                 <label for="banner_image"
-                                                                    class="mb-2 block text-sm text-cyan sm:text-2xl">
-                                                                    Banner Image <span
-                                                                        class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
-                                                                </label>
+                                                                    class="mb-2 block text-sm text-cyan sm:text-2xl">Banner
+                                                                    Image</label>
                                                                 <input type="file" name="banner_image"
                                                                     id="banner_image"
-                                                                    class="block h-1/2 w-full rounded-full border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-cyan dark:placeholder-gray-400 sm:p-2.5">
+                                                                    class="block w-full rounded-full border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900">
                                                             </div>
                                                         </div>
 
@@ -204,7 +217,7 @@
                                             </div>
                                         </div>
 
-                                        <button href=""
+                                        <button type="button" onclick="submitDelete({{ $news->id }})"
                                             class="rounded-lg bg-cyan p-1.5 text-center text-sm text-white shadow-md hover:bg-cyan-400 hover:text-cyan-100 sm:p-2 sm:text-base">
                                             <svg class="h-6 w-6 text-white hover:text-cyan" aria-hidden="true"
                                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -214,7 +227,17 @@
                                                     d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z" />
                                             </svg>
                                         </button>
+
+                                        <form id="delete-form" method="POST" style="display: none;">
+                                            @csrf
+                                            @method('DELETE')
+                                        </form>
                                     </td>
+                                </tr>
+                                @endforeach
+
+
+
                                 </tr>
                             </tbody>
                         </table>
@@ -232,6 +255,14 @@
                 searchable: false,
                 sortable: false
             });
+        }
+
+        function submitDelete(id) {
+            if (!confirm('Are you sure you want to delete this news?')) return;
+
+            const form = document.getElementById('delete-form');
+            form.action = "{{ route('admin.news.delete', '') }}/" + id;
+            form.submit();
         }
     </script>
 @endsection
