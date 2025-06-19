@@ -209,7 +209,7 @@ class PostController extends Controller
     public function apply(Request $request, string $id)
     {
         $request->validate([
-            'cv' => 'required|file|mimes:pdf,doc,docx'
+            'cv' => 'required|file|mimes:pdf,doc,docx|max:200'
         ]);
 
         $vacancy = Vacancy::findorFail($id);

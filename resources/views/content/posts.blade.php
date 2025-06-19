@@ -154,7 +154,7 @@
                                             Position <span
                                                 class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
                                         </label>
-                                        <select name="position" id="position"
+                                        <select name="position" id="position" required
                                             class="@error('position') border-red-500 @else border-gray-300 @enderror w-full rounded-full border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan">
                                             <option value="">Select a job position</option>
                                             {{-- Note: These values should likely be distinct or dynamic --}}
@@ -287,7 +287,7 @@
                                         <div id="qualification-container">
                                             @forelse (old('vacancy_qualification', ['']) as $index => $qualification)
                                                 <div class="qualification-item mb-2 flex items-center">
-                                                    <input id="qualification" type="text" name="vacancy_qualification[]"
+                                                    <input id="qualification" type="text" name="vacancy_qualification[]" required
                                                         value="{{ $qualification }}"
                                                         class="@error('vacancy_qualification.' . $index) border-red-500 @else border-gray-300 @enderror w-full rounded-full border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
                                                         placeholder="Enter qualification" />
@@ -300,7 +300,7 @@
                                                 @enderror
                                             @empty
                                                 <div class="qualification-item mb-2 flex items-center">
-                                                    <input id="qualification" type="text" name="vacancy_qualification[]"
+                                                    <input id="qualification" type="text" name="vacancy_qualification[]" required
                                                         class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
                                                         placeholder="Enter qualification" />
                                                     <button type="button"
@@ -325,7 +325,7 @@
                                         <div id="benefits-container">
                                             @forelse (old('vacancy_benefits', ['']) as $index => $benefit)
                                                 <div class="benefits-item mb-2 flex items-center">
-                                                    <input id="benefit" type="text" name="vacancy_benefits[]"
+                                                    <input id="benefit" type="text" name="vacancy_benefits[]" required
                                                         value="{{ $benefit }}"
                                                         class="@error('vacancy_benefits.' . $index) border-red-500 @else border-gray-300 @enderror w-full rounded-full border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
                                                         placeholder="Enter benefits" />
@@ -338,7 +338,7 @@
                                                 @enderror
                                             @empty
                                                 <div class="benefits-item mb-2 flex items-center">
-                                                    <input id="benefit" type="text" name="vacancy_benefits[]"
+                                                    <input id="benefit" type="text" name="vacancy_benefits[]" required
                                                         class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
                                                         placeholder="Enter benefits" />
                                                     <button type="button"
@@ -361,7 +361,7 @@
                                             Upload Poster <span
                                                 class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
                                         </label>
-                                        <input type="file" name="vacancy_picture" id="vacancy_picture"
+                                        <input type="file" name="vacancy_picture" id="vacancy_picture" required
                                             class="@error('vacancy_picture') border-red-500 @else border-gray-300 @enderror w-full rounded-full border bg-gray-200 file:mr-4 file:rounded-full file:border-0 file:bg-gray-300 file:px-4 file:py-2 file:text-gray-700 hover:file:bg-gray-400">
                                         @error('vacancy_picture')
                                             <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
@@ -485,7 +485,7 @@
                     const newItem = document.createElement('div');
                     newItem.classList.add(`${inputName}-item`, 'mb-2', 'flex', 'items-center');
                     newItem.innerHTML = `
-                <input type="text" name="${inputName}[]"
+                <input type="text" name="${inputName}[]" required
                        class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
                        placeholder="Add More" />
                 <button type="button" class="ml-2 rounded-full border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2 ${removeClass}">Remove</button>

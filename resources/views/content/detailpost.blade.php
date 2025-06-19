@@ -206,12 +206,14 @@
                                                 <div class="mb-9 space-y-3">
                                                     <h2 class="text-2xl text-cyan">Resume</h2>
                                                     <p class="text-sm text-gray-400">Be sure to include your updated resume
-                                                    </p>
+                                                        (Max 200 Kb, PDF/DOC/DOCX)</p>
                                                     <div class="col-span-2 sm:col-span-1">
                                                         <input type="file" name="cv" id="cv"
-                                                            class="w-full rounded-full border-2 shadow-sm" required="">
-                                                        <span class="mt-2 text-sm text-cyan-100">PDF file only</span>
+                                                            class="w-full rounded-full border-2 shadow-sm" required
+                                                            onchange="checkFileSize(this)">
                                                     </div>
+                                                    <p id="cv-error" class="text-red-500 text-sm mt-1"></p>
+
                                                 </div>
                                                 <div class="items-end justify-between text-sm text-gray-400 sm:flex">
                                                     <p class="mb-2 text-sm sm:mb-0">Only you and {{ $vacancy->name }} can
@@ -974,11 +976,11 @@
                             </span>
 
                             ${repliesCount > 0 ? `
-                                                                                                                                                                    <span class="show-all-replies text-cyan-600 cursor-pointer text-xs hover:underline"
-                                                                                                                                                                        data-comment-id="${comment.id_comment}">
-                                                                                                                                                                        Show replies (${repliesCount})
-                                                                                                                                                                    </span>
-                                                                                                                                                                ` : ''}
+                                                                                                                                                <span class="show-all-replies text-cyan-600 cursor-pointer text-xs hover:underline"
+                                                                                                                                                    data-comment-id="${comment.id_comment}">
+                                                                                                                                                    Show replies (${repliesCount})
+                                                                                                                                                </span>
+                                                                                                                                            ` : ''}
                         </div>
                     </div>
                 </div>
@@ -1091,5 +1093,32 @@
                 });
             }
         }
+
+    function checkFileSize(input) {
+        const file = input.files[0];
+        const errorElement = document.getElementById('cv-error');
+
+        if (!file) return;
+
+        const maxSizeKB = 200;
+        const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+
+        // File size check
+        if (file.size > maxSizeKB * 1024) {
+            errorElement.textContent = "File is too large. Maximum allowed size is 200 KB.";
+            input.value = "";
+            return;
+        }
+
+        // File type check
+        if (!allowedTypes.includes(file.type)) {
+            errorElement.textContent = "Invalid file format. Only PDF, DOC, or DOCX allowed.";
+            input.value = "";
+            return;
+        }
+
+        errorElement.textContent = "";
+    }
+
     </script>
 @endsection
