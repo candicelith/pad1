@@ -243,11 +243,14 @@ class AdminController extends Controller
             'company' => 'required|exists:company,id_company',
             'position' => 'required|string|max:255',
             'date_start' => 'required|date',
-            'date_end' => 'date|nullable',
-
+            'date_end' => 'nullable',
             'job_responsibility' => 'array|min:1',
             'job_responsibility.*' => 'string|max:1000',
         ]);
+
+        // Handle "Present" value for current position - store as null in the database
+        $dateEnd = ($request->date_end === 'Present') ? null : $request->date_end;
+
 
         $job = Job::create([
             'job_name' => $request->position,
@@ -258,11 +261,13 @@ class AdminController extends Controller
             'id_userDetails' => $id,
             'id_jobs' => $job->id_jobs,
             'date_start' => $request->date_start,
-            'date_end' => $request->date_end,
+            'date_end' => $dateEnd,
             'job_description' => $request->job_responsibility,
         ]);
 
-        return redirect()->back();
+        return redirect()->route('admin.alumni')->with('approved','Succesfully Created Alumni Experiences');
+
+
     }
 
     public function updateAlumniExperiences(Request $request, string $id)
@@ -272,34 +277,32 @@ class AdminController extends Controller
             'company' => 'required|exists:company,id_company',
             'position' => 'required|string|max:255',
             'date_start' => 'required|date',
-            'date_end' => 'date|nullable',
+            'date_end' => 'nullable',
             'job_responsibility' => 'array|min:1',
             'job_responsibility.*' => 'string|max:1000'
         ]);
 
-        // Find the existing JobTracking record
-        $jobTracking = JobTracking::findOrFail($id); // Find by ID, or return 404 if not found
+        // Handle "Present" value for current position - store as null in the database
+        $dateEnd = ($request->date_end === 'Present') ? null : $request->date_end;
 
+        $jobTracking = JobTracking::findOrFail($id);
         // Update the related Job record
         $job_id = $jobTracking->id_jobs; // get job id
 
         // initialize job
         $job = Job::findOrFail($job_id);
 
-        $job->job_name = $request->position;
-        $job->id_company = $request->company;
-        $job->save(); // Save the updated Job record
-
-        // Update the JobTracking record
-        $jobTracking->date_start = $request->date_start;
-        $jobTracking->date_end = $request->date_end ?: null; // Set to null if not provided
-        $jobTracking->job_description = $request->job_responsibility; // Assuming this is a JSON field or array
-        $jobTracking->save(); // Save the updated JobTracking record
-
-
-        // Redirect with success message
-        return redirect()->back()
-            ->with('success', 'Berhasil memperbarui pengalaman kerja.');
+        $job->update([
+            'job_name' => $request->position,
+            'id_company' => $request->company
+        ]);
+        $jobTracking->update([
+            'date_start' => $request->date_start,
+            'date_end' => $dateEnd,
+            // FIX: Use json_encode() because you are SAVING an array to the database.
+            'job_description' => $request->job_responsibility,
+        ]);
+        return redirect()->route('admin.alumni')->with('approved', 'Succesfully Updated Alumni Experiences');
     }
 
     public function getChartData()

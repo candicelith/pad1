@@ -99,6 +99,10 @@
     <!-- Flowbite datatables JS -->
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@9.0.3"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
     <!-- Sidebar Toggle Script -->
     <script>
         const sidebar = document.getElementById('logo-sidebar');
