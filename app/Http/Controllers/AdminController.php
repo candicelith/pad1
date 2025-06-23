@@ -531,8 +531,8 @@ class AdminController extends Controller
     {
         try {
             $request->validate([
-                'heading' => 'required|string|max:255',
-                'description' => 'required|string',
+                'heading' => 'nullable|string|max:255',
+                'description' => 'nullable|string',
                 'banner_image' => 'required|image|mimes:jpg,jpeg,png|max:2048'
             ]);
 
