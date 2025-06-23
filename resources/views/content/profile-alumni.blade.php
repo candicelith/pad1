@@ -153,6 +153,7 @@
                                                         {{ $userDetails->current_company ? '' : 'selected' }}>
                                                         Select a company name
                                                     </option>
+                                                    <option value="">No Company</option>
                                                     @foreach ($companies as $company)
                                                         <option value="{{ $company->company_name }}"
                                                             {{ $company->company_name == $userDetails->current_company ? 'selected' : '' }}>
@@ -162,13 +163,25 @@
                                                 </select>
                                             </div>
                                             <div>
-                                                <label for="current_job" class="mb-1 block text-2xl text-cyan">Current
-                                                    Position <span
-                                                        class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
-                                                <input type="text" id="current_job" name="current_job"
+                                                <label for="current_job" class="mb-1 block text-2xl text-cyan">
+                                                    Current Position
+                                                </label>
+                                                <select id="current_job" name="current_job"
                                                     class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
-                                                    required value="{{ $userDetails->current_job }}"
-                                                    placeholder="Select a job position" />
+                                                    required>
+                                                    <option value="" disabled {{ old('current_job', $userDetails->current_job) ? '' : 'selected' }}>
+                                                        Select a job position
+                                                    </option>
+                                                    <option value="" {{ old('current_job', $userDetails->current_job) == '' ? 'selected' : '' }}>
+                                                        Jobless
+                                                    </option>
+                                                    @foreach ($allJob as $job)
+                                                        <option value="{{ $job->job_name }}"
+                                                            {{ old('current_job', $userDetails->current_job) == $job->job_name ? 'selected' : '' }}>
+                                                            {{ $job->job_name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                             <div>
                                                 <label for="user_description" class="mb-1 block text-2xl text-cyan">About

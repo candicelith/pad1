@@ -163,9 +163,9 @@ class AdminController extends Controller
     {
         $request->validate([
             'full_name' => 'required|string|max:255',
-            'current_company' => 'required|string|max:255',
-            'current_job' => 'required|string|max:255',
-            'user_description' => 'required|string|max:1000',
+            'current_company' => 'nullable|string|max:255',
+            'current_job' => 'nullable|string|max:255',
+            'user_description' => 'nullable|string|max:1000',
             'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4096', // Validates the file
         ]);
 
@@ -200,7 +200,7 @@ class AdminController extends Controller
         // Clear the alumni cache after updating an alumni
         $this->adminService->clearCaches('alumni', $id);
 
-        return redirect()->back();
+        return redirect()->back()->with('approved','Succesfully Updated Alumni Profile Data!');
     }
 
     public function editExperiencesAlumni(string $id)
@@ -531,8 +531,8 @@ class AdminController extends Controller
     {
         try {
             $request->validate([
-                'heading' => 'required|string|max:255',
-                'description' => 'required|string',
+                'heading' => 'nullable|string|max:255',
+                'description' => 'nullable|string',
                 'banner_image' => 'required|image|mimes:jpg,jpeg,png|max:2048'
             ]);
 
