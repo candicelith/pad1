@@ -218,7 +218,7 @@
                                         </div>
 
                                         <button type="button" onclick="submitDelete({{ $news->id }})"
-                                            class="rounded-lg bg-cyan p-1.5 text-center text-sm text-white shadow-md hover:bg-cyan-400 hover:text-cyan-100 sm:p-2 sm:text-base">
+                                            class="bg-btn-cyan rounded-lg bg-cyan p-1.5 text-center text-sm text-white shadow-md hover:bg-cyan-400 hover:text-cyan-100 sm:p-2 sm:text-base">
                                             <svg class="h-6 w-6 text-white hover:text-cyan" aria-hidden="true"
                                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 fill="none" viewBox="0 0 24 24">
