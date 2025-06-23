@@ -4,6 +4,17 @@
     <section>
         <div class="mt-5 pt-4 sm:ml-64">
             <div class="mx-2 mt-14">
+                @if (Session::has('approved'))
+                <div class="mx-auto mb-4 w-3/4 transform rounded-lg bg-lightgreen p-4 text-center text-sm text-green-800 opacity-100 transition-opacity duration-500 sm:w-1/2"
+                    role="alert">
+                    {!! Session::get('approved') !!}
+                </div>
+                @elseif (Session::has('rejected'))
+                    <div class="mx-auto mb-4 w-3/4 transform rounded-lg bg-red-300 p-4 text-center text-sm text-red-800 opacity-100 transition-opacity duration-500 sm:w-1/2"
+                        role="alert">
+                        {!! Session::get('rejected') !!}
+                    </div>
+                @endif
                 <h2 class="flex justify-center text-4xl">Alumni</h2>
                 <div class="relative sm:mx-10">
                     <div class="top-0 z-20 flex justify-between bg-white pb-4">
