@@ -103,8 +103,9 @@ class AlumniController extends Controller
                     ->where('id', '!=', $latestNotification->id ?? null)
                     ->update(['is_read' => true]);
 
+                $allJob = Job::get('job_name');
                 $companies = Company::where('status', '!=', 'pending')->get();
-                return view('content.profile-alumni', compact('user', 'userDetails', 'jobDetails', 'companies', 'latestNotification'));
+                return view('content.profile-alumni', compact('user', 'userDetails', 'jobDetails', 'companies', 'latestNotification','allJob'));
             }
         }
         return redirect()->route('login');
@@ -141,6 +142,7 @@ class AlumniController extends Controller
                 $job->job_description = json_decode($job->job_description, true);
                 return $job;
             });
+
 
         $companies = Company::all();
         return view('content.editprofile', compact('user', 'userDetails', 'jobDetails', 'companies', ));
@@ -222,9 +224,9 @@ class AlumniController extends Controller
     {
         $request->validate([
             'full_name' => 'required|string|max:255',
-            'current_company' => 'required|string|max:255',
-            'current_job' => 'required|string|max:255',
-            'user_description' => 'required|string|max:1000',
+            'current_company' => 'nullable|string|max:255',
+            'current_job' => 'nullable|string|max:255',
+            'user_description' => 'nullable|string|max:1000',
             'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4096', // Validates the file
         ]);
 
@@ -254,6 +256,14 @@ class AlumniController extends Controller
         $user->current_job = $request->current_job;
         $user->user_description = $request->user_description;
         $user->save();
+
+        // Create Notifications
+        Notification::create([
+            'id_users' => Auth::user()->id_users, // ID of the user being notified
+            'type' => 'approved',
+            'message' => 'Your Profile Has Been Changed!.',
+                ]);
+
 
         return redirect()->route('alumni.profile');
     }

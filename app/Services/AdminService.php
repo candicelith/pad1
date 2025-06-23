@@ -73,15 +73,16 @@ class AdminService
                 return $job;
             });
 
+        $allJob = Job::get('job_name');
         $companies = Cache::remember('all_companies', now()->addHours(1), function () {
             return Company::all();
         });
 
-
         return [
             'userDetails' => $userDetails,
             'jobDetails' => $jobDetails,
-            'companies' => $companies
+            'companies' => $companies,
+            'allJob' => $allJob
         ];
     }
 

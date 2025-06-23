@@ -158,14 +158,10 @@
                                             class="@error('position') border-red-500 @else border-gray-300 @enderror w-full rounded-full border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan">
                                             <option value="">Select a job position</option>
                                             @foreach ($allJob as $job)
-                                            {{--
-                                                The value should be the job's unique ID.
-                                                The text inside the tag is what the user sees.
-                                            --}}
                                             <option value="{{ $job->job_name }}" {{ old('job_name') == $job->job_name ? 'selected' : '' }}>
                                                 {{ $job->job_name }}
                                             </option>
-                                        @endforeach
+                                            @endforeach
                                         </select>
                                         @error('position')
                                             <p class="mt-1 text-sm text-red-500">{{ $message }}</p>

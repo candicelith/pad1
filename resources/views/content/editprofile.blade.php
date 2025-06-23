@@ -109,8 +109,7 @@
                                                         class="col-span-2 mt-4 space-y-4 rounded-xl border border-gray-400 bg-gray-100 p-4">
                                                         <h4 class="mb-3 text-lg font-semibold text-cyan">Create New Company
                                                         </h4>
-                                                        <div id="new_company_ajax_errors_modal_editprofile"
-                                                            class="mb-3 text-sm text-red-500"></div> {{-- Unique ID --}}
+
 
                                                         <div class="relative h-24 w-24 sm:h-32 sm:w-32">
                                                             <div
@@ -168,6 +167,8 @@
                                                             <textarea id="new_company_description_modal_editprofile" rows="3"
                                                                 class="w-full rounded-md border-gray-300 bg-gray-50 px-3 py-2 shadow-sm"></textarea>
                                                         </div>
+                                                        <div id="new_company_ajax_errors_modal_editprofile"
+                                                        class="mb-3 text-sm text-red-500"></div> {{-- Unique ID --}}
                                                         <div class="flex space-x-2">
                                                             <button type="button" @click="saveNewCompanyViaAjax()"
                                                                 class="bg-btn-cyan rounded-lg bg-cyan px-4 py-2 text-sm text-white hover:bg-cyan-400 hover:text-cyan">
