@@ -156,29 +156,30 @@
                 const container = document.getElementById('detail-container');
 
                 const jobHTML = jobs.map(job => {
-                    const descriptions = Array.isArray(job.job_description) ?
+                    const descriptions = Array.isArray(job.job_description) && job.job_description
+                        .length > 0 ?
                         job.job_description.map(desc => `<li>${desc}</li>`).join('') :
-                        '';
+                        '<li>No job descriptions available</li>';
 
                     const alumniList = Array.isArray(job.related_alumni) && job.related_alumni.length >
                         0 ?
                         `
                             <div class="grid justify-items-center gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 lg:gap-1">
                                 ${job.related_alumni.map(alumni => `
-                                    <a class="alumni-card w-full max-w-sm cursor-pointer rounded-lg border border-gray-200 bg-lightblue shadow-md transition-shadow duration-300 hover:shadow-lg"
-                                    href="/alumni/detail/${alumni.id_userDetails}">
-                                        <div class="flex flex-col items-center p-4 text-center">
-                                            <div class="mb-3 flex w-full justify-end px-2 text-gray-400">
-                                                <span class="text-sm">${alumni.graduate_year === '-' ? 'Graduated' : alumni.graduate_year}</span>
-                                            </div>
-                                            <img class="mb-3 h-20 w-20 rounded-full object-cover shadow-lg"
-                                                src="/storage/profile/${alumni.profile_photo}" alt="${alumni.name}" />
-                                            <h2 class="mb-1 text-lg text-cyan">${alumni.name}</h2>
-                                            <h3 class="text-sm text-cyan">${alumni.current_job ?? 'Job not specified'}</h3>
-                                            <h4 class="text-xs text-gray-500">${alumni.current_company ?? 'Company not specified'}</h4>
-                                        </div>
-                                    </a>
-                                `).join('')}
+                                            <a class="alumni-card w-full max-w-sm cursor-pointer rounded-lg border border-gray-200 bg-lightblue shadow-md transition-shadow duration-300 hover:shadow-lg"
+                                            href="/alumni/detail/${alumni.id_userDetails}">
+                                                <div class="flex flex-col items-center p-4 text-center">
+                                                    <div class="mb-3 flex w-full justify-end px-2 text-gray-400">
+                                                        <span class="text-sm">${alumni.graduate_year === '-' ? 'Graduated' : alumni.graduate_year}</span>
+                                                    </div>
+                                                    <img class="mb-3 h-20 w-20 rounded-full object-cover shadow-lg"
+                                                        src="/storage/profile/${alumni.profile_photo}" alt="${alumni.name}" />
+                                                    <h2 class="mb-1 text-lg text-cyan">${alumni.name}</h2>
+                                                    <h3 class="text-sm text-cyan">${alumni.current_job ?? 'Job not specified'}</h3>
+                                                    <h4 class="text-xs text-gray-500">${alumni.current_company ?? 'Company not specified'}</h4>
+                                                </div>
+                                            </a>
+                                        `).join('')}
                             </div>
                         ` : `
                             <div class="py-6 text-center">
