@@ -286,7 +286,7 @@ class CompanyController extends Controller
             ]);
 
             $company->delete();
-            return redirect()->route('admin.home')->with('approved', "Company '{$company->company_name}' rejected.");
+            return redirect()->route('admin.home')->with('rejected', "Company '{$company->company_name}' rejected.");
         }
         return redirect()->route('admin.home')->with('rejected', "Company '{$company->company_name}' is not pending approval.");
     }
