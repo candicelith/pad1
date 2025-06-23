@@ -134,7 +134,8 @@
                                                                 <div>
                                                                     <label for="company_name"
                                                                         class="mb-2 block text-sm text-cyan sm:text-xl">
-                                                                        Name<span class="text-4xl text-red-500">*</span>
+                                                                        Name <span
+                                                                            class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
                                                                     </label>
                                                                     <input type="text" name="company_name"
                                                                         id="company_name"
@@ -147,8 +148,8 @@
                                                                 <div>
                                                                     <label for="company_field"
                                                                         class="mb-2 block text-sm text-cyan sm:text-xl">
-                                                                        Industry Type<span
-                                                                            class="text-4xl text-red-500">*</span>
+                                                                        Industry Type <span
+                                                                            class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
                                                                     </label>
                                                                     <input type="text" name="company_field"
                                                                         id="company_field"
@@ -161,8 +162,8 @@
                                                                 <div>
                                                                     <label for="company_address"
                                                                         class="mb-2 block text-sm text-cyan sm:text-xl">
-                                                                        Location<span
-                                                                            class="text-4xl text-red-500">*</span>
+                                                                        Location <span
+                                                                            class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
                                                                     </label>
                                                                     <input type="text" name="company_address"
                                                                         id="company_address"
@@ -175,8 +176,8 @@
                                                                 <div>
                                                                     <label for="company_description"
                                                                         class="mb-2 block text-sm text-cyan sm:text-xl">
-                                                                        Description<span
-                                                                            class="text-4xl text-red-500">*</span>
+                                                                        Description <span
+                                                                            class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
                                                                     </label>
                                                                     <textarea name="company_description" id="company_description" rows="4"
                                                                         class="w-full rounded-md border border-gray-300 bg-gray-200 px-3 py-2 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
@@ -186,8 +187,8 @@
                                                                 <div class="space-y-3">
                                                                     <label for="company_phone"
                                                                         class="mb-2 block text-sm text-cyan sm:text-xl">
-                                                                        File Upload<span
-                                                                            class="text-4xl text-red-500">*</span>
+                                                                        File Upload <span
+                                                                            class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
                                                                     </label>
                                                                     <p>You can add one or more photos of your new
                                                                         company</p>
