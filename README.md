@@ -2,7 +2,7 @@
 
 ## Pokari
 
-ntang Pokari
+Tentang Pokari
 Sistem informasi alumni sangat dibutuhkan untuk mendukung proses akreditasi program studi, khususnya bagi program studi Teknologi Rekayasa Perangkat Lunak (TRPL). Kehadiran platform ini memudahkan pihak eksternal untuk melihat rekam jejak karir alumni. Dengan melihat pengalaman kerja alumni TRPL di berbagai perusahaan, pihak yang menilai akreditasi dapat memperoleh bukti bahwa lulusan program studi ini memiliki pengalaman karir yang relevan, kompeten, dan luas di bidang teknologi. Hal ini menjadi salah satu indikator penting dalam peningkatan mutu program studi.
 Pokari (Portal Karir Alumni) adalah solusi untuk menghubungkan mahasiswa Teknologi Rekayasa Perangkat Lunak dengan alumninya sekaligus mendukung akreditasi program studi. Portal ini tidak hanya memberikan akses kepada mahasiswa untuk melihat pengalaman kerja alumni, tetapi juga menyediakan informasi mengenai peluang magang dan pekerjaan yang diunggah oleh alumni. Dengan demikian, portal ini diharapkan dapat membantu mahasiswa dalam mendapatkan kesempatan karir yang lebih baik, serta memperkuat citra dan kualitas lulusan di mata lembaga akreditasi dan industri.
 
@@ -22,53 +22,6 @@ Pokari (Portal Karir Alumni) adalah solusi untuk menghubungkan mahasiswa Teknolo
 * Bahasa Pemrograman: PHP, JavaScript
 * UI/UX: Figma
 * Tools General : Draw.io, Google tools, Github, VSCode
-
-## Penggunaan
-
-### Sign Up dan Login
-1. Buka halaman utama HealthMap.
-2. Apbila belum terdaftar, klik tombol "Sign Up" untuk membuat akun baru.
-3. Apabila sudah memiliki akun, login menggunakan akun yang sudah terdaftar untuk mengakses sistem.
-
-### Melihat Dashboard
-1. Masuk ke dashboard utama setelah login.
-2. Pahami data di posyandu dengan melihat pie chart.
-
-### Melihat Data Anak
-1. Masuk ke menu Data Anak.
-2. Lihat tabel yang tersedia.
-   
-### Menambah Data Anak
-1. Masuk ke menu Data Anak.
-2. Klik tombol 'Tambah Data'
-3. Isi form sesuai ketentuan.
-   
-### Memperbarui Data Anak
-1. Masuk ke menu Data Anak.
-2. Klik icon berbentuk pensil di kolom terakhir pada tabel.
-3. Isi form sesuai ketentuan.
-   
-### Menghapus Data Anak
-1. Masuk ke menu Data Anak.
-2. Klik icon berbentuk tempat sampah di kolom terakhir pada tabel.
-
-### Melihat Data Gizi
-1. Masuk ke menu Data Gizi.
-2. Lihat tabel yang tersedia.
-   
-### Menambah Data Gizi
-1. Masuk ke menu Data Gizi.
-2. Klik tombol 'Tambah Data'
-3. Isi form sesuai ketentuan.
-   
-### Memperbarui Data Gizi
-1. Masuk ke menu Data Gizi.
-2. Klik icon berbentuk pensil di kolom terakhir pada tabel.
-3. Isi form sesuai ketentuan.
-   
-### Menghapus Data Gizi
-1. Masuk ke menu Data Gizi.
-2. Klik icon berbentuk tempat sampah di kolom terakhir pada tabel.
 
 ## Lisensi
 
