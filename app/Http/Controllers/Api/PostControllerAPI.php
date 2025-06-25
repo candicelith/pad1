@@ -45,40 +45,38 @@ class PostControllerAPI extends Controller
             // Apply Filter
             if ($filter == 'my_posts') {
                 $vacancysQuery->where('vacancy.id_users', Auth::id());
-
             } elseif ($filter == 'my_commented_posts') {
                 $vacancysQuery->whereIn('vacancy.id_vacancy', function ($query) {
                     $query->select('id_vacancy')
-                          ->from('comment')
-                          ->where('id_users', Auth::id());
+                        ->from('comment')
+                        ->where('id_users', Auth::id());
                 });
             }
 
-            // Apply Date Filter
-            if ($startDate) {
-                // Use the date_open column from the vacancy table
-                $vacancysQuery->whereDate('vacancy.date_open', '>=', Carbon::parse($startDate)->format('Y-m-d'));
+            // In your controller, ensure date validation
+            if ($request->filled('start_date') && $request->filled('end_date')) {
+                $request->validate([
+                    'start_date' => 'required|date',
+                    'end_date' => 'required|date|after_or_equal:start_date'
+                ]);
+
+                $startDate = Carbon::parse($request->input('start_date'))->startOfDay();
+                $endDate = Carbon::parse($request->input('end_date'))->endOfDay();
+
+                $vacancysQuery->whereBetween('vacancy.created_at', [$startDate, $endDate]);
             }
-            if ($endDate) {
-                $vacancysQuery->whereDate('vacancy.date_open', '<=', Carbon::parse($endDate)->format('Y-m-d'));
+            // Apply Search Query
+            if ($request->filled('query')) {
+                $query = $request->input('query');
+                $vacancysQuery->where(function ($q) use ($query) {
+                    $q->where('vacancy.position', 'LIKE', "%$query%")
+                    ->orWhere('company.company_name', 'LIKE', "%$query%")
+                    ->orWhere('user_details.name', 'LIKE', "%$query%");
+                });
             }
 
             $vacancys = $vacancysQuery->orderBy('id_vacancy', 'desc')->paginate(10);
             $vacancys->appends($request->all());
-
-            // Membuat Variabel Tanggal Menjadi Lebih Dinamis dengan Tanggal Saat ini
-            foreach ($vacancys as $vc) {
-
-                $dateOpen = Carbon::parse($vc->date_open);
-                $now = Carbon::now();
-                $daysDifference = $dateOpen->diffInDays($now);
-
-                if ($daysDifference < 1) {
-                    $vc->date_difference = 'Today';
-                } else {
-                    $vc->date_difference = $daysDifference . ' days ago';
-                }
-            }
 
             return response()->json([
                 "success" => true,

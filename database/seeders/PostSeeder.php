@@ -20,6 +20,19 @@ class PostSeeder extends Seeder
             'AI/ML Engineer'
         ];
 
+        $descriptions = [
+            'Software Engineer' => 'Design, develop, and maintain scalable software solutions in a collaborative team environment.',
+            'Frontend Developer' => 'Create responsive and dynamic user interfaces using modern JavaScript frameworks like React or Vue.',
+            'Backend Developer' => 'Build robust server-side applications and APIs using Node.js, Laravel, or Django.',
+            'DevOps Engineer' => 'Implement and manage CI/CD pipelines, cloud infrastructure, and deployment automation.',
+            'Data Scientist' => 'Analyze large datasets to uncover insights and build predictive models to support business decisions.',
+            'Cloud Architect' => 'Design scalable, secure, and high-performance cloud solutions on AWS, Azure, or Google Cloud.',
+            'Cybersecurity Analyst' => 'Protect systems and networks from cyber threats through continuous monitoring and security improvements.',
+            'Full Stack Developer' => 'Handle both frontend and backend development for complete web application solutions.',
+            'Mobile App Developer' => 'Develop mobile applications for iOS and Android using native or cross-platform technologies.',
+            'AI/ML Engineer' => 'Develop intelligent systems and machine learning models to solve real-world problems.'
+        ];
+
         $qualifications = [
             'Bachelor’s degree in Computer Science or related field',
             '3+ years of experience in software development',
@@ -45,11 +58,13 @@ class PostSeeder extends Seeder
         ];
 
         for ($i = 0; $i < 10; $i++) {
+            $position = $positions[$i];
+
             Vacancy::create([
                 'id_company' => fake()->numberBetween(1, 15),
                 'id_users' => fake()->numberBetween(1, 10),
-                'position' => $positions[$i],
-                'vacancy_description' => fake()->paragraph(3),
+                'position' => $position,
+                'vacancy_description' => $descriptions[$position],
 
                 'vacancy_qualification' => [
                     $qualifications[array_rand($qualifications)],
