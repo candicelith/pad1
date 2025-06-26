@@ -22,7 +22,12 @@ class Company extends Model
         'company_picture',
         'status',
         'rejection_reason',
+        'company_gallery',
         'creator'
+    ];
+
+    protected $casts = [
+        'company_gallery' => 'array',
     ];
 
     public function jobs()

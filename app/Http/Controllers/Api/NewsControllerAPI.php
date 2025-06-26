@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\NewsResource;
 use App\Models\News;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\NewsResource;
+use Illuminate\Support\Facades\Storage;
 
 class NewsControllerAPI extends Controller
 {
@@ -30,15 +31,15 @@ class NewsControllerAPI extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'heading' => 'required|string|max:255',
-            'description' => 'required|string',
-            'banner_image' => 'required|img'
+            'heading' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'banner_image' => 'required|image|mimes:jpg,jpeg,png|max:2048'
         ]);
 
         $news = News::create([
             'heading' => $request->heading,
             'description' => $request->description,
-            'cover_page' => $request->cover_page
+            'banner_image' => $request->banner_image
         ]);
 
         return response()->json([
@@ -50,16 +51,16 @@ class NewsControllerAPI extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'heading' => 'required|string|max:255',
-            'description' => 'required|string',
-            'cover_page' => 'required|string'
+            'heading' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'banner_image' => 'required|image|mimes:jpg,jpeg,png|max:2048'
         ]);
 
         $news = News::findOrFail($id);
         $news->update([
             'heading' => $request->heading,
             'description' => $request->description,
-            'cover_page' => $request->cover_page
+            'banner_image' => $request->banner_image
         ]);
 
         return response()->json([
@@ -71,6 +72,10 @@ class NewsControllerAPI extends Controller
     public function destroy($id)
     {
         $news = News::findOrFail($id);
+
+        if ($news->banner_image && Storage::exists($news->banner_image)) {
+            Storage::delete($news->banner_image);
+        }
 
         $news->delete();
 

@@ -41,12 +41,25 @@
                                     <div class="splide__slider">
                                         <div class="splide__track">
                                             <ul class="splide__list">
-                                                <li class="splide__slide"><img src=" {{ asset('assets/company-2.png') }} "
-                                                        alt=""></li>
-                                                <li class="splide__slide"><img src=" {{ asset('assets/company-3.png') }} "
-                                                        alt=""></li>
-                                                <li class="splide__slide"><img src=" {{ asset('assets/company-1.png') }} "
-                                                        alt=""></li>
+                                                @if ($company->company_gallery && is_array($company->company_gallery))
+                                                    @foreach ($company->company_gallery as $photo)
+                                                        <li class="splide__slide">
+                                                            <img src="{{ asset('storage/company/gallery/' . $photo) }}"
+                                                                 alt="Company Photo"
+                                                                 class="w-full h-48 object-cover rounded-lg shadow">
+                                                        </li>
+                                                    @endforeach
+                                                @else
+                                                    <li class="splide__slide">
+                                                        <img src="{{ asset('assets/company-1.png') }}" alt="No photo">
+                                                    </li>
+                                                    <li class="splide__slide">
+                                                        <img src="{{ asset('assets/company-2.png') }}" alt="No photo">
+                                                    </li>
+                                                    <li class="splide__slide">
+                                                        <img src="{{ asset('assets/company-3.png') }}" alt="No photo">
+                                                    </li>
+                                                @endif
                                             </ul>
                                         </div>
                                     </div>

@@ -22,6 +22,9 @@ class CompanyResource extends JsonResource
             'company_phone' => $this->company_phone,
             'company_address' => $this->company_address,
             'company_picture' => $this->company_picture ? asset('storage/company/' . $this->company_picture) : asset('images/default_company.png'), // Memberikan URL lengkap
+            'company_gallery' => $this->company_gallery
+                ? array_map(fn($image) => asset('storage/company/gallery/' . $image), $this->company_gallery)
+                : [],
             'status' => $this->status,
             'created_at' => $this->created_at->toDateTimeString(),
             'updated_at' => $this->updated_at->toDateTimeString(),

@@ -24,7 +24,7 @@ return new class extends Migration
 
             $table->date('date_open')->nullable();
             $table->date('date_closed')->nullable();
-            $table->string('vacancy_picture')->nullable();
+            $table->json('vacancy_picture')->nullable();
             $table->string('vacancy_link')->nullable();
             $table->timestamps();
 

@@ -70,14 +70,12 @@
                                         enctype="multipart/form-data">
                                         @csrf
                                         <div class="relative h-24 w-24 sm:h-32 sm:w-32">
-                                            <!-- Profile Picture -->
                                             <div
                                                 class="h-full w-full overflow-hidden rounded-full border-4 border-cyan bg-gray-100">
                                                 <img id="preview-image" class="h-full w-full object-cover" src=""
                                                     alt="Profile Picture">
                                             </div>
 
-                                            <!-- Camera Icon -->
                                             <label for="company_picture"
                                                 class="hover:bg-cyan-600 absolute bottom-0 right-0 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-cyan text-white shadow-md transition-all sm:h-10 sm:w-10">
                                                 <svg class="h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true"
@@ -92,11 +90,14 @@
                                                         stroke-linejoin="round" stroke-width="2" d="M9 5h6l-1 4" />
                                                 </svg>
                                             </label>
+
                                             {{-- Hidden Input for Company Picture --}}
                                             <input id="company_picture" name="company_picture" type="file"
                                                 accept="image/*" class="hidden"
-                                                onchange="document.getElementById('preview-image').src = window.URL.createObjectURL(this.files[0])">
+                                                onchange="previewImage(this)">
                                         </div>
+                                        <p id="company_picture-error" class="text-sm text-red-500"></p>
+
 
                                         <div>
                                             <label for="company_name" class="mb-1 block text-2xl text-cyan">
@@ -142,14 +143,18 @@
                                                 placeholder="Briefly describe the company and its mission" required>{{ old('company_description') }}</textarea>
                                         </div>
 
-                                        <div class="w-full space-y-3">
-                                            <label for="company_phone" class="mb-1 block text-2xl text-cyan">
-                                                File Upload <span
-                                                    class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
-                                            </label>
-                                            <p>You can add one or more photos of your new company</p>
-                                            <input type="file" name="" id=""
-                                                class="rounded-full border" required>
+                                        {{-- Gallery Upload --}}
+                                        <div class="md:col-span-3">
+                                            <label for="company_gallery"
+                                                class="block text-lg font-medium text-cyan">Company Gallery</label>
+                                            <p class="text-sm text-gray-500 mb-2">You can add multiple photos of your
+                                                company (max 5, each under 2MB).</p>
+                                            <input type="file" name="company_gallery[]" id="company_gallery" multiple
+                                                accept="image/*"
+                                                class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-l-lg file:border-0 file:text-sm file:font-semibold file:bg-gray-200 file:text-gray-700 hover:file:bg-gray-300">
+                                            <p id="company_gallery-error" class="text-sm text-red-500"></p>
+                                            <div id="gallery-preview"
+                                                class="mt-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4"></div>
                                         </div>
 
                                         <div class="flex justify-end space-x-3 pt-4">
@@ -254,5 +259,81 @@
                 sortable: false
             });
         }
+
+        function previewImage(input) {
+            const file = input.files[0];
+            const errorElement = document.getElementById('company_picture-error');
+            const preview = document.getElementById('preview-image');
+
+            if (!file) {
+                preview.src = "";
+                errorElement.textContent = "";
+                return;
+            }
+
+            const maxFileSize = 2 * 1024 * 1024; // 2MB
+            const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+
+            if (file.size > maxFileSize) {
+                errorElement.textContent = 'File size must be less than 2MB.';
+                input.value = ''; // Clear the input
+                preview.src = "";
+                return;
+            }
+
+            if (!allowedTypes.includes(file.type)) {
+                errorElement.textContent = 'Invalid file type. Please select a JPG, PNG, or GIF.';
+                input.value = ''; // Clear the input
+                preview.src = "";
+                return;
+            }
+
+            errorElement.textContent = '';
+            preview.src = URL.createObjectURL(file);
+        }
+
+        document.getElementById('company_gallery').addEventListener('change', function(event) {
+            const previewContainer = document.getElementById('gallery-preview');
+            const errorElement = document.getElementById('company_gallery-error');
+            previewContainer.innerHTML = ''; // Clear previous previews
+            errorElement.textContent = ''; // Clear previous errors
+            const files = event.target.files;
+
+            if (files.length > 5) {
+                errorElement.textContent = 'You can only upload a maximum of 5 images for the gallery.';
+                // Clear the file input
+                event.target.value = '';
+                return;
+            }
+
+            const maxFileSize = 2 * 1024 * 1024; // 2MB
+
+            for (const file of files) {
+                if (file.size > maxFileSize) {
+                    errorElement.textContent = `File "${file.name}" is too large. Maximum size is 2MB.`;
+                    event.target.value = ''; // Clear the input
+                    previewContainer.innerHTML = ''; // Clear previews
+                    return;
+                }
+            }
+
+
+            Array.from(files).forEach(file => {
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const imgWrapper = document.createElement('div');
+                        imgWrapper.classList.add('relative', 'w-full', 'h-24');
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.classList.add('h-full', 'w-full', 'object-cover', 'rounded-lg',
+                            'shadow-md');
+                        imgWrapper.appendChild(img);
+                        previewContainer.appendChild(imgWrapper);
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
     </script>
 @endsection
