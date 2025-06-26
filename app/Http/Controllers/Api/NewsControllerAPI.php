@@ -11,8 +11,10 @@ class NewsControllerAPI extends Controller
 {
     public function index()
     {
-        return NewsResource::collection(News::paginate(3));
+        $latestNews = News::latest()->take(3)->get(); // urutkan dari terbaru dan ambil 3 data
+        return NewsResource::collection($latestNews);
     }
+
 
     public function show($id)
     {

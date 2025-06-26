@@ -169,10 +169,12 @@
                                                 <select id="current_job" name="current_job"
                                                     class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
                                                     required>
-                                                    <option value="" disabled {{ old('current_job', $userDetails->current_job) ? '' : 'selected' }}>
+                                                    <option value="" disabled
+                                                        {{ old('current_job', $userDetails->current_job) ? '' : 'selected' }}>
                                                         Select a job position
                                                     </option>
-                                                    <option value="" {{ old('current_job', $userDetails->current_job) == '' ? 'selected' : '' }}>
+                                                    <option value=""
+                                                        {{ old('current_job', $userDetails->current_job) == '' ? 'selected' : '' }}>
                                                         Jobless
                                                     </option>
                                                     @foreach ($allJob as $job)
@@ -189,7 +191,7 @@
                                                         class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
                                                 <textarea type="text" id="user_description" name="user_description"
                                                     class="w-full rounded-md border border-gray-300 bg-gray-200 px-3 py-2 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
-                                                    placeholder="Tell us about yourself and your professional journey...">{{ $userDetails->user_description }}</textarea>
+                                                    placeholder="Tell us about yourself and your professional journey..." required>{{ $userDetails->user_description }}</textarea>
                                             </div>
                                             <div class="flex justify-end space-x-3 pt-4">
                                                 <button data-modal-hide="crud-modal" type="submit"
