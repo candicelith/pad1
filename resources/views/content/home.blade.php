@@ -2,11 +2,11 @@
 
 @section('content')
     {{-- Carousel Start --}}
-    <section id="default-carousel" class="relative mt-20 w-full" data-carousel="slide">
-        <div class="relative h-screen overflow-hidden" id="news-carousel">
+    <section id="carousel-wrapper" class="relative mt-20 h-screen w-full overflow-hidden" data-carousel="slide">
+        <div class="flex h-full w-full transition-transform duration-700 ease-in-out" id="news-carousel">
 
             {{-- Slide 1 --}}
-            <div class="absolute inset-0 transform transition-transform duration-700 ease-in-out" data-carousel-item="active">
+            {{-- <div class="absolute inset-0 transform transition-transform duration-700 ease-in-out" data-carousel-item="active">
                 <div
                     class="relative flex h-full w-full items-center justify-start bg-gray-700 px-4 py-20 text-start shadow md:py-24 lg:py-56">
 
@@ -22,10 +22,10 @@
                         </p>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
             {{-- Slide 2 --}}
-            <div class="absolute inset-0 translate-x-full transform transition-transform duration-700 ease-in-out"
+            {{-- <div class="absolute inset-0 translate-x-full transform transition-transform duration-700 ease-in-out"
                 data-carousel-item>
                 <div
                     class="relative flex h-full w-full items-center justify-start bg-gray-700 px-4 py-20 text-start shadow md:py-24 lg:py-56">
@@ -44,10 +44,10 @@
                         </p>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
             {{-- Slide 3 --}}
-            <div class="absolute inset-0 translate-x-full transform transition-transform duration-700 ease-in-out"
+            {{-- <div class="absolute inset-0 translate-x-full transform transition-transform duration-700 ease-in-out"
                 data-carousel-item>
                 <div
                     class="relative flex h-full w-full items-center justify-start bg-gray-700 px-4 py-20 text-start shadow md:py-24 lg:py-56">
@@ -66,28 +66,26 @@
                         </p>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
 
         {{-- Carousel Indicators --}}
-        <div class="absolute bottom-5 left-1/2 z-30 flex -translate-x-1/2 space-x-3">
-            <button type="button" class="h-3 w-3 rounded-full" aria-current="true" aria-label="Slide 1"
+        <div class="absolute bottom-5 left-1/2 z-30 flex -translate-x-1/2 space-x-3" id="carousel-indicators">
+            {{-- <button type="button" class="h-3 w-3 rounded-full" aria-current="true" aria-label="Slide 1"
                 data-carousel-slide-to="0"></button>
             <button type="button" class="h-3 w-3 rounded-full" aria-current="false" aria-label="Slide 2"
                 data-carousel-slide-to="1"></button>
             <button type="button" class="h-3 w-3 rounded-full" aria-current="false" aria-label="Slide 3"
-                data-carousel-slide-to="2"></button>
+                data-carousel-slide-to="2"></button> --}}
         </div>
 
         {{-- Previous Button --}}
-        <button type="button"
-            class="group absolute left-0 top-0 z-30 flex h-full cursor-pointer items-center justify-center px-4 focus:outline-none"
-            data-carousel-prev>
+        <button id="prevBtn" type="button" data-carousel-prev
+            class="group absolute left-0 top-0 z-30 flex h-full items-center px-4">
             <span
                 class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/30 group-hover:bg-white/50">
-                <svg class="h-4 w-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                    viewBox="0 0 6 10">
-                    <path stroke="currentColor" stroke-linecap="round" stroke -linejoin="round" stroke-width="2"
+                <svg class="h-4 w-4 text-white" fill="none" viewBox="0 0 6 10">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M5 1 1 5l4 4" />
                 </svg>
                 <span class="sr-only">Previous</span>
@@ -95,13 +93,11 @@
         </button>
 
         {{-- Next Button --}}
-        <button type="button"
-            class="group absolute right-0 top-0 z-30 flex h-full cursor-pointer items-center justify-center px-4 focus:outline-none"
-            data-carousel-next>
+        <button id="nextBtn" type="button" data-carousel-next
+            class="group absolute right-0 top-0 z-30 flex h-full items-center px-4">
             <span
                 class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/30 group-hover:bg-white/50">
-                <svg class="h-4 w-4 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                    viewBox="0 0 6 10">
+                <svg class="h-4 w-4 text-white" fill="none" viewBox="0 0 6 10">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M1 9l4-4-4-4" />
                 </svg>
@@ -219,7 +215,86 @@
     </section>
     {{-- Content End --}}
 
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const carousel = document.getElementById('news-carousel');
+            const indicatorsContainer = document.getElementById('carousel-indicators');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+
+            let currentIndex = 0;
+            let totalItems = 0;
+
+            axios.get('/api/news')
+                .then(response => {
+                    const newsList = response.data.data.reverse().slice(0, 3); // ambil maksimal 3
+                    totalItems = newsList.length;
+
+                    // Inject slides
+                    newsList.forEach((item, index) => {
+                        const slide = document.createElement('div');
+                        slide.className = 'h-full w-full relative';
+                        slide.innerHTML = `
+                            <div class="relative flex h-full w-full items-center justify-start bg-gray-700 px-4 py-20 text-start shadow md:py-24 lg:py-56">
+                                <img src="${item.banner_image}" alt="Banner Image" class="absolute inset-0 z-0 h-full w-full object-cover opacity-60" />
+                                <div class="relative z-10 mx-auto w-full max-w-screen-xl text-white">
+                                    <h1 class="mb-4 text-3xl leading-tight sm:text-4xl md:text-5xl lg:text-6xl">${item.heading}</h1>
+                                    <p class="mb-8 text-base font-normal text-gray-300 sm:text-lg lg:text-xl">${item.description}</p>
+                                </div>
+                            </div>
+                        `;
+                        carousel.appendChild(slide);
+
+                        // Inject indicators
+                        const indicator = document.createElement('button');
+                        indicator.className =
+                            `h-3 w-3 rounded-full ${index === 0 ? 'bg-white' : 'bg-white/30'}`;
+                        indicator.dataset.slideTo = index;
+                        indicator.addEventListener('click', () => goToSlide(index));
+                        indicatorsContainer.appendChild(indicator);
+                    });
+
+                    updateCarouselPosition();
+                });
+
+            function updateCarouselPosition() {
+                const slideWidth = carousel.clientWidth;
+                carousel.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+
+                // Update indicators
+                [...indicatorsContainer.children].forEach((el, i) => {
+                    el.className =
+                        `h-3 w-3 rounded-full ${i === currentIndex ? 'bg-white' : 'bg-white/30'}`;
+                });
+            }
+
+            function goToSlide(index) {
+                currentIndex = index;
+                updateCarouselPosition();
+            }
+
+            prevBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex - 1 + totalItems) % totalItems;
+                updateCarouselPosition();
+            });
+
+            nextBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex + 1) % totalItems;
+                updateCarouselPosition();
+            });
+
+            setInterval(() => {
+                currentIndex = (currentIndex + 1) % totalItems;
+                updateCarouselPosition();
+            }, 5000);
+
+            // Optional: responsive resize listener
+            window.addEventListener('resize', updateCarouselPosition);
+        });
+    </script>
 
     {{-- Posts API --}}
     <script>

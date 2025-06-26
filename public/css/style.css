@@ -19,6 +19,12 @@ main {
     flex: 1;
 }
 
+#news-carousel>div {
+    flex-shrink: 0;
+    width: 100%;
+
+}
+
 
 .desktop-text-start {
     text-align: start;

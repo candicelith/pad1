@@ -127,7 +127,8 @@
                                                                 Company <span
                                                                     class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
                                                             <select name="current_company" id="current_company"
-                                                                class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan">
+                                                                class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
+                                                                required>
                                                                 <option value="" disabled
                                                                     {{ $userDetails->current_job ? '' : 'selected' }}>
                                                                     Select a company</option>
