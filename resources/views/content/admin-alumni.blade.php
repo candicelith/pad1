@@ -20,7 +20,7 @@
                     <div class="top-0 z-20 flex justify-between bg-white pb-4">
 
                         {{-- Add Alumni Button --}}
-                        <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
+                        {{-- <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
                             class="group rounded-xl bg-cyan p-2 shadow-md hover:bg-cyan-400 hover:text-cyan">
                             <svg class="h-6 w-6 text-white group-hover:text-cyan" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
@@ -28,7 +28,7 @@
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M5 12h14m-7 7V5" />
                             </svg>
-                        </button>
+                        </button> --}}
 
                         {{-- Main modal --}}
                         <div id="crud-modal" tabindex="-1" aria-hidden="true"
