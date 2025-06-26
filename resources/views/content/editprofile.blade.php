@@ -168,7 +168,7 @@
                                                                 class="w-full rounded-md border-gray-300 bg-gray-50 px-3 py-2 shadow-sm"></textarea>
                                                         </div>
                                                         <div id="new_company_ajax_errors_modal_editprofile"
-                                                        class="mb-3 text-sm text-red-500"></div> {{-- Unique ID --}}
+                                                            class="mb-3 text-sm text-red-500"></div> {{-- Unique ID --}}
                                                         <div class="flex space-x-2">
                                                             <button type="button" @click="saveNewCompanyViaAjax()"
                                                                 class="bg-btn-cyan rounded-lg bg-cyan px-4 py-2 text-sm text-white hover:bg-cyan-400 hover:text-cyan">
@@ -860,7 +860,7 @@
                 newItem.innerHTML = `
                 <input type="text" name="job_responsibility[]"
                     class="block w-full rounded-xl border border-gray-900 bg-gray-50 px-2 text-sm text-gray-900"
-                    placeholder="Enter Responsibility" required />
+                    placeholder="Enter responsibility" required />
                 <button type="button" class="remove-responsibility ml-2 rounded-full border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2">
                     Remove
                 </button>
@@ -1228,7 +1228,7 @@
                     newItemDiv.innerHTML = `
                 <input type="text" name="${inputName}"
                     class="block w-full rounded-xl border border-gray-900 bg-gray-50 px-2 py-2 text-sm text-gray-900"
-                    placeholder="Enter detail" />
+                    placeholder="Enter responsibility" required/>
                 <button type="button"
                     class="remove-responsibility ml-2 rounded-xl border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2">Remove</button>
             `;

@@ -62,6 +62,7 @@
                                                 <input type="text" name="heading" id="heading"
                                                     class="block h-1/2 w-full rounded-full border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-cyan dark:placeholder-gray-400 sm:p-2.5"
                                                     placeholder="Enter title">
+                                                    placeholder="Enter title">
                                             </div>
                                             <div class="col-span-2 sm:col-span-2">
                                                 <label for="description" class="mb-2 block text-sm text-cyan sm:text-2xl">
@@ -70,18 +71,18 @@
                                                 <textarea name="description" id="description"
                                                     class="block h-1/2 w-full rounded-xl border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-cyan dark:placeholder-gray-400 sm:p-2.5"
                                                     placeholder="Enter content"></textarea>
+                                                    placeholder="Enter content"></textarea>
                                             </div>
                                             <div class="col-span-2 sm:col-span-1">
                                                 <label for="banner_image" class="mb-2 block text-sm text-cyan sm:text-2xl">
                                                     Banner Image <span
                                                         class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
                                                 </label>
-                                                <input type="file" name="banner_image" id="banner_image" required
-                                                    class="block h-1/2 w-full rounded-full border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-cyan dark:placeholder-gray-400 sm:p-2.5"
-                                                    onchange="checkFileSize(this)">
+                                                <input type="file" name="banner_image" id="banner_image"
+                                                    class="rounded-full border" onchange="checkFileSize(this)" required>
                                             </div>
                                         </div>
-                                        <p class="cv-error text-red-500 text-sm mt-1"></p>
+                                        <p class="cv-error mt-1 text-sm text-red-500"></p>
                                         <div class="flex justify-end space-x-3 pt-2">
                                             <button type="submit"
                                                 class="bg-btn-cyan rounded-md bg-cyan px-6 py-2 text-xl text-white transition hover:bg-cyan-400 hover:text-cyan">
@@ -178,9 +179,11 @@
                                                                 <label for="heading"
                                                                     class="mb-2 block text-sm text-cyan sm:text-2xl">
                                                                     Title
+                                                                    Title
                                                                 </label>
                                                                 <input type="text" name="heading" id="heading"
                                                                     class="block h-1/2 w-full rounded-full border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-cyan dark:placeholder-gray-400 sm:p-2.5"
+                                                                    placeholder="Enter title"
                                                                     placeholder="Enter title"
                                                                     value="{{ $news->heading }}">
                                                             </div>
@@ -188,22 +191,23 @@
                                                                 <label for="description"
                                                                     class="mb-2 block text-sm text-cyan sm:text-2xl">
                                                                     Content
+                                                                    Content
                                                                 </label>
                                                                 <textarea type="text" name="description" id="description"
                                                                     class="block h-1/2 w-full rounded-xl border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-cyan dark:placeholder-gray-400 sm:p-2.5"
-                                                                    placeholder="Enter content" >{{ $news->description }}</textarea>
+                                                                    placeholder="Enter content">{{ $news->description }}</textarea>
                                                             </div>
                                                             <div class="col-span-2 sm:col-span-1">
                                                                 <label for="banner_image"
                                                                     class="mb-2 block text-sm text-cyan sm:text-2xl">Banner
                                                                     Image <span
-                                                                    class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
+                                                                        class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
                                                                 <input type="file" name="banner_image"
-                                                                    id="banner_image" required
-                                                                    class="block w-full rounded-full border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 " onchange="checkFileSize(this)">
+                                                                    id="banner_image" class="rounded-full border"
+                                                                    onchange="checkFileSize(this)" required>
                                                             </div>
                                                         </div>
-                                                        <p class="cv-error text-red-500 text-sm mt-1"></p>
+                                                        <p class="cv-error mt-1 text-sm text-red-500"></p>
                                                         <div class="flex justify-end space-x-3 pt-2">
                                                             <button type="submit"
                                                                 class="bg-btn-cyan rounded-md bg-cyan px-6 py-2 text-xl text-white transition hover:bg-cyan-400 hover:text-cyan">
@@ -262,44 +266,45 @@
             form.action = "{{ route('admin.news.delete', '') }}/" + id;
             form.submit();
         }
+
         function checkFileSize(input) {
-        const form = input.closest('form');
-        if (!form) {
-            console.error("Could not find parent form for the input element.");
-            return;
-        }
+            const form = input.closest('form');
+            if (!form) {
+                console.error("Could not find parent form for the input element.");
+                return;
+            }
 
-        const errorElement = form.querySelector('.cv-error');
-        if (!errorElement) {
-            console.error("Could not find the .cv-error element within the form.");
-            return;
-        }
+            const errorElement = form.querySelector('.cv-error');
+            if (!errorElement) {
+                console.error("Could not find the .cv-error element within the form.");
+                return;
+            }
 
-        const file = input.files[0];
-        if (!file) {
+            const file = input.files[0];
+            if (!file) {
+                errorElement.textContent = "";
+                return;
+            }
+
+            const maxSizeMB = 2;
+            const allowedTypes = ['image/jpeg', 'image/png'];
+
+            // File size check
+            if (file.size > maxSizeMB * 1024 * 1024) {
+                errorElement.textContent = `File is too large. Maximum allowed size is ${maxSizeMB} MB.`;
+                input.value = ""; // Clear the invalid file input
+                return;
+            }
+
+            // File Type Check
+            if (!allowedTypes.includes(file.type)) {
+                errorElement.textContent = "Invalid file format. Only JPG or PNG images are allowed.";
+                input.value = ""; // Clear the invalid file input
+                return;
+            }
+
+            // If all checks pass, clear the error message
             errorElement.textContent = "";
-            return;
         }
-
-        const maxSizeMB = 2;
-        const allowedTypes = ['image/jpeg', 'image/png'];
-
-        // File size check
-        if (file.size > maxSizeMB * 1024 * 1024) {
-            errorElement.textContent = `File is too large. Maximum allowed size is ${maxSizeMB} MB.`;
-            input.value = ""; // Clear the invalid file input
-            return;
-        }
-
-        // File Type Check
-        if (!allowedTypes.includes(file.type)) {
-            errorElement.textContent = "Invalid file format. Only JPG or PNG images are allowed.";
-            input.value = ""; // Clear the invalid file input
-            return;
-        }
-
-        // If all checks pass, clear the error message
-        errorElement.textContent = "";
-    }
     </script>
 @endsection
