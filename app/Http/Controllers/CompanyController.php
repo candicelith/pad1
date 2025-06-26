@@ -52,22 +52,14 @@ class CompanyController extends Controller
             'company_phone' => ['/^(?:\+62|62|0)8[1-9][0-9]{6,11}$/', 'max:255'],
             'company_address' => 'nullable|string|max:255',
             'company_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4096',
+            'company_gallery' => 'nullable|array|max:5',
+            'company_gallery.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4096', // Validate each gallery image
         ]);
 
         Notification::create([
             'id_users' => Auth::user()->id_users, // ID of the user being notified
             'type' => 'pending_approval',
             'message' => 'Penambahan Data Companies Sedang di Verifikasi oleh Admin. Mohon tunggu konfirmasi lebih lanjut.',
-        ]);
-
-        $company = Company::create([
-            'company_name' => $request->company_name,
-            'company_field' => $request->company_field,
-            'company_description' => $request->company_description,
-            'company_phone' => $request->company_phone,
-            'company_address' => $request->company_address,
-            'company_picture' => $request->company_picture ?? 'https://picsum.photos/id/870/200/300?grayscale&blur=2',
-            'creator' => Auth::user()->id_users
         ]);
 
         if ($request->hasFile('company_picture')) {
@@ -77,9 +69,29 @@ class CompanyController extends Controller
             $extension = $request->file('company_picture')->getClientOriginalExtension();
             $filenameSimpan = $filename . '_' . time() . '.' . $extension;
             $file->storeAs('public/company', $filenameSimpan);
-            $company->company_picture = $filenameSimpan;
-            $company->save();
+            $companyPicture = $filenameSimpan;
         }
+
+        // Upload company_gallery (if any)
+        $galleryPaths = [];
+        if ($request->hasFile('company_gallery')) {
+            foreach ($request->file('company_gallery') as $galleryFile) {
+                $filename = time() . '_' . Str::slug($galleryFile->getClientOriginalName()) . '.' . $galleryFile->getClientOriginalExtension();
+                $galleryFile->storeAs('public/company/gallery', $filename);
+                $galleryPaths[] = $filename;
+            }
+        }
+
+        $company = Company::create([
+            'company_name' => $request->company_name,
+            'company_field' => $request->company_field,
+            'company_description' => $request->company_description,
+            'company_phone' => $request->company_phone,
+            'company_address' => $request->company_address,
+            'company_picture' => $companyPicture ?? null,
+            'company_gallery' => $galleryPaths, // ✅ now it's always passed
+            'creator' => Auth::user()->id_users,
+        ]);
 
         if ($request->expectsJson()) {
             return response()->json([
@@ -186,6 +198,10 @@ class CompanyController extends Controller
             'company_phone' => ['/^(?:\+62|62|0)8[1-9][0-9]{6,11}$/', 'max:255'],
             'company_address' => 'nullable|string|max:255',
             'company_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4096',
+            'company_gallery.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4096',
+            'company_gallery' => 'nullable|array|max:10',
+            'deleted_images' => 'nullable|array', // To handle deletion of existing images
+            'deleted_images.*' => 'nullable|string' // Each item is a filename string
         ]);
 
         Notification::create([
@@ -195,15 +211,6 @@ class CompanyController extends Controller
         ]);
 
         $company = Company::findOrFail($id);
-        $company->update([
-            'company_name' => $request->company_name,
-            'company_field' => $request->company_field,
-            'company_description' => $request->company_description,
-            'company_phone' => $request->company_phone,
-            'company_address' => $request->company_address,
-            'company_picture' => $request->company_picture ?? 'https://picsum.photos/id/870/200/300?grayscale&blur=2',
-            'creator' => Auth::user()->id_users
-        ]);
 
         if ($request->hasFile('company_picture')) {
             // Delete old image if it exists
@@ -217,6 +224,38 @@ class CompanyController extends Controller
             $company->company_picture = $imageName;
         }
 
+        // --- GALLERY UPDATE LOGIC ---
+        $currentGallery = $company->company_gallery ?? [];
+
+        // 1. Delete images marked for deletion
+        if ($request->has('deleted_images')) {
+            $imagesToDelete = $request->input('deleted_images');
+            foreach ($imagesToDelete as $imageName) {
+                Storage::delete('public/company/gallery/' . $imageName);
+                // Remove from current gallery array
+                $currentGallery = array_diff($currentGallery, [$imageName]);
+            }
+        }
+
+        // 2. Add new images
+        if ($request->hasFile('company_gallery')) {
+            foreach ($request->file('company_gallery') as $galleryFile) {
+                $filename = time() . '_' . Str::slug($galleryFile->getClientOriginalName()) . '.' . $galleryFile->getClientOriginalExtension();
+                $galleryFile->storeAs('public/company/gallery', $filename);
+                $currentGallery[] = $filename;
+            }
+        }
+        $company->update([
+            'company_name' => $request->company_name,
+            'company_field' => $request->company_field,
+            'company_description' => $request->company_description,
+            'company_phone' => $request->company_phone,
+            'company_address' => $request->company_address,
+            'company_picture' => $request->company_picture ?? 'https://picsum.photos/id/870/200/300?grayscale&blur=2',
+            'company_gallery' => array_values($currentGallery), // Re-index the array
+            'creator' => Auth::user()->id_users
+        ]);
+
         return response()->json([
             "message" => "Succesfully Updated The Company!",
             "company" => new CompanyResource($company)
@@ -229,6 +268,18 @@ class CompanyController extends Controller
     public function destroy(string $id)
     {
         $company = Company::findOrFail($id);
+
+        // Delete the main picture
+        if ($company->company_picture && $company->company_picture !== 'default_company.png') {
+            Storage::delete('public/company/' . $company->company_picture);
+        }
+
+        // Delete all gallery images
+        if (!empty($company->company_gallery)) {
+            foreach ($company->company_gallery as $galleryImage) {
+                Storage::delete('public/company/gallery/' . $galleryImage);
+            }
+        }
 
         $company->delete();
 
@@ -278,6 +329,17 @@ class CompanyController extends Controller
             $company->status = 'rejected';
             $company->rejection_reason = $request->rejection_reason ?? '"Company Data Not Credibles"';
 
+            // Delete the main picture
+            if ($company->company_picture && $company->company_picture !== 'default_company.png') {
+                Storage::delete('public/company/' . $company->company_picture);
+            }
+
+            // Delete all gallery images
+            if (!empty($company->company_gallery)) {
+                foreach ($company->company_gallery as $galleryImage) {
+                    Storage::delete('public/company/gallery/' . $galleryImage);
+                }
+            }
 
             Notification::create([
                 'id_users' => $company->creator,
@@ -286,7 +348,7 @@ class CompanyController extends Controller
             ]);
 
             $company->delete();
-            return redirect()->route('admin.home')->with('approved', "Company '{$company->company_name}' rejected.");
+            return redirect()->route('admin.home')->with('rejected', "Company '{$company->company_name}' rejected.");
         }
         return redirect()->route('admin.home')->with('rejected', "Company '{$company->company_name}' is not pending approval.");
     }

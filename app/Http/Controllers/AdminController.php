@@ -2,24 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Models\Job;
 use App\Models\News;
 use App\Models\User;
 use App\Models\Company;
 use App\Models\JobTracking;
 use App\Models\UserDetails;
+use Illuminate\Support\Str;
 use App\Models\Notification;
 use Illuminate\Http\Request;
 use App\Models\PendingRequest;
 use App\Services\AdminService;
-use Exception;
+use PHPUnit\Event\Code\Throwable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use PHPUnit\Event\Code\Throwable;
 
 class AdminController extends Controller
 {
@@ -433,21 +434,16 @@ class AdminController extends Controller
     public function storeCompany(Request $request)
     {
         try{
-            $validated = $request->validate([
+            $request->validate([
                 'company_name' => 'required|string|max:255',
                 'company_field' => 'required|string|max:255',
                 'company_description' => 'required|string|max:255',
                 'company_address' => 'string|max:255',
                 'company_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4096',
+                'company_gallery' => 'nullable|array|max:5',
+                'company_gallery.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4096',
             ]);
 
-            $company = Company::create([
-                'company_name' => $request->company_name,
-                'company_field' => $request->company_field,
-                'company_description' => $request->company_description,
-                'company_address' => $request->company_address,
-                'company_picture' => $request->company_picture,
-            ]);
 
             if ($request->hasFile('company_picture')) {
                 $file = $request->file('company_picture');
@@ -456,9 +452,27 @@ class AdminController extends Controller
                 $extension = $request->file('company_picture')->getClientOriginalExtension();
                 $filenameSimpan = $filename . '_' . time() . '.' . $extension;
                 $file->storeAs('public/company', $filenameSimpan);
-                $company->company_picture = $filenameSimpan;
-                $company->save();
+                $companyPicture = $filenameSimpan;
             }
+
+            // Upload company_gallery (if any)
+            $galleryPaths = [];
+            if ($request->hasFile('company_gallery')) {
+                foreach ($request->file('company_gallery') as $galleryFile) {
+                    $filename = time() . '_' . Str::slug($galleryFile->getClientOriginalName()) . '.' . $galleryFile->getClientOriginalExtension();
+                    $galleryFile->storeAs('public/company/gallery', $filename);
+                    $galleryPaths[] = $filename;
+                }
+            }
+            $company = Company::create([
+                'company_name' => $request->company_name,
+                'company_field' => $request->company_field,
+                'company_description' => $request->company_description,
+                'company_address' => $request->company_address,
+                'company_picture' => $filenameSimpan,
+                'company_gallery' => $galleryPaths,
+                'creator' => Auth::user()->id_users,
+            ]);
 
             return redirect()->back()->with('approved', 'Company added successfully!');
         }catch(Exception $e){
@@ -512,13 +526,18 @@ class AdminController extends Controller
     public function deleteCompany(string $id)
     {
         $company = Company::findOrFail($id);
+        $hasAlumni = Job::where('id_company',$company->id_company)->exists();
+
+        if ($hasAlumni) {
+            return redirect()->back()->with('rejected','Company Is Connected Into Users!');
+        }
+
         $company->delete();
 
         // Clear cache after delete
         $this->adminService->clearCaches('company', $id);
         $this->adminService->clearCaches('company');
 
-        return redirect()->back()->with('approved','Successfully Deleted Company Data!');
     }
 
     public function getNews()
@@ -559,9 +578,9 @@ class AdminController extends Controller
     {
         try {
             $request->validate([
-                'heading' => 'required|string|max:255',
-                'description' => 'required|string',
-                'banner_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
+                'heading' => 'nullable|string|max:255',
+                'description' => 'nullable|string',
+                'banner_image' => 'required|image|mimes:jpg,jpeg,png|max:2048'
             ]);
 
             $news = News::findOrFail($id);

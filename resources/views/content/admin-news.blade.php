@@ -61,7 +61,7 @@
                                                 </label>
                                                 <input type="text" name="heading" id="heading"
                                                     class="block h-1/2 w-full rounded-full border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-cyan dark:placeholder-gray-400 sm:p-2.5"
-                                                    placeholder="Enter title" required>
+                                                    placeholder="Enter title">
                                             </div>
                                             <div class="col-span-2 sm:col-span-2">
                                                 <label for="description" class="mb-2 block text-sm text-cyan sm:text-2xl">
@@ -69,14 +69,14 @@
                                                 </label>
                                                 <textarea name="description" id="description"
                                                     class="block h-1/2 w-full rounded-xl border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-cyan dark:placeholder-gray-400 sm:p-2.5"
-                                                    placeholder="Enter content" required></textarea>
+                                                    placeholder="Enter content"></textarea>
                                             </div>
                                             <div class="col-span-2 sm:col-span-1">
                                                 <label for="banner_image" class="mb-2 block text-sm text-cyan sm:text-2xl">
                                                     Banner Image <span
                                                         class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
                                                 </label>
-                                                <input type="file" name="banner_image" id="banner_image"
+                                                <input type="file" name="banner_image" id="banner_image" required
                                                     class="block h-1/2 w-full rounded-full border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-cyan dark:placeholder-gray-400 sm:p-2.5"
                                                     onchange="checkFileSize(this)">
                                             </div>
@@ -177,30 +177,29 @@
                                                             <div class="col-span-2 sm:col-span-2">
                                                                 <label for="heading"
                                                                     class="mb-2 block text-sm text-cyan sm:text-2xl">
-                                                                    Title <span
-                                                                        class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
+                                                                    Title
                                                                 </label>
                                                                 <input type="text" name="heading" id="heading"
                                                                     class="block h-1/2 w-full rounded-full border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-cyan dark:placeholder-gray-400 sm:p-2.5"
-                                                                    placeholder="Enter title" required
+                                                                    placeholder="Enter title"
                                                                     value="{{ $news->heading }}">
                                                             </div>
                                                             <div class="col-span-2 sm:col-span-2">
                                                                 <label for="description"
                                                                     class="mb-2 block text-sm text-cyan sm:text-2xl">
-                                                                    Content <span
-                                                                        class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
+                                                                    Content
                                                                 </label>
                                                                 <textarea type="text" name="description" id="description"
                                                                     class="block h-1/2 w-full rounded-xl border border-gray-300 bg-gray-50 text-sm text-gray-900 dark:border-gray-500 dark:bg-gray-600 dark:text-cyan dark:placeholder-gray-400 sm:p-2.5"
-                                                                    placeholder="Enter content" required>{{ $news->description }}</textarea>
+                                                                    placeholder="Enter content" >{{ $news->description }}</textarea>
                                                             </div>
                                                             <div class="col-span-2 sm:col-span-1">
                                                                 <label for="banner_image"
                                                                     class="mb-2 block text-sm text-cyan sm:text-2xl">Banner
-                                                                    Image</label>
+                                                                    Image <span
+                                                                    class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
                                                                 <input type="file" name="banner_image"
-                                                                    id="banner_image"
+                                                                    id="banner_image" required
                                                                     class="block w-full rounded-full border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 " onchange="checkFileSize(this)">
                                                             </div>
                                                         </div>
