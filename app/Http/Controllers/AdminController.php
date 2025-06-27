@@ -163,7 +163,6 @@ class AdminController extends Controller
     public function editAlumni(Request $request, string $id)
     {
         $request->validate([
-            'full_name' => 'required|string|max:255',
             'current_company' => 'nullable|string|max:255',
             'current_job' => 'nullable|string|max:255',
             'user_description' => 'nullable|string|max:1000',
@@ -174,25 +173,19 @@ class AdminController extends Controller
 
         // Handle file upload
         if ($request->hasFile('profile_picture')) {
-
             // Delete the old file if it exists
             if ($user->profile_photo && Storage::exists('public/profile/' . $user->profile_photo)) {
                 Storage::delete('public/profile/' . $user->profile_photo);
             }
-
             $file = $request->file('profile_picture');
             $filenameWithExt = $file->getClientOriginalName();
-
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             $extension = $request->file('profile_picture')->getClientOriginalExtension();
-
             $filenameSimpan = $filename . '_' . time() . '.' . $extension;
             $file->storeAs('public/profile', $filenameSimpan);
-
             $user->profile_photo = $filenameSimpan ?? null;
         }
 
-        $user->name = $request->full_name;
         $user->current_company = $request->current_company;
         $user->current_job = $request->current_job;
         $user->user_description = $request->user_description;

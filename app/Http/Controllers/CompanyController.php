@@ -107,9 +107,11 @@ class CompanyController extends Controller
         $validator = Validator::make($request->all(), [
             'company_name' => 'required|string|max:255|unique:company,company_name',
             'company_field' => 'required|string|max:255',
-            'company_address' => 'nullable|string|max:255',
-            'company_description' => 'required|string',
-            'company_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'company_description' => 'required|string|max:255',
+            'company_address' => 'string|max:255',
+            'company_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4096',
+            'company_gallery' => 'nullable|array|max:5',
+            'company_gallery.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4096',
         ]);
 
         if ($validator->fails()) {
@@ -123,14 +125,23 @@ class CompanyController extends Controller
 
             if ($request->hasFile('company_picture')) {
                 $file = $request->file('company_picture');
-                // Ensure a unique filename
                 $filenameSimpan = time() . '_' . Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $file->getClientOriginalExtension();
                 $file->storeAs('public/company', $filenameSimpan);
                 $companyData['company_picture'] = $filenameSimpan;
             } else {
-                // If you have a default image, set it here. Otherwise, null.
-                $companyData['company_picture'] = 'default_company.png'; // Example default
+                $companyData['company_picture'] = 'default_company.png';
             }
+
+            // Upload company_gallery (if any)
+            $galleryPaths = [];
+            if ($request->hasFile('company_gallery')) {
+                foreach ($request->file('company_gallery') as $galleryFile) {
+                    $filename = time() . '_' . Str::slug($galleryFile->getClientOriginalName()) . '.' . $galleryFile->getClientOriginalExtension();
+                    $galleryFile->storeAs('public/company/gallery', $filename);
+                    $galleryPaths[] = $filename;
+                }
+            }
+            $companyData['company_gallery'] = $galleryPaths;
             $company = Company::create($companyData);
 
             return response()->json([
