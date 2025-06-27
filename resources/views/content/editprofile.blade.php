@@ -115,7 +115,7 @@
                                                             <div
                                                                 class="h-full w-full overflow-hidden rounded-full border-4 border-cyan bg-gray-50">
                                                                 <img id="new_company_logo_preview-_create"
-                                                                    class="h-full w-full object-cover" src=""
+                                                                    class="h-full w-full object-cover" src="{{ asset('assets/placeholder.png') }}"
                                                                     alt="Logo Preview">
                                                             </div>
                                                             <label for="new_company_logo-_create"
@@ -471,7 +471,7 @@
                                                                         class="h-full w-full overflow-hidden rounded-full border-4 border-cyan bg-gray-50">
                                                                         <img id="new_company_logo_preview-{{ $job->id_tracking }}"
                                                                             class="h-full w-full object-cover"
-                                                                            src="" alt="Logo Preview">
+                                                                            src="{{ asset('assets/placeholder.png') }}" alt="Logo Preview">
                                                                     </div>
                                                                     <label for="new_company_logo-{{ $job->id_tracking }}"
                                                                         class="hover:bg-cyan-600 absolute bottom-0 right-0 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-cyan text-white shadow-md">

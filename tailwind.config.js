@@ -36,6 +36,7 @@ export default {
             charts: true,
         }),
         require('@tailwindcss/forms'),
+        require('@tailwindcss/line-clamp'),
         require('flowbite/plugin')({
             datatables: true,
         }),

@@ -47,8 +47,10 @@ class Company extends Model
         );
     }
 
-    public function getCompanyPictureAttribute($value)
-    {
-        return $value ?? 'https://picsum.photos/id/870/200/300?grayscale&blur=2';
-    }
+    // public function getCompanyPictureAttribute($value)
+    // {
+    //     return $value
+    //     ? asset('storage/company/' . ltrim($value, '/'))
+    //     : asset(ltrim('assets/default-company.png', '/'));
+    // }
 }

@@ -169,7 +169,7 @@
                                                             <label for="user_description"
                                                                 class="mb-1 block text-2xl text-cyan">About <span
                                                                     class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
-                                                            <textarea type="text" id="user_description" name="user_description"
+                                                            <textarea type="text" id="user_description" name="user_description" required
                                                                 class="w-full rounded-md border border-gray-300 bg-gray-200 px-3 py-2 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan">{{ $userDetails->user_description }}</textarea>
                                                         </div>
                                                         <div class="flex justify-end space-x-3 pt-4">
