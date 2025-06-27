@@ -36,10 +36,13 @@ class NewsControllerAPI extends Controller
             'banner_image' => 'required|image|mimes:jpg,jpeg,png|max:2048'
         ]);
 
+        // Simpan file ke storage
+        $path = $request->file('banner_image')->store('news-images', 'public');
+
         $news = News::create([
             'heading' => $request->heading,
             'description' => $request->description,
-            'banner_image' => $request->banner_image
+            'banner_image' => $path, // simpan path relatifnya
         ]);
 
         return response()->json([
@@ -53,14 +56,27 @@ class NewsControllerAPI extends Controller
         $request->validate([
             'heading' => 'nullable|string|max:255',
             'description' => 'nullable|string',
-            'banner_image' => 'required|image|mimes:jpg,jpeg,png|max:2048'
+            'banner_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
         ]);
 
         $news = News::findOrFail($id);
+
+        // Kalau ada gambar baru di-upload, simpan file baru & hapus yang lama
+        if ($request->hasFile('banner_image')) {
+            // hapus file lama jika ada
+            if ($news->banner_image && Storage::disk('public')->exists($news->banner_image)) {
+                Storage::disk('public')->delete($news->banner_image);
+            }
+
+            $path = $request->file('banner_image')->store('news-images', 'public');
+        } else {
+            $path = $news->banner_image; // tetap pakai gambar lama
+        }
+
         $news->update([
             'heading' => $request->heading,
             'description' => $request->description,
-            'banner_image' => $request->banner_image
+            'banner_image' => $path,
         ]);
 
         return response()->json([
