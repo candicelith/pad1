@@ -72,7 +72,7 @@
                                         <div class="relative h-24 w-24 sm:h-32 sm:w-32">
                                             <div
                                                 class="h-full w-full overflow-hidden rounded-full border-4 border-cyan bg-gray-100">
-                                                <img id="preview-image" class="h-full w-full object-cover" src=""
+                                                <img id="preview-image" class="h-full w-full object-cover" src="{{ asset('assets/placeholder.png') }}"
                                                     alt="Profile Picture">
                                             </div>
 
@@ -178,23 +178,23 @@
                                         <span>NO</span>
                                     </th>
                                     <th scope="col" class="px-6 py-3 text-sm font-normal text-black sm:text-base">
-                                        <span>COMPANY NAME</span>
+                                        <span>NAME</span>
                                     </th>
                                     <th scope="col"
                                         class="hidden-mobile px-6 py-3 font-normal text-black sm:text-base">
-                                        <span>COMPANY FIELD</span>
+                                        <span>FIELD</span>
                                     </th>
                                     <th scope="col"
                                         class="hidden-mobile px-6 py-3 font-normal text-black sm:text-base">
-                                        <span>COMPANY ADDRESS</span>
+                                        <span>ADDRESS</span>
                                     </th>
                                     <th scope="col"
                                         class="hidden-mobile px-6 py-3 font-normal text-black sm:text-base">
-                                        <span>COMPANY DESCRIPTION</span>
+                                        <span>DESCRIPTION</span>
                                     </th>
                                     <th scope="col"
                                         class="hidden-mobile px-6 py-3 font-normal text-black sm:text-base">
-                                        <span>COMPANY PICTURE</span>
+                                        <span>LOGO</span>
                                     </th>
 
                                     <th scope="col" class="px-6 py-3 text-sm font-normal text-black sm:text-base">
@@ -222,8 +222,8 @@
                                             {{ $company->company_description }}
                                         </td>
                                         <td class="hidden-mobile px-6 py-4 text-sm text-black sm:text-base">
-                                            <img src="{{ asset('storage/company/' . $company->company_picture) }}"
-                                                alt="Company Logo" class="h-10 w-10 rounded-full">
+                                            <img src="{{ $company->company_picture ? asset('storage/company/' . $company->company_picture) : asset('assets/default_company.png') }}"
+                                            alt="Company Logo" class="h-10 w-10 full">
                                         <td class="flex space-x-2 px-6 py-4">
                                             <a href="{{ route('admin.company.detail', ['id' => $company->id_company]) }}"
                                                 class="rounded-lg bg-cyan px-4 py-2 text-center text-sm text-white shadow-md hover:bg-cyan-400 hover:text-cyan sm:px-7 sm:text-base">

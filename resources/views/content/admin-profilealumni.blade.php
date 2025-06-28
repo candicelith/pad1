@@ -7,7 +7,7 @@
                 class="mx-4 mt-14 flex max-w-screen-xl flex-col items-start justify-center px-2 py-8 sm:mx-auto sm:ms-4 sm:flex-row sm:px-4">
 
                 <!-- Back Button -->
-                <button class="mb-4" onclick="history.back()">
+                <button class="mb-4" onclick="window.location.href='{{ route('admin.alumni') }}'">
                     <svg class="h-8 w-8 text-gray-800 sm:h-16 sm:w-16" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                         width="24" height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -116,11 +116,10 @@
                                                             accept="image/*" class="hidden"
                                                             onchange="document.getElementById('preview-image').src = window.URL.createObjectURL(this.files[0])">
                                                         <label for="full_name" class="mb-1 block text-2xl text-cyan">Full
-                                                            Name <span
-                                                                    class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
+                                                            Name</label>
                                                         <input type="text" id="full_name" name="full_name"
                                                             class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
-                                                            required value="{{ $userDetails->name }}" />
+                                                            disabled value="{{ $userDetails->name }}" />
                                                         <div>
                                                             <label for="current_company"
                                                                 class="mb-1 block text-2xl text-cyan">Current
@@ -170,7 +169,7 @@
                                                             <label for="user_description"
                                                                 class="mb-1 block text-2xl text-cyan">About <span
                                                                     class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
-                                                            <textarea type="text" id="user_description" name="user_description"
+                                                            <textarea type="text" id="user_description" name="user_description" required
                                                                 class="w-full rounded-md border border-gray-300 bg-gray-200 px-3 py-2 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan">{{ $userDetails->user_description }}</textarea>
                                                         </div>
                                                         <div class="flex justify-end space-x-3 pt-4">

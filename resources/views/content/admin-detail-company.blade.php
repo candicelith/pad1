@@ -6,7 +6,7 @@
             <div
                 class="mx-4 mt-14 flex max-w-screen-xl flex-col items-start justify-center px-2 py-8 sm:mx-auto sm:ms-4 sm:flex-row sm:px-4">
                 <!-- Back Button -->
-                <button class="sm:mb-4 sm:me-16" onclick="handleBack()">
+                <button class="sm:mb-4 sm:me-16" onclick="window.location.href='{{ route('admin.home') }}'">
                     <svg class="h-8 w-8 text-gray-800 sm:h-16 sm:w-16" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                         width="24" height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -20,7 +20,7 @@
                     <div class="p-6 sm:p-8 lg:p-10">
                         <div class="lg:mx-14">
                             <div class="flex flex-col lg:flex-row lg:space-x-8">
-                                <img class="h-24 w-24 rounded-full object-cover sm:h-28 sm:w-28" src="{{ asset('storage/company/' . $company->company_picture) }}"
+                                <img class="h-24 w-24 rounded-full object-cover sm:h-28 sm:w-28" src="{{ $company->company_picture ? asset('storage/company/' . $company->company_picture) : asset('assets/default_company.png') }}"
                                     alt="" />
                                 <div class="mt-4">
                                     <h2 class="text-xl text-cyan sm:text-2xl">{{ $company->company_name }}</h2>
@@ -122,19 +122,6 @@
                 },
             });
             splide.mount(window.splide.Extensions);
-        </script>
-
-        {{-- Script for Handling Back Button --}}
-        <script>
-            function handleBack() {
-                // Check if there is a previous page in history
-                if (document.referrer) {
-                    window.history.back();
-                } else {
-                    // Redirect to the specified route if no previous page
-                    window.location.href = "{{ route('companies') }}";
-                }
-            }
         </script>
     </section>
 @endsection

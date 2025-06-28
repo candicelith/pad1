@@ -123,18 +123,18 @@
                                                             <h4 class="mb-3 text-lg font-semibold text-cyan">Create New
                                                                 Company
                                                             </h4>
-                                                            <div id="new_company_ajax_errors_modal_editprofile"
-                                                                class="mb-3 text-sm text-red-500"></div>
+                                                            <div id="new_company_ajax_errors_modal-_create"
+                                                                class="mb-3 text-sm text-red-500 company-logo-error"></div>
                                                             {{-- Unique ID --}}
 
                                                             <div class="relative h-24 w-24 sm:h-32 sm:w-32">
                                                                 <div
                                                                     class="h-full w-full overflow-hidden rounded-full border-4 border-cyan bg-gray-50">
-                                                                    <img id="new_company_logo_preview_modal_editprofile"
-                                                                        class="h-full w-full object-cover" src=""
+                                                                    <img id="new_company_logo_preview_modal-_create"
+                                                                        class="h-full w-full object-cover" src="{{ asset('assets/placeholder.png') }}"
                                                                         alt="Logo Preview">
                                                                 </div>
-                                                                <label for="new_company_logo_modal_editprofile"
+                                                                <label for="new_company_logo_modal-_create"
                                                                     class="hover:bg-cyan-600 absolute bottom-0 right-0 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-cyan text-white shadow-md">
                                                                     <svg class="h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true"
                                                                         xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -150,45 +150,63 @@
                                                                             d="M9 5h6l-1 4" />
                                                                     </svg>
                                                                 </label>
-                                                                <input type="file"
-                                                                    id="new_company_logo_modal_editprofile" class="hidden"
-                                                                    @change="previewLogo($event, 'new_company_logo_preview_modal_editprofile')">
+                                                                <input type="file" id="new_company_logo_modal-_create"
+                                                                    class="hidden"
+                                                                    onchange="checkFileSize(this)"
+                                                                    @change="previewLogo($event, 'new_company_logo_preview_modal-_create')">
                                                             </div>
                                                             <div>
-                                                                <label for="new_company_name_modal_editprofile"
+                                                                <label for="new_company_name_modal-_create"
                                                                     class="mb-1 block text-sm text-gray-700">Name <span
                                                                         class="relative top-1 -ms-1 align-baseline text-red-500">*</span></label>
-                                                                <input type="text"
-                                                                    id="new_company_name_modal_editprofile"
+                                                                <input type="text" id="new_company_name_modal-_create"
                                                                     class="w-full rounded-full border-gray-300 bg-gray-50 px-4 py-2 shadow-sm">
                                                             </div>
                                                             <div>
-                                                                <label for="new_company_field_modal_editprofile"
+                                                                <label for="new_company_field_modal-_create"
                                                                     class="mb-1 block text-sm text-gray-700">Industry
                                                                     Type
                                                                     <span
                                                                         class="relative top-1 -ms-1 align-baseline text-red-500">*</span></label>
-                                                                <input type="text"
-                                                                    id="new_company_field_modal_editprofile"
+                                                                <input type="text" id="new_company_field_modal-_create"
                                                                     class="w-full rounded-full border-gray-300 bg-gray-50 px-4 py-2 shadow-sm">
                                                             </div>
                                                             <div>
-                                                                <label for="new_company_address_modal_editprofile"
+                                                                <label for="new_company_address_modal-_create"
                                                                     class="mb-1 block text-sm text-gray-700">Location</label>
                                                                 <input type="text"
-                                                                    id="new_company_address_modal_editprofile"
+                                                                    id="new_company_address_modal-_create"
                                                                     class="w-full rounded-full border-gray-300 bg-gray-50 px-4 py-2 shadow-sm">
                                                             </div>
                                                             <div>
-                                                                <label for="new_company_description_modal_editprofile"
+                                                                <label for="new_company_description_modal-_create"
                                                                     class="mb-1 block text-sm text-gray-700">Description
                                                                     <span
                                                                         class="relative top-1 -ms-1 align-baseline text-red-500">*</span></label>
-                                                                <textarea id="new_company_description_modal_editprofile" rows="3"
+                                                                <textarea id="new_company_description_modal-_create" rows="3"
                                                                     class="w-full rounded-md border-gray-300 bg-gray-50 px-3 py-2 shadow-sm"></textarea>
                                                             </div>
+                                                            <div class="md:col-span-3">
+                                                                <label for="new_company_gallery_modal-_create"
+                                                                    class="block text-sm font-medium text-gray-700">Company
+                                                                    Gallery</label>
+                                                                <p class="text-xs text-gray-500 mb-2">You can add multiple
+                                                                    photos (max 5, each under 2MB).</p>
+                                                                <input type="file"
+                                                                    name="new_company_gallery_modal-_create[]"
+                                                                    id="new_company_gallery_modal-_create" multiple
+                                                                    accept="image/*"
+                                                                    @change="handleGalleryPreview($event, 'new_company_gallery_preview_modal-_create', 'new_company_gallery_error_modal-_create')"
+                                                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-l-lg file:border-0 file:text-sm file:font-semibold file:bg-gray-200 file:text-gray-700 hover:file:bg-gray-300">
+                                                                <p id="new_company_gallery_error_modal-_create"
+                                                                    class="text-sm text-red-500 mt-1"></p>
+                                                                <div id="new_company_gallery_preview_modal-_create"
+                                                                    class="mt-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                                                                </div>
+                                                            </div>
                                                             <div class="flex space-x-2">
-                                                                <button type="button" @click="saveNewCompanyViaAjax()"
+                                                                <button type="button"
+                                                                    @click="saveNewCompanyViaAjax('_create')"
                                                                     class="bg-btn-cyan rounded-lg bg-cyan px-4 py-2 text-sm text-white hover:bg-cyan-400 hover:text-cyan">
                                                                     Save & Select Company
                                                                 </button>
@@ -485,19 +503,19 @@
                                                                     <h4 class="mb-3 text-lg font-semibold text-cyan">
                                                                         Create New Company
                                                                     </h4>
-                                                                    <div id="new_company_ajax_errors-{{ $job->id_tracking }}"
-                                                                        class="mb-3 text-sm text-red-500"></div>
+                                                                    <div id="new_company_ajax_errors_modal-{{ $job->id_tracking }}"
+                                                                        class="mb-3 text-sm text-red-500 company-logo-error"></div>
                                                                     {{-- Unique ID --}}
 
                                                                     <div class="relative h-24 w-24 sm:h-32 sm:w-32">
                                                                         <div
                                                                             class="h-full w-full overflow-hidden rounded-full border-4 border-cyan bg-gray-50">
-                                                                            <img id="new_company_logo_preview-{{ $job->id_tracking }}"
+                                                                            <img id="new_company_logo_preview_modal-{{ $job->id_tracking }}"
                                                                                 class="h-full w-full object-cover"
-                                                                                src="" alt="Logo Preview">
+                                                                                src="{{ asset('assets/placeholder.png') }}" alt="Logo Preview">
                                                                         </div>
                                                                         <label
-                                                                            for="new_company_logo-{{ $job->id_tracking }}"
+                                                                            for="new_company_logo_modal-{{ $job->id_tracking }}"
                                                                             class="hover:bg-cyan-600 absolute bottom-0 right-0 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-cyan text-white shadow-md">
                                                                             <svg class="h-4 w-4 sm:h-5 sm:w-5"
                                                                                 aria-hidden="true"
@@ -520,47 +538,67 @@
                                                                             </svg>
                                                                         </label>
                                                                         <input type="file"
-                                                                            id="new_company_logo-{{ $job->id_tracking }}"
+                                                                            id="new_company_logo_modal-{{ $job->id_tracking }}"
                                                                             class="hidden"
-                                                                            @change="previewLogo($event, 'new_company_logo_preview-{{ $job->id_tracking }}')">
+                                                                            onchange="checkFileSize(this)"
+                                                                            @change="previewLogo($event, 'new_company_logo_preview_modal-{{ $job->id_tracking }}')">
                                                                     </div>
                                                                     <div>
                                                                         <label
-                                                                            for="new_company_name-{{ $job->id_tracking }}"
+                                                                            for="new_company_name_modal-{{ $job->id_tracking }}"
                                                                             class="mb-1 block text-sm text-gray-700">Name
                                                                             <span
                                                                                 class="relative top-1 -ms-1 align-baseline text-red-500">*</span></label>
                                                                         <input type="text"
-                                                                            id="new_company_name-{{ $job->id_tracking }}"
+                                                                            id="new_company_name_modal-{{ $job->id_tracking }}"
                                                                             class="w-full rounded-full border-gray-300 bg-gray-50 px-4 py-2 shadow-sm">
                                                                     </div>
                                                                     <div>
                                                                         <label
-                                                                            for="new_company_field-{{ $job->id_tracking }}"
+                                                                            for="new_company_field_modal-{{ $job->id_tracking }}"
                                                                             class="mb-1 block text-sm text-gray-700">Industry
                                                                             Type
                                                                             <span
                                                                                 class="relative top-1 -ms-1 align-baseline text-red-500">*</span></label>
                                                                         <input type="text"
-                                                                            id="new_company_field-{{ $job->id_tracking }}"
+                                                                            id="new_company_field_modal-{{ $job->id_tracking }}"
                                                                             class="w-full rounded-full border-gray-300 bg-gray-50 px-4 py-2 shadow-sm">
                                                                     </div>
                                                                     <div>
                                                                         <label
-                                                                            for="new_company_address-{{ $job->id_tracking }}"
+                                                                            for="new_company_address_modal-{{ $job->id_tracking }}"
                                                                             class="mb-1 block text-sm text-gray-700">Location</label>
                                                                         <input type="text"
-                                                                            id="new_company_address-{{ $job->id_tracking }}"
+                                                                            id="new_company_address_modal-{{ $job->id_tracking }}"
                                                                             class="w-full rounded-full border-gray-300 bg-gray-50 px-4 py-2 shadow-sm">
                                                                     </div>
                                                                     <div>
                                                                         <label
-                                                                            for="new_company_description-{{ $job->id_tracking }}"
+                                                                            for="new_company_description_modal-{{ $job->id_tracking }}"
                                                                             class="mb-1 block text-sm text-gray-700">Description
                                                                             <span
                                                                                 class="relative top-1 -ms-1 align-baseline text-red-500">*</span></label>
-                                                                        <textarea id="new_company_description-{{ $job->id_tracking }}" rows="3"
+                                                                        <textarea id="new_company_description_modal-{{ $job->id_tracking }}" rows="3"
                                                                             class="w-full rounded-md border-gray-300 bg-gray-50 px-3 py-2 shadow-sm"></textarea>
+                                                                    </div>
+                                                                    <div class="md:col-span-3">
+                                                                        <label
+                                                                            for="new_company_gallery_modal-{{ $job->id_tracking }}"
+                                                                            class="block text-sm font-medium text-gray-700">Company
+                                                                            Gallery</label>
+                                                                        <p class="text-xs text-gray-500 mb-2">You can add
+                                                                            multiple photos (max 5, each under 2MB).</p>
+                                                                        <input type="file"
+                                                                            name="new_company_gallery_modal-[]"
+                                                                            id="new_company_gallery_modal-{{ $job->id_tracking }}"
+                                                                            multiple accept="image/*"
+                                                                            @change="handleGalleryPreview($event, 'new_company_gallery_preview_modal-{{ $job->id_tracking }}', 'new_company_gallery_error_modal-{{ $job->id_tracking }}')"
+                                                                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-l-lg file:border-0 file:text-sm file:font-semibold file:bg-gray-200 file:text-gray-700 hover:file:bg-gray-300">
+                                                                        <p id="new_company_gallery_error_modal-{{ $job->id_tracking }}"
+                                                                            class="text-sm text-red-500 mt-1"></p>
+                                                                        <div id="new_company_gallery_preview_modal-{{ $job->id_tracking }}"
+                                                                            class="mt-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                                                                        </div>
                                                                     </div>
                                                                     <div class="flex space-x-2">
                                                                         <button type="button"
@@ -1007,43 +1045,84 @@
                 }
             }
         }
+
+        function handleGalleryPreview(event, previewContainerId, errorContainerId) {
+            const previewContainer = document.getElementById(previewContainerId);
+            const errorElement = document.getElementById(errorContainerId);
+            const files = event.target.files;
+
+            previewContainer.innerHTML = '';
+            errorElement.textContent = '';
+
+            if (!files.length) return;
+
+            if (files.length > 5) {
+                errorElement.textContent = 'You can only upload a maximum of 5 images.';
+                event.target.value = '';
+                return;
+            }
+
+            const maxFileSize = 2 * 1024 * 1024; // 2MB
+
+            for (const file of files) {
+                if (file.size > maxFileSize) {
+                    errorElement.textContent = `File "${file.name}" is too large. Max size is 2MB.`;
+                    event.target.value = '';
+                    previewContainer.innerHTML = '';
+                    return;
+                }
+                if (!file.type.startsWith('image/')) {
+                    errorElement.textContent = `File "${file.name}" is not a valid image.`;
+                    event.target.value = '';
+                    previewContainer.innerHTML = '';
+                    return;
+                }
+            }
+
+            Array.from(files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imgWrapper = document.createElement('div');
+                    imgWrapper.className = 'relative w-full h-24';
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.className = 'h-full w-full object-cover rounded-lg shadow-md';
+                    imgWrapper.appendChild(img);
+                    previewContainer.appendChild(imgWrapper);
+                }
+                reader.readAsDataURL(file);
+            });
+        }
         // Ensure this is placed after Alpine.js is loaded
 
         function experienceCompanyHandler(initialCompanies, oldCompanyId) {
             return {
                 open: false,
                 search: '',
-                options: initialCompanies || [], // Initial companies from PHP
+                options: initialCompanies || [],
                 filteredOptions: [],
-                selectedOption: null, // Holds { value: id, label: name }
+                selectedOption: null,
                 showCompanyForm: false,
 
                 init() {
-                    this.filteredOptions = [...this.options]; // Use spread to make a new array
+                    this.filteredOptions = [...this.options];
                     if (oldCompanyId) {
                         const found = this.options.find(opt => String(opt.value) === String(oldCompanyId));
                         if (found) {
                             this.selectOption(found, false);
-                        } else {
-                            // If oldCompanyId isn't in options, it might be a new one from a previous attempt.
-                            // For simplicity now, it won't be pre-selected. A robust fix involves ensuring
-                            // the controller re-passes the newly added company in $companies on validation failure.
-                            console.warn(`Old company ID ${oldCompanyId} not found in initial options.`);
                         }
                     }
-                    // Initialize search text based on selected option, or empty if none
                     this.search = this.selectedOption ? this.selectedOption.label : '';
                 },
 
                 filterOptions() {
                     if (!this.search) {
                         this.filteredOptions = [...this.options];
-                        this.selectedOption = null; // Clear selection if search is cleared by typing
+                        this.selectedOption = null;
                         return;
                     }
-                    // Only filter if the search term doesn't exactly match the selected option's label
                     if (!this.selectedOption || this.search !== this.selectedOption.label) {
-                        this.selectedOption = null; // Deselect if user is typing a new search
+                        this.selectedOption = null;
                     }
                     this.filteredOptions = this.options.filter(item =>
                         item.label.toLowerCase().includes(this.search.toLowerCase())
@@ -1051,36 +1130,21 @@
                 },
 
                 selectOption(item, closeDropdown = true) {
-                    this.selectedOption = item; // { value: id, label: name }
-                    this.search = item.label; // Update search input to reflect selection
+                    this.selectedOption = item;
+                    this.search = item.label;
                     if (closeDropdown) {
                         this.open = false;
                     }
-                    this.showCompanyForm = false; // Always hide new company form when an existing one is selected
-                    console.log('Selected company in Alpine:', this.selectedOption);
+                    this.showCompanyForm = false;
                 },
 
                 toggleNewCompanyForm() {
                     this.showCompanyForm = !this.showCompanyForm;
-                    this.open = false; // Close dropdown
+                    this.open = false;
                     if (this.showCompanyForm) {
-                        // When opening the new company form, clear any existing selection from the dropdown
                         this.selectedOption = null;
-                        this.search = ''; // Clear search, so placeholder shows
-                        this.clearNewCompanyFormFields();
+                        this.search = '';
                     }
-                },
-
-                clearNewCompanyFormFields() {
-                    document.getElementById('new_company_name_modal_editprofile').value = '';
-                    document.getElementById('new_company_field_modal_editprofile').value = '';
-                    document.getElementById('new_company_address_modal_editprofile').value = '';
-                    document.getElementById('new_company_description_modal_editprofile').value = '';
-                    const logoInput = document.getElementById('new_company_logo_modal_editprofile');
-                    if (logoInput) logoInput.value = null;
-                    const logoPreview = document.getElementById('new_company_logo_preview_modal_editprofile');
-                    if (logoPreview) logoPreview.src = '';
-                    document.getElementById('new_company_ajax_errors_modal_editprofile').innerHTML = '';
                 },
 
                 previewLogo(event, previewElementId) {
@@ -1096,92 +1160,86 @@
                     }
                 },
 
-                async saveNewCompanyViaAjax() {
-                    const errorDisplay = document.getElementById('new_company_ajax_errors_modal_editprofile');
+                async saveNewCompanyViaAjax(contextId) {
+                    // `contextId` akan berisi '_create' atau nomor id (misal: '123')
+
+                    // Mencari elemen dengan pola ID yang sudah standar
+                    const errorDisplay = document.getElementById(`new_company_ajax_errors_modal-${contextId}`);
                     errorDisplay.innerHTML = '';
 
                     const formData = new FormData();
-                    formData.append('_token',
-                        '{{ csrf_token() }}'); // Make sure CSRF is available in your Blade layout
+                    formData.append('_token', '{{ csrf_token() }}');
 
-                    const companyName = document.getElementById('new_company_name_modal_editprofile')?.value;
-                    const companyField = document.getElementById('new_company_field_modal_editprofile')?.value;
-                    const companyAddress = document.getElementById('new_company_address_modal_editprofile')?.value;
-                    const companyDescription = document.getElementById('new_company_description_modal_editprofile')
+                    // Mengambil nilai dari input yang benar menggunakan contextId
+                    const companyName = document.getElementById(`new_company_name_modal-${contextId}`)?.value;
+                    const companyField = document.getElementById(`new_company_field_modal-${contextId}`)?.value;
+                    const companyAddress = document.getElementById(`new_company_address_modal-${contextId}`)?.value;
+                    const companyDescription = document.getElementById(`new_company_description_modal-${contextId}`)
                         ?.value;
 
-                    // Basic client-side validation (add more as needed)
+                    // Validasi Input
                     if (!companyName) {
-                        errorDisplay.innerHTML = '<p>Company name is required.</p>';
-                        return;
-                    }
-                    if (!companyField) {
-                        errorDisplay.innerHTML = '<p>Industry type is required.</p>';
-                        return;
-                    }
-                    if (!companyDescription) {
-                        errorDisplay.innerHTML = '<p>Description is required.</p>';
-                        return;
+                        errorDisplay.innerHTML = '<p>Company Name field is required.</p>';
+                        return; // Berhenti jika nama kosong
+                    } else if (!companyField) {
+                        errorDisplay.innerHTML = '<p>Industry Type field is required.</p>';
+                        return; // Berhenti jika industri kosong
+                    } else if (!companyDescription) {
+                        errorDisplay.innerHTML = '<p>Description field is required.</p>';
+                        return; // Berhenti jika deskripsi kosong
                     }
 
                     formData.append('company_name', companyName);
                     formData.append('company_field', companyField);
                     formData.append('company_address', companyAddress || '');
                     formData.append('company_description', companyDescription);
-                    // Add other fields from your company form if they exist
-                    // formData.append('company_phone', document.getElementById('new_company_phone_modal_editprofile')?.value || '');
 
-
-                    const logoInput = document.getElementById('new_company_logo_modal_editprofile');
+                    const logoInput = document.getElementById(`new_company_logo_modal-${contextId}`);
                     if (logoInput && logoInput.files[0]) {
                         formData.append('company_picture', logoInput.files[0]);
                     }
 
+                    const galleryInput = document.getElementById(`new_company_gallery_modal-${contextId}`);
+                    if (galleryInput && galleryInput.files.length > 0) {
+                        for (const file of galleryInput.files) {
+                            formData.append('company_gallery[]', file);
+                        }
+                    }
+
                     try {
-                        const response = await fetch(
-                            '{{ route('companies.store.ajax') }}', { // Ensure this route is defined
-                                method: 'POST',
-                                body: formData,
-                                headers: {
-                                    'Accept': 'application/json'
-                                }
-                            });
+                        const response = await fetch('{{ route('companies.store.ajax') }}', {
+                            method: 'POST',
+                            body: formData,
+                            headers: {
+                                'Accept': 'application/json'
+                            }
+                        });
                         const data = await response.json();
 
                         if (!response.ok) {
-                            if (data.errors) {
-                                let errorHtml = '<ul>';
-                                for (const key in data.errors) {
-                                    errorHtml += `<li>${data.errors[key][0]}</li>`;
-                                }
-                                errorHtml += '</ul>';
-                                errorDisplay.innerHTML = errorHtml;
-                            } else {
-                                errorDisplay.innerHTML =
-                                    `<p>${data.message || 'An error occurred saving the company.'}</p>`;
+                            let errorHtml = '<ul>';
+                            for (const key in data.errors) {
+                                errorHtml += `<li>${data.errors[key][0]}</li>`;
                             }
+                            errorHtml += '</ul>';
+                            errorDisplay.innerHTML = errorHtml;
                             return;
                         }
 
-                        // SUCCESS
                         const newCompanyForAlpine = {
                             value: data.company.id_company,
                             label: data.company.company_name
                         };
 
-                        const existingOption = this.options.find(opt => String(opt.value) === String(newCompanyForAlpine
-                            .value));
-                        if (!existingOption) {
-                            this.options.unshift(newCompanyForAlpine); // Add to the main options list
+                        if (!this.options.find(opt => String(opt.value) === String(newCompanyForAlpine.value))) {
+                            this.options.unshift(newCompanyForAlpine);
                         }
-                        this.filterOptions(); // Re-filter (important if search was active)
-                        this.selectOption(
-                            newCompanyForAlpine); // This will set this.selectedOption and update this.search
-                        this.showCompanyForm = false; // Hide the new company form
-                        this.clearNewCompanyFormFields();
 
-                        // User feedback (e.g., using a simple alert or a more sophisticated notification system)
-                        alert(data.message || 'Company saved successfully and has been selected!');
+                        this.filterOptions();
+                        this.selectOption(newCompanyForAlpine);
+                        this.showCompanyForm = false;
+
+                        alert(data.message || 'Company saved and selected!');
 
                     } catch (error) {
                         console.error('AJAX save company error:', error);
@@ -1191,122 +1249,162 @@
             }
         }
 
-        // Position Dropdown (similar to the one from previous response, ensure IDs are unique if needed)
-        function positionDropdown(config) {
-            return {
-                open: false,
-                search: '',
-                options: config.options || [],
-                filteredOptions: [],
-                selectedOption: null,
-                initialSelectedValue: config.initialSelectedValue || '',
+            function checkFileSize(input) {
+                const errorContainer = input.closest('.space-y-4').querySelector('.company-logo-error');
 
-                init() {
-                    this.filteredOptions = [...this.options];
-                    if (this.initialSelectedValue) {
-                        const found = this.options.find(opt => String(opt.value) === String(this.initialSelectedValue));
-                        if (found) {
-                            this.selectOption(found, false);
-                        } else if (this.initialSelectedValue) {
-                            const newOpt = {
-                                value: this.initialSelectedValue,
-                                label: this.initialSelectedValue
-                            };
-                            this.options.unshift(newOpt);
-                            this.filteredOptions.unshift(newOpt); // Also add to filteredOptions
-                            this.selectOption(newOpt, false);
-                        }
-                    }
-                    this.search = this.selectedOption ? this.selectedOption.label : '';
-                },
-                filterOptions() {
-                    if (!this.search) {
+                if (!errorContainer) {
+                    console.error("Could not find the .company-logo-error element.");
+                    return;
+                }
+
+                const file = input.files[0];
+                // Jika pengguna batal memilih file, bersihkan pesan error
+                if (!file) {
+                    errorContainer.textContent = "";
+                    return;
+                }
+
+                // --- Aturan Validasi ---
+                const maxSizeInMB = 2;
+                const maxSizeBytes = maxSizeInMB * 1024 * 1024;
+                const allowedTypes = ['image/jpeg', 'image/png', 'image/gif']; // Tipe file yang diizinkan
+
+                // 1. Validasi Ukuran File
+                if (file.size > maxSizeBytes) {
+                    errorContainer.textContent = `File is too large. Max size is ${maxSizeInMB}MB.`;
+                    input.value = ""; // Hapus file yang tidak valid
+                    return;
+                }
+
+                // 2. Validasi Tipe File
+                if (!allowedTypes.includes(file.type)) {
+                    errorContainer.textContent = 'Invalid file type. Only JPG, PNG, or GIF are allowed.';
+                    input.value = ""; // Hapus file yang tidak valid
+                    return;
+                }
+
+                // Jika semua validasi lolos, pastikan tidak ada pesan error
+                errorContainer.textContent = "";
+            }
+
+            // Position Dropdown (similar to the one from previous response, ensure IDs are unique if needed)
+            function positionDropdown(config) {
+                return {
+                    open: false,
+                    search: '',
+                    options: config.options || [],
+                    filteredOptions: [],
+                    selectedOption: null,
+                    initialSelectedValue: config.initialSelectedValue || '',
+
+                    init() {
                         this.filteredOptions = [...this.options];
-                        this.selectedOption = null;
-                        return;
-                    }
-                    if (!this.selectedOption || this.search !== this.selectedOption.label) {
-                        this.selectedOption = null;
-                    }
-                    this.filteredOptions = this.options.filter(item =>
-                        item.label.toLowerCase().includes(this.search.toLowerCase())
-                    );
-                },
-                selectOption(item, closeDropdown = true) {
-                    this.selectedOption = item;
-                    this.search = item.label;
-                    if (closeDropdown) {
-                        this.open = false;
+                        if (this.initialSelectedValue) {
+                            const found = this.options.find(opt => String(opt.value) === String(this.initialSelectedValue));
+                            if (found) {
+                                this.selectOption(found, false);
+                            } else if (this.initialSelectedValue) {
+                                const newOpt = {
+                                    value: this.initialSelectedValue,
+                                    label: this.initialSelectedValue
+                                };
+                                this.options.unshift(newOpt);
+                                this.filteredOptions.unshift(newOpt); // Also add to filteredOptions
+                                this.selectOption(newOpt, false);
+                            }
+                        }
+                        this.search = this.selectedOption ? this.selectedOption.label : '';
+                    },
+                    filterOptions() {
+                        if (!this.search) {
+                            this.filteredOptions = [...this.options];
+                            this.selectedOption = null;
+                            return;
+                        }
+                        if (!this.selectedOption || this.search !== this.selectedOption.label) {
+                            this.selectedOption = null;
+                        }
+                        this.filteredOptions = this.options.filter(item =>
+                            item.label.toLowerCase().includes(this.search.toLowerCase())
+                        );
+                    },
+                    selectOption(item, closeDropdown = true) {
+                        this.selectedOption = item;
+                        this.search = item.label;
+                        if (closeDropdown) {
+                            this.open = false;
+                        }
                     }
                 }
             }
-        }
 
-        // Initialize responsibility add/remove logic
-        document.addEventListener('DOMContentLoaded', () => {
-            const respContainerCreate = document.getElementById('responsibility-container-create');
-            const addBtnCreate = document.getElementById('add-responsibility-create');
-            if (respContainerCreate && addBtnCreate) {
-                const maxResponsibilities = 3;
+            // Initialize responsibility add/remove logic
+            document.addEventListener('DOMContentLoaded', () => {
+                const respContainerCreate = document.getElementById('responsibility-container-create');
+                const addBtnCreate = document.getElementById('add-responsibility-create');
+                if (respContainerCreate && addBtnCreate) {
+                    const maxResponsibilities = 3;
 
-                const updateRemoveButtons = (container) => {
-                    const items = container.querySelectorAll('.responsibility-item');
-                    items.forEach((item, index) => {
-                        const removeButton = item.querySelector('.remove-responsibility');
-                        if (removeButton) {
-                            removeButton.style.display = items.length === 1 ? 'none' : 'inline-flex';
+                    const updateRemoveButtons = (container) => {
+                        const items = container.querySelectorAll('.responsibility-item');
+                        items.forEach((item, index) => {
+                            const removeButton = item.querySelector('.remove-responsibility');
+                            if (removeButton) {
+                                removeButton.style.display = items.length === 1 ? 'none' :
+                                'inline-flex';
+                            }
+                        });
+                    };
+
+                    const addField = (container, inputName) => {
+                        if (container.children.length >= maxResponsibilities) {
+                            alert(
+                                `Maximum ${maxResponsibilities} ${inputName.replace('job_', '').replace('[]', '')} items allowed.`
+                            );
+                            return;
                         }
-                    });
-                };
-
-                const addField = (container, inputName) => {
-                    if (container.children.length >= maxResponsibilities) {
-                        alert(
-                            `Maximum ${maxResponsibilities} ${inputName.replace('job_', '').replace('[]', '')} items allowed.`
-                        );
-                        return;
-                    }
-                    const newItemDiv = document.createElement('div');
-                    newItemDiv.classList.add('responsibility-item', 'mb-2', 'flex',
-                        'items-center'); // Use a generic class if needed or keep as 'responsibility-item'
-                    newItemDiv.innerHTML = `
+                        const newItemDiv = document.createElement('div');
+                        newItemDiv.classList.add('responsibility-item', 'mb-2', 'flex',
+                            'items-center'); // Use a generic class if needed or keep as 'responsibility-item'
+                        newItemDiv.innerHTML = `
                 <input type="text" name="${inputName}"
                     class="block w-full rounded-xl border border-gray-900 bg-gray-50 px-2 py-2 text-sm text-gray-900"
                     placeholder="Enter responsibility" />
                 <button type="button"
                     class="remove-responsibility ml-2 rounded-xl border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2">Remove</button>
             `;
-                    container.appendChild(newItemDiv);
-                    updateRemoveButtons(container);
-                };
+                        container.appendChild(newItemDiv);
+                        updateRemoveButtons(container);
+                    };
 
-                addBtnCreate.addEventListener('click', () => addField(respContainerCreate, 'job_responsibility[]'));
-                respContainerCreate.addEventListener('click', function(e) {
-                    if (e.target && e.target.classList.contains('remove-responsibility')) {
-                        e.target.closest('.responsibility-item').remove();
-                        updateRemoveButtons(respContainerCreate);
-                    }
-                });
-                updateRemoveButtons(respContainerCreate); // Initial call
-            }
+                    addBtnCreate.addEventListener('click', () => addField(respContainerCreate,
+                        'job_responsibility[]'));
+                    respContainerCreate.addEventListener('click', function(e) {
+                        if (e.target && e.target.classList.contains('remove-responsibility')) {
+                            e.target.closest('.responsibility-item').remove();
+                            updateRemoveButtons(respContainerCreate);
+                        }
+                    });
+                    updateRemoveButtons(respContainerCreate); // Initial call
+                }
 
-            // Datepicker end date logic
-            const currentPositionCheckboxModal = document.getElementById('current_position_checkbox');
-            const dateEndInputModal = document.getElementById('datepicker-range-end');
-            if (currentPositionCheckboxModal && dateEndInputModal) {
-                const updateEndDateStateModal = () => {
-                    if (currentPositionCheckboxModal.checked) {
-                        dateEndInputModal.value = '';
-                        dateEndInputModal.disabled = true;
-                        dateEndInputModal.removeAttribute('required');
-                    } else {
-                        dateEndInputModal.disabled = false;
-                        dateEndInputModal.setAttribute('required', 'required');
-                    }
-                };
-                currentPositionCheckboxModal.addEventListener('change', updateEndDateStateModal);
-                updateEndDateStateModal(); // Initial state
-            }
-        });
+                // Datepicker end date logic
+                const currentPositionCheckboxModal = document.getElementById('current_position_checkbox');
+                const dateEndInputModal = document.getElementById('datepicker-range-end');
+                if (currentPositionCheckboxModal && dateEndInputModal) {
+                    const updateEndDateStateModal = () => {
+                        if (currentPositionCheckboxModal.checked) {
+                            dateEndInputModal.value = '';
+                            dateEndInputModal.disabled = true;
+                            dateEndInputModal.removeAttribute('required');
+                        } else {
+                            dateEndInputModal.disabled = false;
+                            dateEndInputModal.setAttribute('required', 'required');
+                        }
+                    };
+                    currentPositionCheckboxModal.addEventListener('change', updateEndDateStateModal);
+                    updateEndDateStateModal(); // Initial state
+                }
+            });
     </script>
 @endsection

@@ -111,8 +111,8 @@
                                                 <div
                                                     class="h-full w-full overflow-hidden rounded-full border-4 border-cyan bg-gray-100">
                                                     <img id="preview-image" class="h-full w-full object-cover"
-                                                        src="{{ asset('storage/profile/' . $userDetails->profile_photo) }}"
-                                                        alt="{{ $userDetails->name }}'s Profile Picture">
+                                                    src="{{ $userDetails->profile_photo ? asset('storage/profile/' . $userDetails->profile_photo) : asset('assets/placeholder.png') }}"
+                                                    alt="{{ $userDetails->name }}'s Profile Picture">
                                                 </div>
                                                 <label for="profile_picture"
                                                     class="hover:bg-cyan-600 absolute bottom-0 right-0 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-cyan text-white shadow-md transition-all sm:h-10 sm:w-10">
