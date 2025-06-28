@@ -212,7 +212,7 @@
                                                             class="w-full rounded-full border-2 shadow-sm" required
                                                             onchange="checkFileSize(this)">
                                                     </div>
-                                                    <p id="cv-error" class="text-red-500 text-sm mt-1"></p>
+                                                    <p id="cv-error" class="mt-1 text-sm text-red-500"></p>
 
                                                 </div>
                                                 <div class="items-end justify-between text-sm text-gray-400 sm:flex">
@@ -730,13 +730,11 @@
                     .join('');
 
                 // Handle company picture URL
-                let companyPicture = vacancy.company.company_picture;
-                if (companyPicture ===
-                    'https://picsum.photos/id/870/200/300?grayscale&blur=2') {
+                let companyPicture = vacancy.company?.company_picture;
+                if (!companyPicture || companyPicture === 'https://picsum.photos/id/870/200/300?grayscale&blur=2') {
                     companyPicture = '/storage/company/default_company.png';
-                } else if (!companyPicture.startsWith('http')) {
-                    companyPicture =
-                        `/storage/company/${companyPicture || 'default_company.png'}`;
+                } else if (typeof companyPicture === 'string' && !companyPicture.startsWith('http')) {
+                    companyPicture = `/storage/company/${companyPicture}`;
                 }
 
                 // Handle vacancy picture URL
@@ -976,11 +974,11 @@
                             </span>
 
                             ${repliesCount > 0 ? `
-                                                                                                                                                <span class="show-all-replies text-cyan-600 cursor-pointer text-xs hover:underline"
-                                                                                                                                                    data-comment-id="${comment.id_comment}">
-                                                                                                                                                    Show replies (${repliesCount})
-                                                                                                                                                </span>
-                                                                                                                                            ` : ''}
+                                                                                                                                                            <span class="show-all-replies text-cyan-600 cursor-pointer text-xs hover:underline"
+                                                                                                                                                                data-comment-id="${comment.id_comment}">
+                                                                                                                                                                Show replies (${repliesCount})
+                                                                                                                                                            </span>
+                                                                                                                                                        ` : ''}
                         </div>
                     </div>
                 </div>
@@ -1094,31 +1092,32 @@
             }
         }
 
-    function checkFileSize(input) {
-        const file = input.files[0];
-        const errorElement = document.getElementById('cv-error');
+        function checkFileSize(input) {
+            const file = input.files[0];
+            const errorElement = document.getElementById('cv-error');
 
-        if (!file) return;
+            if (!file) return;
 
-        const maxSizeKB = 200;
-        const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+            const maxSizeKB = 200;
+            const allowedTypes = ['application/pdf', 'application/msword',
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+            ];
 
-        // File size check
-        if (file.size > maxSizeKB * 1024) {
-            errorElement.textContent = "File is too large. Maximum allowed size is 200 KB.";
-            input.value = "";
-            return;
+            // File size check
+            if (file.size > maxSizeKB * 1024) {
+                errorElement.textContent = "File is too large. Maximum allowed size is 200 KB.";
+                input.value = "";
+                return;
+            }
+
+            // File type check
+            if (!allowedTypes.includes(file.type)) {
+                errorElement.textContent = "Invalid file format. Only PDF, DOC, or DOCX allowed.";
+                input.value = "";
+                return;
+            }
+
+            errorElement.textContent = "";
         }
-
-        // File type check
-        if (!allowedTypes.includes(file.type)) {
-            errorElement.textContent = "Invalid file format. Only PDF, DOC, or DOCX allowed.";
-            input.value = "";
-            return;
-        }
-
-        errorElement.textContent = "";
-    }
-
     </script>
 @endsection
