@@ -23,7 +23,7 @@ class AdminService
     {
         return Cache::remember('all_alumni', now()->addMinutes(15), function () {
             // Use eager loading with specific columns to reduce data transfer
-            return User::with(['userDetails:id_userDetails,id_users,name,nim,profile_photo'])
+            return User::with(['userDetails:id_userDetails,id_users,name,nim,profile_photo,entry_year'])
                 ->where('id_roles', 2)
                 ->get()
                 ->map(function ($user) {
