@@ -28,9 +28,9 @@
                 @auth
                     @if (Auth::check() && (Auth::user()->id_roles == '2' || Auth::user()->id_roles == '3'))
                         <div class="mb-2 flex justify-start sm:mb-0 sm:space-x-4 xl:space-x-10">
-                            @if(Auth::user()->id_roles == '2')
+                            @if (Auth::user()->id_roles == '2')
                                 <a href="{{ route('posts', ['filter' => 'my_posts']) }}" id="my-post-button"
-                                class="text-cyan-600 rounded-xl border border-gray-200 px-3 py-2 text-sm hover:bg-gray-200 sm:px-6 sm:py-4 xl:text-base">
+                                    class="text-cyan-600 rounded-xl border border-gray-200 px-3 py-2 text-sm hover:bg-gray-200 sm:px-6 sm:py-4 xl:text-base">
                                     My Post
                                 </a>
                             @endif
@@ -121,12 +121,15 @@
                                 <div class="mt-0 grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2">
                                     <div class="col-span-2 sm:col-span-2">
                                         <label for="position" class="mb-1 block text-2xl text-cyan">
-                                            Position <span class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
+                                            Position <span
+                                                class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
                                         </label>
-                                        <select name="position" id="position" required class="@error('position') border-red-500 @else border-gray-300 @enderror w-full rounded-full border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan">
+                                        <select name="position" id="position" required
+                                            class="@error('position') border-red-500 @else border-gray-300 @enderror w-full rounded-full border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan">
                                             <option value="">Select a job position</option>
                                             @foreach ($allJob as $job)
-                                                <option value="{{ $job->job_name }}" {{ old('job_name') == $job->job_name ? 'selected' : '' }}>
+                                                <option value="{{ $job->job_name }}"
+                                                    {{ old('job_name') == $job->job_name ? 'selected' : '' }}>
                                                     {{ $job->job_name }}
                                                 </option>
                                             @endforeach
@@ -134,13 +137,19 @@
                                     </div>
                                     <div class="col-span-2 sm:col-span-2">
                                         <label for="company" class="block text-2xl text-cyan">
-                                            Company <span class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
+                                            Company <span
+                                                class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
                                         </label>
-                                        <span class="-mt-1 mb-1 block text-sm text-cyan-100">This feature is only available to users with experience at a company they have worked for.</span>
-                                        <select name="company" id="company" class="@error('company') border-red-500 @else border-gray-300 @enderror w-full rounded-full border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan" required>
-                                            <option value="" disabled {{ old('company') ? '' : 'selected' }}>Select a company</option>
+                                        <span class="-mt-1 mb-1 block text-sm text-cyan-100">This feature is only available to
+                                            users with experience at a company they have worked for.</span>
+                                        <select name="company" id="company"
+                                            class="@error('company') border-red-500 @else border-gray-300 @enderror w-full rounded-full border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
+                                            required>
+                                            <option value="" disabled {{ old('company') ? '' : 'selected' }}>Select a
+                                                company</option>
                                             @foreach ($companies as $company)
-                                                <option value="{{ $company->id_company }}" {{ old('company') == $company->id_company ? 'selected' : '' }}>
+                                                <option value="{{ $company->id_company }}"
+                                                    {{ old('company') == $company->id_company ? 'selected' : '' }}>
                                                     {{ $company->company_name }}
                                                 </option>
                                             @endforeach
@@ -148,68 +157,101 @@
                                     </div>
                                     <div class="col-span-2 sm:col-span-2">
                                         <label for="vacancy_description" class="mb-1 block text-2xl text-cyan">
-                                            Description <span class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
+                                            Description <span
+                                                class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
                                         </label>
-                                        <textarea name="vacancy_description" id="vacancy_description" class="@error('vacancy_description') border-red-500 @else border-gray-300 @enderror w-full rounded-xl border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan" placeholder="Enter content" required>{{ old('vacancy_description') }}</textarea>
+                                        <textarea name="vacancy_description" id="vacancy_description"
+                                            class="@error('vacancy_description') border-red-500 @else border-gray-300 @enderror w-full rounded-xl border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
+                                            placeholder="Enter content" required>{{ old('vacancy_description') }}</textarea>
                                     </div>
                                     <div class="col-span-1 sm:col-span-1">
                                         <label for="start_date" class="mb-1 block text-2xl text-cyan">
-                                            Start Date <span class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
+                                            Start Date <span
+                                                class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
                                         </label>
-                                        <input type="date" name="start_date" id="start_date" value="{{ old('start_date') }}" class="@error('start_date') border-red-500 @else border-gray-300 @enderror w-full rounded-full border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan" required>
+                                        <input type="date" name="start_date" id="start_date"
+                                            value="{{ old('start_date') }}"
+                                            class="@error('start_date') border-red-500 @else border-gray-300 @enderror w-full rounded-full border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
+                                            required>
                                     </div>
                                     <div class="col-span-1 sm:col-span-1">
                                         <label for="end_date" class="mb-1 block text-2xl text-cyan">
-                                            End Date <span class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
+                                            End Date <span
+                                                class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
                                         </label>
-                                        <input type="date" name="end_date" id="end_date" value="{{ old('end_date') }}" class="@error('end_date') border-red-500 @else border-gray-300 @enderror w-full rounded-full border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan" required>
+                                        <input type="date" name="end_date" id="end_date" value="{{ old('end_date') }}"
+                                            class="@error('end_date') border-red-500 @else border-gray-300 @enderror w-full rounded-full border bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
+                                            required>
                                     </div>
                                     <div class="col-span-2">
-                                        <label for="responsibility" class="mb-1 block text-2xl text-cyan">Responsibility <span class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
+                                        <label for="responsibility" class="mb-1 block text-2xl text-cyan">Responsibility <span
+                                                class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
                                         <div id="responsibility-container-create">
                                             <div class="responsibility-item mb-2 flex items-center">
-                                                <input id="responsibility" type="text" name="vacancy_responsibility[]" class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan" placeholder="Enter responsibility" required />
-                                                <button type="button" class="remove-responsibility ml-2 rounded-xl border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2" style="display: none;">Remove</button>
+                                                <input id="responsibility" type="text" name="vacancy_responsibility[]"
+                                                    class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
+                                                    placeholder="Enter responsibility" required />
+                                                <button type="button"
+                                                    class="remove-responsibility ml-2 rounded-xl border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2"
+                                                    style="display: none;">Remove</button>
                                             </div>
                                         </div>
-                                        <button type="button" id="add-responsibility" class="bg-btn-cyan-100 mt-2 rounded-lg px-7 py-2 text-sm text-white hover:bg-lightblue hover:text-cyan sm:text-base">
+                                        <button type="button" id="add-responsibility"
+                                            class="bg-btn-cyan-100 mt-2 rounded-lg px-7 py-2 text-sm text-white hover:bg-lightblue hover:text-cyan sm:text-base">
                                             Add Responsibility
                                         </button>
                                     </div>
                                     <div class="col-span-2">
-                                        <label for="qualification" class="mb-1 block text-2xl text-cyan">Qualification <span class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
+                                        <label for="qualification" class="mb-1 block text-2xl text-cyan">Qualification <span
+                                                class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
                                         <div id="qualification-container">
                                             <div class="qualification-item mb-2 flex items-center">
-                                                <input id="qualification" type="text" name="vacancy_qualification[]" required class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan" placeholder="Enter qualification" />
-                                                <button type="button" class="remove-qualification ml-2 rounded-xl border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2" style="display: none;">Remove</button>
+                                                <input id="qualification" type="text" name="vacancy_qualification[]"
+                                                    required
+                                                    class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
+                                                    placeholder="Enter qualification" />
+                                                <button type="button"
+                                                    class="remove-qualification ml-2 rounded-xl border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2"
+                                                    style="display: none;">Remove</button>
                                             </div>
                                         </div>
-                                        <button type="button" id="add-qualification" class="bg-btn-cyan-100 mt-2 rounded-lg px-7 py-2 text-sm text-white hover:bg-lightblue hover:text-cyan sm:text-base">
+                                        <button type="button" id="add-qualification"
+                                            class="bg-btn-cyan-100 mt-2 rounded-lg px-7 py-2 text-sm text-white hover:bg-lightblue hover:text-cyan sm:text-base">
                                             Add Qualification
                                         </button>
                                     </div>
                                     <div class="col-span-2">
-                                        <label for="benefits" class="mb-1 block text-2xl text-cyan">Benefits <span class="text-4xl text-red-500">*</span></label>
+                                        <label for="benefits" class="mb-1 block text-2xl text-cyan">Benefits <span
+                                                class="text-4xl text-red-500">*</span></label>
                                         <div id="benefits-container">
                                             <div class="benefits-item mb-2 flex items-center">
-                                                <input id="benefit" type="text" name="vacancy_benefits[]" required class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan" placeholder="Enter benefits" />
-                                                <button type="button" class="remove-benefits ml-2 rounded-xl border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2" style="display: none;">Remove</button>
+                                                <input id="benefit" type="text" name="vacancy_benefits[]" required
+                                                    class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
+                                                    placeholder="Enter benefits" />
+                                                <button type="button"
+                                                    class="remove-benefits ml-2 rounded-xl border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2"
+                                                    style="display: none;">Remove</button>
                                             </div>
                                         </div>
-                                        <button type="button" id="add-benefits" class="bg-btn-cyan-100 mt-2 rounded-lg px-7 py-2 text-sm text-white hover:bg-lightblue hover:text-cyan sm:text-base">
+                                        <button type="button" id="add-benefits"
+                                            class="bg-btn-cyan-100 mt-2 rounded-lg px-7 py-2 text-sm text-white hover:bg-lightblue hover:text-cyan sm:text-base">
                                             Add Benefits
                                         </button>
                                     </div>
                                     <div class="col-span-2 sm:col-span-2">
                                         <label for="vacancy_picture" class="mb-1 block text-2xl text-cyan">
-                                            Upload Poster <span class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
+                                            Upload Poster <span
+                                                class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span>
                                         </label>
-                                        <input type="file" name="vacancy_picture" id="vacancy_picture" required class="@error('vacancy_picture') border-red-500 @else border-gray-300 @enderror w-full rounded-full border bg-gray-200 file:mr-4 file:rounded-full file:border-0 file:bg-gray-300 file:px-4 file:py-2 file:text-gray-700 hover:file:bg-gray-400" onchange="checkPosterFile(this)">
+                                        <input type="file" name="vacancy_picture" id="vacancy_picture" required
+                                            class="@error('vacancy_picture') border-red-500 @else border-gray-300 @enderror w-full rounded-full border bg-gray-200 file:mr-4 file:rounded-full file:border-0 file:bg-gray-300 file:px-4 file:py-2 file:text-gray-700 hover:file:bg-gray-400"
+                                            onchange="checkPosterFile(this)">
                                         <p id="poster-error" class="mt-1 text-sm text-red-500"></p>
                                     </div>
                                 </div>
                                 <div class="flex justify-end">
-                                    <button type="submit" id="submit-vacancy" class="bg-btn-cyan m-4 rounded-lg bg-cyan px-6 py-2 text-white shadow-lg hover:bg-cyan-400 hover:text-cyan sm:py-2.5">
+                                    <button type="submit" id="submit-vacancy"
+                                        class="bg-btn-cyan m-4 rounded-lg bg-cyan px-6 py-2 text-white shadow-lg hover:bg-cyan-400 hover:text-cyan sm:py-2.5">
                                         Post
                                     </button>
                                 </div>
@@ -254,7 +296,8 @@
 
                 addButton.addEventListener('click', () => {
                     const newItem = document.createElement('div');
-                    newItem.classList.add(`${inputName.replace(/\[\]$/, '')}-item`, 'mb-2', 'flex', 'items-center');
+                    newItem.classList.add(`${inputName.replace(/\[\]$/, '')}-item`, 'mb-2', 'flex',
+                        'items-center');
                     newItem.innerHTML = `
                         <input type="text" name="${inputName}" required
                             class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
@@ -271,8 +314,10 @@
                 });
             };
 
-            addDynamicInput('responsibility-container-create', 'add-responsibility', 'vacancy_responsibility[]', 'remove-responsibility');
-            addDynamicInput('qualification-container', 'add-qualification', 'vacancy_qualification[]', 'remove-qualification');
+            addDynamicInput('responsibility-container-create', 'add-responsibility', 'vacancy_responsibility[]',
+                'remove-responsibility');
+            addDynamicInput('qualification-container', 'add-qualification', 'vacancy_qualification[]',
+                'remove-qualification');
             addDynamicInput('benefits-container', 'add-benefits', 'vacancy_benefits[]', 'remove-benefits');
         });
 
@@ -351,10 +396,12 @@
 
             [startDateInput, endDateInput].forEach(input => {
                 if (input) {
-                    input.addEventListener('changeDate', () => { // Flowbite's datepicker dispatches 'changeDate'
+                    input.addEventListener('changeDate',
+                () => { // Flowbite's datepicker dispatches 'changeDate'
                         currentStartDate = startDateInput.value;
                         currentEndDate = endDateInput.value;
-                        if ((currentStartDate && currentEndDate) || (!currentStartDate && !currentEndDate)) {
+                        if ((currentStartDate && currentEndDate) || (!currentStartDate && !
+                                currentEndDate)) {
                             currentPage = 1;
                             updateUrlAndFetch();
                         }
@@ -384,7 +431,9 @@
                 if (currentEndDate) params.append('end_date', currentEndDate);
 
                 const newUrl = `${window.location.pathname}?${params.toString()}`;
-                history.pushState({ path: newUrl }, '', newUrl);
+                history.pushState({
+                    path: newUrl
+                }, '', newUrl);
                 fetchAndDisplayPosts();
             }
 
@@ -394,7 +443,8 @@
 
                 // Clear initial server-rendered pagination if it exists
                 const initialPagination = document.querySelector('.flex.justify-center');
-                if(initialPagination && initialPagination.querySelector('nav[aria-label="Pagination Navigation"]')) initialPagination.remove();
+                if (initialPagination && initialPagination.querySelector(
+                        'nav[aria-label="Pagination Navigation"]')) initialPagination.remove();
 
                 postsContainer.innerHTML = '<p class="py-4 text-center text-gray-500">Loading...</p>';
                 noResultsDiv.style.display = 'none';
@@ -407,7 +457,9 @@
                 if (currentEndDate) params.append('end_date', currentEndDate);
 
                 try {
-                    const response = await axios.get(`/api/posts?${params.toString()}`, { withCredentials: true });
+                    const response = await axios.get(`/api/posts?${params.toString()}`, {
+                        withCredentials: true
+                    });
                     const paginator = response.data.data;
                     const posts = paginator.data;
 
@@ -424,7 +476,8 @@
                     }
                 } catch (error) {
                     console.error('Error fetching posts:', error);
-                    postsContainer.innerHTML = '<p class="py-4 text-center text-red-500">Failed to load vacancies.</p>';
+                    postsContainer.innerHTML =
+                        '<p class="py-4 text-center text-red-500">Failed to load vacancies.</p>';
                 }
             }
 
