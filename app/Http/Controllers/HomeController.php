@@ -62,8 +62,6 @@ class HomeController extends Controller
             ->groupBy('company.id_company', 'company.company_name', 'company.company_picture')
             ->orderBy('employee_count', 'desc')
             ->paginate(5);
-
-
         return view('content.home', compact('posts', 'company'));
     }
 

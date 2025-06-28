@@ -181,8 +181,8 @@ class CompanyController extends Controller
                 DB::raw('COALESCE(YEAR(job_tracking.date_start), "Now") as date_start'),
                 DB::raw("COALESCE(user_details.profile_photo, 'default_profile.png') as profile_photo"),
             )
-            ->where('company.id_company', '=', $id) // filter by company ID
-            ->orderBy('user_details.name', 'asc')   // Optional: order workers by name
+            ->where('company.id_company', '=', $id)
+            ->orderBy('user_details.name', 'asc')
             ->paginate(10);
 
 
