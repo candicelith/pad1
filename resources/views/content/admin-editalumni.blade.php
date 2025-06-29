@@ -1371,7 +1371,7 @@
                     newItemDiv.innerHTML = `
                 <input type="text" name="${inputName}"
                     class="block w-full rounded-xl border border-gray-900 bg-gray-50 px-2 py-2 text-sm text-gray-900"
-                    placeholder="Enter responsibility" />
+                    placeholder="Enter responsibility" required/>
                 <button type="button"
                     class="remove-responsibility ml-2 rounded-xl border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2">Remove</button>
             `;
