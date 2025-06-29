@@ -110,6 +110,7 @@
                     </a>
                 @endforeach --}}
             </div>
+            <div id="pagination-controls" class="mt-6 flex items-center justify-center gap-4"></div>
             {{-- Companies Cards End --}}
         </div>
     </section>
@@ -119,38 +120,39 @@
     {{-- Company API --}}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            async function fetchAndDisplayCompanies() {
+            let currentPage = 1;
+            const companiesContainer = document.getElementById('companies-card');
+            const paginationControls = document.getElementById('pagination-controls');
+
+            async function fetchAndDisplayCompanies(page = 1) {
                 try {
-                    const response = await axios.get('/api/companies', {
+                    const response = await axios.get(`/api/companies?page=${page}`, {
                         withCredentials: true
                     });
 
-                    const companiesContainer = document.getElementById('companies-card');
                     const companies = response.data.data;
+                    const meta = response.data.meta; // from Laravel's pagination
+                    const links = response.data.links;
 
                     if (!companies || companies.length === 0) {
                         companiesContainer.innerHTML = '<p class="text-center py-4">No companies available</p>';
+                        paginationControls.innerHTML = '';
                         return;
                     }
 
                     let companiesHTML = '';
                     companies.forEach(company => {
-                        // Handle company picture URL - without changing backend logic
                         let companyPicture = company.company_picture;
 
-                        // If no picture or default placeholder, use our default image
                         if (!companyPicture ||
                             companyPicture ===
                             'https://picsum.photos/id/870/200/300?grayscale&blur=2' ||
                             companyPicture === 'default_company.png') {
                             companyPicture = '/storage/company/default_company.png';
-                        }
-                        // If it's a custom image but not a full URL
-                        else if (!companyPicture.startsWith('http') && !companyPicture.startsWith(
+                        } else if (!companyPicture.startsWith('http') && !companyPicture.startsWith(
                                 '/storage')) {
                             companyPicture = `/storage/company/${companyPicture}`;
                         }
-                        // Otherwise use whatever URL is provided by the backend
 
                         companiesHTML += `
                     <a href="/companies/detail/${company.id}"
@@ -161,16 +163,10 @@
                                 <img class="mb-3 h-24 w-24 rounded-full shadow-lg"
                                     src="${companyPicture}"
                                     alt="${company.company_name}"
-                                    onerror="this.onerror=null;this.src='/storage/company/default_company.png'"/>
-                                <h2 class="mb-1 text-2xl text-cyan">
-                                    ${company.company_name || 'Unnamed Company'}
-                                </h2>
-                                <h3 class="mb-1 text-base text-cyan">
-                                    ${company.company_field || 'Field not specified'}
-                                </h3>
-                                <h4 class="text-sm text-gray-400">
-                                    ${company.company_address || 'Address not available'}
-                                </h4>
+                                    onerror="this.onerror=null;this.src='/storage/company/default_company.png'" />
+                                <h2 class="mb-1 text-2xl text-cyan">${company.company_name || 'Unnamed Company'}</h2>
+                                <h3 class="mb-1 text-base text-cyan">${company.company_field || 'Field not specified'}</h3>
+                                <h4 class="text-sm text-gray-400">${company.company_address || 'Address not available'}</h4>
                             </div>
                         </div>
                     </a>
@@ -178,14 +174,59 @@
                     });
 
                     companiesContainer.innerHTML = companiesHTML;
+
+                    // Pagination controls
+                    let paginationHTML = `
+    <div class="pagination-container mt-8 flex flex-col items-center space-y-2">
+        <div class="flex items-center flex-wrap justify-center space-x-1">
+            <a href="#"
+               class="mx-1 px-3 py-2 text-sm rounded-lg border transition-colors duration-200
+                      ${meta.current_page === 1 ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed' : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100'}"
+               ${meta.current_page === 1 ? 'aria-disabled="true"' : ''}
+               onclick="changePage(${meta.current_page - 1})">
+                ‹ Previous
+            </a>`;
+
+                    for (let i = 1; i <= meta.last_page; i++) {
+                        paginationHTML += `
+        <a href="#"
+           class="mx-1 px-3 py-2 text-sm rounded-lg border transition-colors duration-200
+                  ${meta.current_page === i ? 'bg-cyan text-white border-cyan cursor-default' : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100'}"
+           onclick="changePage(${i})">
+            ${i}
+        </a>`;
+                    }
+
+                    paginationHTML += `
+            <a href="#"
+               class="mx-1 px-3 py-2 text-sm rounded-lg border transition-colors duration-200
+                      ${meta.current_page === meta.last_page ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed' : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100'}"
+               ${meta.current_page === meta.last_page ? 'aria-disabled="true"' : ''}
+               onclick="changePage(${meta.current_page + 1})">
+                Next ›
+            </a>
+        </div>
+        <div class="text-sm text-gray-600">
+            Showing ${meta.from || 0} to ${meta.to || 0} of ${meta.total} results
+        </div>
+    </div>`;
+
+                    paginationControls.innerHTML = paginationHTML;
+
                 } catch (error) {
                     console.error('Error:', error);
-                    document.getElementById('companies-card').innerHTML =
+                    companiesContainer.innerHTML =
                         '<p class="text-center py-4 text-red-500">Error loading companies. Please try again later.</p>';
+                    paginationControls.innerHTML = '';
                 }
             }
 
-            fetchAndDisplayCompanies();
+            window.changePage = function(page) {
+                currentPage = page;
+                fetchAndDisplayCompanies(page);
+            }
+
+            fetchAndDisplayCompanies(currentPage);
         });
     </script>
 
