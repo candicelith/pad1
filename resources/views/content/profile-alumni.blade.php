@@ -111,8 +111,8 @@
                                                 <div
                                                     class="h-full w-full overflow-hidden rounded-full border-4 border-cyan bg-gray-100">
                                                     <img id="preview-image" class="h-full w-full object-cover"
-                                                    src="{{ $userDetails->profile_photo ? asset('storage/profile/' . $userDetails->profile_photo) : asset('assets/placeholder.png') }}"
-                                                    alt="{{ $userDetails->name }}'s Profile Picture">
+                                                        src="{{ $userDetails->profile_photo ? asset('storage/profile/' . $userDetails->profile_photo) : asset('assets/placeholder.png') }}"
+                                                        alt="{{ $userDetails->name }}'s Profile Picture">
                                                 </div>
                                                 <label for="profile_picture"
                                                     class="hover:bg-cyan-600 absolute bottom-0 right-0 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-cyan text-white shadow-md transition-all sm:h-10 sm:w-10">
@@ -145,8 +145,7 @@
                                             </div>
                                             <div>
                                                 <label for="current_company" class="mb-1 block text-2xl text-cyan">Current
-                                                    Company <span
-                                                        class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
+                                                    Company</label>
                                                 <select name="current_company" id="current_company"
                                                     class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan">
                                                     <option value="" disabled
@@ -168,7 +167,7 @@
                                                 </label>
                                                 <select id="current_job" name="current_job"
                                                     class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
-                                                    required>
+                                                    >
                                                     <option value="" disabled
                                                         {{ old('current_job', $userDetails->current_job) ? '' : 'selected' }}>
                                                         Select a job position
@@ -187,11 +186,10 @@
                                             </div>
                                             <div>
                                                 <label for="user_description" class="mb-1 block text-2xl text-cyan">About
-                                                    <span
-                                                        class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
+                                                </label>
                                                 <textarea type="text" id="user_description" name="user_description"
                                                     class="w-full rounded-md border border-gray-300 bg-gray-200 px-3 py-2 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
-                                                    placeholder="Tell us about yourself and your professional journey..." required>{{ $userDetails->user_description }}</textarea>
+                                                    placeholder="Tell us about yourself and your professional journey...">{{ $userDetails->user_description }}</textarea>
                                             </div>
                                             <div class="flex justify-end space-x-3 pt-4">
                                                 <button data-modal-hide="crud-modal" type="submit"

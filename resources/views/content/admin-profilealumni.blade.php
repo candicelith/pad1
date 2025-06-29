@@ -17,10 +17,10 @@
 
                 <div class="w-full max-w-none space-y-14">
                     @if (Session::has('approved'))
-                    <div class="mx-auto mb-4 w-3/4 transform rounded-lg bg-lightgreen p-4 text-center text-sm text-green-800 opacity-100 transition-opacity duration-500 sm:w-1/2"
-                        role="alert">
-                        {!! Session::get('approved') !!}
-                    </div>
+                        <div class="mx-auto mb-4 w-3/4 transform rounded-lg bg-lightgreen p-4 text-center text-sm text-green-800 opacity-100 transition-opacity duration-500 sm:w-1/2"
+                            role="alert">
+                            {!! Session::get('approved') !!}
+                        </div>
                     @elseif (Session::has('rejected'))
                         <div class="mx-auto mb-4 w-3/4 transform rounded-lg bg-red-300 p-4 text-center text-sm text-red-800 opacity-100 transition-opacity duration-500 sm:w-1/2"
                             role="alert">
@@ -115,19 +115,21 @@
                                                         <input id="profile_picture" name="profile_picture" type="file"
                                                             accept="image/*" class="hidden"
                                                             onchange="document.getElementById('preview-image').src = window.URL.createObjectURL(this.files[0])">
-                                                        <label for="full_name" class="mb-1 block text-2xl text-cyan">Full
-                                                            Name</label>
-                                                        <input type="text" id="full_name" name="full_name"
-                                                            class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
-                                                            disabled value="{{ $userDetails->name }}" />
+                                                        <div>
+                                                            <label for="full_name"
+                                                                class="mb-1 block text-2xl text-cyan">Full
+                                                                Name <span
+                                                                    class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
+                                                            <input type="text" id="full_name" name="full_name"
+                                                                class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
+                                                                disabled value="{{ $userDetails->name }}" />
+                                                        </div>
                                                         <div>
                                                             <label for="current_company"
                                                                 class="mb-1 block text-2xl text-cyan">Current
-                                                                Company <span
-                                                                    class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
+                                                                Company </label>
                                                             <select name="current_company" id="current_company"
-                                                                class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
-                                                                required>
+                                                                class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan">
                                                                 <option value="" disabled
                                                                     {{ $userDetails->current_job ? '' : 'selected' }}>
                                                                     Select a company</option>
@@ -141,19 +143,20 @@
                                                             </select>
                                                         </div>
                                                         <div>
-                                                            <label for="current_job" class="mb-1 block text-2xl text-cyan">
+                                                            <label for="current_job"
+                                                                class="mb-1 block text-2xl text-cyan">
                                                                 Current Position
-                                                             <span
-                                                                    class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
+                                                            </label>
                                                             <select id="current_job" name="current_job"
-                                                                class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan"
-                                                                required>
+                                                                class="w-full rounded-full border border-gray-300 bg-gray-200 py-2 pe-3 ps-4 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan">
 
-                                                                <option value="" disabled {{ old('current_job', $userDetails->current_job) ? '' : 'selected' }}>
+                                                                <option value="" disabled
+                                                                    {{ old('current_job', $userDetails->current_job) ? '' : 'selected' }}>
                                                                     Select a job position
                                                                 </option>
 
-                                                                <option value="" {{ old('current_job', $userDetails->current_job) == '' ? 'selected' : '' }}>
+                                                                <option value=""
+                                                                    {{ old('current_job', $userDetails->current_job) == '' ? 'selected' : '' }}>
                                                                     Jobless
                                                                 </option>
 
@@ -167,9 +170,8 @@
                                                         </div>
                                                         <div>
                                                             <label for="user_description"
-                                                                class="mb-1 block text-2xl text-cyan">About <span
-                                                                    class="relative top-1 -ms-2 align-baseline text-4xl leading-none text-red-500">*</span></label>
-                                                            <textarea type="text" id="user_description" name="user_description" required
+                                                                class="mb-1 block text-2xl text-cyan">Description</label>
+                                                            <textarea type="text" id="user_description" name="user_description"
                                                                 class="w-full rounded-md border border-gray-300 bg-gray-200 px-3 py-2 shadow-sm focus:border-cyan focus:outline-none focus:ring-cyan">{{ $userDetails->user_description }}</textarea>
                                                         </div>
                                                         <div class="flex justify-end space-x-3 pt-4">

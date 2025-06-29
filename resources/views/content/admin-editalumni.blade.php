@@ -124,14 +124,15 @@
                                                                 Company
                                                             </h4>
                                                             <div id="new_company_ajax_errors_modal-_create"
-                                                                class="mb-3 text-sm text-red-500 company-logo-error"></div>
+                                                                class="company-logo-error mb-3 text-sm text-red-500"></div>
                                                             {{-- Unique ID --}}
 
                                                             <div class="relative h-24 w-24 sm:h-32 sm:w-32">
                                                                 <div
                                                                     class="h-full w-full overflow-hidden rounded-full border-4 border-cyan bg-gray-50">
                                                                     <img id="new_company_logo_preview_modal-_create"
-                                                                        class="h-full w-full object-cover" src="{{ asset('assets/placeholder.png') }}"
+                                                                        class="h-full w-full object-cover"
+                                                                        src="{{ asset('assets/placeholder.png') }}"
                                                                         alt="Logo Preview">
                                                                 </div>
                                                                 <label for="new_company_logo_modal-_create"
@@ -151,8 +152,7 @@
                                                                     </svg>
                                                                 </label>
                                                                 <input type="file" id="new_company_logo_modal-_create"
-                                                                    class="hidden"
-                                                                    onchange="checkFileSize(this)"
+                                                                    class="hidden" onchange="checkFileSize(this)"
                                                                     @change="previewLogo($event, 'new_company_logo_preview_modal-_create')">
                                                             </div>
                                                             <div>
@@ -190,18 +190,18 @@
                                                                 <label for="new_company_gallery_modal-_create"
                                                                     class="block text-sm font-medium text-gray-700">Company
                                                                     Gallery</label>
-                                                                <p class="text-xs text-gray-500 mb-2">You can add multiple
+                                                                <p class="mb-2 text-xs text-gray-500">You can add multiple
                                                                     photos (max 5, each under 2MB).</p>
                                                                 <input type="file"
                                                                     name="new_company_gallery_modal-_create[]"
                                                                     id="new_company_gallery_modal-_create" multiple
                                                                     accept="image/*"
                                                                     @change="handleGalleryPreview($event, 'new_company_gallery_preview_modal-_create', 'new_company_gallery_error_modal-_create')"
-                                                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-l-lg file:border-0 file:text-sm file:font-semibold file:bg-gray-200 file:text-gray-700 hover:file:bg-gray-300">
+                                                                    class="block w-full cursor-pointer rounded-lg border border-gray-300 bg-gray-50 text-sm text-gray-900 file:mr-4 file:rounded-l-lg file:border-0 file:bg-gray-200 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-gray-700 hover:file:bg-gray-300 focus:outline-none">
                                                                 <p id="new_company_gallery_error_modal-_create"
-                                                                    class="text-sm text-red-500 mt-1"></p>
+                                                                    class="mt-1 text-sm text-red-500"></p>
                                                                 <div id="new_company_gallery_preview_modal-_create"
-                                                                    class="mt-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                                                                    class="mt-4 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
                                                                 </div>
                                                             </div>
                                                             <div class="flex space-x-2">
@@ -348,7 +348,7 @@
                                                                     <input type="text" name="job_responsibility[]"
                                                                         value="{{ $responsibility }}"
                                                                         class="block w-full rounded-xl border border-gray-900 bg-gray-50 px-2 py-2 text-sm text-gray-900"
-                                                                        placeholder="Enter responsibility" />
+                                                                        placeholder="Enter responsibility" required />
                                                                     <button type="button"
                                                                         class="remove-responsibility ml-2 rounded-xl border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2"
                                                                         style="{{ $loop->first && !old('job_responsibility') ? 'display: none;' : 'display: inline-flex;' }}">Remove</button>
@@ -504,7 +504,8 @@
                                                                         Create New Company
                                                                     </h4>
                                                                     <div id="new_company_ajax_errors_modal-{{ $job->id_tracking }}"
-                                                                        class="mb-3 text-sm text-red-500 company-logo-error"></div>
+                                                                        class="company-logo-error mb-3 text-sm text-red-500">
+                                                                    </div>
                                                                     {{-- Unique ID --}}
 
                                                                     <div class="relative h-24 w-24 sm:h-32 sm:w-32">
@@ -512,7 +513,8 @@
                                                                             class="h-full w-full overflow-hidden rounded-full border-4 border-cyan bg-gray-50">
                                                                             <img id="new_company_logo_preview_modal-{{ $job->id_tracking }}"
                                                                                 class="h-full w-full object-cover"
-                                                                                src="{{ asset('assets/placeholder.png') }}" alt="Logo Preview">
+                                                                                src="{{ asset('assets/placeholder.png') }}"
+                                                                                alt="Logo Preview">
                                                                         </div>
                                                                         <label
                                                                             for="new_company_logo_modal-{{ $job->id_tracking }}"
@@ -539,8 +541,7 @@
                                                                         </label>
                                                                         <input type="file"
                                                                             id="new_company_logo_modal-{{ $job->id_tracking }}"
-                                                                            class="hidden"
-                                                                            onchange="checkFileSize(this)"
+                                                                            class="hidden" onchange="checkFileSize(this)"
                                                                             @change="previewLogo($event, 'new_company_logo_preview_modal-{{ $job->id_tracking }}')">
                                                                     </div>
                                                                     <div>
@@ -586,18 +587,18 @@
                                                                             for="new_company_gallery_modal-{{ $job->id_tracking }}"
                                                                             class="block text-sm font-medium text-gray-700">Company
                                                                             Gallery</label>
-                                                                        <p class="text-xs text-gray-500 mb-2">You can add
+                                                                        <p class="mb-2 text-xs text-gray-500">You can add
                                                                             multiple photos (max 5, each under 2MB).</p>
                                                                         <input type="file"
                                                                             name="new_company_gallery_modal-[]"
                                                                             id="new_company_gallery_modal-{{ $job->id_tracking }}"
                                                                             multiple accept="image/*"
                                                                             @change="handleGalleryPreview($event, 'new_company_gallery_preview_modal-{{ $job->id_tracking }}', 'new_company_gallery_error_modal-{{ $job->id_tracking }}')"
-                                                                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-l-lg file:border-0 file:text-sm file:font-semibold file:bg-gray-200 file:text-gray-700 hover:file:bg-gray-300">
+                                                                            class="block w-full cursor-pointer rounded-lg border border-gray-300 bg-gray-50 text-sm text-gray-900 file:mr-4 file:rounded-l-lg file:border-0 file:bg-gray-200 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-gray-700 hover:file:bg-gray-300 focus:outline-none">
                                                                         <p id="new_company_gallery_error_modal-{{ $job->id_tracking }}"
-                                                                            class="text-sm text-red-500 mt-1"></p>
+                                                                            class="mt-1 text-sm text-red-500"></p>
                                                                         <div id="new_company_gallery_preview_modal-{{ $job->id_tracking }}"
-                                                                            class="mt-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                                                                            class="mt-4 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
                                                                         </div>
                                                                     </div>
                                                                     <div class="flex space-x-2">
@@ -787,7 +788,8 @@
                                                                             <input type="text"
                                                                                 name="job_responsibility[]"
                                                                                 class="block w-full rounded-xl border border-gray-900 bg-gray-50 px-2 py-2 text-sm text-gray-900"
-                                                                                placeholder="Enter responsibility" />
+                                                                                placeholder="Enter responsibility"
+                                                                                required />
                                                                             <button type="button"
                                                                                 class="remove-responsibility ml-2 rounded-xl border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2"
                                                                                 style="display: none;">Remove</button>
@@ -1249,162 +1251,162 @@
             }
         }
 
-            function checkFileSize(input) {
-                const errorContainer = input.closest('.space-y-4').querySelector('.company-logo-error');
+        function checkFileSize(input) {
+            const errorContainer = input.closest('.space-y-4').querySelector('.company-logo-error');
 
-                if (!errorContainer) {
-                    console.error("Could not find the .company-logo-error element.");
-                    return;
-                }
-
-                const file = input.files[0];
-                // Jika pengguna batal memilih file, bersihkan pesan error
-                if (!file) {
-                    errorContainer.textContent = "";
-                    return;
-                }
-
-                // --- Aturan Validasi ---
-                const maxSizeInMB = 2;
-                const maxSizeBytes = maxSizeInMB * 1024 * 1024;
-                const allowedTypes = ['image/jpeg', 'image/png', 'image/gif']; // Tipe file yang diizinkan
-
-                // 1. Validasi Ukuran File
-                if (file.size > maxSizeBytes) {
-                    errorContainer.textContent = `File is too large. Max size is ${maxSizeInMB}MB.`;
-                    input.value = ""; // Hapus file yang tidak valid
-                    return;
-                }
-
-                // 2. Validasi Tipe File
-                if (!allowedTypes.includes(file.type)) {
-                    errorContainer.textContent = 'Invalid file type. Only JPG, PNG, or GIF are allowed.';
-                    input.value = ""; // Hapus file yang tidak valid
-                    return;
-                }
-
-                // Jika semua validasi lolos, pastikan tidak ada pesan error
-                errorContainer.textContent = "";
+            if (!errorContainer) {
+                console.error("Could not find the .company-logo-error element.");
+                return;
             }
 
-            // Position Dropdown (similar to the one from previous response, ensure IDs are unique if needed)
-            function positionDropdown(config) {
-                return {
-                    open: false,
-                    search: '',
-                    options: config.options || [],
-                    filteredOptions: [],
-                    selectedOption: null,
-                    initialSelectedValue: config.initialSelectedValue || '',
+            const file = input.files[0];
+            // Jika pengguna batal memilih file, bersihkan pesan error
+            if (!file) {
+                errorContainer.textContent = "";
+                return;
+            }
 
-                    init() {
+            // --- Aturan Validasi ---
+            const maxSizeInMB = 2;
+            const maxSizeBytes = maxSizeInMB * 1024 * 1024;
+            const allowedTypes = ['image/jpeg', 'image/png', 'image/gif']; // Tipe file yang diizinkan
+
+            // 1. Validasi Ukuran File
+            if (file.size > maxSizeBytes) {
+                errorContainer.textContent = `File is too large. Max size is ${maxSizeInMB}MB.`;
+                input.value = ""; // Hapus file yang tidak valid
+                return;
+            }
+
+            // 2. Validasi Tipe File
+            if (!allowedTypes.includes(file.type)) {
+                errorContainer.textContent = 'Invalid file type. Only JPG, PNG, or GIF are allowed.';
+                input.value = ""; // Hapus file yang tidak valid
+                return;
+            }
+
+            // Jika semua validasi lolos, pastikan tidak ada pesan error
+            errorContainer.textContent = "";
+        }
+
+        // Position Dropdown (similar to the one from previous response, ensure IDs are unique if needed)
+        function positionDropdown(config) {
+            return {
+                open: false,
+                search: '',
+                options: config.options || [],
+                filteredOptions: [],
+                selectedOption: null,
+                initialSelectedValue: config.initialSelectedValue || '',
+
+                init() {
+                    this.filteredOptions = [...this.options];
+                    if (this.initialSelectedValue) {
+                        const found = this.options.find(opt => String(opt.value) === String(this.initialSelectedValue));
+                        if (found) {
+                            this.selectOption(found, false);
+                        } else if (this.initialSelectedValue) {
+                            const newOpt = {
+                                value: this.initialSelectedValue,
+                                label: this.initialSelectedValue
+                            };
+                            this.options.unshift(newOpt);
+                            this.filteredOptions.unshift(newOpt); // Also add to filteredOptions
+                            this.selectOption(newOpt, false);
+                        }
+                    }
+                    this.search = this.selectedOption ? this.selectedOption.label : '';
+                },
+                filterOptions() {
+                    if (!this.search) {
                         this.filteredOptions = [...this.options];
-                        if (this.initialSelectedValue) {
-                            const found = this.options.find(opt => String(opt.value) === String(this.initialSelectedValue));
-                            if (found) {
-                                this.selectOption(found, false);
-                            } else if (this.initialSelectedValue) {
-                                const newOpt = {
-                                    value: this.initialSelectedValue,
-                                    label: this.initialSelectedValue
-                                };
-                                this.options.unshift(newOpt);
-                                this.filteredOptions.unshift(newOpt); // Also add to filteredOptions
-                                this.selectOption(newOpt, false);
-                            }
-                        }
-                        this.search = this.selectedOption ? this.selectedOption.label : '';
-                    },
-                    filterOptions() {
-                        if (!this.search) {
-                            this.filteredOptions = [...this.options];
-                            this.selectedOption = null;
-                            return;
-                        }
-                        if (!this.selectedOption || this.search !== this.selectedOption.label) {
-                            this.selectedOption = null;
-                        }
-                        this.filteredOptions = this.options.filter(item =>
-                            item.label.toLowerCase().includes(this.search.toLowerCase())
-                        );
-                    },
-                    selectOption(item, closeDropdown = true) {
-                        this.selectedOption = item;
-                        this.search = item.label;
-                        if (closeDropdown) {
-                            this.open = false;
-                        }
+                        this.selectedOption = null;
+                        return;
+                    }
+                    if (!this.selectedOption || this.search !== this.selectedOption.label) {
+                        this.selectedOption = null;
+                    }
+                    this.filteredOptions = this.options.filter(item =>
+                        item.label.toLowerCase().includes(this.search.toLowerCase())
+                    );
+                },
+                selectOption(item, closeDropdown = true) {
+                    this.selectedOption = item;
+                    this.search = item.label;
+                    if (closeDropdown) {
+                        this.open = false;
                     }
                 }
             }
+        }
 
-            // Initialize responsibility add/remove logic
-            document.addEventListener('DOMContentLoaded', () => {
-                const respContainerCreate = document.getElementById('responsibility-container-create');
-                const addBtnCreate = document.getElementById('add-responsibility-create');
-                if (respContainerCreate && addBtnCreate) {
-                    const maxResponsibilities = 3;
+        // Initialize responsibility add/remove logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const respContainerCreate = document.getElementById('responsibility-container-create');
+            const addBtnCreate = document.getElementById('add-responsibility-create');
+            if (respContainerCreate && addBtnCreate) {
+                const maxResponsibilities = 3;
 
-                    const updateRemoveButtons = (container) => {
-                        const items = container.querySelectorAll('.responsibility-item');
-                        items.forEach((item, index) => {
-                            const removeButton = item.querySelector('.remove-responsibility');
-                            if (removeButton) {
-                                removeButton.style.display = items.length === 1 ? 'none' :
+                const updateRemoveButtons = (container) => {
+                    const items = container.querySelectorAll('.responsibility-item');
+                    items.forEach((item, index) => {
+                        const removeButton = item.querySelector('.remove-responsibility');
+                        if (removeButton) {
+                            removeButton.style.display = items.length === 1 ? 'none' :
                                 'inline-flex';
-                            }
-                        });
-                    };
-
-                    const addField = (container, inputName) => {
-                        if (container.children.length >= maxResponsibilities) {
-                            alert(
-                                `Maximum ${maxResponsibilities} ${inputName.replace('job_', '').replace('[]', '')} items allowed.`
-                            );
-                            return;
                         }
-                        const newItemDiv = document.createElement('div');
-                        newItemDiv.classList.add('responsibility-item', 'mb-2', 'flex',
-                            'items-center'); // Use a generic class if needed or keep as 'responsibility-item'
-                        newItemDiv.innerHTML = `
+                    });
+                };
+
+                const addField = (container, inputName) => {
+                    if (container.children.length >= maxResponsibilities) {
+                        alert(
+                            `Maximum ${maxResponsibilities} ${inputName.replace('job_', '').replace('[]', '')} items allowed.`
+                        );
+                        return;
+                    }
+                    const newItemDiv = document.createElement('div');
+                    newItemDiv.classList.add('responsibility-item', 'mb-2', 'flex',
+                        'items-center'); // Use a generic class if needed or keep as 'responsibility-item'
+                    newItemDiv.innerHTML = `
                 <input type="text" name="${inputName}"
                     class="block w-full rounded-xl border border-gray-900 bg-gray-50 px-2 py-2 text-sm text-gray-900"
                     placeholder="Enter responsibility" />
                 <button type="button"
                     class="remove-responsibility ml-2 rounded-xl border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2">Remove</button>
             `;
-                        container.appendChild(newItemDiv);
-                        updateRemoveButtons(container);
-                    };
+                    container.appendChild(newItemDiv);
+                    updateRemoveButtons(container);
+                };
 
-                    addBtnCreate.addEventListener('click', () => addField(respContainerCreate,
-                        'job_responsibility[]'));
-                    respContainerCreate.addEventListener('click', function(e) {
-                        if (e.target && e.target.classList.contains('remove-responsibility')) {
-                            e.target.closest('.responsibility-item').remove();
-                            updateRemoveButtons(respContainerCreate);
-                        }
-                    });
-                    updateRemoveButtons(respContainerCreate); // Initial call
-                }
+                addBtnCreate.addEventListener('click', () => addField(respContainerCreate,
+                    'job_responsibility[]'));
+                respContainerCreate.addEventListener('click', function(e) {
+                    if (e.target && e.target.classList.contains('remove-responsibility')) {
+                        e.target.closest('.responsibility-item').remove();
+                        updateRemoveButtons(respContainerCreate);
+                    }
+                });
+                updateRemoveButtons(respContainerCreate); // Initial call
+            }
 
-                // Datepicker end date logic
-                const currentPositionCheckboxModal = document.getElementById('current_position_checkbox');
-                const dateEndInputModal = document.getElementById('datepicker-range-end');
-                if (currentPositionCheckboxModal && dateEndInputModal) {
-                    const updateEndDateStateModal = () => {
-                        if (currentPositionCheckboxModal.checked) {
-                            dateEndInputModal.value = '';
-                            dateEndInputModal.disabled = true;
-                            dateEndInputModal.removeAttribute('required');
-                        } else {
-                            dateEndInputModal.disabled = false;
-                            dateEndInputModal.setAttribute('required', 'required');
-                        }
-                    };
-                    currentPositionCheckboxModal.addEventListener('change', updateEndDateStateModal);
-                    updateEndDateStateModal(); // Initial state
-                }
-            });
+            // Datepicker end date logic
+            const currentPositionCheckboxModal = document.getElementById('current_position_checkbox');
+            const dateEndInputModal = document.getElementById('datepicker-range-end');
+            if (currentPositionCheckboxModal && dateEndInputModal) {
+                const updateEndDateStateModal = () => {
+                    if (currentPositionCheckboxModal.checked) {
+                        dateEndInputModal.value = '';
+                        dateEndInputModal.disabled = true;
+                        dateEndInputModal.removeAttribute('required');
+                    } else {
+                        dateEndInputModal.disabled = false;
+                        dateEndInputModal.setAttribute('required', 'required');
+                    }
+                };
+                currentPositionCheckboxModal.addEventListener('change', updateEndDateStateModal);
+                updateEndDateStateModal(); // Initial state
+            }
+        });
     </script>
 @endsection
