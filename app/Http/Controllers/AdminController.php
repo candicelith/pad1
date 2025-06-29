@@ -522,15 +522,27 @@ class AdminController extends Controller
         $hasAlumni = Job::where('id_company',$company->id_company)->exists();
 
         if ($hasAlumni) {
-            return redirect()->back()->with('rejected','Company Is Connected Into Users!');
+            return redirect()->back()->with('rejected','Failed to delete company, This company is linked to one or more users.');
+        }
+
+        // Delete the main picture
+        if ($company->company_picture && $company->company_picture !== 'default_company.png') {
+            Storage::delete('public/company/' . $company->company_picture);
+        }
+
+        // Delete all gallery images
+        if (!empty($company->company_gallery)) {
+            foreach ($company->company_gallery as $galleryImage) {
+                Storage::delete('public/company/gallery/' . $galleryImage);
+            }
         }
 
         $company->delete();
-
         // Clear cache after delete
         $this->adminService->clearCaches('company', $id);
         $this->adminService->clearCaches('company');
 
+        return redirect()->back()->with('approved', 'Company Succesfully Deleted!');
     }
 
     public function getNews()
