@@ -217,6 +217,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
+
+    {{-- Banner News API --}}
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const carousel = document.getElementById('news-carousel');
@@ -269,11 +271,11 @@
                             <div class="relative z-10 mx-auto w-full max-w-screen-xl text-white">
 
                                 <h1 class="mb-4 text-3xl leading-normal sm:text-4xl md:text-5xl lg:text-6xl line-clamp-3 break-words">
-                                    ${item.heading}
+                                    ${item.heading ?? ''}
                                 </h1>
 
                                 <p class="mb-8 text-base font-normal text-gray-300 sm:text-lg lg:text-xl line-clamp-3 break-words">
-                                    ${item.description}
+                                    ${item.description ?? ''}
                                 </p>
 
                             </div>
@@ -282,7 +284,8 @@
                     carousel.appendChild(slide);
 
                     const indicator = document.createElement('button');
-                    indicator.className = `h-3 w-3 rounded-full ${index === 0 ? 'bg-white' : 'bg-white/30'}`;
+                    indicator.className =
+                    `h-3 w-3 rounded-full ${index === 0 ? 'bg-white' : 'bg-white/30'}`;
                     indicator.dataset.slideTo = index;
                     indicator.addEventListener('click', () => goToSlide(index));
                     indicatorsContainer.appendChild(indicator);
@@ -302,7 +305,8 @@
                 carousel.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
 
                 [...indicatorsContainer.children].forEach((el, i) => {
-                    el.className = `h-3 w-3 rounded-full ${i === currentIndex ? 'bg-white' : 'bg-white/30'}`;
+                    el.className =
+                    `h-3 w-3 rounded-full ${i === currentIndex ? 'bg-white' : 'bg-white/30'}`;
                 });
             }
 
@@ -313,8 +317,8 @@
             }
 
             function nextSlide() {
-                 currentIndex = (currentIndex + 1) % totalItems;
-                 updateCarouselPosition();
+                currentIndex = (currentIndex + 1) % totalItems;
+                updateCarouselPosition();
             }
 
             function prevSlide() {
@@ -323,7 +327,7 @@
             }
 
             function startAutoPlay() {
-                if(autoPlayInterval) clearInterval(autoPlayInterval);
+                if (autoPlayInterval) clearInterval(autoPlayInterval);
                 autoPlayInterval = setInterval(nextSlide, 5000);
             }
 
