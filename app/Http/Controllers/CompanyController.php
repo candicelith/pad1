@@ -181,8 +181,8 @@ class CompanyController extends Controller
                 DB::raw('COALESCE(YEAR(job_tracking.date_start), "Now") as date_start'),
                 DB::raw("COALESCE(user_details.profile_photo, 'default_profile.png') as profile_photo"),
             )
-            ->where('company.id_company', '=', $id) // filter by company ID
-            ->orderBy('user_details.name', 'asc')   // Optional: order workers by name
+            ->where('company.id_company', '=', $id)
+            ->orderBy('user_details.name', 'asc')
             ->paginate(10);
 
 
@@ -358,6 +358,10 @@ class CompanyController extends Controller
                 'message' => "Data Anda Tidak Berhasil diverifikasi, Alasan: $company->rejection_reason.",
             ]);
 
+            foreach ($company->jobs as $job) {
+                $job->jobTracking()->delete();
+            }
+            $company->jobs()->delete();
             $company->delete();
             return redirect()->route('admin.home')->with('rejected', "Company '{$company->company_name}' rejected.");
         }

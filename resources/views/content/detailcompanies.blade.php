@@ -118,6 +118,9 @@
                                     </div>
                                 @endforelse
                             </div>
+                            <div class="mt-8">
+                                {{ $workers->links() }}
+                            </div>
 
                             {{-- Script for Handling Back Button --}}
                             <script>
@@ -154,19 +157,24 @@
                     const container = document.getElementById('company-content');
 
                     // Handle company picture URL
-                    let companyPicture = company.company_picture;
-                    if (companyPicture ===
-                        'https://picsum.photos/id/870/200/300?grayscale&blur=2') {
-                        companyPicture = '/storage/company/default_company.png';
-                    } else if (!companyPicture.startsWith('http')) {
-                        companyPicture =
-                            `/storage/company/${companyPicture || 'default_company.png'}`;
+                    let finalPictureUrl;
+                    const pictureFromApi = company.company_picture;
+
+                    if (!pictureFromApi) {
+                        finalPictureUrl = "{{ asset('assets/company-1.png') }}";
+                    }
+                    else if (pictureFromApi.startsWith('http')) {
+                        // If it is, use it directly.
+                        finalPictureUrl = pictureFromApi;
+                    }
+                    else {
+                        finalPictureUrl = `/storage/company/${pictureFromApi}`;
                     }
 
                     container.innerHTML = `
                 <div class="flex flex-col lg:flex-row lg:space-x-8">
                     <img class="h-24 w-24 rounded-full object-cover sm:h-28 sm:w-28"
-                        src="${companyPicture}"
+                        src="${finalPictureUrl}"
                         alt="${company.company_name}" />
                     <div class="mt-4">
                         <h2 class="text-xl text-cyan sm:text-2xl">${company.company_name}</h2>

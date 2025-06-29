@@ -93,6 +93,7 @@
                                                                 @keydown.escape="open = false" @click.away="open = false"
                                                                 class="block w-full rounded-xl border border-gray-900 bg-gray-50 px-6 py-2 text-sm text-gray-900 focus:outline-none"
                                                                 placeholder="Search or select a company"
+                                                                required
                                                                 autocomplete="off" />
 
                                                             <ul x-show="open" x-transition
@@ -246,6 +247,7 @@
                                                                 @click.away="open = false"
                                                                 class="block w-full rounded-xl border border-gray-500 bg-gray-50 p-2.5 px-6 text-sm text-gray-900 shadow focus:outline-none"
                                                                 placeholder="Search or select a position"
+                                                                required
                                                                 autocomplete="off" />
                                                             <ul x-show="open"
                                                                 class="absolute z-10 mt-1 max-h-60 w-full overflow-y-auto rounded-md border border-gray-200 bg-white shadow">
@@ -472,6 +474,7 @@
                                                                         @click.away="open = false"
                                                                         class="block w-full rounded-xl border border-gray-900 bg-gray-50 px-6 py-2 text-sm text-gray-900 focus:outline-none"
                                                                         placeholder="Search or select a company"
+                                                                        required
                                                                         autocomplete="off" />
 
                                                                     <ul x-show="open" x-transition
@@ -646,6 +649,7 @@
                                                                         @click.away="open = false"
                                                                         class="block w-full rounded-xl border border-gray-500 bg-gray-50 p-2.5 px-6 text-sm text-gray-900 shadow focus:outline-none"
                                                                         placeholder="Search or select a position"
+                                                                        required
                                                                         autocomplete="off" />
                                                                     <ul x-show="open"
                                                                         class="absolute z-10 mt-1 max-h-60 w-full overflow-y-auto rounded-md border border-gray-200 bg-white shadow">
@@ -1370,8 +1374,8 @@
                         'items-center'); // Use a generic class if needed or keep as 'responsibility-item'
                     newItemDiv.innerHTML = `
                 <input type="text" name="${inputName}"
-                    class="block w-full rounded-xl border border-gray-900 bg-gray-50 px-2 py-2 text-sm text-gray-900"
-                    placeholder="Enter responsibility" required/>
+                    class="block w-full rounded-xl border border-gray-900 bg-gray-50 px-2 py-2 text-sm text-gray-900" required
+                    placeholder="Enter responsibility" />
                 <button type="button"
                     class="remove-responsibility ml-2 rounded-xl border border-gray-900 bg-red-600 px-2.5 py-1.5 text-sm text-white hover:bg-red-400 sm:px-4 sm:py-2">Remove</button>
             `;

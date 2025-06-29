@@ -20,6 +20,15 @@ class GoogleAuthController extends Controller
     {
         $googleUser = Socialite::driver("google")->user();
 
+        // Email Validation
+        $email = $googleUser->getEmail();
+        $allowedDomains = ['mail.ugm.ac.id', 'ugm.ac.id']; // Current Allowed Domains
+        $domain = substr(strrchr($email, "@"), 1);
+
+        if (!in_array($domain, $allowedDomains)) {
+            Auth::logout();
+            return redirect()->route('login')->with('error', 'Login failed. Please use a valid UGM email address.');
+        }
         $user = User::firstOrCreate(
             ['email' => $googleUser->getEmail()],
             [

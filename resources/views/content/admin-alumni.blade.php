@@ -104,10 +104,16 @@
                                         <span>NAME</span>
                                     </th>
                                     <th scope="col" class="hidden-mobile px-6 py-3 font-normal text-black sm:text-base">
+                                        <span>NIM</span>
+                                    </th>
+                                    <th scope="col" class="hidden-mobile px-6 py-3 font-normal text-black sm:text-base">
                                         <span>NIU</span>
                                     </th>
                                     <th scope="col" class="hidden-mobile px-6 py-3 font-normal text-black sm:text-base">
                                         <span>EMAIL</span>
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 text-sm font-normal text-black sm:text-base">
+                                        <span>ANGKATAN</span>
                                     </th>
                                     <th scope="col" class="px-6 py-3 text-sm font-normal text-black sm:text-base">
                                         <span>ACTION</span>
@@ -124,11 +130,17 @@
                                         <td class="px-6 py-4 text-sm text-black sm:text-base">
                                             {{ $a->userDetails->name ?? 'N/A' }}
                                         </td>
+                                        <td class="px-6 py-4 text-sm text-black sm:text-base">
+                                            {{ $a->userDetails->nim ?? 'N/A' }}
+                                        </td>
                                         <td class="hidden-mobile px-6 py-4 text-black">
                                             {{ $a->userDetails->nim_part ?? 'N/A' }}
                                         </td>
                                         <td class="hidden-mobile px-6 py-4 text-black">
                                             {{ $a->email }}
+                                        </td>
+                                        <td class="px-6 py-4 text-sm text-black sm:text-base">
+                                            {{ $a->userDetails->entry_year }}
                                         </td>
                                         <td class="px-6 py-4">
                                             <a href="{{ route('admin.detail-alumni', ['id' => $a->userDetails->id_userDetails ?? '']) }}"

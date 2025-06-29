@@ -30,6 +30,6 @@ class Job extends Model
 
     public function jobTracking()
     {
-        return $this->belongsToMany(JobTracking::class, 'job_tracking_jobs', 'job_id', 'job_tracking_id');
+        return $this->hasMany(JobTracking::class, 'id_jobs');
     }
 }
