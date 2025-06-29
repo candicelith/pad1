@@ -240,13 +240,13 @@
             window.filterCompanies = function(event) {
                 currentFilterLetter = event.target.value.toLowerCase();
                 currentPage = 1;
-                
+
                 // If "All" button is clicked, also reset search
                 if (currentFilterLetter === '') {
                     currentSearchQuery = '';
                     document.getElementById('simple-search').value = '';
                 }
-                
+
                 displayFilteredCompanies(1);
 
                 // Update button states - reset all filter buttons to default style
@@ -258,9 +258,12 @@
                     btn.classList.add('bg-cyan');
                 });
 
-                // Set active style for clicked button
-                event.target.classList.remove('bg-cyan');
-                event.target.classList.add('bg-cyan-100');
+                // For "All" button, don't set active style - keep it normal
+                // For other letters, set active style
+                if (currentFilterLetter !== '') {
+                    event.target.classList.remove('bg-cyan');
+                    event.target.classList.add('bg-cyan-100');
+                }
             }
 
             window.searchCompanies = function(event) {
@@ -268,45 +271,41 @@
                 const searchValue = document.getElementById('simple-search').value.trim();
                 currentSearchQuery = searchValue;
                 currentPage = 1;
-                
-                // If search is cleared, also reset filter to "All"
+
+                // If search is cleared, also reset filter to default state (no active buttons)
                 if (searchValue === '') {
                     currentFilterLetter = '';
-                    // Reset all filter buttons and set "All" as active
-                    const filterContainer = document.querySelector('.flex.w-full.justify-center.gap-1.overflow-x-auto');
+                    // Reset all filter buttons to default style (no active state)
+                    const filterContainer = document.querySelector(
+                        '.flex.w-full.justify-center.gap-1.overflow-x-auto');
                     const allFilterButtons = filterContainer.querySelectorAll('button');
                     allFilterButtons.forEach(btn => {
                         btn.classList.remove('bg-cyan-100');
                         btn.classList.add('bg-cyan');
                     });
-                    // Set "All" button as active (first button)
-                    allFilterButtons[0].classList.remove('bg-cyan');
-                    allFilterButtons[0].classList.add('bg-cyan-100');
                 }
-                
+
                 displayFilteredCompanies(1);
             }
 
             window.handleSearchInput = function() {
                 const searchValue = document.getElementById('simple-search').value.trim();
-                
-                // If input is empty, automatically reset search and filter
+
+                // If input is empty, automatically reset search and filter to default state
                 if (searchValue === '') {
                     currentSearchQuery = '';
                     currentFilterLetter = '';
                     currentPage = 1;
-                    
-                    // Reset filter buttons to show "All" as active
-                    const filterContainer = document.querySelector('.flex.w-full.justify-center.gap-1.overflow-x-auto');
+
+                    // Reset filter buttons to default state (no active buttons)
+                    const filterContainer = document.querySelector(
+                        '.flex.w-full.justify-center.gap-1.overflow-x-auto');
                     const allFilterButtons = filterContainer.querySelectorAll('button');
                     allFilterButtons.forEach(btn => {
                         btn.classList.remove('bg-cyan-100');
                         btn.classList.add('bg-cyan');
                     });
-                    // Set "All" button as active (first button)
-                    allFilterButtons[0].classList.remove('bg-cyan');
-                    allFilterButtons[0].classList.add('bg-cyan-100');
-                    
+
                     displayFilteredCompanies(1);
                 }
             }
