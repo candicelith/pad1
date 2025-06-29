@@ -16,7 +16,7 @@
                     <div class="relative w-full">
                         <input type="text" id="simple-search"
                             class="block w-full rounded-lg border border-gray-500 bg-gray-200 p-2.5 ps-10 text-sm text-gray-900 focus:border-cyan focus:ring-cyan"
-                            placeholder="Search companies..." required />
+                            placeholder="Search companies..." oninput="handleSearchInput()" />
                     </div>
                     <button type="submit"
                         class="bg-btn-cyan ms-2 rounded-xl border border-cyan bg-cyan p-2.5 text-sm font-medium text-white hover:bg-cyan-100 focus:outline-none focus:ring-4 focus:ring-cyan">
@@ -46,31 +46,6 @@
                         </button>
                     @endforeach
                 </div>
-
-                {{-- Paginated alphabet filter for mobile view --}}
-                {{-- <div id="company-alphabet-filter" class="flex w-full flex-row gap-1 sm:hidden">
-                    <button
-                        class="rounded-full bg-cyan px-4 py-1 text-center text-sm text-white hover:bg-cyan-100 hover:text-white focus:bg-cyan-100 focus:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100"
-                        value="" onclick="filterCompanies(event)">
-                        All
-                    </button>
-                </div> --}}
-
-                {{-- Pagination controls for mobile view only --}}
-                {{-- <div class="mt-4 flex w-full justify-center sm:hidden">
-                    <div class="flex items-center space-x-2">
-                        <button id="prev-company-btn"
-                            class="rounded-md bg-cyan-100 px-3 py-1 text-white hover:bg-white hover:text-cyan-100 disabled:opacity-50"
-                            onclick="prevCompanyPage()" disabled>
-                            Prev
-                        </button>
-                        <button id="next-company-btn"
-                            class="rounded-md bg-cyan-100 px-3 py-1 text-white hover:bg-white hover:text-cyan-100 disabled:opacity-50"
-                            onclick="nextCompanyPage()">
-                            Next
-                        </button>
-                    </div>
-                </div> --}}
             </div>
 
             {{-- No Result Found --}}
@@ -89,26 +64,7 @@
         <div class="mx-auto max-w-screen-xl px-4 py-4 lg:px-6 lg:py-8">
             {{-- Companies Cards Start --}}
             <div id="companies-card" class="grid justify-items-center gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                {{-- @foreach ($company as $com)
-                    <a href="{{ route('companies.detail', ['id' => $com->id_company]) }}"
-                        class="company-card w-full max-w-sm cursor-pointer rounded-lg border border-gray-200 bg-lightblue shadow-md"
-                        data-name="{{ strtolower($com->company_name) }}">
-                        <div class="flex flex-col items-center px-8 py-8 text-center">
-                            <img class="mb-3 h-24 w-24 rounded-full shadow-lg"
-                                src="{{ $com->company_picture ? asset('storage/company/' . $com->company_picture) : asset('images/default_profile.png') }}"
-                                alt="Company" />
-                            <h2 class="mb-1 text-2xl text-cyan">
-                                {{ $com->company_name }}
-                            </h2>
-                            <h3 class="mb-1 text-base text-cyan">
-                                {{ $com->company_field }}
-                            </h3>
-                            <h4 class="text-sm text-gray-400">
-                                {{ $com->company_address }}
-                            </h4>
-                        </div>
-                    </a>
-                @endforeach --}}
+
             </div>
             <div id="pagination-controls" class="mt-6 flex items-center justify-center gap-4"></div>
             {{-- Companies Cards End --}}
@@ -121,41 +77,98 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             let currentPage = 1;
+            let currentSearchQuery = '';
+            let currentFilterLetter = '';
+            let allCompanies = []; // Store all companies for client-side filtering
             const companiesContainer = document.getElementById('companies-card');
             const paginationControls = document.getElementById('pagination-controls');
 
-            async function fetchAndDisplayCompanies(page = 1) {
+            async function fetchAllCompanies() {
                 try {
-                    const response = await axios.get(`/api/companies?page=${page}`, {
-                        withCredentials: true
-                    });
+                    let page = 1;
+                    let allData = [];
+                    let hasMorePages = true;
 
-                    const companies = response.data.data;
-                    const meta = response.data.meta; // from Laravel's pagination
-                    const links = response.data.links;
+                    while (hasMorePages) {
+                        const response = await axios.get(`/api/companies?page=${page}`, {
+                            withCredentials: true
+                        });
 
-                    if (!companies || companies.length === 0) {
-                        companiesContainer.innerHTML = '<p class="text-center py-4">No companies available</p>';
-                        paginationControls.innerHTML = '';
-                        return;
+                        const companies = response.data.data;
+                        const meta = response.data.meta;
+
+                        if (companies && companies.length > 0) {
+                            allData = allData.concat(companies);
+                            page++;
+                            hasMorePages = page <= meta.last_page;
+                        } else {
+                            hasMorePages = false;
+                        }
                     }
 
-                    let companiesHTML = '';
-                    companies.forEach(company => {
-                        let companyPicture = company.company_picture;
+                    allCompanies = allData;
+                    displayFilteredCompanies();
+                } catch (error) {
+                    console.error('Error fetching companies:', error);
+                    companiesContainer.innerHTML =
+                        '<p class="text-center py-4 text-red-500">Error loading companies. Please try again later.</p>';
+                    paginationControls.innerHTML = '';
+                }
+            }
 
-                        if (!companyPicture ||
-                            companyPicture ===
-                            'https://picsum.photos/id/870/200/300?grayscale&blur=2' ||
-                            companyPicture === 'default_company.png') {
-                            companyPicture = '/storage/company/default_company.png';
-                        } else if (!companyPicture.startsWith('http') && !companyPicture.startsWith(
-                                '/storage')) {
-                            companyPicture = `/storage/company/${companyPicture}`;
-                        }
+            function displayFilteredCompanies(page = 1) {
+                let filteredCompanies = allCompanies;
 
-                        companiesHTML += `
-                    <a href="/companies/detail/${company.id}"
+                // Apply search filter
+                if (currentSearchQuery) {
+                    filteredCompanies = filteredCompanies.filter(company =>
+                        company.company_name.toLowerCase().includes(currentSearchQuery.toLowerCase())
+                    );
+                }
+
+                // Apply letter filter
+                if (currentFilterLetter) {
+                    filteredCompanies = filteredCompanies.filter(company =>
+                        company.company_name.toLowerCase().startsWith(currentFilterLetter.toLowerCase())
+                    );
+                }
+
+                // Check if no results
+                const noResults = document.getElementById('no-results');
+                if (filteredCompanies.length === 0) {
+                    companiesContainer.innerHTML = '';
+                    paginationControls.innerHTML = '';
+                    noResults.style.display = 'flex';
+                    return;
+                } else {
+                    noResults.style.display = 'none';
+                }
+
+                // Pagination logic
+                const itemsPerPage = 15;
+                const totalItems = filteredCompanies.length;
+                const totalPages = Math.ceil(totalItems / itemsPerPage);
+                const startIndex = (page - 1) * itemsPerPage;
+                const endIndex = startIndex + itemsPerPage;
+                const currentPageData = filteredCompanies.slice(startIndex, endIndex);
+
+                // Display companies
+                let companiesHTML = '';
+                currentPageData.forEach(company => {
+                    let companyPicture = company.company_picture;
+
+                    if (!companyPicture ||
+                        companyPicture ===
+                        'https://picsum.photos/id/870/200/300?grayscale&blur=2' ||
+                        companyPicture === 'default_company.png') {
+                        companyPicture = '/storage/company/default_company.png';
+                    } else if (!companyPicture.startsWith('http') && !companyPicture.startsWith(
+                            '/storage')) {
+                        companyPicture = `/storage/company/${companyPicture}`;
+                    }
+
+                    companiesHTML += `
+                    <a href="/companies/detail/${company.id_company}"
                         class="company-card w-full max-w-sm cursor-pointer rounded-lg border border-gray-200 bg-lightblue shadow-md"
                         data-name="${company.company_name.toLowerCase()}">
                         <div>
@@ -171,27 +184,28 @@
                         </div>
                     </a>
                 `;
-                    });
+                });
 
-                    companiesContainer.innerHTML = companiesHTML;
+                companiesContainer.innerHTML = companiesHTML;
 
-                    // Pagination controls
+                // Generate pagination
+                if (totalPages > 1) {
                     let paginationHTML = `
     <div class="pagination-container mt-8 flex flex-col items-center space-y-2">
         <div class="flex items-center flex-wrap justify-center space-x-1">
             <a href="#"
                class="mx-1 px-3 py-2 text-sm rounded-lg border transition-colors duration-200
-                      ${meta.current_page === 1 ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed' : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100'}"
-               ${meta.current_page === 1 ? 'aria-disabled="true"' : ''}
-               onclick="changePage(${meta.current_page - 1})">
+                      ${page === 1 ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed' : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100'}"
+               ${page === 1 ? 'aria-disabled="true"' : ''}
+               onclick="changePage(${page - 1})">
                 ‹ Previous
             </a>`;
 
-                    for (let i = 1; i <= meta.last_page; i++) {
+                    for (let i = 1; i <= totalPages; i++) {
                         paginationHTML += `
         <a href="#"
            class="mx-1 px-3 py-2 text-sm rounded-lg border transition-colors duration-200
-                  ${meta.current_page === i ? 'bg-cyan text-white border-cyan cursor-default' : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100'}"
+                  ${page === i ? 'bg-cyan text-white border-cyan cursor-default' : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100'}"
            onclick="changePage(${i})">
             ${i}
         </a>`;
@@ -200,140 +214,111 @@
                     paginationHTML += `
             <a href="#"
                class="mx-1 px-3 py-2 text-sm rounded-lg border transition-colors duration-200
-                      ${meta.current_page === meta.last_page ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed' : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100'}"
-               ${meta.current_page === meta.last_page ? 'aria-disabled="true"' : ''}
-               onclick="changePage(${meta.current_page + 1})">
+                      ${page === totalPages ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed' : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-100'}"
+               ${page === totalPages ? 'aria-disabled="true"' : ''}
+               onclick="changePage(${page + 1})">
                 Next ›
             </a>
         </div>
         <div class="text-sm text-gray-600">
-            Showing ${meta.from || 0} to ${meta.to || 0} of ${meta.total} results
+            Showing ${startIndex + 1} to ${Math.min(endIndex, totalItems)} of ${totalItems} results
         </div>
     </div>`;
 
                     paginationControls.innerHTML = paginationHTML;
-
-                } catch (error) {
-                    console.error('Error:', error);
-                    companiesContainer.innerHTML =
-                        '<p class="text-center py-4 text-red-500">Error loading companies. Please try again later.</p>';
+                } else {
                     paginationControls.innerHTML = '';
                 }
             }
 
             window.changePage = function(page) {
+                if (page < 1) return;
                 currentPage = page;
-                fetchAndDisplayCompanies(page);
+                displayFilteredCompanies(page);
             }
 
-            fetchAndDisplayCompanies(currentPage);
+            window.filterCompanies = function(event) {
+                currentFilterLetter = event.target.value.toLowerCase();
+                currentPage = 1;
+                
+                // If "All" button is clicked, also reset search
+                if (currentFilterLetter === '') {
+                    currentSearchQuery = '';
+                    document.getElementById('simple-search').value = '';
+                }
+                
+                displayFilteredCompanies(1);
+
+                // Update button states - reset all filter buttons to default style
+                const filterContainer = event.target.parentElement;
+                const allFilterButtons = filterContainer.querySelectorAll('button');
+
+                allFilterButtons.forEach(btn => {
+                    btn.classList.remove('bg-cyan-100');
+                    btn.classList.add('bg-cyan');
+                });
+
+                // Set active style for clicked button
+                event.target.classList.remove('bg-cyan');
+                event.target.classList.add('bg-cyan-100');
+            }
+
+            window.searchCompanies = function(event) {
+                event.preventDefault();
+                const searchValue = document.getElementById('simple-search').value.trim();
+                currentSearchQuery = searchValue;
+                currentPage = 1;
+                
+                // If search is cleared, also reset filter to "All"
+                if (searchValue === '') {
+                    currentFilterLetter = '';
+                    // Reset all filter buttons and set "All" as active
+                    const filterContainer = document.querySelector('.flex.w-full.justify-center.gap-1.overflow-x-auto');
+                    const allFilterButtons = filterContainer.querySelectorAll('button');
+                    allFilterButtons.forEach(btn => {
+                        btn.classList.remove('bg-cyan-100');
+                        btn.classList.add('bg-cyan');
+                    });
+                    // Set "All" button as active (first button)
+                    allFilterButtons[0].classList.remove('bg-cyan');
+                    allFilterButtons[0].classList.add('bg-cyan-100');
+                }
+                
+                displayFilteredCompanies(1);
+            }
+
+            window.handleSearchInput = function() {
+                const searchValue = document.getElementById('simple-search').value.trim();
+                
+                // If input is empty, automatically reset search and filter
+                if (searchValue === '') {
+                    currentSearchQuery = '';
+                    currentFilterLetter = '';
+                    currentPage = 1;
+                    
+                    // Reset filter buttons to show "All" as active
+                    const filterContainer = document.querySelector('.flex.w-full.justify-center.gap-1.overflow-x-auto');
+                    const allFilterButtons = filterContainer.querySelectorAll('button');
+                    allFilterButtons.forEach(btn => {
+                        btn.classList.remove('bg-cyan-100');
+                        btn.classList.add('bg-cyan');
+                    });
+                    // Set "All" button as active (first button)
+                    allFilterButtons[0].classList.remove('bg-cyan');
+                    allFilterButtons[0].classList.add('bg-cyan-100');
+                    
+                    displayFilteredCompanies(1);
+                }
+            }
+
+            // Initialize
+            fetchAllCompanies();
         });
     </script>
 
     {{-- Filter Companies --}}
     <script>
-        const companyLetters = [...Array(26)].map((_, i) => String.fromCharCode(i + 65).toLowerCase());
-        const companyItemsPerPage = 6; // Show 6 letters per page on mobile
-        let currentCompanyPage = 0;
-
-        function filterCompanies(event) {
-            const selectedLetter = event.target.value.toLowerCase();
-            applyCompanyFilters(selectedLetter);
-        }
-
-        function applyCompanyFilters(letter) {
-            const companyCards = document.querySelectorAll('.company-card'); // Selecting all company cards
-            let visibleCount = 0;
-
-            companyCards.forEach((card) => {
-                const companyName = card.getAttribute('data-name').toLowerCase(); // Correct data-name attribute
-                const nameStartsWithLetter = letter === '' || companyName.startsWith(letter);
-
-                if (nameStartsWithLetter) {
-                    card.style.display = ''; // Show card if it matches the filter
-                    visibleCount++;
-                } else {
-                    card.style.display = 'none'; // Hide card if it doesn't match
-                }
-            });
-
-            // Show or hide "No Result Found" message if no companies match the filter
-            const noResults = document.getElementById('no-results');
-            noResults.style.display = visibleCount === 0 ? 'flex' : 'none'; // Display no-results if nothing matches
-        }
-
-        function searchCompanies(event) {
-            event.preventDefault();
-            const query = document.getElementById('simple-search').value.toLowerCase();
-            const companyCards = document.querySelectorAll('.company-card');
-            let visibleCount = 0;
-
-            companyCards.forEach(card => {
-                const companyName = card.getAttribute('data-name').toLowerCase();
-                if (companyName.includes(query)) {
-                    card.style.display = '';
-                    visibleCount++;
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-
-            const noResults = document.getElementById('no-results');
-            noResults.style.display = visibleCount === 0 ? 'flex' : 'none';
-        }
-
-        // Pagination logic for mobile view (6 letters per page)
-        function renderCompanyAlphabetButtons() {
-            const companyAlphabetFilter = document.getElementById('company-alphabet-filter');
-            companyAlphabetFilter.innerHTML = ''; // Clear previous buttons
-
-            // Keep the "All" button static
-            const allButton = document.createElement('button');
-            allButton.className =
-                'h-6 w-10 rounded-full bg-cyan px-4 py-1 text-center text-xs text-white hover:bg-cyan-100 hover:text-white focus:bg-cyan-100 focus:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100';
-            allButton.textContent = 'All';
-            allButton.value = '';
-            allButton.onclick = filterCompanies;
-            companyAlphabetFilter.appendChild(allButton); // Always append the "All" button first
-
-            // Calculate the start and end index of the current page
-            const start = currentCompanyPage * companyItemsPerPage;
-            const end = start + companyItemsPerPage;
-            const currentPageLetters = companyLetters.slice(start, end);
-
-            currentPageLetters.forEach((letter) => {
-                const button = document.createElement('button');
-                button.className =
-                    'h-6 w-10 rounded-full bg-cyan px-4 py-1 text-center text-xs text-white hover:bg-cyan-100 hover:text-white focus:bg-cyan-100 focus:text-white focus:outline-none focus:ring-4 focus:ring-cyan-100';
-                button.textContent = letter;
-                button.value = letter;
-                button.onclick = filterCompanies;
-                companyAlphabetFilter.appendChild(button);
-            });
-
-            // Enable/disable pagination buttons based on page limits
-            document.getElementById('prev-company-btn').disabled = currentCompanyPage === 0;
-            document.getElementById('next-company-btn').disabled =
-                currentCompanyPage === Math.ceil(companyLetters.length / companyItemsPerPage) - 1;
-        }
-
-        function prevCompanyPage() {
-            if (currentCompanyPage > 0) {
-                currentCompanyPage--;
-                renderCompanyAlphabetButtons();
-            }
-        }
-
-        function nextCompanyPage() {
-            if (currentCompanyPage < Math.ceil(companyLetters.length / companyItemsPerPage) - 1) {
-                currentCompanyPage++;
-                renderCompanyAlphabetButtons();
-            }
-        }
-
-        // Initialize alphabet buttons for mobile view
-        renderCompanyAlphabetButtons();
-
+        // Remove the old filter script since all filtering is now handled in the main script above
         function navigateToDetailCompanies() {
             window.location.href = '{{ route('detailcompanies') }}';
         }

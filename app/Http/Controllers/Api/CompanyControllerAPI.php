@@ -156,7 +156,7 @@ class CompanyControllerAPI extends Controller
     public function getTopCompany()
     {
 
-    // Define how long to keep the cache in seconds (e.g., 3600 seconds = 1 hour)
+        // Define how long to keep the cache in seconds (e.g., 3600 seconds = 1 hour)
         $cacheDuration = 3600;
 
         // Define a unique key for this cache entry
@@ -165,18 +165,18 @@ class CompanyControllerAPI extends Controller
         $companies = Cache::remember($cacheKey, $cacheDuration, function () {
 
             return DB::table('company')
-            ->join('jobs', 'company.id_company', '=', 'jobs.id_company')
-            ->join('job_tracking', 'jobs.id_jobs', '=', 'job_tracking.id_jobs')
-            ->join('user_details', 'job_tracking.id_userDetails', '=', 'user_details.id_userDetails')
-            ->select(
-                'company.id_company',
-                'company.company_name',
-                DB::raw("COALESCE(company.company_picture, 'https://picsum.photos/id/870/200/300?grayscale&blur=2') as company_picture"),
-                DB::raw('count(distinct user_details.id_userDetails) as employee_count')
-            )
-            ->groupBy('company.id_company', 'company.company_name', 'company.company_picture')
-            ->orderBy('employee_count', 'desc')
-            ->paginate(5);
+                ->join('jobs', 'company.id_company', '=', 'jobs.id_company')
+                ->join('job_tracking', 'jobs.id_jobs', '=', 'job_tracking.id_jobs')
+                ->join('user_details', 'job_tracking.id_userDetails', '=', 'user_details.id_userDetails')
+                ->select(
+                    'company.id_company',
+                    'company.company_name',
+                    DB::raw("COALESCE(company.company_picture, 'https://picsum.photos/id/870/200/300?grayscale&blur=2') as company_picture"),
+                    DB::raw('count(distinct user_details.id_userDetails) as employee_count')
+                )
+                ->groupBy('company.id_company', 'company.company_name', 'company.company_picture')
+                ->orderBy('employee_count', 'desc')
+                ->paginate(5);
 
         });
         return response()->json([
