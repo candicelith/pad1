@@ -358,6 +358,10 @@ class CompanyController extends Controller
                 'message' => "Data Anda Tidak Berhasil diverifikasi, Alasan: $company->rejection_reason.",
             ]);
 
+            foreach ($company->jobs as $job) {
+                $job->jobTracking()->delete();
+            }
+            $company->jobs()->delete();
             $company->delete();
             return redirect()->route('admin.home')->with('rejected', "Company '{$company->company_name}' rejected.");
         }
