@@ -70,13 +70,14 @@ class PostController extends Controller
         $userDetail = Auth::user()->userDetails;
         $jobTracking = optional($userDetail)->jobTrackings; // singular
 
-        $job = optional($jobTracking)->job; // job adalah object tunggal
+        if ($userDetail) {
+            $jobTrackings = $userDetail->jobTrackings()->with('job.company')->get();
 
-        // buat collection dari satu company supaya aman di blade
-        $companies = collect();
-
-        if ($job && $job->company) {
-            $companies = collect([$job->company]);
+            $companies = $jobTrackings
+                ->pluck('job.company')
+                ->filter()
+                ->unique('id_company')
+                ->values();
         }
 
         $allJob = Job::get('job_name');
