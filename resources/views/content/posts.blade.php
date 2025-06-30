@@ -71,7 +71,7 @@
                                     d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
                             </svg>
                         </div>
-                        <input id="datepicker-range-start" name="start_date" type="text"
+                        <input id="datepicker-range-start" name="start_date" type="date"
                             class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 ps-10 text-sm text-gray-900"
                             placeholder="Select date start">
                     </div>
@@ -84,10 +84,14 @@
                                     d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
                             </svg>
                         </div>
-                        <input id="datepicker-range-end" name="end_date" type="text"
+                        <input id="datepicker-range-end" name="end_date" type="date"
                             class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 ps-10 text-sm text-gray-900"
                             placeholder="Select date end">
                     </div>
+                    <button type="button" id="clear-dates"
+                        class="ml-2 rounded-lg border border-gray-300 bg-gray-100 px-3 py-2.5 text-sm text-gray-700 hover:bg-gray-200">
+                        Clear
+                    </button>
                 </div>
             </div>
             {{-- Filters and Search End --}}
@@ -363,6 +367,7 @@
             const searchForm = document.getElementById('search-form');
             const startDateInput = document.getElementById('datepicker-range-start');
             const endDateInput = document.getElementById('datepicker-range-end');
+            const clearDatesBtn = document.getElementById('clear-dates');
             const filterLinks = document.querySelectorAll('a[href*="filter="]');
             const noResultsDiv = document.getElementById('no-results');
 
@@ -396,18 +401,26 @@
 
             [startDateInput, endDateInput].forEach(input => {
                 if (input) {
-                    input.addEventListener('changeDate',
-                () => { // Flowbite's datepicker dispatches 'changeDate'
-                        currentStartDate = startDateInput.value;
-                        currentEndDate = endDateInput.value;
-                        if ((currentStartDate && currentEndDate) || (!currentStartDate && !
-                                currentEndDate)) {
-                            currentPage = 1;
-                            updateUrlAndFetch();
-                        }
+                    input.addEventListener('change', () => {
+                        currentStartDate = startDateInput ? startDateInput.value : '';
+                        currentEndDate = endDateInput ? endDateInput.value : '';
+                        currentPage = 1;
+                        updateUrlAndFetch();
                     });
                 }
             });
+
+            // Clear dates functionality
+            if (clearDatesBtn) {
+                clearDatesBtn.addEventListener('click', () => {
+                    if (startDateInput) startDateInput.value = '';
+                    if (endDateInput) endDateInput.value = '';
+                    currentStartDate = '';
+                    currentEndDate = '';
+                    currentPage = 1;
+                    updateUrlAndFetch();
+                });
+            }
 
             document.addEventListener('click', function(e) {
                 const paginationLink = e.target.closest('.pagination-container a[data-page]');
