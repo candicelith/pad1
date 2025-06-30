@@ -89,8 +89,12 @@
                             placeholder="Select date end">
                     </div>
                     <button type="button" id="clear-dates"
-                        class="ml-2 rounded-lg border border-gray-300 bg-gray-100 px-3 py-2.5 text-sm text-gray-700 hover:bg-gray-200">
-                        Clear
+                        class="ml-2 flex hidden h-10 w-10 items-center justify-center rounded-lg border border-gray-300 bg-gray-100 text-gray-700 hover:bg-gray-200"
+                        title="Clear dates">
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12" />
+                        </svg>
                     </button>
                 </div>
             </div>
@@ -376,6 +380,9 @@
             if (startDateInput) startDateInput.value = currentStartDate;
             if (endDateInput) endDateInput.value = currentEndDate;
 
+            // Show/hide clear button based on date values
+            toggleClearButton();
+
             // Initial fetch based on URL params
             fetchAndDisplayPosts();
             updateActiveButtonUI(currentFilter);
@@ -405,6 +412,7 @@
                         currentStartDate = startDateInput ? startDateInput.value : '';
                         currentEndDate = endDateInput ? endDateInput.value : '';
                         currentPage = 1;
+                        toggleClearButton();
                         updateUrlAndFetch();
                     });
                 }
@@ -418,6 +426,7 @@
                     currentStartDate = '';
                     currentEndDate = '';
                     currentPage = 1;
+                    toggleClearButton();
                     updateUrlAndFetch();
                 });
             }
@@ -435,6 +444,17 @@
             });
 
             // --- 5. CORE FUNCTIONS ---
+            function toggleClearButton() {
+                if (clearDatesBtn) {
+                    const hasDateFilter = currentStartDate || currentEndDate;
+                    if (hasDateFilter) {
+                        clearDatesBtn.classList.remove('hidden');
+                    } else {
+                        clearDatesBtn.classList.add('hidden');
+                    }
+                }
+            }
+
             function updateUrlAndFetch() {
                 const params = new URLSearchParams();
                 if (currentFilter) params.append('filter', currentFilter);
